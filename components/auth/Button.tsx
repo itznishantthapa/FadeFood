@@ -5,7 +5,7 @@ const Button = ({style,btnText}) => {
     return (
         <>
             <TouchableOpacity style={style}>
-                <Text style={{ fontWeight: 'bold', fontSize: 18, }}>{btnText}</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 18,color:'#FFFFFF' }}>{btnText}</Text>
             </TouchableOpacity>
         </>
     )

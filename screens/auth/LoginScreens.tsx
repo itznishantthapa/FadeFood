@@ -1,59 +1,32 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React,{useState} from 'react'
 import UserInput from '../../components/auth/UserInput'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../../components/auth/Button';
+import { styles } from '../../style/style';
+import { StatusBar } from 'expo-status-bar';
+import BigText from '../../components/auth/BigText';
 
 const LoginScreens = () => {
+    const [email, set_email] = useState(null)
+    const [password, set_password] = useState(null)
     return (
-        <SafeAreaView >
+        <SafeAreaView>
+            <StatusBar hidden={false} backgroundColor='black' style='light' />
             <View style={styles.mainViewStyle}>
-               <UserInput value='' inputBoxStyle={[styles.inputField, { borderTopRightRadius: 10 }]} authBox={[styles.authBox,{borderTopRightRadius:10}]} inputTopic='Email' />
-                <UserInput value=''  inputBoxStyle={styles.inputField} authBox={styles.authBox} inputTopic='Password'/>
-                <Button style={styles.login} btnText='Login' />
+                <BigText headingText='Welcome Back,' line1='Sign in to continue your' line2='FadeFood account' style={styles.BigText_for_login}/>
+                <UserInput value={email} onChangeText={set_email} inputBoxStyle={styles.inputField} authBox={[styles.authBox, { borderTopRightRadius: 10, borderTopLeftRadius: 10 }]} inputTopic='Email Address' eyeNeeded={false}/>
+                <UserInput value={password} onChangeText={set_password} inputBoxStyle={styles.inputField} authBox={[styles.authBox,{borderBottomRightRadius:10,borderBottomLeftRadius:10}]} inputTopic='Password' eyeNeeded={true}  />
+                <Text style={{color:'#757575',fontWeight:'bold',marginLeft:'auto',paddingRight:'10%',marginTop:20}}>Forget Password?</Text>
+                <Button style={styles.loginButton} btnText='Login' />
+                <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                <Text style={{color:'#757575',fontWeight:'bold',marginTop:10,fontSize:15}}>Dont have an account?</Text>
+                <Text style={{color:'#009688',fontWeight:'bold',marginTop:10,fontSize:20}}> Sign Up</Text>
+                </View>
+
             </View>
         </SafeAreaView>
-
-  )
+    )
 }
-
 export default LoginScreens
 
-const styles = StyleSheet.create({
-
-    mainViewStyle:{
-        backgroundColor: 'black',
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center', 
-        flexDirection:'column',
-       
-    },
-    inputField: {
-        width: '100%',
-        height: 50,
-        // borderWidth: 1,
-        // borderColor: '#adb5bd',
-        color: '#adb5bd',
-        fontWeight: 'bold',
-    },
-    login: {
-        width: '80%',
-        height: 55,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#f8f9fa',
-        borderRadius: 20,
-    },
-    authBox:{
-        height:90,
-        width:'80%',
-        borderWidth:1,
-        borderColor:'white',
-        flexDirection:'column',
-        justifyContent:'center',
-        paddingLeft:20 
-    }
-})
