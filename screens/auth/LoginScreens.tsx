@@ -46,8 +46,10 @@ const LoginScreens = ({navigation}) => {
                 passwordVisible={passwordVisible} 
                 togglePasswordVisibility={togglePasswordVisibility}
                 />
+                <TouchableWithoutFeedback onPress={()=>console.log('forget password btn is pressed')}>
                 <Text style={{color:'#757575',marginLeft:'auto',paddingRight:'10%',marginTop:20}}>Forget Password?</Text>
-                <Button style={styles.loginButton} btnText='Login' />
+                </TouchableWithoutFeedback>
+                <Button style={styles.loginButton} btnText='Login' handleAuthBtn={()=>console.log('login btn is pressed')}/>
                 <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
                 <Text style={{color:'#757575',marginTop:10,fontSize:15}}>Dont have an account?</Text>
                 <TouchableWithoutFeedback onPress={()=>{navigation.navigate('SignupScreen')}}>

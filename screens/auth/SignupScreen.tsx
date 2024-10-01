@@ -59,7 +59,7 @@ const SignupScreen = ({ navigation }) => {
                     passwordVisible={passwordVisible.confirmPassword}
                     togglePasswordVisibility={()=>togglePasswordVisibility('confirmPassword')}
                 />
-                <Button style={styles.loginButton} btnText='Sign In' />
+                <Button style={styles.loginButton} btnText='Sign In' handleAuthBtn={()=>console.log('signup btn is pressed')}/>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{ color: '#757575', marginTop: 10, fontSize: 15 }}>Already have an account?</Text>
                     <TouchableWithoutFeedback onPress={() => { navigation.navigate('LoginScreens') }}>
