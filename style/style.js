@@ -16,16 +16,15 @@ export const styles = StyleSheet.create({
         color: '#212121',
         fontWeight: 'bold',
         fontSize: 18,
-        // borderWidth:1,
-        // borderColor:'black'
     },
+
     loginButton: {
         width: '80%',
         height: 60,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#FF6F00',
+        backgroundColor: '#000000',
         borderRadius: 10,
         marginTop: 20
     },
@@ -33,7 +32,7 @@ export const styles = StyleSheet.create({
         height:90,
         width:'80%',
         borderWidth:1,
-        borderColor:'#E0E0E0',
+        borderColor:'#BDBDBD',
         flexDirection:'column',
         justifyContent:'center',
         paddingLeft:20 
