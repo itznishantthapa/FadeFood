@@ -44,5 +44,22 @@ export const styles = StyleSheet.create({
         alignItems:'flex-start',
         marginBottom:40
 
-    }
+    },
+    verifyBoxContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 20,
+        width: '90%',
+    },
+    verifyInputBox: {
+        borderWidth: 2,
+        borderColor: '#BDBDBD',
+        padding: 10,
+        textAlign: 'center',
+        fontSize: 18,
+        width: 50,
+        height: 50,
+        fontWeight: 'bold',
+        fontSize: 25,
+    },
 })

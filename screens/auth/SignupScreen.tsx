@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../../components/auth/Button';
 import { styles } from '../../style/style';
 import { StatusBar } from 'expo-status-bar';
-import BigText from '../../components/auth/BigText';
+import IntroText from '../../components/auth/IntroText';
 
 const SignupScreen = ({ navigation }) => {
     const [email, set_email] = useState(null)
@@ -23,7 +23,7 @@ const SignupScreen = ({ navigation }) => {
         <SafeAreaView>
             <StatusBar hidden={false} backgroundColor='#F5F5F5' style='dark' />
             <View style={styles.mainViewStyle}>
-                <BigText
+                <IntroText
                     headingText='Join Us,'
                     line1='Sign up to connect with'
                     line2='your favorite food'

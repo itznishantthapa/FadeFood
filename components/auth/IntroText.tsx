@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const BigText = ({headingText,line1,line2,style}) => {
+const IntroText = ({headingText,line1,line2,style}) => {
     return (
         <>
             <View style={style}>
@@ -14,5 +14,5 @@ const BigText = ({headingText,line1,line2,style}) => {
     )
 }
 
-export default BigText
+export default IntroText
 

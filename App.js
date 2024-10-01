@@ -5,6 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import 'react-native-gesture-handler';
 import SignupScreen from './screens/auth/SignupScreen';
 import ForgetPassword from './screens/auth/ForgetPassword';
+import VerificationScreen from './screens/auth/VerificationScreen';
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
         <Stack.Screen name="LoginScreens" component={LoginScreens} options={{headerShown:false}} />
         <Stack.Screen name="SignupScreen" component={SignupScreen} options={{headerShown:false}} />
         <Stack.Screen name="ForgetPassword" component={ForgetPassword} options={{headerShown:false}} />
+        <Stack.Screen name="VerificationScreen" component={VerificationScreen} options={{headerShown:false}} />
         </Stack.Navigator>
       </NavigationContainer>
 

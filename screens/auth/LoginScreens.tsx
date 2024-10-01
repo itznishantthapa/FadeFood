@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../../components/auth/Button';
 import { styles } from '../../style/style';
 import { StatusBar } from 'expo-status-bar';
-import BigText from '../../components/auth/BigText';
+import IntroText from '../../components/auth/IntroText';
 
 const LoginScreens = ({ navigation }) => {
     const [email, set_email] = useState(null)
@@ -20,7 +20,7 @@ const LoginScreens = ({ navigation }) => {
         <SafeAreaView>
             <StatusBar hidden={false} backgroundColor='#F5F5F5' style='dark' />
             <View style={styles.mainViewStyle}>
-                <BigText
+                <IntroText
                     headingText='Hi Foodie,'
                     line1='Sign in to feast on your' 
                     line2='fadefood delights' 

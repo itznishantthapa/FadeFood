@@ -1,11 +1,11 @@
-import { Text, TouchableWithoutFeedback, View } from 'react-native'
+import { View } from 'react-native'
 import React, { useState } from 'react'
 import UserInput from '../../components/auth/UserInput'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../../components/auth/Button';
 import { styles } from '../../style/style';
 import { StatusBar } from 'expo-status-bar';
-import BigText from '../../components/auth/BigText';
+import IntroText from '../../components/auth/IntroText';
 
 const ForgetPassword = ({ navigation }) => {
     const [email, set_email] = useState(null)
@@ -13,7 +13,7 @@ const ForgetPassword = ({ navigation }) => {
         <SafeAreaView>
             <StatusBar hidden={false} backgroundColor='#F5F5F5' style='dark' />
             <View style={styles.mainViewStyle}>
-                <BigText
+                <IntroText
                     headingText='Forget Password ?'
                     line1='Enter your email to reset' 
                     line2='' 
@@ -22,14 +22,14 @@ const ForgetPassword = ({ navigation }) => {
                 <UserInput
                     value={email}
                     onChangeText={set_email}
-                    inputBoxStyle={styles.inputField}
-                    authBox={[styles.authBox, { borderRadius: 8 }]}
-                    inputTopic='Email Address'
+                    inputBoxStyle={[styles.inputField,{marginBottom:20}]}
+                    authBox={[styles.authBox, { borderRadius: 8,height:60 }]}
+                    inputTopic={null}
                     isEyeNeeded={false}
                     passwordVisible={null}
                     togglePasswordVisibility={undefined}
                 />
-                <Button style={styles.loginButton} btnText='Send Code' handleAuthBtn={() => console.log('Send Code btn is pressed')} />
+                <Button style={styles.loginButton} btnText='Send Code' handleAuthBtn={() => navigation.navigate('VerificationScreen')} />
             </View>
         </SafeAreaView>
     )
