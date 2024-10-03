@@ -62,4 +62,15 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 25,
     },
+    textStyle: {
+        color: '#ffffff',
+        fontWeight: 'bold',
+        fontSize: 18,
+        marginLeft: 15,
+        marginBottom: 15,
+        padding: 5,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',  // Semi-transparent black
+        // backgroundColor: 'rgba(0, 0, 255, 0.3)',  // Option for bluish background
+        borderRadius: 10
+      }
 })
