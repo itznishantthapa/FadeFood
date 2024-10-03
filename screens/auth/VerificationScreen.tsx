@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, TextInput,TouchableWithoutFeedback,Text } from 'react-native';
+import { View, TextInput, TouchableWithoutFeedback, Text } from 'react-native';
 import { styles } from '../../style/style';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -14,7 +14,7 @@ const VerificationScreen = () => {
         const newPin = [...pin];
         newPin[index] = text;
         setPin(newPin);
-        
+
         // Move to the next input box if the current one is filled
         if (text && index < inputRefs.current.length - 1) {
             inputRefs.current[index + 1].focus();
@@ -54,7 +54,13 @@ const VerificationScreen = () => {
                         />
                     ))}
                 </View>
-                <Button style={styles.loginButton} btnText='Verify' handleAuthBtn={() => console.log('verify btn is pressed')} />
+
+                <Button
+                    style={styles.loginButton}
+                    btnText='Verify'
+                    handleAuthBtn={() => console.log('verify btn is pressed')}
+                />
+
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{ color: '#757575', marginTop: 10, fontSize: 15 }}>Didn&#39;t receive code ?</Text>
                     <TouchableWithoutFeedback onPress={() => console.log('resending code')}>

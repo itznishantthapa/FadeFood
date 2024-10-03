@@ -49,7 +49,7 @@ const LoginScreens = ({ navigation }) => {
                 <TouchableWithoutFeedback onPress={() => navigation.navigate('ForgetPassword')}>
                     <Text style={{ color: '#757575', marginLeft: 'auto', paddingRight: '10%', marginTop: 20 }}>Forget Password?</Text>
                 </TouchableWithoutFeedback>
-                <Button style={styles.loginButton} btnText='Login' handleAuthBtn={() => console.log('login btn is pressed')} />
+                <Button style={styles.loginButton} btnText='Login' handleAuthBtn={() => {navigation.navigate('TabBars')}} />
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{ color: '#757575', marginTop: 10, fontSize: 15 }}>Don&#39;t have an account ?</Text>
                     <TouchableWithoutFeedback onPress={() => { navigation.navigate('SignupScreen') }}>
