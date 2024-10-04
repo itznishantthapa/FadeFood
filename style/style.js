@@ -72,5 +72,66 @@ export const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.5)',  // Semi-transparent black
         // backgroundColor: 'rgba(0, 0, 255, 0.3)',  // Option for bluish background
         borderRadius: 10
+      },
+      dashboardContainer:{
+        height:510,
+        flexDirection:'column',
+        justifyContent:'center',
+        alignItems:'center',
+        borderBottomRightRadius:20,
+        borderBottomLeftRadius:20,
+      },
+      homeHeading:{
+        height:'40%',
+        width:'100%',
+        alignItems:'center',
+        backgroundColor:'#0d1b2a',
+        borderBottomRightRadius:20
+        ,borderBottomLeftRadius:20
+        
+      },
+      homeMap:{
+        height:'48%',
+        width:'100%',
+        // backgroundColor:'#C8E6A4',
+      },
+      home_categories_options:{
+        height:'12%',
+        width:'100%',
+        flexDirection:'row',
+        justifyContent:'space-around',
+        alignItems:'center',
+        borderBottomRightRadius:20,
+        borderBottomLeftRadius:20,
+      },
+      navBar:{
+        width:'100%',
+        height:60,
+        flexDirection:'row',
+        justifyContent:'space-around',
+        alignItems:'center',
+      },
+      searchBar:{
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
+        borderWidth:1.5,
+        borderColor:'#333333',
+        height:45,
+        width:'77%',
+        borderRadius:8,
+        backgroundColor:'#F5F5F5',
+      },
+      searchInput:{
+        width:'90%',
+        height:40,
+        color:'#666666',
+        fontSize:18,
+       
+      },
+      logo:{
+        height:30,
+        width:30,
       }
+
 })

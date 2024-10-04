@@ -49,11 +49,11 @@ const TabBars = () => {
             return <Entypo name="info" color={color} size={30} />;
           }
         },
-        tabBarActiveTintColor: 'white',
+        tabBarActiveTintColor: '#7CB518',
         tabBarInactiveTintColor: '#757575',
         tabBarStyle: {
-          backgroundColor: 'black',
-          borderTopColor: 'black',
+          // backgroundColor: '#051923',
+          // backgroundColor: '#040f0f',
           height: 60
         }
       })}

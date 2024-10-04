@@ -3,56 +3,72 @@ import React, { useState, useContext } from 'react';
 import { ImageBackground } from 'react-native';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 // import { MyContext } from '../../context/AppProvider';
 
 const FoodItems = ({ FoodImage, FoodPrice, TimeToCook }) => {
-    const [numberOfItemOrdered, setnumberOfItemOrdered] = useState(null)
-    const handleOrderItems = () => {
-        setnumberOfItemOrdered(numberOfItemOrdered + 1)
-    }
-    const handleDeleteOrderItems = () => {
-        setnumberOfItemOrdered(null)
-    }
-    return (
-        <View style={{ height: 350, width: '48%', flexDirection: 'column', justifyContent: 'center' }}>
-            <ImageBackground source={FoodImage} imageStyle={{ height: 350, borderRadius: 20 }} >
-                <View style={{ height: '70%', width: '100%', alignItems: 'flex-end' }} >
-                    <View style={{ borderRadius: 100, backgroundColor: 'orange', padding: 5 }}>
-                        <MaterialCommunity name='glass-mug-variant' style={{ color: '#38040e' }} size={30} />
-                    </View>
-                </View>
-                <View style={{ height: '30%', width: '100%', justifyContent: 'flex-end', alignItems: 'flex-start', gap: 4, paddingLeft: 5, paddingBottom: 5 }}>
-                    <View style={{ flexDirection: 'row' }}>
-                        {
-                            numberOfItemOrdered ? <Text style={{ height: 30, width: 30, textAlign: 'center', paddingTop: 5, backgroundColor: '#4CAF50', borderRadius: 100, color: 'white', fontWeight: 'bold' }}>
-                                {numberOfItemOrdered}
-                            </Text> : null
-                        }
-                        <TouchableOpacity onPress={handleOrderItems}>
-                            <Text style={{ padding: 5, backgroundColor: 'rgba(0, 0, 0, 0.5)', borderRadius: 8, color: 'white' }}>
-                                Italian Buff MoMo
-                            </Text>
-                        </TouchableOpacity>
-                        {
-                            numberOfItemOrdered ? <TouchableOpacity onPress={handleDeleteOrderItems}>
-                                <MaterialCommunity name='delete-circle' size={30} style={{ color: 'red' }} />
-                            </TouchableOpacity> : null
-                        }
 
-                    </View>
-                    <View style={{ flexDirection: 'row', gap: 3 }}>
-                        <Text style={{ padding: 5, backgroundColor: 'rgba(0, 0, 0, 0.5)', borderRadius: 8, color: 'white' }}>
-                            Rs. {FoodPrice}
-                        </Text>
-                        <Text style={{ padding: 5, backgroundColor: 'rgba(0, 0, 0, 0.5)', borderRadius: 8, color: 'white' }}>
-                            {TimeToCook} mins
-                        </Text>
-                    </View>
+    return (
+        <View style={styles.foodItemBox} >
+            <View style={styles.foodImage}>
+
+            </View>
+            <View style={{paddingHorizontal:6}}>
+                <Text style={{ fontWeight: 'bold',color:'#333333' }}>टमाटर अचारको झोल मोमो</Text>
+                    <View style={styles.price_and_time}>
+                    <View style={styles.price}>
+                    <Text style={{ fontWeight: 'bold', fontSize: 15,color:'#7CB518' }}>Rs.</Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: 20,color:'#7CB518' }}>50</Text>
                 </View>
-            </ImageBackground>
+                <View style={styles.time}>
+                    <MaterialCommunity name='clock-time-eight-outline' size={15}></MaterialCommunity>
+                    <Text> 20 mins</Text>
+                </View>
+                    </View>
+                <View style={styles.location}>
+                    <Ionicon name='location-sharp' style={{ color: 'grey' }} />
+                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: 'grey' }}>Dharan, Bhanuchowk</Text>
+                </View>
+
+            </View>
         </View>
     );
 }
 
 export default FoodItems;
+
+const styles = StyleSheet.create({
+    foodItemBox: {
+        height: 380,
+        width: '47%',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 15,
+    },
+    foodImage: {
+        height: '82%',
+        backgroundColor: 'grey',
+        borderTopRightRadius: 15,
+        borderTopLeftRadius: 15,
+    },
+    location: {
+        flexDirection: 'row',
+        alignItems: 'center',
+
+    },
+    price: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    time:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding:5,
+        backgroundColor: 'lightgrey',
+        borderRadius: 10,
+    },
+    price_and_time:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    }
+})
