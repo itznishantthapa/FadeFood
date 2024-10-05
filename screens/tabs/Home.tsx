@@ -13,6 +13,7 @@ import SloganBox from '../../components/home/SloganBox';
 import Categories from '../../components/home/Categories';
 import Map from '../../components/home/Map';
 import NavBar from '../../components/home/NavBar';
+import { nodeModuleNameResolver } from 'typescript';
 
 
 const Home = ({ navigation }) => {
@@ -57,17 +58,17 @@ const Home = ({ navigation }) => {
               TimeToCook={20}
             />
             <FoodItems
-              FoodImage={dessert}
+              FoodImage={momo}
               FoodPrice={50}
               TimeToCook={20}
             />
             <FoodItems
-              FoodImage={dessert}
+              FoodImage={noodles}
               FoodPrice={50}
               TimeToCook={20}
             />
             <FoodItems
-              FoodImage={dessert}
+              FoodImage={chatapate}
               FoodPrice={50}
               TimeToCook={20}
             />

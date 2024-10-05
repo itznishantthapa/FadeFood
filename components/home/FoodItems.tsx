@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View,Image } from 'react-native';
 import React, { useState, useContext } from 'react';
 import { ImageBackground } from 'react-native';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
@@ -12,7 +12,7 @@ const FoodItems = ({ FoodImage, FoodPrice, TimeToCook }) => {
     return (
         <View style={styles.foodItemBox} >
             <View style={styles.foodImage}>
-
+            <Image style={{height:'100%' ,width:'100%',borderTopRightRadius:15,borderTopLeftRadius:15}} source={FoodImage}></Image>
             </View>
             <View style={{paddingHorizontal:6}}>
                 <Text style={{ fontWeight: 'bold',color:'#333333' }}>टमाटर अचारको झोल मोमो</Text>

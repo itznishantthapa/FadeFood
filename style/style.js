@@ -103,8 +103,8 @@ export const styles = StyleSheet.create({
     width: '100%',
     padding: 10,
     borderRadius: 20,
-    width: '100%'
-    // backgroundColor:'#C8E6A4',
+    width: '100%',
+    marginBottom: 10
   },
   map_box:{
     borderWidth: 10, 
