@@ -5,7 +5,7 @@ import { styles } from '../../style/style'
 const Map = () => {
   return (
     <View style={styles.homeMap}>
-    <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Found restaurant nearby</Text>
+    <Text style={{  fontSize: 20, fontFamily:'jakarta_bold',marginBottom:5,textDecorationLine:'underline' }}>Your restaurant nearby</Text>
     <View style={styles.map_box}>
         <Image style={{height:'100%' ,width:'100%',borderRadius:10}} source={require('../../assets/map.jpg')}></Image>
     </View>
