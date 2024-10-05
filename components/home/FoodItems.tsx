@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     foodItemBox: {
         height: 380,
         width: '47%',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#ffffff',
         borderRadius: 15,
         padding:5
     },
