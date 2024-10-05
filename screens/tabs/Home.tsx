@@ -1,8 +1,8 @@
-import { View} from 'react-native'
-import React from 'react'
+import { View,Text} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../../style/style';
 import { StatusBar } from 'expo-status-bar';
+import { nodeModuleNameResolver } from 'typescript';
 import dessert from '../../assets/dessert.jpg'
 import noodles from '../../assets/noodles.jpeg'
 import momo from '../../assets/momo.jpeg'
@@ -13,14 +13,14 @@ import SloganBox from '../../components/home/SloganBox';
 import Categories from '../../components/home/Categories';
 import Map from '../../components/home/Map';
 import NavBar from '../../components/home/NavBar';
-import { nodeModuleNameResolver } from 'typescript';
 
 
 const Home = ({ navigation }) => {
+
+  
   return (
     <SafeAreaView>
-      <StatusBar hidden={false} backgroundColor='#0d1b2a' style='light' />
-
+      <StatusBar hidden={false} backgroundColor='#dc2f02' style='light' />
       <View style={styles.home_screen}>
         <NavBar />
         <ScrollView showsVerticalScrollIndicator={false} style={{ marginTop: 53 }} stickyHeaderIndices={[1]}>
@@ -37,15 +37,15 @@ const Home = ({ navigation }) => {
           <View style={styles.home_categories_options}>
             <View style={styles.category_container} >
               <Categories
-                stylesForBox={[styles.category_boxes, { backgroundColor: 'white' }]}
+                stylesForBox={[styles.category_boxes, { backgroundColor: '#D4A373' }]}
                 category='Desert'
               />
               <Categories
-                stylesForBox={styles.category_boxes}
+                stylesForBox={[styles.category_boxes,{backgroundColor:'#FF5722'}]}
                 category='Snacks'
               />
               <Categories
-                stylesForBox={[styles.category_boxes, { backgroundColor: 'white' }]}
+                stylesForBox={[styles.category_boxes, { backgroundColor: '#3E2723' }]}
                 category='Drinks'
               />
             </View>

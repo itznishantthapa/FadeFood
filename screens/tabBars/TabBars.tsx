@@ -31,13 +31,8 @@ const TabBars = () => {
 
           if (route.name === 'Home') {
             return (
-              <Image
-              source={focused ? require('../../assets/white.png') : require('../../assets/grey.png')}
-              style={{
-                width: 25,
-                height: 25,
-              }}
-              />
+              <Ionicons name={focused ? 'home' : 'home-outline'} size={30} color={color} />
+
             );
           } else if (route.name === 'Favourite') {
             return <MaterialIcon name={focused ? "favorite" : 'favorite-border'} color={color} size={30} />;
@@ -49,11 +44,11 @@ const TabBars = () => {
             return <Entypo name="info" color={color} size={30} />;
           }
         },
-        tabBarActiveTintColor: '#7CB518',
+        tabBarActiveTintColor: '#dc2f02',
         tabBarInactiveTintColor: '#757575',
         tabBarStyle: {
           // backgroundColor: '#051923',
-          // backgroundColor: '#040f0f',
+          backgroundColor: '#ffffff',
           height: 60
         }
       })}

@@ -15,11 +15,11 @@ const FoodItems = ({ FoodImage, FoodPrice, TimeToCook }) => {
             <Image style={{height:'100%' ,width:'100%',borderTopRightRadius:15,borderTopLeftRadius:15}} source={FoodImage}></Image>
             </View>
             <View style={{paddingHorizontal:6}}>
-                <Text style={{ fontWeight: 'bold',color:'#333333' }}>टमाटर अचारको झोल मोमो</Text>
+                <Text style={{color:'#333333',  fontFamily:'inter_semibold' }}>टमाटर अचारको झोल मोमो</Text>
                     <View style={styles.price_and_time}>
                     <View style={styles.price}>
-                    <Text style={{ fontWeight: 'bold', fontSize: 15,color:'#7CB518' }}>Rs.</Text>
-                    <Text style={{ fontWeight: 'bold', fontSize: 20,color:'#7CB518' }}>50</Text>
+                    <Text style={{ fontSize: 15,color:'#ff6b35' ,fontFamily:'inter_semibold'}}>Rs.</Text>
+                    <Text style={{ fontSize: 20,color:'#ff6b35',fontFamily:'inter_semibold' }}>50</Text>
                 </View>
                 <View style={styles.time}>
                     <MaterialCommunity name='clock-time-eight-outline' size={15}></MaterialCommunity>
@@ -28,7 +28,7 @@ const FoodItems = ({ FoodImage, FoodPrice, TimeToCook }) => {
                     </View>
                 <View style={styles.location}>
                     <Ionicon name='location-sharp' style={{ color: 'grey' }} />
-                    <Text style={{ fontSize: 12, fontWeight: 'bold', color: 'grey' }}>Dharan, Bhanuchowk</Text>
+                    <Text style={{ fontSize: 12, color: 'grey',  fontFamily:'inter_semibold' }}>Dharan, Bhanuchowk</Text>
                 </View>
 
             </View>
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
         width: '47%',
         backgroundColor: '#FFFFFF',
         borderRadius: 15,
+        padding:5
     },
     foodImage: {
         height: '82%',

@@ -56,7 +56,7 @@ const VerificationScreen = () => {
                 </View>
 
                 <Button
-                    style={styles.loginButton}
+                    style={[styles.loginButton,{backgroundColor:'#4CAF50'}]}
                     btnText='Verify'
                     handleAuthBtn={() => console.log('verify btn is pressed')}
                 />
