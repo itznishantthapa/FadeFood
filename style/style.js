@@ -1,4 +1,4 @@
-import { StyleSheet,Platform } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 
 
 export const styles = StyleSheet.create({
@@ -70,36 +70,35 @@ export const styles = StyleSheet.create({
     marginLeft: 15,
     marginBottom: 15,
     padding: 5,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',  // Semi-transparent black
-    // backgroundColor: 'rgba(0, 0, 255, 0.3)',  // Option for bluish background
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     borderRadius: 10
   },
   home_screen: {
     flexDirection: 'column',
     height: '100%',
     width: '100%',
-    backgroundColor: '#FAFAFA'
+    backgroundColor: '#F8F9FA'
   },
   dashboardContainer: {
-    height: 390,
+    height: 385,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomRightRadius: 20,
-    borderBottomLeftRadius: 20,
-    backgroundColor: '#FAFAFA',
+    // borderBottomRightRadius: 20,
+    // borderBottomLeftRadius: 20,
+    // backgroundColor: '#FAFAFA',
+    backgroundColor: '#000000',
     paddingBottom: 10,
   },
   homeHeading: {
     height: '45%',
     width: '100%',
-    // backgroundColor: '#0d1b2a',
     backgroundColor: '#dc2f02',
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
     padding: 10,
     width: '100%',
-
+    // marginTop: 10,
   },
   homeMap: {
     height: '55%',
@@ -162,8 +161,8 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     // fontWeight: 'bold',
     color: '#ffffff',
-     fontFamily:'jakarta_bold',
-     fontSize: 15
+    fontFamily: 'jakarta_bold',
+    fontSize: 15
   },
   navBar: {
     width: '100%',
@@ -172,7 +171,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     // backgroundColor: '#0d1b2a',
-    backgroundColor:'#dc2f02',
+    backgroundColor: '#dc2f02',
     zIndex: 10,
     position: 'absolute', //need tp fixed 
     top: 0,
@@ -194,7 +193,7 @@ export const styles = StyleSheet.create({
     color: '#666666',
     fontSize: 18,
     //  fontFamily:'jakarta_regular'
-     fontFamily:'noto_regular'
+    fontFamily: 'noto_regular'
 
   },
   logo: {
@@ -207,24 +206,24 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     color: '#eaf4f4',
     // fontFamily:'raleway'
-    fontFamily:'jakarta_bold'
+    fontFamily: 'montserrat_bold'
 
   },
-  foodItems_container:{
-    
-    flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly', width: '100%', gap: 10, paddingBottom: 4 
+  foodItems_container: {
+
+    flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly', width: '100%', gap: 10, paddingBottom: 4
 
   },
   logoContainer: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', 
-    padding: 8, 
-    borderRadius: 10, 
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    padding: 8,
+    borderRadius: 10,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 }, 
-    shadowOpacity: 0.3, 
-    shadowRadius: 4.65, 
-    elevation: 8, 
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8,
   },
-  
+
 
 })

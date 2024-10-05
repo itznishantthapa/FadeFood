@@ -25,6 +25,7 @@ export default function App() {
     'jakarta_regular': require('./assets/fonts/PlusJakartaSans-Regular.ttf'),
     'inter_semibold': require('./assets/fonts/Inter_28pt-SemiBold.ttf'),
     'noto_regular': require('./assets/fonts/NotoSans_Condensed-Regular.ttf'),
+    'montserrat_bold': require('./assets/fonts/Montserrat-ExtraBold.ttf'),
   });
   useEffect(() => {
     if (loaded || error) {
