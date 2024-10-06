@@ -78,6 +78,7 @@ export const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     backgroundColor: '#F8F9FA'
+    // backgroundColor: '#000000'
   },
   dashboardContainer: {
     height: 385,
@@ -98,7 +99,7 @@ export const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     padding: 10,
     width: '100%',
-    // marginTop: 10,
+    // marginTop: 0,
   },
   homeMap: {
     height: '55%',
@@ -106,7 +107,11 @@ export const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 20,
     width: '100%',
-    marginBottom: 20
+    marginBottom: 20,
+    flexDirection:'column',
+    justifyContent:'space-between',
+    gap:5
+    // alignItems:'center'
   },
   map_box: {
     borderWidth: 10,
@@ -173,7 +178,7 @@ export const styles = StyleSheet.create({
     // backgroundColor: '#0d1b2a',
     backgroundColor: '#dc2f02',
     zIndex: 10,
-    position: 'absolute', //need tp fixed 
+    // position: 'absolute', //need tp fixed 
     top: 0,
   },
   searchBar: {
@@ -191,9 +196,8 @@ export const styles = StyleSheet.create({
     width: '90%',
     height: 40,
     color: '#666666',
-    fontSize: 18,
-    //  fontFamily:'jakarta_regular'
-    fontFamily: 'noto_regular'
+    fontSize: 16,
+    fontFamily: 'montserrat_regular'
 
   },
   logo: {
@@ -224,6 +228,41 @@ export const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 8,
   },
+  price: {
+    flexDirection: 'row',
+    alignItems: 'center',
+},
+foodItemBox: {
+  height: 380,
+  width: '47%',
+  backgroundColor: '#ffffff',
+  borderRadius: 15,
+  padding: 5
+},
+foodImage: {
+  height: '82%',
+  backgroundColor: 'grey',
+  borderTopRightRadius: 15,
+  borderTopLeftRadius: 15,
+},
+location: {
+  flexDirection: 'row',
+  alignItems: 'center',
+
+},
+
+time: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  padding: 5,
+  backgroundColor: 'lightgrey',
+  borderRadius: 10,
+},
+price_and_time: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+}
+
 
 
 })
