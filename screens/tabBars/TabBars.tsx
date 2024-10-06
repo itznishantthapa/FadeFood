@@ -12,11 +12,11 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import Home from '../tabs/Home'
-import Favourite from '../tabs/Favourite';
-import Search from '../tabs/Search';
-import Profile from '../tabs/Profile';
-import Chat from '../tabs/Chat';
+import Home from '../tabScreens/Home'
+import Favourite from '../tabScreens/Favourite';
+import Search from '../tabScreens/Search';
+import Profile from '../tabScreens/Profile';
+import Chat from '../tabScreens/Chat';
 
 const Tab = createBottomTabNavigator();
 const TabBars = () => {
@@ -44,7 +44,7 @@ const TabBars = () => {
             return <Entypo name="info" color={color} size={30} />;
           }
         },
-        tabBarActiveTintColor: '#dc2f02',
+        tabBarActiveTintColor: '#FF5722',
         tabBarInactiveTintColor: '#757575',
         tabBarStyle: {
           // backgroundColor: '#051923',

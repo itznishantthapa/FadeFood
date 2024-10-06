@@ -10,11 +10,13 @@ import TabBars from './screens/tabBars/TabBars';
 import { AppProvider } from './context/AppProvider';
 import { Text } from 'react-native';
 
+
 // import { Inter_900Black, useFonts } from '@expo-google-fonts/inter';
 // import {Quicksand_400Regular } from '@expo-google-fonts/quicksand';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react'
+import ViewFood from './screens/viewScreens/ViewFood';
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createStackNavigator();
@@ -26,6 +28,8 @@ export default function App() {
     'inter_semibold': require('./assets/fonts/Inter_28pt-SemiBold.ttf'),
     'noto_regular': require('./assets/fonts/NotoSans_Condensed-Regular.ttf'),
     'montserrat_bold': require('./assets/fonts/Montserrat-ExtraBold.ttf'),
+    'montserrat_regular': require('./assets/fonts/Montserrat-Regular.ttf'),
+    'montserrat_semibold': require('./assets/fonts/Montserrat-SemiBold.ttf'),
   });
   useEffect(() => {
     if (loaded || error) {
@@ -48,6 +52,7 @@ export default function App() {
             <Stack.Screen name="ForgetPassword" component={ForgetPassword} options={{ headerShown: false }} />
             <Stack.Screen name="VerificationScreen" component={VerificationScreen} options={{ headerShown: false }} />
             <Stack.Screen name="TabBars" component={TabBars} options={{ headerShown: false }} />
+            <Stack.Screen name="ViewFood" component={ViewFood} options={{ headerShown: false }} />
           </Stack.Navigator>
         </NavigationContainer>
 

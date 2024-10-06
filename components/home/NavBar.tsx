@@ -13,7 +13,7 @@ const NabBar = () => {
       </View>
       <View style={styles.searchBar}>
         <Feather name="search" size={30} style={{ color: '#666666' }} />
-        <TextInput selectionColor="#BDBDBD" style={styles.searchInput} placeholder='Go for your favorite restaurant...'></TextInput>
+        <TextInput selectionColor="#BDBDBD" style={styles.searchInput} placeholder='Go for your favorite restaurant'></TextInput>
       </View>
       <Ionicons name='scan' size={35} style={{ color: 'white' }}></Ionicons>
     </View>

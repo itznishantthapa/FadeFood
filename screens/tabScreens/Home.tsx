@@ -7,7 +7,7 @@ import dessert from '../../assets/dessert.jpg'
 import noodles from '../../assets/noodles.jpeg'
 import momo from '../../assets/momo.jpeg'
 import chatapate from '../../assets/chatapate.jpeg'
-import FoodItems from '../../components/home/FoodItems';
+import FoodItems from '../../components/home/FoodItemsCard';
 import { ScrollView } from 'react-native-gesture-handler';
 import SloganBox from '../../components/home/SloganBox';
 import Categories from '../../components/home/Categories';
@@ -16,6 +16,10 @@ import NavBar from '../../components/home/NavBar';
 
 
 const Home = ({ navigation }) => {
+  const handleNavigation = () => {
+    console.log('Navigating to food view page')
+    navigation.navigate('ViewFood')
+}
 
   
   return (
@@ -23,7 +27,7 @@ const Home = ({ navigation }) => {
       <StatusBar hidden={false} backgroundColor='#dc2f02' style='light' />
       <View style={styles.home_screen}>
         <NavBar />
-        <ScrollView showsVerticalScrollIndicator={false} style={{ marginTop: 53 }} stickyHeaderIndices={[1]}>
+        <ScrollView showsVerticalScrollIndicator={false} style={{marginTop:-6}} stickyHeaderIndices={[1]}>
 
           <View style={styles.dashboardContainer}>
             <SloganBox
@@ -56,62 +60,75 @@ const Home = ({ navigation }) => {
               FoodImage={dessert}
               FoodPrice={50}
               TimeToCook={20}
-            />
-            <FoodItems
-              FoodImage={momo}
-              FoodPrice={50}
-              TimeToCook={20}
-            />
-            <FoodItems
-              FoodImage={noodles}
-              FoodPrice={50}
-              TimeToCook={20}
-            />
-            <FoodItems
-              FoodImage={chatapate}
-              FoodPrice={50}
-              TimeToCook={20}
+              handleNavigation={handleNavigation}
             />
             <FoodItems
               FoodImage={dessert}
               FoodPrice={50}
               TimeToCook={20}
+              handleNavigation={handleNavigation}
             />
             <FoodItems
               FoodImage={dessert}
               FoodPrice={50}
               TimeToCook={20}
+              handleNavigation={handleNavigation}
             />
             <FoodItems
               FoodImage={dessert}
               FoodPrice={50}
               TimeToCook={20}
+              handleNavigation={handleNavigation}
             />
             <FoodItems
               FoodImage={dessert}
               FoodPrice={50}
               TimeToCook={20}
+              handleNavigation={handleNavigation}
             />
             <FoodItems
               FoodImage={dessert}
               FoodPrice={50}
               TimeToCook={20}
+              handleNavigation={handleNavigation}
             />
             <FoodItems
               FoodImage={dessert}
               FoodPrice={50}
               TimeToCook={20}
+              handleNavigation={handleNavigation}
             />
             <FoodItems
               FoodImage={dessert}
               FoodPrice={50}
               TimeToCook={20}
+              handleNavigation={handleNavigation}
             />
             <FoodItems
               FoodImage={dessert}
               FoodPrice={50}
               TimeToCook={20}
+              handleNavigation={handleNavigation}
             />
+            <FoodItems
+              FoodImage={dessert}
+              FoodPrice={50}
+              TimeToCook={20}
+              handleNavigation={handleNavigation}
+            />
+            <FoodItems
+              FoodImage={dessert}
+              FoodPrice={50}
+              TimeToCook={20}
+              handleNavigation={handleNavigation}
+            />
+            <FoodItems
+              FoodImage={dessert}
+              FoodPrice={50}
+              TimeToCook={20}
+              handleNavigation={handleNavigation}
+            />
+
           </View>
         </ScrollView>
       </View>
