@@ -78,17 +78,13 @@ export const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     backgroundColor: '#F8F9FA'
-    // backgroundColor: '#000000'
   },
   dashboardContainer: {
     height: 385,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    // borderBottomRightRadius: 20,
-    // borderBottomLeftRadius: 20,
-    // backgroundColor: '#FAFAFA',
-    backgroundColor: '#000000',
+    backgroundColor: '#ff7900',
     paddingBottom: 10,
   },
   homeHeading: {
@@ -111,7 +107,7 @@ export const styles = StyleSheet.create({
     flexDirection:'column',
     justifyContent:'space-between',
     gap:5
-    // alignItems:'center'
+
   },
   map_box: {
     borderWidth: 10,

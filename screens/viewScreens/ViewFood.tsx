@@ -77,8 +77,13 @@ const ViewFood = () => {
 
           </View>
         </View>
+        {/* food description here */}
+        <View style={styles1.description}>
+          <Text style={{ fontFamily: 'jakarta_bold', fontSize: 20, color: 'black', marginTop: 10 }}>Description</Text>
+          <Text style={{ fontFamily: 'montserrat_semibold', fontSize: 15, color: 'grey' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, eleifend nunc. Nulla facilisi. Donec ut ex nec enim tincidunt ultricies. Ut nec   </Text>
+        </View>
         <Button
-          btnText={'Pre-order'}
+          btnText={'Add on list'}
           style={[styles.loginButton, { backgroundColor: '#ff6b35', width: '80%', marginTop: 10 }
           ]}
           handleAuthBtn={() => console.log('Adding to cart')}
@@ -109,7 +114,7 @@ const styles1 = StyleSheet.create({
   foodInfo: {
     height: '10%',
     width: '100%',
-    backgroundColor: '#D3D3D3',
+    backgroundColor: '#e9ecef',
     padding: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -138,7 +143,7 @@ const styles1 = StyleSheet.create({
     alignItems: 'center',
   },
   time_and_feedback: {
-    height: '10%',
+    height: '7%',
     width: '100%',
     // backgroundColor: 'grey',
     flexDirection: 'row',
@@ -173,6 +178,16 @@ const styles1 = StyleSheet.create({
     color: 'grey',
     fontFamily: 'jakarta_bold',
     fontSize: 18,
+  },
+  description: {
+    width: '100%',
+    padding: 10,
+    alignItems: 'flex-start',
+    borderRadius: 20,
+    height: '15%',
+    flexDirection:'column',
+    justifyContent:'center',
+    gap:5,
   },
 });
 
