@@ -8,8 +8,8 @@ import ForgetPassword from './screens/auth/ForgetPassword';
 import VerificationScreen from './screens/auth/VerificationScreen';
 import TabBars from './screens/tabBars/TabBars';
 import { AppProvider } from './context/AppProvider';
-import { Text } from 'react-native';
-
+import { Text,Dimensions } from 'react-native';
+const { width, height } = Dimensions.get('window');
 
 // import { Inter_900Black, useFonts } from '@expo-google-fonts/inter';
 // import {Quicksand_400Regular } from '@expo-google-fonts/quicksand';

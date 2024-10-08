@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text,Dimensions } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../../style/style';
 import { StatusBar } from 'expo-status-bar';
@@ -13,7 +13,7 @@ import SloganBox from '../../components/home/SloganBox';
 import Categories from '../../components/home/Categories';
 import Map from '../../components/home/Map';
 import NavBar from '../../components/home/NavBar';
-
+const { width, height } = Dimensions.get('window');
 
 const Home = ({ navigation }) => {
   const handleNavigation = () => {
@@ -39,15 +39,15 @@ const Home = ({ navigation }) => {
           <View style={styles.home_categories_options}>
             <View style={styles.category_container} >
               <Categories
-                stylesForBox={[styles.category_boxes, { backgroundColor: '#D4A373' }]}
+                stylesForBox={[styles.category_boxes, { backgroundColor: '#D4A373',width:width * 0.303 }]}
                 category='Desert'
               />
               <Categories
-                stylesForBox={[styles.category_boxes, { backgroundColor: '#FF5722' }]}
+                stylesForBox={[styles.category_boxes, { backgroundColor: '#FF5722',width:width * 0.303  }]}
                 category='Snacks'
               />
               <Categories
-                stylesForBox={[styles.category_boxes, { backgroundColor: '#3E2723' }]}
+                stylesForBox={[styles.category_boxes, { backgroundColor: '#3E2723',width:width * 0.303  }]}
                 category='Drinks'
               />
             </View>

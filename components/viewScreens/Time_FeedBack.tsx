@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View,Dimensions } from 'react-native'
 import React from 'react'
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-
+const { width, height } = Dimensions.get('window');
 
 const Time_FeedBack = () => {
   return (
@@ -26,18 +26,18 @@ export default Time_FeedBack
 const styles1 = StyleSheet.create({
     time_and_feedback: {
         height: '7%',
-        width: '100%',
+        width: width,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        paddingHorizontal:10
       },
       time: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        width: '49%',
+        width: width*0.54,
         padding: 3,
-        // gap: 5,
       },
       timeText: {
         color: 'grey',
@@ -52,7 +52,7 @@ const styles1 = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        width: '49%',
+        width: '46%',
         gap: 5,
       },
       feedbackText: {
