@@ -1,14 +1,20 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View} from 'react-native'
 import React from 'react'
 import ItemName from './ItemName'
 import Price from './Price'
 import Increment_Decrement from './Increment_Decrement'
 import { Image } from 'react-native'
 import Love from './Love'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
-const List = ({isLoveNeeded,image,foodName,restaurantName,price}) => {
+const List = ({isLoveNeeded,image,foodName,restaurantName,price,navigation}) => {
+    const handlePress = () => {
+        console.log('Pressed');
+        navigation.navigate('ViewFood');
+    }
     return (
-        <View style={{ height: 150, width: '95%', backgroundColor: '#ffffff', borderRadius: 20, flexDirection: 'row', padding: 10, justifyContent: 'center', alignItems: 'center' }}>
+        <TouchableWithoutFeedback style={{height:'auto',width:'auto',alignItems:'center'}}  onPress={handlePress}>
+        <View style={{ height: 150, width: '98%', backgroundColor: '#ffffff', borderRadius: 20, flexDirection: 'row', padding: 10, justifyContent: 'center', alignItems: 'center' }}>
             <Image source={image} style={styles1.fod_img}></Image>
             <View style={styles1.fod_info}>
                 <ItemName foodName={foodName} restaurantName={restaurantName}/>
@@ -21,6 +27,8 @@ const List = ({isLoveNeeded,image,foodName,restaurantName,price}) => {
                 </View>
             </View>
         </View>
+        
+     </TouchableWithoutFeedback>
     )
 }
 

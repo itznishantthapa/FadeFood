@@ -5,8 +5,8 @@ import { styles } from '../../style/style'
 const Map = () => {
   return (
     <View style={styles.homeMap}>
-      <View style={{borderColor:'#ffffff',width:'46%',height:'auto',borderBottomWidth:2}}>
-        <Text style={{  fontSize: 20, fontFamily:'jakarta_bold',marginBottom:5,color:'#ffffff' }}>Explore your nearby</Text>
+      <View style={{borderColor:'#000000',width:'65%',height:'auto',borderBottomWidth:2}}>
+        <Text style={{  fontSize: 30, fontFamily:'pacifico',color:'#000000' }}>Explore your nearby</Text>
       </View>
     <View style={styles.map_box}>
         <Image style={{height:'100%' ,width:'100%',borderRadius:10}} source={require('../../assets/map.jpg')}></Image>

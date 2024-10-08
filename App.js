@@ -31,6 +31,7 @@ export default function App() {
     'montserrat_bold': require('./assets/fonts/Montserrat-ExtraBold.ttf'),
     'montserrat_regular': require('./assets/fonts/Montserrat-Regular.ttf'),
     'montserrat_semibold': require('./assets/fonts/Montserrat-SemiBold.ttf'),
+    'pacifico': require('./assets/fonts/Pacifico-Regular.ttf'),
   });
   useEffect(() => {
     if (loaded || error) {

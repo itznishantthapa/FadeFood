@@ -1,4 +1,4 @@
-import { View,Text} from 'react-native'
+import { View, Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../../style/style';
 import { StatusBar } from 'expo-status-bar';
@@ -19,15 +19,13 @@ const Home = ({ navigation }) => {
   const handleNavigation = () => {
     console.log('Navigating to food view page')
     navigation.navigate('ViewFood')
-}
-
-  
+  }
   return (
     <SafeAreaView>
       <StatusBar hidden={false} backgroundColor='#dc2f02' style='light' />
       <View style={styles.home_screen}>
         <NavBar />
-        <ScrollView showsVerticalScrollIndicator={false} style={{marginTop:-6}} stickyHeaderIndices={[1]}>
+        <ScrollView showsVerticalScrollIndicator={false} style={{ marginTop: -6 }} stickyHeaderIndices={[1]}>
 
           <View style={styles.dashboardContainer}>
             <SloganBox
@@ -45,7 +43,7 @@ const Home = ({ navigation }) => {
                 category='Desert'
               />
               <Categories
-                stylesForBox={[styles.category_boxes,{backgroundColor:'#FF5722'}]}
+                stylesForBox={[styles.category_boxes, { backgroundColor: '#FF5722' }]}
                 category='Snacks'
               />
               <Categories

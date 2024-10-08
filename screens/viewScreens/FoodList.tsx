@@ -26,6 +26,7 @@ const FoodList = ({ navigation }) => {
                                 restaurantName='Delicious Restaurant'
                                 image={chatpate}
                                 isLoveNeeded={false}
+                                navigation={navigation}
                             />
                         
                             <List
@@ -34,6 +35,7 @@ const FoodList = ({ navigation }) => {
                                 restaurantName='Delicious Restaurant'
                                 image={chatpate}
                                 isLoveNeeded={false}
+                                navigation={navigation}
                             />
                         
                             <List
@@ -42,6 +44,7 @@ const FoodList = ({ navigation }) => {
                                 restaurantName='Delicious Restaurant'
                                 image={chatpate}
                                 isLoveNeeded={false}
+                                navigation={navigation}
                             />
                         
                             <List
@@ -50,7 +53,10 @@ const FoodList = ({ navigation }) => {
                                 restaurantName='Delicious Restaurant'
                                 image={chatpate}
                                 isLoveNeeded={false}
+                                navigation={navigation}
                             />
+                        
+                          
                         </View>
                     </ScrollView>
                 </View>
