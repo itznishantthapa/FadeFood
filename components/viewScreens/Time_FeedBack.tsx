@@ -16,7 +16,6 @@ const Time_FeedBack = () => {
     <View style={styles1.feedback}>
       <FontAwesome name='star' size={20} style={{ marginTop: 5 }} color="#FFD700" />
       <Text style={styles1.feedbackText}>4.5 ) Feedback</Text>
-
     </View>
   </View>
   )

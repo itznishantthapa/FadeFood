@@ -18,7 +18,7 @@ export default ItemName
 const styles1 = StyleSheet.create({
     orderName: {
         width: 'auto',
-        height: '100%',
+        height: 'auto',
         // backgroundColor: 'white',
         flexDirection: 'column',
         alignItems: 'flex-start',
