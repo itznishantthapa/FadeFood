@@ -7,6 +7,8 @@ import Icons from '../../components/viewScreens/Icons'
 import { ScrollView } from 'react-native-gesture-handler'
 import Button from '../../components/auth/Button'
 import List from '../../components/viewScreens/List'
+import TopBar from '../../components/viewScreens/TopBar'
+import chatpate from '../../assets/chatapate.jpeg'
 
 
 const FoodList = ({ navigation }) => {
@@ -14,29 +16,47 @@ const FoodList = ({ navigation }) => {
         <SafeAreaView style={{ flex: 1 }}>
             <StatusBar hidden={false} backgroundColor='#ff6b35' style='light' />
             <View style={[styles.home_screen, { alignItems: 'center', backgroundColor: '#F0F0F0' }]}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '95%', marginTop: 10 }}>
-                    <Icons
-                        name={'chevron-left'}
-                        navigation={navigation}
-                    />
-                    <Text style={{ fontFamily: 'jakarta_bold', fontSize: 25 }}>My List</Text>
-                  <View style={{width:40}}></View>
-                </View>
+                <TopBar navigation={navigation} top_title='My List' />
                 <View style={{ height: '52%', width: '100%', paddingVertical: 10 }}>
                     <ScrollView showsVerticalScrollIndicator={false} >
                         <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 10 }}>
-                            <List />
-                            <List />
-                            <List />
-                            <List />
-                            <List />
-                            <List />
+                            <List
+                                price='50'
+                                foodName='Chatpaate'
+                                restaurantName='Delicious Restaurant'
+                                image={chatpate}
+                                isLoveNeeded={false}
+                            />
+                        
+                            <List
+                                price='50'
+                                foodName='Chatpaate'
+                                restaurantName='Delicious Restaurant'
+                                image={chatpate}
+                                isLoveNeeded={false}
+                            />
+                        
+                            <List
+                                price='50'
+                                foodName='Chatpaate'
+                                restaurantName='Delicious Restaurant'
+                                image={chatpate}
+                                isLoveNeeded={false}
+                            />
+                        
+                            <List
+                                price='50'
+                                foodName='Chatpaate'
+                                restaurantName='Delicious Restaurant'
+                                image={chatpate}
+                                isLoveNeeded={false}
+                            />
                         </View>
                     </ScrollView>
                 </View>
                 <View style={{ height: '30%', width: '95%', backgroundColor: '#ffffff', borderRadius: 20, flexDirection: 'column', alignItems: 'center' }}>
                     <ScrollView showsVerticalScrollIndicator={false} style={{ width: '100%' }}>
-                        <View style={{ width: '100%', alignItems: 'center', paddingVertical: 10 }}>  
+                        <View style={{ width: '100%', alignItems: 'center', paddingVertical: 10 }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '90%' }}>
                                 <Text style={{ color: 'grey', fontSize: 18, fontFamily: 'inter_semibold' }}>Chatapate x3</Text>
                                 <Text style={{ color: 'grey', fontSize: 18, fontFamily: 'inter_semibold' }}>150.00</Text>

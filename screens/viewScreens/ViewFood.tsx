@@ -12,14 +12,11 @@ import Time_FeedBack from '../../components/viewScreens/Time_FeedBack';
 import FoodDescription from '../../components/viewScreens/FoodDescription';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import BigImage from '../../components/viewScreens/BigImage';
+import Love from '../../components/viewScreens/Love';
 
 
 const ViewFood = ({ navigation }) => {
-  const [isFavorite, setFavorite] = useState(false);
 
-  const handleFavorite = () => {
-    setFavorite(!isFavorite);
-  }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -29,35 +26,15 @@ const ViewFood = ({ navigation }) => {
         <BigImage />
 
         <View style={styles1.foodInfo}>
-          <ItemName />
+          <ItemName
+          foodName={'Chatpate'}
+          restaurantName={'Delicious Restaurant'}
+          />
           <View style={styles1.orderAmount}>
-            <Price />
-            {
-              isFavorite ? (<TouchableOpacity onPress={handleFavorite}>
-                <MaterialIcons
-                  style={{
-                    color: 'red',
-                    textShadowColor: 'rgba(0, 0, 0, 0.75)',
-                    textShadowOffset: { width: 1, height: 1 },
-                    textShadowRadius: 7
-                  }}
-                  name='favorite'
-                  size={40}
-                />
-              </TouchableOpacity>) : (<TouchableOpacity onPress={handleFavorite}>
-                <MaterialIcons
-                  style={{
-                    color: 'grey',
-                    textShadowColor: 'rgba(0, 0, 0, 0.75)',
-                    textShadowOffset: { width: 1, height: 1 },
-                    textShadowRadius: 7
-                  }}
-                  name='favorite-outline'
-                  size={40}
-                />
-              </TouchableOpacity>
-              )
-            }
+            <Price
+            price={'50'}
+            />
+          <Love/>
           </View>
         </View>
 
