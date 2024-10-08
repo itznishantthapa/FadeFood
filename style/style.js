@@ -1,4 +1,5 @@
-import { StyleSheet, Platform } from "react-native";
+import { StyleSheet, Platform,Dimensions } from "react-native";
+const { width, height } = Dimensions.get('window');
 
 
 export const styles = StyleSheet.create({
@@ -258,7 +259,4 @@ price_and_time: {
   flexDirection: 'row',
   justifyContent: 'space-between',
 }
-
-
-
 })
