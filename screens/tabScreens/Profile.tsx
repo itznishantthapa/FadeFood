@@ -8,10 +8,9 @@ import { StatusBar } from 'expo-status-bar';
 import IntroText from '../../components/auth/IntroText';
 
 const Profile = ({ navigation }) => {
-    const [email, set_email] = useState(null)
     return (
         <SafeAreaView>
-            <StatusBar hidden={false} backgroundColor='#F5F5F5' style='dark' />
+            <StatusBar hidden={false} backgroundColor='#dc2f02' style='light' />
             <View style={styles.mainViewStyle}>
               <Text>THis is Profile</Text>
               

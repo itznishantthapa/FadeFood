@@ -112,7 +112,7 @@ export const styles = StyleSheet.create({
   map_box: {
     borderWidth: 10,
     borderColor: '#FFFFFF',
-    height: '90%',
+    height: '78%',
     borderRadius: 20,
     shadowColor: '#000', // Shadow color
     shadowOffset: { width: 0, height: 2 }, // Shadow offset
