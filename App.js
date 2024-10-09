@@ -6,13 +6,12 @@ import 'react-native-gesture-handler';
 import SignupScreen from './screens/auth/SignupScreen';
 import ForgetPassword from './screens/auth/ForgetPassword';
 import VerificationScreen from './screens/auth/VerificationScreen';
-import TabBars from './screens/tabBars/TabBars';
+import TabBars from './screens/tabScreens/TabBars';
 import { AppProvider } from './context/AppProvider';
 import { Text,Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
-// import { Inter_900Black, useFonts } from '@expo-google-fonts/inter';
-// import {Quicksand_400Regular } from '@expo-google-fonts/quicksand';
+
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react'
