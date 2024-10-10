@@ -3,12 +3,26 @@ import { useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { Button, StyleSheet, Text, TouchableOpacity, View, Dimensions, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import TopText from '../../components/scanner/TopText';
 const { width, height } = Dimensions.get('window');
 
-export default function Search({ navigation }) {
+export default function Scanner({ navigation }) {
   const [facing, setFacing] = useState<CameraType>('back');
   const [permission, requestPermission] = useCameraPermissions();
   const [scanned, setscanned] = useState(false)
+
+  useFocusEffect(
+    useCallback(() => {
+      console.log('Screen is focused');
+      setscanned(false)
+
+      return () => {
+        // Code to run when the screen is unfocused
+        console.log('Screen is unfocused');
+        setscanned(true)
+      };
+    }, [])
+  );
 
   if (!permission) {
     // Camera permissions are still loading.
@@ -33,36 +47,36 @@ export default function Search({ navigation }) {
     setTimeout(() => {
       navigation.navigate('FoodList')
       console.log('Navigation Success')
+      setscanned(true);
     }, 3000);
-    setscanned(true);
+
+
   }
 
 
   return (
+
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-
-        <CameraView style={styles.camera} facing={facing} onBarcodeScanned={scanned ? undefined : handleScanned}>
-          <View style={styles.overlayContainer}>
-            <View style={styles.intro} >
-              <Image style={{ height: 100, width: 100 }} source={require('../../assets/fadefood_logo.png')}></Image>
-              <View>
-                <Text style={{ color: 'white', fontSize: 30, fontWeight: 'bold' }}>Scan FadeFood to</Text>
-                <Text style={{ color: 'white', fontSize: 30, fontWeight: 'bold' }}>Pre-order & Payment</Text>
-                <Text style={{ color: 'white', fontSize: 30, fontWeight: 'bold' }}>from anywhere</Text>
+        {!scanned && (
+          <CameraView
+            style={styles.camera}
+            facing={facing}
+            onBarcodeScanned={scanned ? undefined : handleScanned}
+          >
+            <View style={styles.overlayContainer}>
+              <TopText />
+              <View style={styles.overlay} />
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.button} onPress={handleScannedAgain}>
+                  <Text style={styles.text}>Scan Again</Text>
+                </TouchableOpacity>
               </View>
-            </View>
-            
-            <View style={styles.overlay} />
 
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.button} onPress={handleScannedAgain}>
-                <Text style={styles.text}>Scan Again</Text>
-              </TouchableOpacity>
             </View>
+          </CameraView>
+        )}
 
-          </View>
-        </CameraView>
       </View>
     </SafeAreaView>
   );
@@ -102,8 +116,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: height,
-    // marginTop: '40%'
-
   },
   overlay: {
     width: width * 0.8,
@@ -113,12 +125,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'transparent',
   },
-  intro: {
-    height: height * 0.2,
-    backgroundColor: 'transparent',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    gap: 10
-  }
+
 });

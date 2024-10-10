@@ -15,7 +15,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import Home from '../tabScreens/Home'
 import Favourite from '../tabScreens/Favourite';
-import Search from '../tabScreens/Search';
+import Scanner from './Scanner';
 import Profile from '../tabScreens/Profile';
 import Chat from '../tabScreens/Chat';
 
@@ -36,7 +36,7 @@ const TabBars = () => {
             );
           } else if (route.name === 'Favourite') {
             return <MaterialIcon name={focused ? "favorite" : 'favorite-border'} color={color} size={30} />;
-          } else if (route.name === 'Search') {
+          } else if (route.name === 'Scanner') {
             return <MaterialCommunityIcons name="qrcode-scan" color={color} size={35} />
           } else if (route.name === 'Chat') {
             return <Ionicons name={focused ? "chatbubbles-sharp" : "chatbubbles-outline"} color={color} size={30} />;
@@ -61,8 +61,8 @@ const TabBars = () => {
         component={Favourite}
       />
       <Tab.Screen
-        name="Search"
-        component={Search}
+        name="Scanner"
+        component={Scanner}
       />
       <Tab.Screen
         name="Chat"
