@@ -14,7 +14,7 @@ import chatpate from '../../assets/chatapate.jpeg'
 const FoodList = ({ navigation }) => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <StatusBar hidden={false} backgroundColor='#ff6b35' style='light' />
+            <StatusBar hidden={false} backgroundColor='#dc2f02' style='light' />
             <View style={[styles.home_screen, { alignItems: 'center', backgroundColor: '#F0F0F0' }]}>
                 <TopBar navigation={navigation} top_title='My List' />
                 <View style={{ height: '52%', width: '100%', paddingVertical: 10 }}>

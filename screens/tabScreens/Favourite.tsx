@@ -26,9 +26,8 @@ const Favourite = ({ navigation }) => {
         <SafeAreaView >
               <StatusBar hidden={false} backgroundColor='#dc2f02' style='light' />
             <View style={styles.home_screen}>
-                <View style={{height:'7%'}}>
                 <TopBar navigation={navigation} top_title='Favorite' />
-                </View>
+   
                 <View style={{ height: '93%', width: '100%'}}>
                     <FlatList
                         data={Array(14).fill(null)} // Assuming you have 14 items

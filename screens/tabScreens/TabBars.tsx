@@ -8,7 +8,8 @@ import FaIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
-
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ant from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
@@ -31,13 +32,12 @@ const TabBars = () => {
 
           if (route.name === 'Home') {
             return (
-              <Ionicons name={focused ? 'home' : 'home-outline'} size={30} color={color} />
-
+              focused ? <Entypo name='home' size={30} color={color} /> : <Ant name='home' size={30} color={color} />
             );
           } else if (route.name === 'Favourite') {
             return <MaterialIcon name={focused ? "favorite" : 'favorite-border'} color={color} size={30} />;
           } else if (route.name === 'Search') {
-            return <Feather name="search" color={color} size={30} />;
+            return <MaterialCommunityIcons name="qrcode-scan" color={color} size={35} />
           } else if (route.name === 'Chat') {
             return <Ionicons name={focused ? "chatbubbles-sharp" : "chatbubbles-outline"} color={color} size={30} />;
           } else if (route.name === 'Profile') {
@@ -47,7 +47,6 @@ const TabBars = () => {
         tabBarActiveTintColor: '#FF5722',
         tabBarInactiveTintColor: '#757575',
         tabBarStyle: {
-          // backgroundColor: '#051923',
           backgroundColor: '#ffffff',
           height: 60
         }

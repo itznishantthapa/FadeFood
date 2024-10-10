@@ -5,6 +5,7 @@ const { width, height } = Dimensions.get('window');
 export const styles = StyleSheet.create({
   mainViewStyle: {
     backgroundColor: '#F5F5F5',
+    // backgroundColor: 'black',
     width: '100%',
     height: '100%',
     justifyContent: 'center',
@@ -14,15 +15,15 @@ export const styles = StyleSheet.create({
   },
   inputField: {
     width: '100%',
-    height: 50,
+    height:  height * 0.052,
     color: '#212121',
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: width * 0.03996,
   },
 
   loginButton: {
     width: '80%',
-    height: 60,
+    height: height * 0.0624 ,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -31,7 +32,7 @@ export const styles = StyleSheet.create({
     marginTop: 20
   },
   authBox: {
-    height: 90,
+    height: height * 0.0936,
     width: '80%',
     borderWidth: 1,
     borderColor: '#BDBDBD',
@@ -44,7 +45,7 @@ export const styles = StyleSheet.create({
     width: '80%',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    marginBottom: 40
+    marginBottom:width * 0.0888
 
   },
   verifyBoxContainer: {
@@ -91,7 +92,6 @@ export const styles = StyleSheet.create({
   homeHeading: {
     height: '45%',
     width: '100%',
-    backgroundColor: '#dc2f02',
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
     padding: 10,

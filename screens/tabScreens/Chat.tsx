@@ -14,20 +14,20 @@ const { width, height } = Dimensions.get('window')
 
 
 const Chat = ({ navigation }) => {
-    const renderItem = ({ item }) => <RestaurantMsg />
+    const renderItem = ({ item }) => <RestaurantMsg navigation={navigation} />
        
         
     return (
         <SafeAreaView>
             <StatusBar hidden={false} backgroundColor='#dc2f02' style='light' />
-            <View style={[styles.mainViewStyle, { justifyContent: 'flex-start' }]}>
-                <TopBar navigation={navigation} top_title='Messages' />
+            <TopBar navigation={navigation} top_title='Messages' />
+            <View style={{ justifyContent: 'flex-start',borderTopRightRadius:15,height:'93%',marginTop:8 }}>
                 <FlatList
                     data={Array(18).fill(null)} // Assuming you have 14 items
                     renderItem={renderItem}
                     keyExtractor={(item, index) => index.toString()}
                     showsVerticalScrollIndicator={false}
-                    // contentContainerStyle={styles1.contentContainer}
+                    contentContainerStyle={{gap:6}}
                 />
             </View>
         </SafeAreaView>

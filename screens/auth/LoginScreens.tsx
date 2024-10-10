@@ -14,7 +14,6 @@ const LoginScreens = ({ navigation }) => {
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
-
     };
     return (
         <SafeAreaView>
