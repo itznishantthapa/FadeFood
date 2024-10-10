@@ -11,7 +11,6 @@ const IntroText = ({headingText,line1,line2,style}) => {
                 <Text style={{fontSize:width * 0.0666,color:'#757575'}}>{line1}</Text>
                 <Text style={{fontSize:width * 0.0666,color:'#757575'}}>{line2}</Text>
             </View>
-
         </>
     )
 }
