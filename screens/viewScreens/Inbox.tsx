@@ -1,4 +1,4 @@
-import { View, Text, Dimensions, FlatList, TextInput, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
+import { View, Text, Dimensions, FlatList, TextInput, KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -45,7 +45,7 @@ const Inbox = ({ navigation }) => {
                 style={{ flex: 1 }}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             >
-                <View style={[{ justifyContent: 'flex-start', flex: 1,backgroundColor:'#F5F5F5',borderTopRightRadius:15,borderTopLeftRadius:15 }]}>
+                <View style={styles.msg_input}>
                     <View style={{ flex: 1 }}>
                         <FlatList
                             data={messages}
@@ -57,7 +57,7 @@ const Inbox = ({ navigation }) => {
                         />
 
                         {/* Input and Send button section */}
-                        <View style={{ width: '100%', flexDirection: 'row', gap: 5, justifyContent: 'center', alignItems: 'center', padding: 10 }}>
+                        <View style={styles.input_send}>
                             <View style={{ width: '80%', maxHeight: 100, backgroundColor: 'white', borderRadius: 10, borderColor: '#e0e0e0', borderWidth: 1, padding: 5 }}>
                                 <ScrollView>
                                     <TextInput
@@ -93,3 +93,24 @@ const Inbox = ({ navigation }) => {
 
 
 export default Inbox;
+
+// stylesheet here
+const styles = StyleSheet.create({
+    msg_input:{
+        justifyContent: 'flex-start',
+        flex: 1,
+        backgroundColor: '#F5F5F5',
+        borderTopRightRadius: 15,
+        borderTopLeftRadius: 15
+    },
+    input_send:{
+        width: '100%', 
+        flexDirection: 'row', 
+        gap: 5, 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        padding: 10 
+
+    }
+
+});
