@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { styles } from '../../style/style';
@@ -7,10 +7,8 @@ import NabBar from '../../components/home/NavBar';
 import Button from '../../components/auth/Button';
 import ItemName from '../../components/viewScreens/ItemName';
 import Price from '../../components/viewScreens/Price';
-import Increment_Decrement from '../../components/viewScreens/Increment_Decrement';
 import Time_FeedBack from '../../components/viewScreens/Time_FeedBack';
 import FoodDescription from '../../components/viewScreens/FoodDescription';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import BigImage from '../../components/viewScreens/BigImage';
 import Love from '../../components/viewScreens/Love';
 
