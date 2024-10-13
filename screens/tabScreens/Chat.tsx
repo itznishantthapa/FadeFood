@@ -1,13 +1,8 @@
 import { View, Text, Dimensions,FlatList, Image } from 'react-native'
 import React, { useState } from 'react'
-import UserInput from '../../components/auth/UserInput'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Button from '../../components/auth/Button';
-import { styles } from '../../style/style';
 import { StatusBar } from 'expo-status-bar';
-import IntroText from '../../components/auth/IntroText';
 import TopBar from '../../components/viewScreens/TopBar';
-import grey from '../../assets/grey.png'
 import RestaurantMsg from '../../components/chat/RestaurantMsg';
 
 const { width, height } = Dimensions.get('window')

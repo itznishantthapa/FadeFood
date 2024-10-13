@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View,TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import React from 'react'
-// import Ant from 'react-native-vector-icons/AntDesign'
 import FontAwe from 'react-native-vector-icons/FontAwesome'
 
 const Icons = ({name,navigation}) => {
