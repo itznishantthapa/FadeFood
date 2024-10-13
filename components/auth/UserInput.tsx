@@ -1,5 +1,5 @@
 import { StyleSheet, TextInput, View, Text, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import IconIon from 'react-native-vector-icons/Ionicons'
 
 const UserInput = ({ value, onChangeText, inputBoxStyle, inputTopic, authBox, isEyeNeeded, passwordVisible, togglePasswordVisibility }) => {
