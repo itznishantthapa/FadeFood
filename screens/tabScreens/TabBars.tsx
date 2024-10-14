@@ -1,17 +1,12 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { StatusBar } from 'expo-status-bar';
-import { styles } from '../../style/style'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import FaIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ant from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
 
 import Home from '../tabScreens/Home'
 import Favourite from '../tabScreens/Favourite';
