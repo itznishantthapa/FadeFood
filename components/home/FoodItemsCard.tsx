@@ -1,7 +1,5 @@
 import { StyleSheet, Text, View, Image, TouchableWithoutFeedback } from 'react-native';
 import React, { useState, useContext } from 'react';
-import { ImageBackground } from 'react-native';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
