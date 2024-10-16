@@ -19,7 +19,6 @@ const styles1 = StyleSheet.create({
     orderName: {
         width: 'auto',
         height: 'auto',
-        // backgroundColor: 'white',
         flexDirection: 'column',
         alignItems: 'flex-start',
       },

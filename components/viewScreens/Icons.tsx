@@ -15,4 +15,3 @@ const Icons = ({name,navigation}) => {
 
 export default Icons
 
-// const styles = StyleSheet.create({})
