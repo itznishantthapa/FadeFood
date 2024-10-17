@@ -5,7 +5,6 @@ const { width, height } = Dimensions.get('window');
 export const styles = StyleSheet.create({
   mainViewStyle: {
     backgroundColor: '#F5F5F5',
-    // backgroundColor: 'black',
     width: '100%',
     height: '100%',
     justifyContent: 'center',
@@ -115,11 +114,11 @@ export const styles = StyleSheet.create({
     borderColor: '#FFFFFF',
     height: '78%',
     borderRadius: 20,
-    shadowColor: '#000', // Shadow color
-    shadowOffset: { width: 0, height: 2 }, // Shadow offset
-    shadowOpacity: 0.25, // Shadow opacity
-    shadowRadius: 3.84, // Shadow radius
-    elevation: 5, // Elevation for Android
+    shadowColor: '#000', 
+    shadowOffset: { width: 0, height: 2 }, 
+    shadowOpacity: 0.25, 
+    shadowRadius: 3.84, 
+    elevation: 5,
   },
   home_categories_options: {
     height: 70,
@@ -132,7 +131,6 @@ export const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     position: 'relative',    // Ensures it scrolls with the content until it reaches the navBar
     zIndex: 10,
-    // backgroundColor: '#0d1b2a',
     backgroundColor: '#dc2f02',
     marginBottom: 4
   },
