@@ -15,5 +15,5 @@ export const AppProvider = ({ children }) => {
   );
 };
 
-// Exporting context for use in other components
+
 export { MyContext };

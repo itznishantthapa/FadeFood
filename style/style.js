@@ -159,7 +159,6 @@ export const styles = StyleSheet.create({
   ,
   category_text: {
     textAlign: 'center',
-    // fontWeight: 'bold',
     color: '#ffffff',
     fontFamily: 'jakarta_bold',
     fontSize: 15
@@ -201,10 +200,8 @@ export const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   homeHeadingText: {
-    // fontWeight: 'bold',
     fontSize: 30,
     color: '#eaf4f4',
-    // fontFamily:'raleway'
     fontFamily: 'montserrat_bold'
 
   },
