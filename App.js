@@ -8,8 +8,8 @@ import ForgetPassword from './screens/auth/ForgetPassword';
 import VerificationScreen from './screens/auth/VerificationScreen';
 import TabBars from './screens/tabScreens/TabBars';
 import { AppProvider } from './context/AppProvider';
-import { Text,Dimensions } from 'react-native';
-const { width, height } = Dimensions.get('window');
+
+
 
 
 import { useFonts } from 'expo-font';
@@ -46,8 +46,6 @@ export default function App() {
   return (
     <AppProvider>
       <SafeAreaProvider>
-        {/* <Text style={{fontFamily:'cursive',fontSize:20}}>Cursive</Text> */}
-
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen name="LoginScreens" component={LoginScreens} options={{ headerShown: false }} />
