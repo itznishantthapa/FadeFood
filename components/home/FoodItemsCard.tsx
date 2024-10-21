@@ -16,7 +16,7 @@ const FoodItems = ({ FoodImage, FoodPrice, TimeToCook, handleNavigation }) => {
                     <Image style={{ height: '100%', width: '100%', borderTopRightRadius: 15, borderTopLeftRadius: 15 }} source={FoodImage}></Image>
                 </View>
                 <View style={{ paddingHorizontal: 6 }}>
-                    <Text style={{ color: '#333333', fontFamily: 'montserrat_semibold' }}>टमाटर अचारको झोल मोमो</Text>
+                    <Text style={{ color: '#333333', fontFamily: 'montserrat_semibold' }}>Mo:Mo</Text>
                     <View style={styles.price_and_time}>
                         <View style={styles.price}>
                             <Text style={{ fontSize: 15, color: '#ff6b35', fontFamily: 'montserrat_semibold' }}>Rs.</Text>
