@@ -14,6 +14,7 @@ const BigImage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   return (
     <View style={{ height: '50%', width: '100%' }}>
+
       <PagerView
         style={{ flex: 1 }}
         initialPage={0}
@@ -24,12 +25,16 @@ const BigImage = () => {
             <Image resizeMode='cover' style={{ height: '100%', width: '100%' }} source={image} />
           </View>
         ))}
+
       </PagerView>
+
       <View style={styles1.dotContainer}>
         {images.map((_, index) => (
-          <Text key={index} style={index === activeIndex ? styles1.activeDot : styles1.dot}>o</Text>
+          <Text key={index} style={index === activeIndex ? [styles1.activeDot,{fontSize:(index+1)*20}] : [styles1.dot,{fontSize:(index+1)*20}]}>o</Text>
         ))}
       </View>
+
+      
     </View>
   )
 }
@@ -50,7 +55,7 @@ const styles1 = StyleSheet.create({
     margin: 3,
   },
   activeDot: {
-    fontSize: 20,
+    // fontSize: 20,
     color: '#fff',
     margin: 3,
   },

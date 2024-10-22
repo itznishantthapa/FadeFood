@@ -83,10 +83,10 @@ export const styles = StyleSheet.create({
   dashboardContainer: {
     height: 250,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#ff7900',
-    // paddingBottom: 10,
+    // padding: 10,
   },
   homeHeading: {
     height: '45%',
@@ -175,6 +175,7 @@ export const styles = StyleSheet.create({
     // position: 'absolute', //need tp fixed 
     top: 0,
     gap: 5,
+    paddingHorizontal: 8,
   },
   searchBar: {
     flexDirection: 'row',
@@ -183,28 +184,33 @@ export const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: '#ffffff',
     height: 45,
-    width: '85%',
+    width: '88%',
     borderRadius: 8,
     backgroundColor: '#F5F5F5',
     paddingHorizontal: 1,
     paddingLeft: 10,
   },
   searchInput: {
-    width: '75%',
+    // width: '75%',
     height: '80%',
     color: '#666666',
     fontSize: 16,
     fontFamily: 'poppins_regular',
     // backgroundColor: 'red',
+    textAlignVertical: 'bottom',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+
 
   },
-  logo: {
+  nav_logo: {
     height: 30,
     width: 30,
     resizeMode: 'contain',
   },
   homeHeadingText: {
-    fontSize: 30,
+    // fontSize: 18,
+    fontSize: width * 0.04 ,
     color: '#eaf4f4',
     fontFamily: 'montserrat_bold'
 
