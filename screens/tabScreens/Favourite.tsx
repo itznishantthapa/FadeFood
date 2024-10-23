@@ -9,14 +9,75 @@ import { StatusBar } from 'expo-status-bar';
 
 const Favourite = ({ navigation }) => {
 
-    const renderItem = ({ item }) =>
+        // Sample data 
+        const foodData = [
+            {
+                price: '$5.00',
+                foodName: 'Chatpate',
+                restaurantName: 'Food Corner',
+                image: chatpate,
+                isLoveNeeded: true
+            },
+            // Add more items here
+            {
+                price: '$7.00',
+                foodName: 'Momo',
+                restaurantName: 'Momo King',
+                image: chatpate, // Use another image in real case
+                isLoveNeeded: true
+            },
+            {
+                price: '$10.00',
+                foodName: 'Pizza',
+                restaurantName: 'Pizza Hut',
+                image: chatpate, // Use another image in real case
+                isLoveNeeded: true
+            },
+            {
+                price: '$15.00',
+                foodName: 'Burger',
+                restaurantName: 'Burger King',
+                image: chatpate, // Use another image in real case
+                isLoveNeeded: true
+            },
+            {
+                price: '$5.00',
+                foodName: 'Chatpate',
+                restaurantName: 'Food Corner',
+                image: chatpate,
+                isLoveNeeded: true
+            },
+            {
+                price: '$7.00',
+                foodName: 'Momo',
+                restaurantName: 'Momo King',
+                image: chatpate, // Use another image in real case
+                isLoveNeeded: true
+            },
+            {
+                price: '$10.00',
+                foodName: 'Pizza',
+                restaurantName: 'Pizza Hut',
+                image: chatpate, // Use another image in real case
+                isLoveNeeded: true
+            },
+            {
+                price: '$15.00',
+                foodName: 'Burger',
+                restaurantName: 'Burger King',
+                image: chatpate, // Use another image in real case
+                isLoveNeeded: true
+            },
+        ];
+
+    const renderItem = ({item }) =>
        
         <List
-            price='50'
-            foodName='Chatpaate'
-            restaurantName='Delicious Restaurant'
-            image={chatpate}
-            isLoveNeeded={true}
+            price={item.price}
+            foodName={item.foodName}
+            restaurantName={item.restaurantName}
+            image={item.image}
+            isLoveNeeded={item.isLoveNeeded}
             navigation={navigation}
         />
    
@@ -30,7 +91,7 @@ const Favourite = ({ navigation }) => {
    
                 <View style={{ height: '93%', width: '100%'}}>
                     <FlatList
-                        data={Array(14).fill(null)} // Assuming you have 14 items
+                        data={foodData} 
                         renderItem={renderItem}
                         keyExtractor={(item, index) => index.toString()}
                         showsVerticalScrollIndicator={false}

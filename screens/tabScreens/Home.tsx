@@ -1,4 +1,4 @@
-import { View, Text, Dimensions, Image } from 'react-native'
+import { View, Text, Dimensions, Image, ImageBackground, FlatList } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../../style/style';
 import { StatusBar } from 'expo-status-bar';
@@ -17,13 +17,27 @@ import wallpaper from '../../assets/images/wallpaper.jpeg'
 import chicken from '../../assets/images/chicken.png'
 import burger from '../../assets/images/burger.png'
 import dishes from '../../assets/images/dishes.png'
+import categoryMOMO from '../../assets/images/categoryMOMO.png'
+import categoryNoodles from '../../assets/images/categoryNoodles.png'
+import categoryBurger from '../../assets/images/categoryBurger.png'
+import categoryCake from '../../assets/images/categoryCake.png'
+import categoryPizza from '../../assets/images/categoryPizza.png'
+import categoryChicken from '../../assets/images/categoryChicken.png'
 
 import Octicons from 'react-native-vector-icons/Octicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 const { width, height } = Dimensions.get('window');
 import { StyleSheet } from 'react-native';
 import PagerView from 'react-native-pager-view'
 import React, { useState, useEffect } from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
+import CategoriesRestaurant from '../../components/home/CategoriesRestaurant';
+import Price from '../../components/viewScreens/Price';
+import NearDishCard from '../../components/home/NearDishCard';
+import CardsCarousel from '../../components/home/Carousel';
+
+
 
 
 const images = [
@@ -34,6 +48,59 @@ const images = [
 
 const Home = ({ navigation }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const dishItems = [
+    {
+      "image": categoryChicken,
+      "price": "1500",
+      "name": "Grilled Chicken",
+      "reviewsNumber": 20,
+      "rating": 4.5
+    },
+    {
+      "image": categoryBurger,
+      "price": "300",
+      "name": "Burger",
+      "reviewsNumber": 200,
+      "rating": 4.5
+    },
+    {
+      "image": categoryMOMO,
+      "price": "1500",
+      "name": "Grilled Chicken",
+      "reviewsNumber": 20,
+      "rating": 4.5
+    },
+    {
+      "image": categoryNoodles,
+      "price": "300",
+      "name": "Burger",
+      "reviewsNumber": 200,
+      "rating": 4.5
+    },
+    {
+      "image": categoryPizza,
+      "price": "1500",
+      "name": "Grilled Chicken",
+      "reviewsNumber": 20,
+      "rating": 4.5
+    },
+    {
+      "image": categoryCake,
+      "price": "300",
+      "name": "Burger",
+      "reviewsNumber": 200,
+      "rating": 4.5
+    },
+  ]
+
+  // const renderDishItems = ({ item }) => <NearDishCard
+  //   image={item.image}
+  //   price={item.price}
+  //   name={item.name}
+  //   reiwesNumber={item.reviewsNumber}
+  //   rating={item.rating}
+  // />
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -57,25 +124,29 @@ const Home = ({ navigation }) => {
   }
   return (
     <SafeAreaView>
-      <StatusBar hidden={false} backgroundColor='#dc2f02' style='light' />
+      <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
       <View style={styles.home_screen}>
         <NavBar />
         {/* <ScrollView showsVerticalScrollIndicator={false} stickyHeaderIndices={[1]}> */}
         <ScrollView showsVerticalScrollIndicator={false} >
 
-          <LinearGradient
-          colors={['#dc2f02', '#e85d04', '#f48c06']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 0, y: 1 }} style={styles.dashboardContainer}>
+          <View style={styles.dashboardContainer} >
+            <View style={styles1.container}>
+              <Text style={styles1.greeting}>Good Afternoon, Nishant</Text>
+              <Text style={styles1.subText}>What would you like to have today?</Text>
+            </View>
+            {/* LinearGradient
+            colors={['#dc2f02', '#e85d04', '#f48c06']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 0, y: 1 }} style={styles.dashboardContainer} */}
             <PagerView
               ref={pagerRef}
-              // style={{width:width,height:'60%'}}
-              style={{width:width,height:150}}
+              style={{ width: width, height: 150 }}
               initialPage={0}
               onPageSelected={(e) => setActiveIndex(e.nativeEvent.position)}
             >
               {images.map((image, index) => (
-                <View  key={index} style={{alignItems:'center',height:'100%',paddingHorizontal:8}}>
+                <View key={index} style={{ alignItems: 'center', height: '100%', paddingHorizontal: 8 }}>
                   <View style={{ width: '100%', backgroundColor: "black", borderRadius: 20 }}>
                     <Image resizeMode='stretch' style={{ height: '100%', width: '100%', borderRadius: 20 }} source={image}></Image>
                   </View>
@@ -83,7 +154,7 @@ const Home = ({ navigation }) => {
 
               ))}
             </PagerView>
-          
+
 
             <View style={styles1.dashContainer}>
               {images.map((_, index) => (
@@ -91,25 +162,79 @@ const Home = ({ navigation }) => {
               ))}
             </View>
 
+            <View style={{ gap: 5, marginTop: 10, backgroundColor: '#F0F4F8', paddingVertical: 10 }}>
+              <View style={{ width: '100%', paddingHorizontal: 8 }}>
+                <Text style={{ fontFamily: 'poppins_bold', fontSize: 18 }}>Restaurant Categories</Text>
+              </View>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', width: '100%' }}>
+                <CategoriesRestaurant
+                  dishImage={categoryMOMO}
+                  dishName={'Momo'}
+                />
+                <CategoriesRestaurant
+                  dishImage={categoryNoodles}
+                  dishName={'Noodles'}
+                />
+                <CategoriesRestaurant
+                  dishImage={categoryBurger}
+                  dishName={'Burger'}
+                />
+                <CategoriesRestaurant
+                  dishImage={categoryPizza}
+                  dishName={'Pizza'}
+                />
+                <CategoriesRestaurant
+                  dishImage={categoryChicken}
+                  dishName={'Chicken'}
+                />
+                <CategoriesRestaurant
+                  dishImage={categoryCake}
+                  dishName={'Cake'}
+                />
+              </View>
 
-          </LinearGradient>
-{/* 
-          <View style={styles.home_categories_options}>
-            <View style={styles.category_container} >
-              <Categories
-                stylesForBox={[styles.category_boxes, { backgroundColor: '#D4A373', width: width * 0.303 }]}
-                category='Desert'
-              />
-              <Categories
-                stylesForBox={[styles.category_boxes, { backgroundColor: '#FF5722', width: width * 0.303 }]}
-                category='Snacks'
-              />
-              <Categories
-                stylesForBox={[styles.category_boxes, { backgroundColor: '#3E2723', width: width * 0.303 }]}
-                category='Drinks'
-              />
             </View>
-          </View> */}
+
+            <View style={{ gap: 5, marginTop: 10 }}>
+              <View style={{ width: '100%', paddingHorizontal: 8 }}>
+                <Text style={{ fontFamily: 'poppins_bold', fontSize: 18 }}>Explore on maps</Text>
+              </View>
+              <Map />
+            </View>
+
+            <View style={{ gap: 5, marginTop: 10, width: '100%', alignItems: 'center', backgroundColor: '#F0F4F8', paddingVertical: 5 }}>
+              <View style={{ width: '100%', paddingHorizontal: 8 }}>
+                <Text style={{ fontFamily: 'poppins_bold', fontSize: 18 }}>Best Selling Items Near Me</Text>
+              </View>
+              <View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', width: '100%', marginLeft: 20 }}>
+                  <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ height: 200 }}>
+                    <View style={{ height: '100%', width: '100%', flexDirection: 'row', gap: 30, paddingHorizontal: 12 }}>
+                      {
+                        dishItems.map((item, index) => (
+                          <View key={index} style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                            <NearDishCard
+                              image={item.image}
+                              price={item.price}
+                              name={item.name}
+                              reiwesNumber={item.reviewsNumber}
+                              rating={item.rating}
+                            />
+                          </View>
+
+                        ))
+                      }
+                    </View>
+                  </ScrollView>
+
+
+                </View>
+
+              </View>
+            </View>
+
+
+          </View>
 
           <View style={styles.foodItems_container}>
             <FoodItems
@@ -191,6 +316,31 @@ const styles1 = StyleSheet.create({
     borderColor: 'white',
     height: 0,
     borderRadius: 5
-  }
+  },
+  container: {
+    padding: 10,
+    // backgroundColor: '#fff',
+    width:'100%',
+    justifyContent: 'center',
+  },
+  greeting: {
+    fontSize: 25,
+    // fontWeight: '700',
+    fontFamily: 'poppins_bold',
+    color: '#1A1A1A',
+    // marginBottom: 8,
+    // Add text shadow for subtle depth
+    textShadowColor: 'rgba(0, 0, 0, 0.05)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
+  },
+  subText: {
+    fontSize: 16,
+    color: '#666',
+    fontFamily: 'poppins_semibold',
+    letterSpacing: 0.3,
+    marginTop:-5
+  },
+
 
 })

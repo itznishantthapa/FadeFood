@@ -11,7 +11,7 @@ const Map = () => {
         <Text style={{  fontSize:width*0.07, fontFamily:'pacifico',color:'#000000' }}>Explore your nearby</Text>
       </View> */}
     <View style={styles.map_box}>
-        <Image style={{height:'100%' ,width:'100%',borderRadius:10}} source={require('../../assets/map.jpg')}></Image>
+        <Image style={{height:'100%' ,width:'100%',borderRadius:10}} resizeMode='cover' source={require('../../assets/map.jpg')}></Image>
     </View>
   </View>
   )

@@ -81,11 +81,13 @@ export const styles = StyleSheet.create({
     backgroundColor: '#F8F9FA'
   },
   dashboardContainer: {
-    height: 250,
+    // height: 250,
+    height:height-60-60,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#ff7900',
+    // backgroundColor: '#ff7900',
+    backgroundColor: '#ced4da',
     // padding: 10,
   },
   homeHeading: {
@@ -98,21 +100,21 @@ export const styles = StyleSheet.create({
     // marginTop: 0,
   },
   homeMap: {
-    height: '55%',
+    height: 150,
     width: '100%',
-    padding: 10,
+    paddingHorizontal: 8,
     borderRadius: 20,
     width: '100%',
-    marginBottom: 20,
+    // marginBottom: 20,
     flexDirection:'column',
     justifyContent:'space-between',
-    gap:5
+    // gap:5
 
   },
   map_box: {
     borderWidth: 10,
     borderColor: '#FFFFFF',
-    height: '78%',
+    // height: '78%',
     borderRadius: 20,
     shadowColor: '#000', 
     shadowOffset: { width: 0, height: 2 }, 
@@ -170,7 +172,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     // backgroundColor: '#0d1b2a',
-    backgroundColor: '#dc2f02',
+    // backgroundColor: '#dc2f02',
+    backgroundColor: '#F0F4F8',
     zIndex: 10,
     // position: 'absolute', //need tp fixed 
     top: 0,
@@ -181,14 +184,15 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'start',
     alignItems: 'center',
-    borderWidth: 1.5,
-    borderColor: '#ffffff',
+    borderWidth: 2,
+    borderColor: '#FF5722',
     height: 45,
     width: '88%',
     borderRadius: 8,
     backgroundColor: '#F5F5F5',
     paddingHorizontal: 1,
     paddingLeft: 10,
+    paddingRight: 2,
   },
   searchInput: {
     // width: '75%',

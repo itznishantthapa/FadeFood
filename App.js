@@ -34,6 +34,8 @@ export default function App() {
     'montserrat_semibold': require('./assets/fonts/Montserrat-SemiBold.ttf'),
     'pacifico': require('./assets/fonts/Pacifico-Regular.ttf'),
     'poppins_regular': require('./assets/fonts/Poppins-Regular.ttf'),
+    'poppins_bold': require('./assets/fonts/Poppins-Bold.ttf'),
+    'poppins_semibold': require('./assets/fonts/Poppins-SemiBold.ttf'),
   });
   useEffect(() => {
     if (loaded || error) {

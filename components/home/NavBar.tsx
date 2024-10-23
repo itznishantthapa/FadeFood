@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
 import { styles } from '../../style/style'
 import { Entypo } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const NabBar = () => {
   const [searchText, setSearchText] = useState('');
@@ -107,18 +108,20 @@ const NabBar = () => {
         )}
 
         <View style={{
-          height: '95%',
+          height: '94%',
           width: '18%',
+          borderWidth:2,
           backgroundColor: '#FF5722',
           justifyContent: 'center',
           alignItems: 'center',
           borderRadius: 8,
-          marginLeft: 'auto'
+          marginLeft: 'auto',
+          borderColor: '#FF5722'
         }}>
           <Feather
             name="search"
             size={30}
-            style={{ color: '#000000' }}
+            style={{ color: '#ffffff' }}
           />
         </View>
       </View>

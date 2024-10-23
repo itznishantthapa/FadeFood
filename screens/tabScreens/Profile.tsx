@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import { styles } from '../../style/style';
 import SettingMenu from '../../components/profile/SettingMenu';
 import UserInfo from '../../components/profile/UserInfo';
+import CardsCarousel from '../../components/home/Carousel';
 
 const ProfileScreen = ({ navigation }) => {
 
@@ -20,6 +21,7 @@ const ProfileScreen = ({ navigation }) => {
                 <SettingMenu menuName={'Help and Support'} iconName={'help-circle-outline'} />
                 <SettingMenu menuName={'About'} iconName={'information-circle-outline'} />
                 <SettingMenu menuName={'Logout'} iconName={'log-out-outline'} />
+                <CardsCarousel></CardsCarousel>
             </View>
         </SafeAreaView>
     );

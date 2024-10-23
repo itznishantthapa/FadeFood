@@ -31,6 +31,7 @@ const ViewFood = ({ navigation }) => {
           <View style={styles1.orderAmount}>
             <Price
             price={'50'}
+            priceFontSize={30}
             />
           <Love/>
           </View>
