@@ -182,17 +182,32 @@ export const styles = StyleSheet.create({
   },
   searchBar: {
     flexDirection: 'row',
-    justifyContent: 'start',
     alignItems: 'center',
-    borderWidth: 2,
+    borderLeftWidth: 2,
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
     borderColor: '#FF5722',
     height: 45,
-    width: '88%',
-    borderRadius: 8,
+    width: '70%',
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20,
     backgroundColor: '#F5F5F5',
     paddingHorizontal: 1,
     paddingLeft: 10,
     paddingRight: 2,
+
+  },
+  searchView: {
+    height: 45,
+    borderColor: '#FF5722',
+    width: '15%',
+    borderWidth: 2,
+    borderLeftWidth: 0,
+    borderTopRightRadius: 20,
+    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 40,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   searchInput: {
     // width: '75%',
@@ -221,8 +236,15 @@ export const styles = StyleSheet.create({
   },
   foodItems_container: {
 
-    flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly', width: '100%', gap: 10, paddingBottom: 4
-
+    flexDirection: 'row',
+    width:'100%',
+    backgroundColor:'#F0F4F8'
+    // flexWrap: 'wrap',
+    // gap: 10,
+    // padding: 10,
+    // alignItems: 'flex-start',
+    // width: '100%',
+    // alignContent: 'flex-start', // add this to prevent bottom spacing
   },
   logoContainer: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',

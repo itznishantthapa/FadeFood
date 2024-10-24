@@ -19,7 +19,7 @@ const List = ({isLoveNeeded,image,foodName,restaurantName,price,navigation}) => 
             <View style={styles1.fod_info}>
                 <ItemName foodName={foodName} restaurantName={restaurantName}/>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
-                    <Price price={price} />
+                    <Price price={price} priceFontSize={24} />
                     {
                         isLoveNeeded ? (<Love />) : (<Increment_Decrement />)
                     }

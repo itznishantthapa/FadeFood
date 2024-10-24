@@ -19,6 +19,7 @@ import ViewFood from './screens/viewScreens/ViewFood';
 import FoodList from './screens/viewScreens/FoodList';
 import Inbox from './screens/viewScreens/Inbox';
 import TestScreen from './screens/viewScreens/TestScreen';
+import SearchScreen from './screens/viewScreens/SearchScreen';
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createStackNavigator();
@@ -59,6 +60,7 @@ export default function App() {
             <Stack.Screen name="ViewFood" component={ViewFood} options={{ headerShown: false }} />
             <Stack.Screen name="FoodList" component={FoodList} options={{ headerShown: false }} />
             <Stack.Screen name="Inbox" component={Inbox} options={{ headerShown: false }} />
+            <Stack.Screen name="SearchScreen" component={SearchScreen} options={{ headerShown: false }} />
             <Stack.Screen name="TestScreen" component={TestScreen} options={{ headerShown: false }} />
           </Stack.Navigator>
         </NavigationContainer>

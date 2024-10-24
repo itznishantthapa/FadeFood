@@ -1,4 +1,5 @@
 import { View, Text, Dimensions, Image, ImageBackground, FlatList } from 'react-native'
+import TouchableWithoutFeedback from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../../style/style';
 import { StatusBar } from 'expo-status-bar';
@@ -23,6 +24,8 @@ import categoryBurger from '../../assets/images/categoryBurger.png'
 import categoryCake from '../../assets/images/categoryCake.png'
 import categoryPizza from '../../assets/images/categoryPizza.png'
 import categoryChicken from '../../assets/images/categoryChicken.png'
+import biryani from '../../assets/biryani.jpg'
+// import chatapate from '../../assets/chatapate.jpg'
 
 import Octicons from 'react-native-vector-icons/Octicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -36,6 +39,8 @@ import CategoriesRestaurant from '../../components/home/CategoriesRestaurant';
 import Price from '../../components/viewScreens/Price';
 import NearDishCard from '../../components/home/NearDishCard';
 import CardsCarousel from '../../components/home/Carousel';
+import Greeting from '../../components/home/Greeting';
+import FoodCard from '../../components/home/FoodCard';
 
 
 
@@ -94,6 +99,108 @@ const Home = ({ navigation }) => {
     },
   ]
 
+  const FoodData= [
+    {
+      "food_picture": biryani,
+      "price": 1500,
+      "discount": 10,
+      "foodName": "Burger",
+      "no_fragments": null,
+      "eatsNumber": 120,
+      "rating": 4.5,
+      "location": "Dharan, Bhanuchowk"
+    },
+    {
+      "food_picture": chatapate,
+      "price": 1200,
+      "discount":null,
+      "foodName": "Pizza",
+      "no_fragments": "8",
+      "eatsNumber": 200,
+      "rating": 4.8,
+      "location": "Kathmandu, Thamel"
+    },
+    {
+      "food_picture": momo,
+      "price": 800,
+      "discount": 5,
+      "foodName": "Pasta",
+      "no_fragments": null,
+      "eatsNumber": 90,
+      "rating": 4.2,
+      "location": "Pokhara, Lakeside"
+    },
+    {
+      "food_picture": noodles,
+      "price": 500,
+      "discount": 20,
+      "foodName": "Sandwich",
+      "no_fragments": "6",
+      "eatsNumber": 70,
+      "rating": 4.0,
+      "location": "Biratnagar, Main Road"
+    },
+    {
+      "price": 300,
+      "discount": 10,
+      "foodName": "Momo",
+      "no_fragments": "3",
+      "eatsNumber": 150,
+      "rating": 4.7,
+      "location": "Chitwan, Narayangarh"
+    },
+    {
+      "price": 2000,
+      "discount": 25,
+      "foodName": "Steak",
+      "no_fragments": "10",
+      "eatsNumber": 80,
+      "rating": 4.9,
+      "location": "Lalitpur, Jhamsikhel"
+    },
+    {
+      "price": 400,
+      "discount": 12,
+      "foodName": "Fries",
+      "no_fragments": "2",
+      "eatsNumber": 110,
+      "rating": 4.1,
+      "location": "Itahari, Bus Park"
+    },
+    {
+      "price": 1800,
+      "discount": 30,
+      "foodName": "Sushi",
+      "no_fragments": "9",
+      "eatsNumber": 130,
+      "rating": 4.6,
+      "location": "Bhaktapur, Durbar Square"
+    },
+    {
+      "price": 1000,
+      "discount": 18,
+      "foodName": "Tacos",
+      "no_fragments": "7",
+      "eatsNumber": 95,
+      "rating": 4.3,
+      "location": "Butwal, Traffic Chowk"
+    },
+    {
+      "price": 1000,
+      "discount": 18,
+      "foodName": "Tacos",
+      "no_fragments": "7",
+      "eatsNumber": 95,
+      "rating": 4.3,
+      "location": "Butwal, Traffic Chowk"
+    },
+
+  ]
+    // Split data into two columns
+    const leftColumn = FoodData.filter((_, i) => i % 2 === 0);
+    const rightColumn = FoodData.filter((_, i) => i % 2 === 1);
+  
+
   // const renderDishItems = ({ item }) => <NearDishCard
   //   image={item.image}
   //   price={item.price}
@@ -122,23 +229,22 @@ const Home = ({ navigation }) => {
     console.log('Navigating to food view page')
     navigation.navigate('ViewFood')
   }
+  const handleSearchScreen = () => {
+    navigation.navigate('SearchScreen')
+    console.log('Navigating to search screen')
+  }
   return (
     <SafeAreaView>
       <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
       <View style={styles.home_screen}>
-        <NavBar />
+       
+        <NavBar handleSearchScreen={handleSearchScreen} isTextInput={false} isBack={false} handleBackButton={undefined}/>
+      
         {/* <ScrollView showsVerticalScrollIndicator={false} stickyHeaderIndices={[1]}> */}
         <ScrollView showsVerticalScrollIndicator={false} >
 
           <View style={styles.dashboardContainer} >
-            <View style={styles1.container}>
-              <Text style={styles1.greeting}>Good Afternoon, Nishant</Text>
-              <Text style={styles1.subText}>What would you like to have today?</Text>
-            </View>
-            {/* LinearGradient
-            colors={['#dc2f02', '#e85d04', '#f48c06']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 0, y: 1 }} style={styles.dashboardContainer} */}
+            <Greeting />
             <PagerView
               ref={pagerRef}
               style={{ width: width, height: 150 }}
@@ -236,55 +342,50 @@ const Home = ({ navigation }) => {
 
           </View>
 
+
           <View style={styles.foodItems_container}>
-            <FoodItems
-              FoodImage={dessert}
-              FoodPrice={50}
-              TimeToCook={20}
-              handleNavigation={handleNavigation}
-            />
-            <FoodItems
-              FoodImage={dessert}
-              FoodPrice={50}
-              TimeToCook={20}
-              handleNavigation={handleNavigation}
-            />
-            <FoodItems
-              FoodImage={dessert}
-              FoodPrice={50}
-              TimeToCook={20}
-              handleNavigation={handleNavigation}
-            />
-            <FoodItems
-              FoodImage={dessert}
-              FoodPrice={50}
-              TimeToCook={20}
-              handleNavigation={handleNavigation}
-            />
-            <FoodItems
-              FoodImage={dessert}
-              FoodPrice={50}
-              TimeToCook={20}
-              handleNavigation={handleNavigation}
-            />
-            <FoodItems
-              FoodImage={dessert}
-              FoodPrice={50}
-              TimeToCook={20}
-              handleNavigation={handleNavigation}
-            />
-            <FoodItems
-              FoodImage={dessert}
-              FoodPrice={50}
-              TimeToCook={20}
-              handleNavigation={handleNavigation}
-            />
-            <FoodItems
-              FoodImage={dessert}
-              FoodPrice={50}
-              TimeToCook={20}
-              handleNavigation={handleNavigation}
-            />
+            <View style={{width:'50%',alignItems:'center'}}>
+            {
+              leftColumn.map((item, index) => (
+                <FoodCard
+                key={index}
+                food_picture={item.food_picture}
+                price={item.price}
+                discount={item.discount}
+                foodName={item.foodName}
+                no_fragments={item.no_fragments}
+                eatsNumber={item.eatsNumber}
+                rating={item.rating} 
+                location={item.location}
+              />
+              ))
+            }
+            </View>
+            
+            <View style={{width:'50%',alignItems:'center'}}>
+            {
+              rightColumn.map((item, index) => (
+                <FoodCard
+                key={index}
+                food_picture={item.food_picture}
+                price={item.price}
+                discount={item.discount}
+                foodName={item.foodName}
+                no_fragments={item.no_fragments}
+                eatsNumber={item.eatsNumber}
+                rating={item.rating} 
+                location={item.location}
+              />
+              ))
+            }
+            </View>
+            
+        
+            
+
+
+
+           
 
           </View>
         </ScrollView>
@@ -316,30 +417,6 @@ const styles1 = StyleSheet.create({
     borderColor: 'white',
     height: 0,
     borderRadius: 5
-  },
-  container: {
-    padding: 10,
-    // backgroundColor: '#fff',
-    width:'100%',
-    justifyContent: 'center',
-  },
-  greeting: {
-    fontSize: 25,
-    // fontWeight: '700',
-    fontFamily: 'poppins_bold',
-    color: '#1A1A1A',
-    // marginBottom: 8,
-    // Add text shadow for subtle depth
-    textShadowColor: 'rgba(0, 0, 0, 0.05)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 2,
-  },
-  subText: {
-    fontSize: 16,
-    color: '#666',
-    fontFamily: 'poppins_semibold',
-    letterSpacing: 0.3,
-    marginTop:-5
   },
 
 
