@@ -39,7 +39,7 @@ const Inbox = ({ navigation }) => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <StatusBar hidden={false} backgroundColor='#dc2f02' style='light' />
+            <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
             <TopBar navigation={navigation} top_title='Inbox' />
             <KeyboardAvoidingView
                 style={{ flex: 1 }}

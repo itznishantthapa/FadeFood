@@ -6,6 +6,7 @@ import Button from '../../components/auth/Button';
 import { styles } from '../../style/style';
 import { StatusBar } from 'expo-status-bar';
 import IntroText from '../../components/auth/IntroText';
+import { scaleWidth } from '../../Scaling';
 
 const SignupScreen = ({ navigation }) => {
     const [email, set_email] = useState(null)
@@ -66,9 +67,9 @@ const SignupScreen = ({ navigation }) => {
                     handleAuthBtn={() => console.log('signup btn is pressed')}
                 />
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ color: '#757575', marginTop: 10, fontSize: 15 }}>Already have an account ?</Text>
+                    <Text style={{ color: '#757575', marginTop: 10,fontSize: scaleWidth(15),fontFamily:'poppins_regular'  }}>Already have an account ?</Text>
                     <TouchableWithoutFeedback onPress={() => { navigation.navigate('LoginScreens') }}>
-                        <Text style={{ color: '#4CAF50', marginTop: 10, fontSize: 18 }}> Login</Text>
+                        <Text style={{ color: '#4CAF50', marginTop: 10,  fontSize: scaleWidth(18) ,fontFamily:'poppins_regular' }}> Login</Text>
                     </TouchableWithoutFeedback>
                 </View>
 
@@ -77,4 +78,3 @@ const SignupScreen = ({ navigation }) => {
     )
 }
 export default SignupScreen;
-

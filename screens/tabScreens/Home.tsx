@@ -30,7 +30,7 @@ import biryani from '../../assets/biryani.jpg'
 import Octicons from 'react-native-vector-icons/Octicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-const { width, height } = Dimensions.get('window');
+
 import { StyleSheet } from 'react-native';
 import PagerView from 'react-native-pager-view'
 import React, { useState, useEffect } from 'react'
@@ -41,8 +41,10 @@ import NearDishCard from '../../components/home/NearDishCard';
 import CardsCarousel from '../../components/home/Carousel';
 import Greeting from '../../components/home/Greeting';
 import FoodCard from '../../components/home/FoodCard';
+import { scaleHeight, scaleWidth } from '../../Scaling';
 
 
+const { width, height } = Dimensions.get('window');
 
 
 const images = [
@@ -99,7 +101,7 @@ const Home = ({ navigation }) => {
     },
   ]
 
-  const FoodData= [
+  const FoodData = [
     {
       "food_picture": biryani,
       "price": 1500,
@@ -113,7 +115,7 @@ const Home = ({ navigation }) => {
     {
       "food_picture": chatapate,
       "price": 1200,
-      "discount":null,
+      "discount": null,
       "foodName": "Pizza",
       "no_fragments": "8",
       "eatsNumber": 200,
@@ -196,10 +198,10 @@ const Home = ({ navigation }) => {
     },
 
   ]
-    // Split data into two columns
-    const leftColumn = FoodData.filter((_, i) => i % 2 === 0);
-    const rightColumn = FoodData.filter((_, i) => i % 2 === 1);
-  
+  // Split data into two columns
+  const leftColumn = FoodData.filter((_, i) => i % 2 === 0);
+  const rightColumn = FoodData.filter((_, i) => i % 2 === 1);
+
 
   // const renderDishItems = ({ item }) => <NearDishCard
   //   image={item.image}
@@ -237,24 +239,24 @@ const Home = ({ navigation }) => {
     <SafeAreaView>
       <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
       <View style={styles.home_screen}>
-       
-        <NavBar handleSearchScreen={handleSearchScreen} isTextInput={false} isBack={false} handleBackButton={undefined}/>
-      
+
+        <NavBar handleSearchScreen={handleSearchScreen} isTextInput={false} isBack={false} handleBackButton={undefined} />
+
         {/* <ScrollView showsVerticalScrollIndicator={false} stickyHeaderIndices={[1]}> */}
         <ScrollView showsVerticalScrollIndicator={false} >
 
-          <View style={styles.dashboardContainer} >
+          <View style={styles1.dashboardContainer} >
             <Greeting />
             <PagerView
               ref={pagerRef}
-              style={{ width: width, height: 150 }}
+              style={{ width: width, height: scaleHeight(150) }}
               initialPage={0}
               onPageSelected={(e) => setActiveIndex(e.nativeEvent.position)}
             >
               {images.map((image, index) => (
-                <View key={index} style={{ alignItems: 'center', height: '100%', paddingHorizontal: 8 }}>
-                  <View style={{ width: '100%', backgroundColor: "black", borderRadius: 20 }}>
-                    <Image resizeMode='stretch' style={{ height: '100%', width: '100%', borderRadius: 20 }} source={image}></Image>
+                <View key={index} style={{ alignItems: 'center', height: '100%', paddingHorizontal: scaleWidth(8) }}>
+                  <View style={{ width: '100%', backgroundColor: "black", borderRadius: scaleWidth(20) }}>
+                    <Image resizeMode='stretch' style={{ height: '100%', width: '100%', borderRadius: scaleWidth(20) }} source={image}></Image>
                   </View>
                 </View>
 
@@ -264,13 +266,13 @@ const Home = ({ navigation }) => {
 
             <View style={styles1.dashContainer}>
               {images.map((_, index) => (
-                <View key={index} style={index === activeIndex ? [styles1.activeDash, { width: 50 - (index * 10) }] : [styles1.dash, { width: 50 - (index * 10) }]} />
+                <View key={index} style={index === activeIndex ? [styles1.activeDash, { width: scaleWidth(50) - (index * scaleWidth(10)) }] : [styles1.dash, { width: scaleWidth(50) - (index * scaleWidth(10)) }]} />
               ))}
             </View>
 
-            <View style={{ gap: 5, marginTop: 10, backgroundColor: '#F0F4F8', paddingVertical: 10 }}>
-              <View style={{ width: '100%', paddingHorizontal: 8 }}>
-                <Text style={{ fontFamily: 'poppins_bold', fontSize: 18 }}>Restaurant Categories</Text>
+            <View style={{ gap: scaleHeight(5), marginTop: scaleHeight(10), backgroundColor: '#F0F4F8', paddingVertical: scaleHeight(10),width:'100%' }}>
+              <View style={{ width: '100%', paddingHorizontal: scaleWidth(8) }}>
+                <Text style={{ fontFamily: 'poppins_bold', fontSize: scaleWidth(18) }}>Restaurant Categories</Text>
               </View>
               <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', width: '100%' }}>
                 <CategoriesRestaurant
@@ -301,21 +303,21 @@ const Home = ({ navigation }) => {
 
             </View>
 
-            <View style={{ gap: 5, marginTop: 10 }}>
-              <View style={{ width: '100%', paddingHorizontal: 8 }}>
-                <Text style={{ fontFamily: 'poppins_bold', fontSize: 18 }}>Explore on maps</Text>
+            <View style={{ gap: scaleHeight(5), marginTop: scaleHeight(10) }}>
+              <View style={{ width: '100%', paddingHorizontal: scaleWidth(8) }}>
+                <Text style={{ fontFamily: 'poppins_bold', fontSize: scaleWidth(18) }}>Explore on maps</Text>
               </View>
               <Map />
             </View>
 
-            <View style={{ gap: 5, marginTop: 10, width: '100%', alignItems: 'center', backgroundColor: '#F0F4F8', paddingVertical: 5 }}>
-              <View style={{ width: '100%', paddingHorizontal: 8 }}>
-                <Text style={{ fontFamily: 'poppins_bold', fontSize: 18 }}>Best Selling Items Near Me</Text>
+            <View style={{ gap: scaleHeight(5), marginTop: scaleHeight(10), width: '100%', alignItems: 'center', backgroundColor: '#F0F4F8', paddingVertical: scaleHeight(5) }}>
+              <View style={{ width: '100%', paddingHorizontal: scaleWidth(8) }}>
+                <Text style={{ fontFamily: 'poppins_bold', fontSize: scaleWidth(18) }}>Best Selling Items Near Me</Text>
               </View>
               <View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', width: '100%', marginLeft: 20 }}>
-                  <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ height: 200 }}>
-                    <View style={{ height: '100%', width: '100%', flexDirection: 'row', gap: 30, paddingHorizontal: 12 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', width: '100%', marginLeft: scaleWidth(20) }}>
+                  <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ height: scaleHeight(200) }}>
+                    <View style={{ height: '100%', width: '100%', flexDirection: 'row', gap: scaleWidth(30), paddingHorizontal: scaleWidth(12) }}>
                       {
                         dishItems.map((item, index) => (
                           <View key={index} style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
@@ -344,48 +346,48 @@ const Home = ({ navigation }) => {
 
 
           <View style={styles.foodItems_container}>
-            <View style={{width:'50%',alignItems:'center'}}>
-            {
-              leftColumn.map((item, index) => (
-                <FoodCard
-                key={index}
-                food_picture={item.food_picture}
-                price={item.price}
-                discount={item.discount}
-                foodName={item.foodName}
-                no_fragments={item.no_fragments}
-                eatsNumber={item.eatsNumber}
-                rating={item.rating} 
-                location={item.location}
-              />
-              ))
-            }
+            <View style={{ width: '50%', alignItems: 'center'}}>
+              {
+                leftColumn.map((item, index) => (
+                  <FoodCard
+                    key={index}
+                    food_picture={item.food_picture}
+                    price={item.price}
+                    discount={item.discount}
+                    foodName={item.foodName}
+                    no_fragments={item.no_fragments}
+                    eatsNumber={item.eatsNumber}
+                    rating={item.rating}
+                    location={item.location}
+                  />
+                ))
+              }
             </View>
-            
-            <View style={{width:'50%',alignItems:'center'}}>
-            {
-              rightColumn.map((item, index) => (
-                <FoodCard
-                key={index}
-                food_picture={item.food_picture}
-                price={item.price}
-                discount={item.discount}
-                foodName={item.foodName}
-                no_fragments={item.no_fragments}
-                eatsNumber={item.eatsNumber}
-                rating={item.rating} 
-                location={item.location}
-              />
-              ))
-            }
+
+            <View style={{ width: '50%', alignItems: 'center' }}>
+              {
+                rightColumn.map((item, index) => (
+                  <FoodCard
+                    key={index}
+                    food_picture={item.food_picture}
+                    price={item.price}
+                    discount={item.discount}
+                    foodName={item.foodName}
+                    no_fragments={item.no_fragments}
+                    eatsNumber={item.eatsNumber}
+                    rating={item.rating}
+                    location={item.location}
+                  />
+                ))
+              }
             </View>
-            
-        
-            
 
 
 
-           
+
+
+
+
 
           </View>
         </ScrollView>
@@ -396,24 +398,33 @@ const Home = ({ navigation }) => {
 export default Home
 
 const styles1 = StyleSheet.create({
+  dashboardContainer: {
+    height: height - scaleHeight(120),
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    // backgroundColor: '#ff7900',
+    // backgroundColor: '#ced4da',
+    backgroundColor: '#DDE1E3',
+    // padding: 10,
+  },
   dashContainer: {
     flexDirection: 'row',
-    gap: 10,
+    gap: scaleWidth(10),
     position: 'static',
-    bottom: 15,
+    bottom: scaleHeight(15),
     width: '100%',
     zIndex: 1,
-    // backgroundColor: 'black',
     justifyContent: 'center',
   },
   dash: {
-    borderBottomWidth: 6,
+    borderBottomWidth: scaleWidth(6),
     borderColor: 'grey',
     height: 0,
     borderRadius: 5
   },
   activeDash: {
-    borderBottomWidth: 6,
+    borderBottomWidth: scaleWidth(6),
     borderColor: 'white',
     height: 0,
     borderRadius: 5

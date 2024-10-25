@@ -14,7 +14,7 @@ const Chat = ({ navigation }) => {
         
     return (
         <SafeAreaView>
-            <StatusBar hidden={false} backgroundColor='#dc2f02' style='light' />
+             <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
             <TopBar navigation={navigation} top_title='Messages' />
             <View style={{ justifyContent: 'flex-start',borderTopRightRadius:15,height:'93%',marginTop:8 }}>
                 <FlatList

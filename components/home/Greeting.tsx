@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { scaleHeight, scaleWidth } from '../../Scaling';
 
 const Greeting = () => {
   return (
@@ -12,28 +13,28 @@ const Greeting = () => {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
+        padding: scaleWidth(10),
         // backgroundColor: '#fff',
         width:'100%',
         justifyContent: 'center',
       },
       greeting: {
-        fontSize: 25,
+        fontSize: scaleWidth(25),
         // fontWeight: '700',
         fontFamily: 'poppins_bold',
         color: '#1A1A1A',
         // marginBottom: 8,
         // Add text shadow for subtle depth
         textShadowColor: 'rgba(0, 0, 0, 0.05)',
-        textShadowOffset: { width: 0, height: 1 },
-        textShadowRadius: 2,
+        textShadowOffset: { width: 0, height: scaleHeight(1) },
+        textShadowRadius: scaleWidth(2),
       },
       subText: {
-        fontSize: 16,
+        fontSize: scaleWidth(16),
         color: '#666',
         fontFamily: 'poppins_semibold',
-        letterSpacing: 0.3,
-        marginTop:-5
+        letterSpacing:scaleWidth(0.3),
+        marginTop:scaleHeight(-5)
       },
     
 });

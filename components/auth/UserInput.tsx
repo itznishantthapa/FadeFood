@@ -1,13 +1,14 @@
 import { StyleSheet, TextInput, View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import IconIon from 'react-native-vector-icons/Ionicons'
+import { scaleWidth } from '../../Scaling'
 
 const UserInput = ({ value, onChangeText, inputBoxStyle, inputTopic, authBox, isEyeNeeded, passwordVisible, togglePasswordVisibility }) => {
 
   return (
     <>
       <View style={authBox}>
-        <Text style={{ color: '#757575', fontWeight: 'bold' }}>{inputTopic}</Text>
+        <Text style={{ color: '#757575', fontFamily:'poppins_semibold',fontSize:scaleWidth(12) }}>{inputTopic}</Text>
         <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
           <TextInput
             value={value}
@@ -20,7 +21,7 @@ const UserInput = ({ value, onChangeText, inputBoxStyle, inputTopic, authBox, is
           {
             isEyeNeeded ? (
               <TouchableOpacity onPress={togglePasswordVisibility}>
-                <IconIon style={{ marginLeft: 10 }} name={passwordVisible ? 'eye-off-outline' : 'eye-outline'} size={40} />
+                <IconIon style={{ marginLeft:scaleWidth(10) }} name={passwordVisible ? 'eye-off-outline' : 'eye-outline'} size={scaleWidth(40)} />
               </TouchableOpacity>
             ) : null
           }

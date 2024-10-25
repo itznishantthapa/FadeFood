@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Animated } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, forwardRef } from 'react'
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
@@ -8,14 +8,17 @@ import { TextInput } from 'react-native-gesture-handler';
 import { Entypo } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AntDesign } from '@expo/vector-icons';
+import { scaleWidth,scaleHeight } from '../../Scaling';
 
-const NabBar = ({ handleSearchScreen,handleBackButton,isTextInput,isBack }) => {
+
+
+const NabBar = ({ handleSearchScreen, handleBackButton, isTextInput, isBack }) => {
   const [searchText, setSearchText] = useState('');
   // Array of placeholder texts that will rotate
   const placeholders = [
     'Go for your favorite restaurant',
     'Mo:mo',
-    'Sadeko Sukuti',
+    'Keema Noodles',
     'Find delicious meals'
   ];
 
@@ -77,27 +80,26 @@ const NabBar = ({ handleSearchScreen,handleBackButton,isTextInput,isBack }) => {
     };
   }, [searchText]); // Now depends on searchText to restart animation when text is cleared
 
-
   return (
     <View style={styles.navBar}>
-      { isBack? (
+      {isBack ? (
         <TouchableOpacity onPress={handleBackButton}>
           <AntDesign
             name='arrowleft'
-            size={30}
+            size={scaleWidth(30)}
             style={{ color: '#FF5722' }}
           />
         </TouchableOpacity>
-      ):(
-      <View style={styles.logoContainer}>
-        <Image
-          source={require('../../assets/fadefood_logo.png')}
-          style={styles.nav_logo}
-        />
-      </View>
+      ) : (
+        <View style={styles.logoContainer}>
+          <Image
+            source={require('../../assets/fadefood_logo.png')}
+            style={styles.nav_logo}
+          />
+        </View>
       )
-    }
-   
+      }
+
 
       <View style={{ flexDirection: 'row', width: '100%', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
 
@@ -109,31 +111,33 @@ const NabBar = ({ handleSearchScreen,handleBackButton,isTextInput,isBack }) => {
 
           <Animated.View style={{ opacity: fadeAnim, width: '90%' }}>
             {
-              isTextInput?(
+              isTextInput ? (
                 <TextInput
-                selectionColor="#BDBDBD"
-                style={styles.searchInput}
-                placeholder={placeholders[currentPlaceholderIndex]}
-                value={searchText}
-                onChangeText={text => setSearchText(text)}
-                returnKeyType="search"
-              />
-              ):(
-                <TouchableWithoutFeedback onPress={handleSearchScreen} style={{justifyContent:'center',height:'100%',zIndex:-122}}>
-                <TextInput
+                  autoFocus={true}
                   selectionColor="#BDBDBD"
+                  cursorColor={'grey'}
                   style={styles.searchInput}
                   placeholder={placeholders[currentPlaceholderIndex]}
                   value={searchText}
                   onChangeText={text => setSearchText(text)}
                   returnKeyType="search"
-                  editable={false}
                 />
-              </TouchableWithoutFeedback>
-  
+              ) : (
+                <TouchableWithoutFeedback onPress={handleSearchScreen} style={{ justifyContent: 'center', height: '100%' }} >
+                  <TextInput
+                    selectionColor="#BDBDBD"
+                    style={styles.searchInput}
+                    placeholder={placeholders[currentPlaceholderIndex]}
+                    value={searchText}
+                    onChangeText={text => setSearchText(text)}
+                    returnKeyType="search"
+                    editable={false}
+                  />
+                </TouchableWithoutFeedback>
+
               )
             }
-           
+
           </Animated.View>
 
 
@@ -141,7 +145,7 @@ const NabBar = ({ handleSearchScreen,handleBackButton,isTextInput,isBack }) => {
             <TouchableOpacity onPress={handleClear}>
               <Entypo
                 name='circle-with-cross'
-                size={18}
+                size={scaleWidth(18)}
                 style={{ color: '#adb5bd' }}
               />
             </TouchableOpacity>
@@ -153,7 +157,7 @@ const NabBar = ({ handleSearchScreen,handleBackButton,isTextInput,isBack }) => {
         <View style={styles.searchView}>
           <Feather
             name="search"
-            size={30}
+            size={scaleWidth(30)}
             style={{ color: '#FF5722' }}
           />
         </View>
@@ -171,74 +175,61 @@ export default NabBar
 const styles = StyleSheet.create({
   navBar: {
     width: '100%',
-    height: 60,
+    height: scaleHeight(60),
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    // backgroundColor: '#0d1b2a',
-    // backgroundColor: '#dc2f02',
     backgroundColor: '#F0F4F8',
     zIndex: 10,
-    // position: 'absolute', //need tp fixed 
     top: 0,
     gap: 5,
     paddingHorizontal: 8,
+    
   },
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderLeftWidth: 2,
-    borderTopWidth: 2,
-    borderBottomWidth: 2,
+    borderLeftWidth: scaleWidth(2),
+    borderTopWidth: scaleWidth(2),
+    borderBottomWidth: scaleWidth(2),
     borderColor: '#FF5722',
-    height: 45,
+    height: scaleHeight(45),
     width: '70%',
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    backgroundColor: '#F5F5F5',
-    paddingHorizontal: 1,
-    paddingLeft: 10,
-    paddingRight: 2,
+    borderTopLeftRadius: scaleWidth(20),
+    borderBottomLeftRadius: scaleWidth(20),
+    // backgroundColor: '#F5F5F5',
+    paddingHorizontal: scaleWidth(1),
+    paddingLeft: scaleWidth(10),
+    paddingRight: scaleWidth(2),
 
   },
   searchView: {
-    height: 45,
+    height: scaleHeight(45),
     borderColor: '#FF5722',
     width: '15%',
-    borderWidth: 2,
+    borderWidth: scaleWidth(2),
     borderLeftWidth: 0,
-    borderTopRightRadius: 20,
-    borderBottomRightRadius: 20,
-    borderBottomLeftRadius: 40,
+    borderTopRightRadius: scaleWidth(20),
+    borderBottomRightRadius: scaleWidth(20),
+    borderBottomLeftRadius: scaleWidth(40),
     alignItems: 'center',
     justifyContent: 'center'
   },
   searchInput: {
-    // width: '75%',
     height: '80%',
     color: '#666666',
-    fontSize: 16,
+    fontSize: scaleWidth(16),
     fontFamily: 'poppins_regular',
-    // backgroundColor: 'red',
     textAlignVertical: 'bottom',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-
-
   },
   nav_logo: {
-    height: 30,
-    width: 30,
-    resizeMode: 'contain',
+    height: scaleHeight(30),
+    width: scaleWidth(30),
+    resizeMode: 'cover',
   },
   logoContainer: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    padding: 8,
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
-    elevation: 8,
+    backgroundColor: 'rgba(255, 87, 34, 0.8)',
+    padding: scaleWidth(8),
+    borderRadius: scaleWidth(10),
   },
 });

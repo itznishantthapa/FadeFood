@@ -13,6 +13,7 @@ import Favourite from '../tabScreens/Favourite';
 import Scanner from './Scanner';
 import Profile from '../tabScreens/Profile';
 import Chat from '../tabScreens/Chat';
+import { scaleHeight, scaleWidth } from '../../Scaling';
 
 const Tab = createBottomTabNavigator();
 const TabBars = () => {
@@ -27,23 +28,23 @@ const TabBars = () => {
 
           if (route.name === 'Home') {
             return (
-              focused ? <Entypo name='home' size={30} color={color} /> : <Ant name='home' size={30} color={color} />
+              focused ? <Entypo name='home' size={scaleWidth(30)} color={color} /> : <Ant name='home' size={scaleWidth(30)} color={color} />
             );
           } else if (route.name === 'Favourite') {
-            return <MaterialIcon name={focused ? "favorite" : 'favorite-border'} color={color} size={30} />;
+            return <MaterialIcon name={focused ? "favorite" : 'favorite-border'} color={color} size={scaleWidth(30)} />;
           } else if (route.name === 'Scanner') {
-            return <MaterialCommunityIcons name="qrcode-scan" color={color} size={35} />
+            return <MaterialCommunityIcons name="qrcode-scan" color={color} size={scaleWidth(35)} />
           } else if (route.name === 'Chat') {
-            return <Ionicons name={focused ? "chatbubbles-sharp" : "chatbubbles-outline"} color={color} size={30} />;
+            return <Ionicons name={focused ? "chatbubbles-sharp" : "chatbubbles-outline"} color={color} size={scaleWidth(30)} />;
           } else if (route.name === 'Profile') {
-            return <Entypo name="info" color={color} size={30} />;
+            return <Entypo name="info" color={color} size={scaleWidth(30)} />;
           }
         },
         tabBarActiveTintColor: '#FF5722',
         tabBarInactiveTintColor: '#757575',
         tabBarStyle: {
           backgroundColor: '#ffffff',
-          height: 60
+          height: scaleHeight(60)
         }
       })}
     >

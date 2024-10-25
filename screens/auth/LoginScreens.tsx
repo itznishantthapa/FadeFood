@@ -6,6 +6,7 @@ import Button from '../../components/auth/Button';
 import { styles } from '../../style/style';
 import { StatusBar } from 'expo-status-bar';
 import IntroText from '../../components/auth/IntroText';
+import { scaleHeight, scaleWidth } from '../../Scaling';
 
 const LoginScreens = ({ navigation }) => {
     const [email, set_email] = useState(null)
@@ -46,13 +47,13 @@ const LoginScreens = ({ navigation }) => {
                     togglePasswordVisibility={togglePasswordVisibility}
                 />
                 <TouchableWithoutFeedback onPress={() => navigation.navigate('ForgetPassword')}>
-                    <Text style={{ color: '#757575', marginLeft: 'auto', paddingRight: '10%', marginTop: 20 }}>Forget Password?</Text>
+                    <Text style={{ color: '#757575', marginLeft: 'auto', paddingRight: '10%', marginTop: scaleHeight(20),fontFamily:'poppins_regular',fontSize:scaleWidth(12)  }}>Forget Password?</Text>
                 </TouchableWithoutFeedback>
                 <Button style={styles.loginButton} btnText='Login' handleAuthBtn={() => {navigation.navigate('TabBars')}} />
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ color: '#757575', marginTop: 10, fontSize: 15 }}>Don&#39;t have an account ?</Text>
+                    <Text style={{ color: '#757575', marginTop: scaleHeight(10), fontSize: scaleWidth(15),fontFamily:'poppins_regular' }}>Don&#39;t have an account ?</Text>
                     <TouchableWithoutFeedback onPress={() => { navigation.navigate('SignupScreen') }}>
-                        <Text style={{ color: '#4CAF50', marginTop: 10, fontSize: 18 }}> SignUp</Text>
+                        <Text style={{ color: '#4CAF50', marginTop: scaleHeight(10), fontSize: scaleWidth(18) ,fontFamily:'poppins_regular' }}> SignUp</Text>
                     </TouchableWithoutFeedback>
                 </View>
 

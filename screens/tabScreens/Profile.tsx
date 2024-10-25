@@ -12,7 +12,7 @@ const ProfileScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView >
-            <StatusBar hidden={false} backgroundColor='#dc2f02' style='light' />
+            <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
             <View style={styles.home_screen}>
                 <TopBar navigation={navigation} top_title='Profile' />
                 <UserInfo />

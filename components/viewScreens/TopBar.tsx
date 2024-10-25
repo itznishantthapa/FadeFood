@@ -7,15 +7,10 @@ const { width, height } = Dimensions.get('window');
 
 const TopBar = ({ top_title, navigation }) => {
   return (
-<LinearGradient
-  colors={['#dc2f02', '#e85d04', '#f48c06']}
-  start={{ x: 0, y: 0 }}
-  end={{ x: 0, y: 1 }}
-  style={styles.topBarContainer}
->
+    <View style={styles.topBarContainer} >
 
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Ionicons name="chevron-back" size={28} color="white" />
+        <Ionicons name="chevron-back" size={28} color="black" />
       </TouchableOpacity>
 
       <View style={styles.titleContainer}>
@@ -24,9 +19,9 @@ const TopBar = ({ top_title, navigation }) => {
       </View>
 
       <TouchableOpacity style={styles.menuButton}>
-        <Ionicons name="menu" size={28} color="white" />
+        <Ionicons name="menu" size={28} color="black" />
       </TouchableOpacity>
-    </LinearGradient>
+    </View>
   );
 };
 
@@ -41,17 +36,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-      },
-      android: {
-        elevation: 5,
-      },
-    }),
+    backgroundColor:'#F0F4F8'
   },
   backButton: {
     padding: 5,
@@ -64,13 +49,13 @@ const styles = StyleSheet.create({
   topBarTitle: {
     fontFamily: 'jakarta_bold',
     fontSize: 24,
-    color: 'white',
+    color: 'black',
     textAlign: 'center',
   },
   underline: {
     width: '80%',
     height: 2,
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     marginTop: 5,
     borderRadius: 1,
   },
