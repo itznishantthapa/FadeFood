@@ -30,7 +30,7 @@ const BigImage = () => {
 
       <View style={styles1.dotContainer}>
         {images.map((_, index) => (
-          <Text key={index} style={index === activeIndex ? [styles1.activeDot,{fontSize:(index+1)*20}] : [styles1.dot,{fontSize:(index+1)*20}]}>o</Text>
+          <Text key={index} style={index===activeIndex?styles1.activeDot:styles1.dot}>o</Text>
         ))}
       </View>
 
@@ -55,7 +55,7 @@ const styles1 = StyleSheet.create({
     margin: 3,
   },
   activeDot: {
-    // fontSize: 20,
+    fontSize: 20,
     color: '#fff',
     margin: 3,
   },

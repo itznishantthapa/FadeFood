@@ -173,7 +173,7 @@ const Home = ({ navigation }) => {
       "price": 1800,
       "discount": 30,
       "foodName": "Sushi",
-      "no_fragments": "9",
+      "no_fragments":null,
       "eatsNumber": 130,
       "rating": 4.6,
       "location": "Bhaktapur, Durbar Square"
@@ -191,7 +191,7 @@ const Home = ({ navigation }) => {
       "price": 1000,
       "discount": 18,
       "foodName": "Tacos",
-      "no_fragments": "7",
+      "no_fragments": null,
       "eatsNumber": 95,
       "rating": 4.3,
       "location": "Butwal, Traffic Chowk"
@@ -240,7 +240,7 @@ const Home = ({ navigation }) => {
       <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
       <View style={styles.home_screen}>
 
-        <NavBar handleSearchScreen={handleSearchScreen} isTextInput={false} isBack={false} handleBackButton={undefined} />
+        <NavBar handleSearchScreen={handleSearchScreen} isTextInput={false} isBack={false} navigation={navigation} />
 
         {/* <ScrollView showsVerticalScrollIndicator={false} stickyHeaderIndices={[1]}> */}
         <ScrollView showsVerticalScrollIndicator={false} >
@@ -314,8 +314,9 @@ const Home = ({ navigation }) => {
               <View style={{ width: '100%', paddingHorizontal: scaleWidth(8) }}>
                 <Text style={{ fontFamily: 'poppins_bold', fontSize: scaleWidth(18) }}>Best Selling Items Near Me</Text>
               </View>
+
               <View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', width: '100%', marginLeft: scaleWidth(20) }}>
+                <View style={{ flexDirection: 'column', justifyContent: 'space-evenly', width: '100%', marginLeft: scaleWidth(20) }}>
                   <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ height: scaleHeight(200) }}>
                     <View style={{ height: '100%', width: '100%', flexDirection: 'row', gap: scaleWidth(30), paddingHorizontal: scaleWidth(12) }}>
                       {
@@ -329,17 +330,15 @@ const Home = ({ navigation }) => {
                               rating={item.rating}
                             />
                           </View>
-
                         ))
                       }
                     </View>
                   </ScrollView>
-
-
+                  {/* <View style={{width:width,borderWidth:1,borderColor:'grey',bottom:10,position:'absolute'}}></View> */}
                 </View>
-
               </View>
             </View>
+
 
 
           </View>
@@ -407,6 +406,8 @@ const styles1 = StyleSheet.create({
     // backgroundColor: '#ced4da',
     backgroundColor: '#DDE1E3',
     // padding: 10,
+    //  marginBottom: scaleHeight(10),
+    //  paddingBottom: scaleHeight(10),
   },
   dashContainer: {
     flexDirection: 'row',

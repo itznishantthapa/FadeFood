@@ -1,14 +1,16 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { scaleWidth } from '../../Scaling'
 
-const ItemName = ({foodName,restaurantName}) => {
+const ItemName = ({foodName,restaurantName,fontsize}) => {
+
   return (
     <View style={styles1.orderName}>
     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ fontFamily: 'jakarta_bold', fontSize: 25 }}>{foodName}</Text>
-      <Text style={{ fontFamily: 'jakarta_bold', color: 'grey' }}>by</Text>
+      <Text style={{ fontFamily: 'jakarta_bold', fontSize: fontsize }}>{foodName}</Text>
+      {/* <Text style={{ fontFamily: 'jakarta_bold', color: 'grey',fontSize:12 }}>by</Text> */}
     </View>
-    <Text style={{ fontFamily: 'jakarta_bold', color: 'grey' }}>{restaurantName}</Text>
+    <Text style={{ fontFamily: 'jakarta_bold', color: 'grey',fontSize:10 }}>{restaurantName}</Text>
   </View>
   )
 }

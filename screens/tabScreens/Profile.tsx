@@ -13,15 +13,14 @@ const ProfileScreen = ({ navigation }) => {
     return (
         <SafeAreaView >
             <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
+            <TopBar navigation={navigation} top_title='Profile' />
             <View style={styles.home_screen}>
-                <TopBar navigation={navigation} top_title='Profile' />
                 <UserInfo />
                 <SettingMenu menuName={'Account'} iconName={'person-outline'} />
                 <SettingMenu menuName={'Privacy and Security'} iconName={'shield-outline'} />
                 <SettingMenu menuName={'Help and Support'} iconName={'help-circle-outline'} />
                 <SettingMenu menuName={'About'} iconName={'information-circle-outline'} />
                 <SettingMenu menuName={'Logout'} iconName={'log-out-outline'} />
-                <CardsCarousel></CardsCarousel>
             </View>
         </SafeAreaView>
     );

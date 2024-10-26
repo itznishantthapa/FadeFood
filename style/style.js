@@ -95,7 +95,7 @@ export const styles = StyleSheet.create({
     height: scaleHeight(150),
     width: '100%',
     paddingHorizontal: 8,
-    borderRadius: 20,
+    borderRadius: scaleWidth(20),
     width: '100%',
     // marginBottom: 20,
     flexDirection: 'column',
@@ -168,7 +168,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     backgroundColor: '#F0F4F8'
-    ,paddingBottom:scaleHeight(60) 
+    ,paddingBottom:scaleHeight(60) , 
+    // marginTop: scaleHeight(10)
   },
 
   price: {

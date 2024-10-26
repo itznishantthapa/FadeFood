@@ -2,40 +2,72 @@ import { StyleSheet, Text, View } from 'react-native'
 import React,{useState} from 'react'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import { scaleHeight, scaleWidth } from '../../Scaling'
 
 
 const Love = () => {
     const [isFavorite, setFavorite] = useState(true);
 
-    const handleFavorite = () => {
+    const toggleFavorite = () => {
       setFavorite(!isFavorite);
     }
   return (
     <View>
       {
-              isFavorite ? (<TouchableOpacity onPress={handleFavorite}>
+              isFavorite ? (
+              
+                <TouchableOpacity 
+                onPress={toggleFavorite}
+                style={{ 
+                    height: scaleHeight(30), 
+                    width: scaleWidth(40), 
+                    backgroundColor: isFavorite ? '#FF6347' : '#FFFFFF', // Change background based on state
+                    borderTopRightRadius: 12, 
+                    borderBottomLeftRadius: 12, 
+                    // borderBottomRightRadius: 12, 
+                    // borderTopLeftRadius: 12, 
+                    marginLeft: 'auto', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    elevation: 2 // Optional: adds shadow on Android
+                }}
+            >
                 <MaterialIcons
-                  style={{
-                    color: 'red',
-                    textShadowColor: 'rgba(0, 0, 0, 0.75)',
-                    textShadowOffset: { width: 1, height: 1 },
-                    textShadowRadius: 7
-                  }}
-                  name='favorite'
-                  size={40}
+                    name={isFavorite ? 'favorite' : 'favorite-border'} // Change icon based on state
+                    size={scaleWidth(25)} 
+                    style={{ 
+                        color: isFavorite ? '#8B0000' : '#FF6347' // Change color based on state
+                    }}
                 />
-              </TouchableOpacity>) : (<TouchableOpacity onPress={handleFavorite}>
-                <MaterialIcons
-                  style={{
-                    color: 'grey',
-                    textShadowColor: 'rgba(0, 0, 0, 0.75)',
-                    textShadowOffset: { width: 1, height: 1 },
-                    textShadowRadius: 7
+            </TouchableOpacity>
+            
+            
+            ) : (
+              <TouchableOpacity 
+              onPress={toggleFavorite}
+              style={{ 
+                  height: scaleHeight(30), 
+                  width: scaleWidth(40), 
+                  backgroundColor: isFavorite ? '#FF6347' : '#FFFFFF', // Change background based on state
+                  borderTopRightRadius: 12, 
+                  borderBottomLeftRadius: 12, 
+                  marginLeft: 'auto', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  elevation: 2 // Optional: adds shadow on Android
+              }}
+          >
+              <MaterialIcons
+                  name={isFavorite ? 'favorite' : 'favorite-border'} // Change icon based on state
+                  size={scaleWidth(25)} 
+                  style={{ 
+                      color: isFavorite ? '#8B0000' : '#FF6347' // Change color based on state
                   }}
-                  name='favorite-outline'
-                  size={40}
-                />
-              </TouchableOpacity>
+              />
+          </TouchableOpacity>
+          
+
+
               )
             }
     </View>
@@ -44,4 +76,3 @@ const Love = () => {
 
 export default Love
 
-const styles = StyleSheet.create({})

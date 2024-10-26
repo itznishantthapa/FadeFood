@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
       },
       greeting: {
-        fontSize: scaleWidth(25),
+        fontSize: scaleWidth(20),
         // fontWeight: '700',
         fontFamily: 'poppins_bold',
         color: '#1A1A1A',
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         textShadowRadius: scaleWidth(2),
       },
       subText: {
-        fontSize: scaleWidth(16),
+        fontSize: scaleWidth(14),
         color: '#666',
         fontFamily: 'poppins_semibold',
         letterSpacing:scaleWidth(0.3),

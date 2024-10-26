@@ -6,11 +6,10 @@ import NavBar from '../../components/home/NavBar'
 import { styles } from '../../style/style'
 import { Feather } from '@expo/vector-icons';
 import RecentSearchBar from '../../components/viewScreens/RecentSearchBar'
+import { scaleWidth } from '../../Scaling'
 
 const SearchScreen = ({ navigation }) => {
-    const handleBackButton = () => {
-        navigation.goBack();
-    }
+
 
 
     
@@ -18,8 +17,8 @@ const SearchScreen = ({ navigation }) => {
         <SafeAreaView>
             <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
             <View style={styles.home_screen}>
-                <NavBar   handleSearchScreen={undefined} isTextInput={true} isBack={true} handleBackButton={handleBackButton}></NavBar>
-                <View>
+                <NavBar   handleSearchScreen={undefined} isTextInput={true} isBack={true} navigation={navigation}></NavBar>
+                <View style={{paddingHorizontal:scaleWidth(8)}}>
                     <Text style={{ fontFamily: 'poppins_bold', fontSize: 18 }}>Your Recent Searches</Text>
                     <View style={{flexDirection:'row',flexWrap:'wrap',width:'100%',height:100,justifyContent:'flex-start',gap:10}}>
                        <RecentSearchBar search_pharse={'Jhol momo'}/>

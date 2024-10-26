@@ -12,7 +12,7 @@ import { scaleWidth,scaleHeight } from '../../Scaling';
 
 
 
-const NabBar = ({ handleSearchScreen, handleBackButton, isTextInput, isBack }) => {
+const NabBar = ({ handleSearchScreen, isTextInput, isBack,navigation }) => {
   const [searchText, setSearchText] = useState('');
   // Array of placeholder texts that will rotate
   const placeholders = [
@@ -79,6 +79,10 @@ const NabBar = ({ handleSearchScreen, handleBackButton, isTextInput, isBack }) =
       }
     };
   }, [searchText]); // Now depends on searchText to restart animation when text is cleared
+
+  const handleBackButton = () => {
+    navigation.goBack();
+}
 
   return (
     <View style={styles.navBar}>

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { scaleHeight, scaleWidth } from '../../Scaling';
 
 const { width, height } = Dimensions.get('window');
 
@@ -10,7 +11,7 @@ const TopBar = ({ top_title, navigation }) => {
     <View style={styles.topBarContainer} >
 
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Ionicons name="chevron-back" size={28} color="black" />
+        <Ionicons name="chevron-back" size={scaleWidth(25)} color="black" />
       </TouchableOpacity>
 
       <View style={styles.titleContainer}>
@@ -19,7 +20,7 @@ const TopBar = ({ top_title, navigation }) => {
       </View>
 
       <TouchableOpacity style={styles.menuButton}>
-        <Ionicons name="menu" size={28} color="black" />
+        <Ionicons name="menu" size={scaleWidth(25)} color="black" />
       </TouchableOpacity>
     </View>
   );
@@ -32,14 +33,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     paddingHorizontal: width * 0.04,
-    paddingTop: Platform.OS === 'ios' ? 50 : 10,
-    paddingBottom: 10,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    paddingBottom: scaleHeight(6),
     backgroundColor:'#F0F4F8'
+    // backgroundColor:'#000000'
   },
   backButton: {
-    padding: 5,
+    padding: scaleWidth(5),
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -48,19 +47,19 @@ const styles = StyleSheet.create({
   },
   topBarTitle: {
     fontFamily: 'jakarta_bold',
-    fontSize: 24,
+    fontSize: scaleWidth(18),
     color: 'black',
     textAlign: 'center',
   },
   underline: {
     width: '80%',
-    height: 2,
+    height: scaleHeight(2),
     backgroundColor: 'black',
-    marginTop: 5,
+    marginTop: scaleHeight(4),
     borderRadius: 1,
   },
   menuButton: {
-    padding: 5,
+    padding: scaleWidth(5),
     justifyContent: 'center',
     alignItems: 'center',
   },
