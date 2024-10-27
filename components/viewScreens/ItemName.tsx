@@ -10,7 +10,7 @@ const ItemName = ({foodName,restaurantName,fontsize}) => {
       <Text style={{ fontFamily: 'jakarta_bold', fontSize: fontsize }}>{foodName}</Text>
       {/* <Text style={{ fontFamily: 'jakarta_bold', color: 'grey',fontSize:12 }}>by</Text> */}
     </View>
-    <Text style={{ fontFamily: 'jakarta_bold', color: 'grey',fontSize:10 }}>{restaurantName}</Text>
+    <Text style={{ fontFamily: 'jakarta_bold', color: 'grey',fontSize:fontsize-scaleWidth(9) }}>{restaurantName}</Text>
   </View>
   )
 }

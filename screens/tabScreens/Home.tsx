@@ -235,6 +235,9 @@ const Home = ({ navigation }) => {
     navigation.navigate('SearchScreen')
     console.log('Navigating to search screen')
   }
+  const handleToFoodViewPage = () => {
+    navigation.navigate('ViewFood')
+  }
   return (
     <SafeAreaView>
       <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
@@ -358,6 +361,7 @@ const Home = ({ navigation }) => {
                     eatsNumber={item.eatsNumber}
                     rating={item.rating}
                     location={item.location}
+                    handleToFoodViewPage={handleToFoodViewPage}
                   />
                 ))
               }
@@ -376,6 +380,7 @@ const Home = ({ navigation }) => {
                     eatsNumber={item.eatsNumber}
                     rating={item.rating}
                     location={item.location}
+                    handleToFoodViewPage={handleToFoodViewPage}
                   />
                 ))
               }

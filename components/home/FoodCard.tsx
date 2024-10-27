@@ -4,17 +4,19 @@ import Price from '../viewScreens/Price'
 import Reviews from './Reviews'
 import Ionicon from 'react-native-vector-icons/Ionicons'
 import { styles } from '../../style/style'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { scaleHeight, scaleWidth } from '../../Scaling'
 
 const { width, height } = Dimensions.get('window')
 
-const FoodCard = ({ food_picture,price, discount, foodName, no_fragments, eatsNumber, rating, location }) => {
+const FoodCard = ({ food_picture,price, discount, foodName, no_fragments, eatsNumber, rating, location,handleToFoodViewPage }) => {
   return (
-    <View style={{ 
+    <TouchableWithoutFeedback style={{ 
       
       backgroundColor: '#ffffff', 
        width: Dimensions.get('window').width / 2 - 15 ,
       marginBottom:10 }}
+      onPress={handleToFoodViewPage}
       
       >
       <View style={{ height: scaleHeight(150), width: '100%' }}>
@@ -36,7 +38,7 @@ const FoodCard = ({ food_picture,price, discount, foodName, no_fragments, eatsNu
           <Text style={{ fontSize: scaleWidth(12), color: 'grey', fontFamily: 'poppins_semibold' }}>{location}</Text>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   )
 }
 

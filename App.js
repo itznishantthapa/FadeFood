@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreens from './screens/auth/LoginScreens';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import 'react-native-gesture-handler';
+// import 'react-native-gesture-handler';
 import SignupScreen from './screens/auth/SignupScreen';
 import ForgetPassword from './screens/auth/ForgetPassword';
 import VerificationScreen from './screens/auth/VerificationScreen';
@@ -20,8 +20,8 @@ import FoodList from './screens/viewScreens/FoodList';
 import Inbox from './screens/viewScreens/Inbox';
 import TestScreen from './screens/viewScreens/TestScreen';
 import SearchScreen from './screens/viewScreens/SearchScreen';
-
 SplashScreen.preventAutoHideAsync();
+
 const Stack = createStackNavigator();
 
 export default function App() {

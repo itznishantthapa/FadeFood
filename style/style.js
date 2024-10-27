@@ -79,7 +79,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     height: height,
     width: width,
-    backgroundColor: '#F8F9FA'
+    backgroundColor: '#F0F4F8'
   },
 
   homeHeading: {
@@ -107,7 +107,7 @@ export const styles = StyleSheet.create({
     borderWidth: scaleWidth(5),
     borderColor: '#FFFFFF',
     // height: '78%',
-    borderRadius: 20,
+    borderRadius: scaleWidth(25),
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
