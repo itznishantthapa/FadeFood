@@ -1,60 +1,130 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import ItemName from './ItemName'
-import Price from './Price'
-import Increment_Decrement from './Increment_Decrement'
-import { Image } from 'react-native'
-import Love from './Love'
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
-import { scaleHeight, scaleWidth } from '../../Scaling'
+import { StyleSheet, Text, View, TouchableWithoutFeedback, Image } from "react-native";
+import React from "react";
+import Price from "./Price";
+import { scaleHeight, scaleWidth } from "../../Scaling";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import Love from "./Love";
 
-const List = ({ isLoveNeeded, image, foodName, restaurantName, price, navigation }) => {
-    const handlePress = () => {
-        console.log('Pressed');
-        navigation.navigate('ViewFood');
-    }
-    return (
-        <TouchableWithoutFeedback style={{ height: 'auto', width: 'auto', alignItems: 'center' }} onPress={handlePress}>
-            <View style={{ height: scaleHeight(80), width: '100%',backgroundColor:'white', borderRadius:scaleWidth(10),flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
-                <Image source={image} style={styles1.fod_img}></Image>
-                <View style={styles1.fod_info}>
-                    <View style={{flexDirection:'row',justifyContent:'space-between',width:"100%"}}>
-                        <ItemName foodName={foodName} restaurantName={restaurantName} fontsize={18}/>
-                        {
-                            isLoveNeeded ? (<Love />) : (<Increment_Decrement />)
-                        }
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
-                        <Price price={price} priceFontSize={18} />
-                        {true && <Text style={{ color: '#708090', textAlignVertical: 'center', fontWeight: 'bold', fontSize: scaleWidth(12), borderRadius: 5, marginRight: scaleWidth(2) }}>get {30}% off</Text>}
-                        { true && <Text style={{ backgroundColor: '#B0A4B5', paddingHorizontal: scaleWidth(5), alignSelf: 'flex-start', borderRadius: 4, marginBottom: scaleWidth(8), fontFamily: 'poppins_semibold', color: '#ffffff', fontSize: scaleWidth(12) }}>Collect Fragments {12}</Text> }
+const List = ({
+  images,
+  foodName,
+  restaurantName,
+  price,
+  navigation,
+}) => {
+  const handlePress = () => {
+    navigation.navigate("ViewFood");
+  };
 
+  return (
+    <TouchableWithoutFeedback onPress={handlePress}>
 
-                    </View>
-                </View>
+      <View style={styles.container}>
+
+        <View style={{flexDirection:'row'}}>
+        <Image source={images.image1} resizeMode="cover" style={styles.foodImage} />
+        <Image source={images.image2} resizeMode="cover" style={styles.foodImage} />
+        <Image source={images.image3} resizeMode="cover" style={styles.foodImage} />
+        </View>
+
+        <View style={{position:'absolute',right:0}}>
+        <Love />
+        </View>
+            
+        
+        <View style={styles.infoSection}>
+
+          <View style={styles.namePriceRow}>
+            <Text style={styles.foodName}>{foodName}</Text>
+            <Price priceFontSize={18} price={price} />
+          </View>
+
+          <View style={styles.restaurantRow}>
+
+            <View style={styles.restaurantInfo}>
+              <View style={styles.restaurantLogo}></View>
+              <Text style={styles.restaurantName}>{restaurantName}</Text>
             </View>
 
-        </TouchableWithoutFeedback>
-    )
-}
+            <TouchableOpacity style={styles.addToListButton}>
+            <Text style={styles.buttonText}>Add to List</Text>
+            </TouchableOpacity>
 
-export default List
+          </View>
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
+  );
+};
 
-const styles1 = StyleSheet.create({
-    fod_img: {
-        height: '100%',
-        width: '25%',
-        borderTopLeftRadius:scaleWidth(10),
-        borderBottomLeftRadius:scaleWidth(10)
-    },
-    fod_info: {
-        height: scaleHeight(130),
-        width: '75%',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        paddingLeft: 15,
-        paddingRight:4
+export default List;
 
-    }
-})
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#FFFFFF",
+    borderTopRightRadius: scaleWidth(10),
+    width: "95%",
+    alignSelf: "center",
+    marginVertical: scaleHeight(10),
+    padding: scaleWidth(10),
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  foodImage: {
+    width: "30%",
+    height: scaleHeight(150),
+    backgroundColor: "#EAEAEA", 
+  },
+  infoSection: {
+    width: "100%",
+    marginTop: scaleHeight(10),
+  },
+  namePriceRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingBottom: scaleHeight(5),
+  },
+  foodName: {
+    fontFamily: "poppins_semibold",
+    fontSize: scaleWidth(20),
+    color: "#333333",
+  },
+  restaurantRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: scaleHeight(5),
+  },
+  restaurantInfo: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  restaurantLogo: {
+    backgroundColor: "#FFA726",
+    height: scaleHeight(30),
+    width: scaleWidth(30),
+    borderRadius: scaleWidth(15),
+    marginRight: scaleWidth(8),
+  },
+  restaurantName: {
+    fontSize: scaleWidth(14),
+    color: "#555555",
+    fontFamily: "poppins_regular",
+  },
+  addToList: {
+    fontSize: scaleWidth(14),
+    color: "#0066CC",
+    fontFamily: "poppins_semibold",
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "600",
+  },
+  addToListButton: {
+    backgroundColor: "#333333",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 25,
+  },
+});

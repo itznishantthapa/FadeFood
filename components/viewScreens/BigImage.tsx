@@ -2,8 +2,9 @@ import { StyleSheet, Text, View, TouchableOpacity, Animated } from 'react-native
 import React, { useState, useRef } from 'react'
 import { Image } from 'react-native'
 import PagerView from 'react-native-pager-view'
-import { scaleHeight } from '../../Scaling';
+import { scaleHeight, scaleWidth } from '../../Scaling';
 import { AntDesign } from '@expo/vector-icons'; // Make sure you have expo vector icons installed
+import { scanFromURLAsync } from 'expo-camera';
 
 const images = [
   require('../../assets/chatapate.jpeg'),
@@ -17,7 +18,6 @@ const BigImage = () => {
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   const toggleFavorite = () => {
-    // Animation for heart press effect
     Animated.sequence([
       Animated.timing(scaleAnim, {
         toValue: 1.3,
@@ -47,8 +47,6 @@ const BigImage = () => {
           </View>
         ))}
       </PagerView>
-
-      {/* Heart Icon */}
       <TouchableOpacity 
         style={styles1.heartContainer}
         onPress={toggleFavorite}
@@ -57,12 +55,11 @@ const BigImage = () => {
         <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
           <AntDesign 
             name={isFavorite ? "heart" : "hearto"} 
-            size={28} 
+            size={scaleHeight(28)} 
             color={isFavorite ? "#FF6B6B" : "white"}
           />
         </Animated.View>
       </TouchableOpacity>
-
       <View style={styles1.dotContainer}>
         {images.map((_, index) => (
           <Text key={index} style={index === activeIndex ? styles1.activeDot : styles1.dot}>o</Text>
@@ -79,32 +76,32 @@ const styles1 = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     position: 'absolute',
-    bottom: 10,
+    bottom: scaleWidth(10),
     width: '100%',
   },
   dot: {
-    fontSize: 20,
+    fontSize: scaleWidth(20),
     color: '#888',
-    margin: 3,
+    margin: scaleWidth(3),
   },
   activeDot: {
-    fontSize: 20,
+    fontSize: scaleWidth(20),
     color: '#fff',
-    margin: 3,
+    margin: scaleWidth(3),
   },
   heartContainer: {
     position: 'absolute',
-    top: 20,
-    right: 20,
+    top: scaleHeight(20),
+    right: scaleWidth(20),
     zIndex: 1,
     backgroundColor: 'rgba(0,0,0,0.3)',
-    borderRadius: 50,
-    padding: 8,
+    borderRadius: scaleWidth(50),
+    padding: scaleWidth(8),
     elevation: 5,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: scaleHeight(2),
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,

@@ -1,25 +1,64 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { Dimensions, Image } from 'react-native'
-import grey from '../../assets/grey.png'
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
-const { width, height } = Dimensions.get('window')
+import { StyleSheet, Text, View, Dimensions, Image } from 'react-native';
+import React from 'react';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import grey from '../../assets/grey.png';
+import { scaleHeight, scaleWidth } from '../../Scaling';
 
-const RestaurantMsg = ({navigation}) => {
+const { width, height } = Dimensions.get('window');
+
+const RestaurantMsg = ({ navigation }) => {
     return (
-        <TouchableWithoutFeedback style={{ height: height * 0.08, width: width, backgroundColor: 'white', alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'row', gap: 10, paddingHorizontal: 10 }} onPress={()=>{navigation.navigate('Inbox')}}>
-            <View style={{ backgroundColor: 'red', height: 60, width: 60, borderRadius: 50, alignItems: 'center' }}>
-                <Image resizeMode='contain' style={{ height: '100%', width: '100%' }} source={grey}></Image>
+        <TouchableWithoutFeedback
+            style={styles.container}
+            onPress={() => navigation.navigate('Inbox')}
+        >
+            <View style={styles.imageContainer}>
+                <Image resizeMode='contain' style={styles.image} source={grey} />
             </View>
-            <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start' }}>
-                <Text style={{ fontFamily: 'jakarta_bold', color: 'grey', fontSize: 20 }}>Delicious Restaurant</Text>
-                <Text style={{ fontFamily: 'inter_semibold', color: 'grey' }}>your food is ready sir</Text>
+            <View style={styles.textContainer}>
+                <Text style={styles.restaurantName}>Delicious Restaurant</Text>
+                <Text style={styles.message}>Your food is ready, sir</Text>
             </View>
-
         </TouchableWithoutFeedback>
-    )
-}
+    );
+};
 
-export default RestaurantMsg
+export default RestaurantMsg;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        height: height * 0.08,
+        width: width,
+        backgroundColor: '#F0F4F8',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: scaleWidth(15),
+    },
+    imageContainer: {
+        backgroundColor: 'red',
+        height: scaleHeight(60),
+        width: scaleWidth(60),
+        borderRadius: scaleWidth(30),
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    image: {
+        height: '100%',
+        width: '100%',
+    },
+    textContainer: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        marginLeft: scaleWidth(10),
+    },
+    restaurantName: {
+        fontFamily: 'jakarta_bold',
+        color: 'grey',
+        fontSize: scaleWidth(18),
+    },
+    message: {
+        fontFamily: 'inter_semibold',
+        color: 'grey',
+        fontSize: scaleWidth(14),
+    },
+});

@@ -15,6 +15,8 @@ import FoodCard from "../../components/home/FoodCard";
 import BigImage from "../../components/viewScreens/BigImage";
 import ItemName from "../../components/viewScreens/ItemName";
 import { styles } from "../../style/style";
+import { scaleHeight, scaleWidth } from "../../Scaling";
+import Price from "../../components/viewScreens/Price";
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -47,20 +49,16 @@ const ViewFood = ({ navigation }) => {
         scrollEventThrottle={20}
         showsVerticalScrollIndicator={false}
       >
-        {/* Main Content Section - Full Viewport Height */}
         <View style={ownstyles.mainSection}>
           <BigImage />
-
-          {/* Restaurant Info Section */}
           <View style={ownstyles.restaurantInfo}>
             <ItemName
               foodName={"Momo"}
               restaurantName={"Delicious Restaurant"}
               fontsize={26}
             />
-
             <View style={ownstyles.priceSection}>
-              <Text style={ownstyles.price}>$15.99</Text>
+              <Price priceFontSize={24} price={200}></Price>
               {onCheckout ? (
                 <TouchableOpacity
                   style={[
@@ -164,113 +162,108 @@ const ViewFood = ({ navigation }) => {
 
 const ownstyles = StyleSheet.create({
   mainSection: {
-    minHeight: SCREEN_HEIGHT ,
-    backgroundColor: "#fff",
-    // backgroundColor: 'red',
+    minHeight: SCREEN_HEIGHT-scaleHeight(60) ,
+    backgroundColor: "#F0F4F8",
   },
   restaurantInfo: {
     paddingHorizontal:8,
     width: "100%",
-    // backgroundColor:'black'
   },
   priceSection: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 12,
+    marginTop: scaleHeight(12),
   },
   price: {
-    fontSize: 24,
+    fontSize: scaleWidth(18),
     fontWeight: "bold",
     color: "#2E2E2E",
   },
   addToListButton: {
     backgroundColor: "#333333",
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 25,
+    paddingHorizontal: scaleWidth(20),
+    paddingVertical: scaleHeight(10),
+    borderRadius: scaleWidth(25),
   },
   buttonText: {
     color: "#fff",
     fontWeight: "600",
+    fontSize:scaleWidth(14),
   },
   restaurantDetails: {
-    marginTop: 24,
-    padding: 16,
+    marginTop: scaleHeight(24),
+    padding: scaleWidth(16),
     backgroundColor: "#F8F8F8",
-    borderRadius: 12,
+    borderRadius: scaleWidth(12),
   },
   restaurantName: {
-    fontSize: 20,
+    fontSize: scaleWidth(20),
     fontWeight: "bold",
     color: "#2E2E2E",
   },
   restaurantAddress: {
-    fontSize: 14,
+    fontSize: scaleWidth(14),
     color: "#666",
-    marginTop: 4,
+    marginTop: scaleHeight(4),
   },
   ratingContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 8,
+    marginTop: scaleHeight(8),
   },
   rating: {
-    fontSize: 16,
+    fontSize: scaleWidth(16),
     fontWeight: "bold",
     color: "#FFB800",
   },
   ratingCount: {
-    fontSize: 14,
+    fontSize: scaleWidth(14),
     color: "#666",
-    marginLeft: 8,
+    marginLeft: scaleWidth(8),
   },
   reviewSection: {
-    marginTop: 24,
+    marginTop: scaleHeight(24),
   },
   reviewHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 12,
+    marginBottom: scaleHeight(12),
   },
   reviewTitle: {
-    fontSize: 18,
+    fontSize: scaleWidth(18),
     fontWeight: "bold",
     color: "#2E2E2E",
   },
   seeAllButton: {
     color: "#FF6B6B",
-    fontSize: 14,
-    // fontFamily:'poppins_bold'
+    fontSize: scaleWidth(14),
     fontWeight: "600",
   },
   reviewPreview: {
     backgroundColor: "#F8F8F8",
-    padding: 16,
-    borderRadius: 12,
+    padding: scaleWidth(16),
+    borderRadius: scaleWidth(12),
   },
   reviewerName: {
-    fontSize: 14,
+    fontSize: scaleWidth(14),
     fontWeight: "600",
     color: "#2E2E2E",
-    marginBottom: 4,
+    marginBottom: scaleHeight(4),
   },
   reviewText: {
-    fontSize: 14,
+    fontSize: scaleWidth(14),
     color: "#666",
     fontStyle: "italic",
   },
   similarItemsSection: {
-    backgroundColor: "#F8F8F8",
-    // width:SCREEN_WIDTH
+    backgroundColor: "#F0F4F8",
   },
   sectionTitle: {
-    padding: 16,
-    fontSize: 20,
-    // fontWeight: 'bold',
+    padding: scaleWidth(16),
+    fontSize: scaleWidth(20),
     color: "#2E2E2E",
-    marginBottom: 16,
     fontFamily: "poppins_bold",
   },
 });

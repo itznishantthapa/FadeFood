@@ -4,19 +4,21 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import TopBar from '../../components/viewScreens/TopBar';
 import MsgBox from '../../components/chat/MsgBox';
+import FontAws from  'react-native-vector-icons/FontAwesome';
+import { scaleHeight, scaleWidth } from '../../Scaling';
 
 const { width, height } = Dimensions.get('window')
 
 const Inbox = ({ navigation }) => {
     // Mock chat data with sender and receiver info
     const [messages, setMessages] = useState([
-        { id: '1', text: 'Hey, how are you?', sender: false }, // receiver message
+        { id: '1', text: 'Hey, how are you ?', sender: false }, // receiver message
         { id: '2', text: 'I am good, what about you?', sender: true }, // sender message
         { id: '3', text: 'Doing well! Let’s catch up soon.', sender: false }, // receiver message
         { id: '4', text: 'Sure, I will let you know.', sender: true }, // sender message
         { id: '5', text: 'Hey, how are you?', sender: false }, // receiver message
         { id: '6', text: 'I am good, what about you?', sender: true }, // sender message
-        { id: '7', text: 'Doing well! Let’s catch up soon.', sender: false }, // receiver message
+        { id: '7', text: 'Doing well! Let’s catch up soon and ad f  gf as g asg a sdg jaiasdhhguiasdfgasddg asdbgasd dg as dg asd dgasdf asdgas.', sender: false }, // receiver message
         { id: '8', text: 'Sure, I will let you know.', sender: true }, // sender message
         { id: '9', text: 'Hey, how are you?', sender: false }, // receiver message
         { id: '10', text: 'I am good, what about you?', sender: true }, // sender message
@@ -46,40 +48,40 @@ const Inbox = ({ navigation }) => {
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             >
                 <View style={styles.msg_input}>
-                    <View style={{ flex: 1 }}>
+                    <View style={{ flex: 1,backgroundColor:'#F0F4F8' }}>
                         <FlatList
                             data={messages}
                             renderItem={renderItem}
                             keyExtractor={(item) => item.id}
                             showsVerticalScrollIndicator={false}
                             inverted // Makes the latest messages appear at the bottom
-                            contentContainerStyle={{ paddingBottom: 20, paddingHorizontal: 10 }}
+                            contentContainerStyle={{ paddingBottom: scaleHeight(20), paddingHorizontal: scaleWidth(10) }}
                         />
 
                         {/* Input and Send button section */}
                         <View style={styles.input_send}>
-                            <View style={{ width: '80%', maxHeight: 100, backgroundColor: 'white', borderRadius: 10, borderColor: '#e0e0e0', borderWidth: 1, padding: 5 }}>
+                            <View style={{ width: '80%', maxHeight: scaleHeight(100), backgroundColor: 'white', borderRadius: scaleWidth(10), borderColor: '#e0e0e0', borderWidth: scaleWidth(1), padding: scaleWidth(5) }}>
                                 <ScrollView>
                                     <TextInput
                                         style={{
                                             backgroundColor: 'white',
-                                            fontSize: 18,
+                                            fontSize: scaleWidth(18),
                                             color: 'black',
-                                            paddingHorizontal: 10,
-                                            maxHeight: 100,
-                                            lineHeight: 22,
-                                            marginTop: 6
+                                            paddingHorizontal: scaleHeight(10),
+                                            maxHeight: scaleHeight(100),
+                                            lineHeight: scaleHeight(22),
+                                            marginTop: scaleHeight(5),
                                         }}
                                         selectionColor="grey"
                                         multiline
                                         scrollEnabled
+                                        placeholder="Your message"
                                     />
                                 </ScrollView>
                             </View>
 
-                            <View style={{ height: 50, width: '15%', backgroundColor: 'red', borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
-                                {/* Send Button (icon or text can be added here) */}
-                                <Text style={{ color: 'white', fontWeight: 'bold' }}>Send</Text>
+                            <View style={{ height: scaleHeight(50), width: '15%', backgroundColor: '#333333', borderRadius: scaleWidth(10), justifyContent: 'center', alignItems: 'center' }}>
+                                <FontAws name='send' style={{color:'#ffffff'}} size={scaleWidth(24)}/>
                             </View>
                         </View>
                     </View>
@@ -88,28 +90,23 @@ const Inbox = ({ navigation }) => {
         </SafeAreaView>
     );
 };
-
-// Styles for sender and receiver messages
-
-
 export default Inbox;
 
-// stylesheet here
 const styles = StyleSheet.create({
     msg_input:{
         justifyContent: 'flex-start',
         flex: 1,
         backgroundColor: '#F5F5F5',
-        borderTopRightRadius: 15,
-        borderTopLeftRadius: 15
+        borderTopRightRadius: scaleHeight(15),
+        borderTopLeftRadius: scaleHeight(15),
     },
     input_send:{
         width: '100%', 
         flexDirection: 'row', 
-        gap: 5, 
+        gap: scaleWidth(5), 
         justifyContent: 'center', 
-        alignItems: 'center', 
-        padding: 10 
+        alignItems: 'flex-end', 
+        padding: scaleWidth(10),
 
     }
 

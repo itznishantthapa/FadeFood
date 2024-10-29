@@ -2,16 +2,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreens from './screens/auth/LoginScreens';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-// import 'react-native-gesture-handler';
 import SignupScreen from './screens/auth/SignupScreen';
 import ForgetPassword from './screens/auth/ForgetPassword';
 import VerificationScreen from './screens/auth/VerificationScreen';
 import TabBars from './screens/tabScreens/TabBars';
 import { AppProvider } from './context/AppProvider';
-
-
-
-
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react'
@@ -20,8 +15,9 @@ import FoodList from './screens/viewScreens/FoodList';
 import Inbox from './screens/viewScreens/Inbox';
 import TestScreen from './screens/viewScreens/TestScreen';
 import SearchScreen from './screens/viewScreens/SearchScreen';
-SplashScreen.preventAutoHideAsync();
 
+
+SplashScreen.preventAutoHideAsync();
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -48,10 +44,10 @@ export default function App() {
     return null;
   }
   return (
-    <AppProvider>
-      <SafeAreaProvider>
+    <AppProvider > 
+      <SafeAreaProvider >
         <NavigationContainer>
-          <Stack.Navigator>
+          <Stack.Navigator initialRouteName='TabBars' >
             <Stack.Screen name="LoginScreens" component={LoginScreens} options={{ headerShown: false }} />
             <Stack.Screen name="SignupScreen" component={SignupScreen} options={{ headerShown: false }} />
             <Stack.Screen name="ForgetPassword" component={ForgetPassword} options={{ headerShown: false }} />
@@ -64,10 +60,6 @@ export default function App() {
             <Stack.Screen name="TestScreen" component={TestScreen} options={{ headerShown: false }} />
           </Stack.Navigator>
         </NavigationContainer>
-
-
-
-
       </SafeAreaProvider>
     </AppProvider>
   );
