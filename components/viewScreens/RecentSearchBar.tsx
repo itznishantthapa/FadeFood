@@ -16,7 +16,7 @@ const RecentSearchBar = ({search_pharse}) => {
         <Feather
             name="search"
             size={scaleWidth(20)}
-            style={{ color: '#FF5722' }}
+            style={{ color: '#333333' }}
         />
     </View>
 

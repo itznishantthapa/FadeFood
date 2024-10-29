@@ -6,8 +6,8 @@ import { scaleWidth } from '../../Scaling'
 const Price = ({price,priceFontSize}) => {
   return (
     <View style={styles.price}>
-    <Text style={{ fontSize: scaleWidth(15), color: '#ff6b35', fontFamily: 'montserrat_semibold' }}>Rs.</Text>
-    <Text style={{ fontSize: scaleWidth(priceFontSize), color: '#ff6b35', fontFamily: 'montserrat_semibold' }}>{price}</Text>
+    <Text style={{ fontSize: scaleWidth(15), color: '#8D6E63', fontFamily: 'montserrat_semibold' }}>Rs.</Text>
+    <Text style={{ fontSize: scaleWidth(priceFontSize), color: '#8D6E63', fontFamily: 'montserrat_semibold' }}>{price}</Text>
   </View>
 )}
 

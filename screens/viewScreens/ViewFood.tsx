@@ -1,160 +1,278 @@
-import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { StatusBar } from 'expo-status-bar';
-import { styles } from '../../style/style';
-import NavBar from '../../components/home/NavBar';
-import Button from '../../components/auth/Button';
-import ItemName from '../../components/viewScreens/ItemName';
-import Price from '../../components/viewScreens/Price';
-import Time_FeedBack from '../../components/viewScreens/Time_FeedBack';
-import FoodDescription from '../../components/viewScreens/FoodDescription';
-import BigImage from '../../components/viewScreens/BigImage';
-import Love from '../../components/viewScreens/Love';
-import { scaleHeight, scaleWidth } from '../../Scaling';
-import { bundlerModuleNameResolver } from 'typescript';
-import { FontAwesome } from '@expo/vector-icons';
-import Ant from 'react-native-vector-icons/AntDesign';
-import ReviewSection from '../../components/viewScreens/ReviewSection';
-import { ScrollView } from 'react-native-gesture-handler';
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Animated,
+  Dimensions,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
+import { ScrollView } from "react-native-gesture-handler";
+import NabBar from "../../components/home/NavBar";
+import FoodCard from "../../components/home/FoodCard";
+import BigImage from "../../components/viewScreens/BigImage";
+import ItemName from "../../components/viewScreens/ItemName";
+import { styles } from "../../style/style";
 
+const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 
 const ViewFood = ({ navigation }) => {
-
+  const [onCheckout, setonCheckout] = useState(false);
+  const handleSearchScreen = () => {
+    navigation.navigate("SearchScreen");
+  };
+  const handleCheckoutButton = () => {
+    console.log("Checkout Button Pressed");
+  };
+  const handleAddtoList = () => {
+    setonCheckout(true);
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
-      
-      <View style={[styles.home_screen, { alignItems: 'center' }]}>
+      <StatusBar hidden={false} backgroundColor="#F0F4F8" style="dark" />
+      <NabBar
+        handleSearchScreen={handleSearchScreen}
+        isBack={true}
+        navigation={navigation}
+        isTextInput={false}
+      />
 
-      {/* <ScrollView style={{width:'100%'}}> */}
+      <ScrollView
+        style={{ flex: 1 }}
+        nestedScrollEnabled={true}
+        overScrollMode="never"
+        scrollEventThrottle={20}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Main Content Section - Full Viewport Height */}
+        <View style={ownstyles.mainSection}>
+          <BigImage />
 
-    
-        <BigImage />
+          {/* Restaurant Info Section */}
+          <View style={ownstyles.restaurantInfo}>
+            <ItemName
+              foodName={"Momo"}
+              restaurantName={"Delicious Restaurant"}
+              fontsize={26}
+            />
 
-        <View style={styles1.foodInfo}>
-          <ItemName
-            foodName={'Chatpate'}
-            restaurantName={'Delicious Restaurant'}
-            fontsize={scaleWidth(24)}
-          />
+            <View style={ownstyles.priceSection}>
+              <Text style={ownstyles.price}>$15.99</Text>
+              {onCheckout ? (
+                <TouchableOpacity
+                  style={[
+                    ownstyles.addToListButton,
+                    { backgroundColor: "#4CAF50" },
+                  ]}
+                  onPress={handleCheckoutButton}
+                >
+                  <Text style={ownstyles.buttonText}>Go for Checkout</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={ownstyles.addToListButton}
+                  onPress={handleAddtoList}
+                >
+                  <Text style={ownstyles.buttonText}>Add to List</Text>
+                </TouchableOpacity>
+              )}
+            </View>
 
+            {/* Restaurant Details */}
+            <View style={ownstyles.restaurantDetails}>
+              <Text style={ownstyles.restaurantName}>Delicious Restaurant</Text>
+              <Text style={ownstyles.restaurantAddress}>
+                123 Food Street, Foodville
+              </Text>
+              <View style={ownstyles.ratingContainer}>
+                <Text style={ownstyles.rating}>4.5 ★</Text>
+                <Text style={ownstyles.ratingCount}>(234 reviews)</Text>
+              </View>
+            </View>
 
+            {/* Review Section */}
+            <View style={ownstyles.reviewSection}>
+              <View style={ownstyles.reviewHeader}>
+                <Text style={ownstyles.reviewTitle}>Reviews</Text>
+                <TouchableOpacity>
+                  <Text style={ownstyles.seeAllButton}>See All Reviews</Text>
+                </TouchableOpacity>
+              </View>
 
+              {/* Preview of latest review */}
+              <View style={ownstyles.reviewPreview}>
+                <Text style={ownstyles.reviewerName}>John D.</Text>
+                <Text style={ownstyles.reviewText} numberOfLines={2}>
+                  "Amazing momos! The sauce was perfect and the service was
+                  excellent..."
+                </Text>
+              </View>
+            </View>
+          </View>
         </View>
 
-        <View style={styles1.review_container}>
-          {/* Header Section */}
-          <View style={styles1.header}>
-            <Text style={styles1.headerTitle}>
-              Rating & Reviews ({30})
-            </Text>
-            <TouchableOpacity
-              style={styles1.seeMoreButton}
-            // onPress={{}}
-            >
-              <Text style={styles1.seeMoreText}>See more</Text>
-              <FontAwesome
-                name="angle-right"
-                size={scaleWidth(15)}
-                color="#666"
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={{ gap: scaleHeight(5) }}>
-            <ReviewSection person_name={'Nishant Thapa'} comment={'Food is very very testy'} ratingNumber={4}></ReviewSection>
-            <ReviewSection person_name={'Rohan Rai'} comment={'Ekdam tasty raixa , love it....'} ratingNumber={3}></ReviewSection>
-            <ReviewSection person_name={'Rohan Rai'} comment={'Ekdam tasty raixa , love it....'} ratingNumber={3}></ReviewSection>
+        {/* Similar Items Section */}
+        <View style={ownstyles.similarItemsSection}>
+          <Text style={ownstyles.sectionTitle}>You May Also Like</Text>
+
+          <View style={[styles.foodItems_container]}>
+            <View style={{ width: "50%", alignItems: "center" }}>
+              {Array(5)
+                .fill(null)
+                .map((item, index) => (
+                  <FoodCard
+                    key={index}
+                    food_picture={null}
+                    price={112}
+                    discount={null}
+                    foodName={"Chowmin"}
+                    no_fragments={null}
+                    eatsNumber={22}
+                    rating={3}
+                    location={null}
+                    handleToFoodViewPage={undefined}
+                  />
+                ))}
+            </View>
+            <View style={{ width: "50%", alignItems: "center" }}>
+              {Array(5)
+                .fill(null)
+                .map((item, index) => (
+                  <FoodCard
+                    key={index}
+                    food_picture={null}
+                    price={112}
+                    discount={null}
+                    foodName={"Chowmin"}
+                    no_fragments={null}
+                    eatsNumber={22}
+                    rating={3}
+                    location={null}
+                    handleToFoodViewPage={undefined}
+                  />
+                ))}
+            </View>
           </View>
         </View>
-
-
-
-        <View style={styles1.checkoutPriceBtnContainer}>
-          <View>
-            <Text style={{ fontFamily: 'poppins_semibold', fontSize: scaleWidth(25), color: 'white' }}>Rs. 120</Text>
-          </View>
-          <View style={styles1.checkoutBtn}>
-            <Text style={{ fontFamily: 'poppins_semibold', fontSize: scaleWidth(16), color: '#FF5722' }}>Add Item</Text>
-          </View>
-        </View>
-      {/* </ScrollView> */}
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
-const styles1 = StyleSheet.create({
-  foodInfo: {
-    // height: '10%',
-    width: '100%',
-    backgroundColor: '#e9ecef',
-    // padding: 15,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderBottomRightRadius: 20,
-    borderBottomLeftRadius: 20,
-    paddingBottom: scaleWidth(5),
-    paddingLeft: scaleWidth(15)
+const ownstyles = StyleSheet.create({
+  mainSection: {
+    minHeight: SCREEN_HEIGHT ,
+    backgroundColor: "#fff",
+    // backgroundColor: 'red',
   },
-  orderAmount: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+  restaurantInfo: {
+    paddingHorizontal:8,
+    width: "100%",
+    // backgroundColor:'black'
   },
-  checkoutPriceBtnContainer: {
-    width: '98%',
-    height: scaleHeight(95),
-    backgroundColor: '#FF5722',
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: scaleWidth(40),
-    justifyContent: 'space-between',
-    paddingHorizontal: scaleWidth(30),
-    // paddingLeft:scaleWidth(10),
-    position: 'absolute',
-    top: '89%'
-
+  priceSection: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 12,
   },
-  checkoutBtn: {
-    width: '35%',
-    height: scaleHeight(50),
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: scaleWidth(20),
+  price: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#2E2E2E",
   },
-  review_container: {
-    width: '100%',
-    // height:450,
-    paddingHorizontal: scaleWidth(16),
-    paddingVertical: scaleHeight(12),
-    backgroundColor: '#F0F4F8',
+  addToListButton: {
+    backgroundColor: "#333333",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 25,
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: scaleHeight(16),
+  buttonText: {
+    color: "#fff",
+    fontWeight: "600",
   },
-  headerTitle: {
-    fontSize: scaleWidth(18),
-    fontWeight: '700',
-    color: '#1A1A1A',
+  restaurantDetails: {
+    marginTop: 24,
+    padding: 16,
+    backgroundColor: "#F8F8F8",
+    borderRadius: 12,
   },
-  seeMoreButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: scaleWidth(4),
+  restaurantName: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#2E2E2E",
   },
-  seeMoreText: {
-    fontSize: scaleWidth(15),
-    color: '#666',
+  restaurantAddress: {
+    fontSize: 14,
+    color: "#666",
+    marginTop: 4,
   },
-
-
+  ratingContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 8,
+  },
+  rating: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#FFB800",
+  },
+  ratingCount: {
+    fontSize: 14,
+    color: "#666",
+    marginLeft: 8,
+  },
+  reviewSection: {
+    marginTop: 24,
+  },
+  reviewHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  reviewTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#2E2E2E",
+  },
+  seeAllButton: {
+    color: "#FF6B6B",
+    fontSize: 14,
+    // fontFamily:'poppins_bold'
+    fontWeight: "600",
+  },
+  reviewPreview: {
+    backgroundColor: "#F8F8F8",
+    padding: 16,
+    borderRadius: 12,
+  },
+  reviewerName: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#2E2E2E",
+    marginBottom: 4,
+  },
+  reviewText: {
+    fontSize: 14,
+    color: "#666",
+    fontStyle: "italic",
+  },
+  similarItemsSection: {
+    backgroundColor: "#F8F8F8",
+    // width:SCREEN_WIDTH
+  },
+  sectionTitle: {
+    padding: 16,
+    fontSize: 20,
+    // fontWeight: 'bold',
+    color: "#2E2E2E",
+    marginBottom: 16,
+    fontFamily: "poppins_bold",
+  },
 });
 
 export default ViewFood;

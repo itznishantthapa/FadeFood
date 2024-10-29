@@ -11,7 +11,7 @@ const TopBar = ({ top_title, navigation }) => {
     <View style={styles.topBarContainer} >
 
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Ionicons name="chevron-back" size={scaleWidth(25)} color="black" />
+        <Ionicons name="chevron-back" size={scaleWidth(25)} color="#333333" />
       </TouchableOpacity>
 
       <View style={styles.titleContainer}>
@@ -20,7 +20,7 @@ const TopBar = ({ top_title, navigation }) => {
       </View>
 
       <TouchableOpacity style={styles.menuButton}>
-        <Ionicons name="menu" size={scaleWidth(25)} color="black" />
+        <Ionicons name="menu" size={scaleWidth(25)} color="#333333" />
       </TouchableOpacity>
     </View>
   );
@@ -48,13 +48,13 @@ const styles = StyleSheet.create({
   topBarTitle: {
     fontFamily: 'jakarta_bold',
     fontSize: scaleWidth(18),
-    color: 'black',
+    color: '#333333',
     textAlign: 'center',
   },
   underline: {
     width: '80%',
     height: scaleHeight(2),
-    backgroundColor: 'black',
+    backgroundColor: '#333333',
     marginTop: scaleHeight(4),
     borderRadius: 1,
   },

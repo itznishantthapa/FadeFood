@@ -40,8 +40,8 @@ const TabBars = () => {
             return <Entypo name="info" color={color} size={scaleWidth(30)} />;
           }
         },
-        tabBarActiveTintColor: '#FF5722',
-        tabBarInactiveTintColor: '#757575',
+        tabBarActiveTintColor: '#333333',
+        tabBarInactiveTintColor: '#333333',
         tabBarStyle: {
           backgroundColor: '#ffffff',
           height: scaleHeight(60)

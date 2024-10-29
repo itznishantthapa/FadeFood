@@ -48,7 +48,7 @@ const { width, height } = Dimensions.get('window');
 
 
 const images = [
-  burger,
+  dishes,
   chicken,
   dishes,
 ];
@@ -106,7 +106,7 @@ const Home = ({ navigation }) => {
       "food_picture": biryani,
       "price": 1500,
       "discount": 10,
-      "foodName": "Burger",
+      "foodName": "Burger with caramel cheese ",
       "no_fragments": null,
       "eatsNumber": 120,
       "rating": 4.5,
@@ -118,8 +118,8 @@ const Home = ({ navigation }) => {
       "discount": null,
       "foodName": "Pizza",
       "no_fragments": "8",
-      "eatsNumber": 200,
-      "rating": 4.8,
+      "eatsNumber": null,
+      "rating": null,
       "location": "Kathmandu, Thamel"
     },
     {
@@ -246,7 +246,10 @@ const Home = ({ navigation }) => {
         <NavBar handleSearchScreen={handleSearchScreen} isTextInput={false} isBack={false} navigation={navigation} />
 
         {/* <ScrollView showsVerticalScrollIndicator={false} stickyHeaderIndices={[1]}> */}
-        <ScrollView showsVerticalScrollIndicator={false} >
+        <ScrollView showsVerticalScrollIndicator={false}
+        nestedScrollEnabled={true}
+        overScrollMode='never'
+        >
 
           <View style={styles1.dashboardContainer} >
             <Greeting />

@@ -41,7 +41,7 @@ const NearDishCard = ({ image, price, name, reiwesNumber, rating }) => {
                         name={isFavorite ? 'favorite' : 'favorite-border'} // Change icon based on state
                         size={scaleWidth(25)} 
                         style={{ 
-                            color: isFavorite ? '#8B0000' : '#FF6347' // Change color based on state
+                            color: isFavorite ? '#8B0000' : '#8D6E63' // Change color based on state
                         }}
                     />
                 </TouchableOpacity>

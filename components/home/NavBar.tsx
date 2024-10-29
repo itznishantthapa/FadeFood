@@ -91,7 +91,7 @@ const NabBar = ({ handleSearchScreen, isTextInput, isBack,navigation }) => {
           <AntDesign
             name='arrowleft'
             size={scaleWidth(30)}
-            style={{ color: '#FF5722' }}
+            style={{ color: '#333333' }}
           />
         </TouchableOpacity>
       ) : (
@@ -162,7 +162,7 @@ const NabBar = ({ handleSearchScreen, isTextInput, isBack,navigation }) => {
           <Feather
             name="search"
             size={scaleWidth(30)}
-            style={{ color: '#FF5722' }}
+            style={{ color: '#333333' }}
           />
         </View>
 
@@ -196,7 +196,8 @@ const styles = StyleSheet.create({
     borderLeftWidth: scaleWidth(2),
     borderTopWidth: scaleWidth(2),
     borderBottomWidth: scaleWidth(2),
-    borderColor: '#FF5722',
+    // borderColor: '#FF5722',
+    borderColor: '#333333',
     height: scaleHeight(45),
     width: '70%',
     borderTopLeftRadius: scaleWidth(20),
@@ -209,7 +210,7 @@ const styles = StyleSheet.create({
   },
   searchView: {
     height: scaleHeight(45),
-    borderColor: '#FF5722',
+    borderColor: '#333333',
     width: '15%',
     borderWidth: scaleWidth(2),
     borderLeftWidth: 0,
@@ -232,7 +233,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   logoContainer: {
-    backgroundColor: 'rgba(255, 87, 34, 0.8)',
+    backgroundColor: 'red',
     padding: scaleWidth(8),
     borderRadius: scaleWidth(10),
   },
