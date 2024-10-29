@@ -106,7 +106,7 @@ const Home = ({ navigation }) => {
       "food_picture": biryani,
       "price": 1500,
       "discount": 10,
-      "foodName": "Burger with caramel cheese ",
+      "foodName": "Ham Burger",
       "no_fragments": null,
       "eatsNumber": 120,
       "rating": 4.5,

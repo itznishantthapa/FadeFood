@@ -56,7 +56,7 @@ const BigImage = () => {
           <AntDesign 
             name={isFavorite ? "heart" : "hearto"} 
             size={scaleHeight(28)} 
-            color={isFavorite ? "#FF6B6B" : "white"}
+            color={isFavorite ? "red" : "white"}
           />
         </Animated.View>
       </TouchableOpacity>

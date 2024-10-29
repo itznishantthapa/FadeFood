@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: width * 0.04,
     paddingBottom: scaleHeight(6),
-    backgroundColor:'#F0F4F8'
+    backgroundColor:'#F0F4F8',
+    zIndex:999
   },
   backButton: {
     padding: scaleWidth(5),

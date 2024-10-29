@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: scaleWidth(15),
     },
     imageContainer: {
-        backgroundColor: 'red',
+        backgroundColor: 'black',
         height: scaleHeight(60),
         width: scaleWidth(60),
         borderRadius: scaleWidth(30),
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         fontSize: scaleWidth(18),
     },
     message: {
-        fontFamily: 'inter_semibold',
+        // fontFamily: 'inter_semibold',
         color: 'grey',
         fontSize: scaleWidth(14),
     },
