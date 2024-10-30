@@ -9,6 +9,9 @@ import List from "../../components/viewScreens/List";
 import chatpate from "../../assets/chatapate.jpeg";
 import momo from "../../assets/momo.jpeg";
 import noodles from "../../assets/noodles.jpeg";
+import m1 from '../../assets/images/img1 (1).png'
+import m2 from '../../assets/images/img1 (2).png'
+import m3 from '../../assets/images/img1 (3).png'
 import TopBar from "../../components/viewScreens/TopBar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
@@ -21,14 +24,14 @@ const Favourite = ({ navigation }) => {
       price: "$5.00",
       foodName: "Chatpate",
       restaurantName: "Food Corner",
-      image: { image1: chatpate, image2: momo, image3: noodles },
+      image: { image1: m1, image2: m2, image3: m3 },
       isLoveNeeded: true,
     },
     {
       price: "$5.00",
       foodName: "Chatpate",
       restaurantName: "Food Corner",
-      image: { image1: chatpate, image2: momo, image3: noodles },
+      image: { image1: m1, image2: m2, image3: m3 },
       isLoveNeeded: true,
     },
     {

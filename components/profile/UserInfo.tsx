@@ -2,37 +2,41 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons'
 import { Image } from 'react-native'
+import { scaleHeight, scaleWidth } from '../../Scaling'
 
 
 const UserInfo = () => {
     return (
-        <View style={styles1.profileImageContainer}>
+        <View style={ownstyle.profileImageContainer}>
             <Image
                 source={require('../../assets/chatapate.jpeg')}
-                style={styles1.profileImage}
+                style={ownstyle.profileImage}
             />
-            <View style={{ alignItems: 'center', gap: 4 }}>
-                <Text>Nishant Thapa</Text>
-                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 5 }}>
-                    <SimpleLineIcon name='phone' size={20} />
+            <View style={{ alignItems: 'center', gap: scaleHeight(4) }}>
+                <Text style={ownstyle.nameText}>Nishant Thapa</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: scaleWidth(5) }}>
+                    <SimpleLineIcon name='phone' size={scaleWidth(20)} />
                     <Text>+977 9826327088</Text>
                 </View>
             </View>
         </View>
     )
 }
-const styles1 = StyleSheet.create({
+const ownstyle = StyleSheet.create({
     profileImageContainer: {
         alignItems: 'center',
-        marginTop: 10,
-        marginBottom: 30,
-        gap: 10,
+        marginTop: scaleHeight(10),
+        marginBottom: scaleHeight(30),
+        gap: scaleHeight(10),
     },
     profileImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 75,
+        width: scaleWidth(100),
+        height: scaleHeight(100),
+        borderRadius:scaleWidth(75),
     },
+    nameText:{
+      fontFamily:'poppins_regular'
+    }
 })
 
 

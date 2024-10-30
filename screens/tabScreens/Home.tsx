@@ -26,6 +26,7 @@ import categoryPizza from '../../assets/images/categoryPizza.png'
 import categoryChicken from '../../assets/images/categoryChicken.png'
 import biryani from '../../assets/biryani.jpg'
 // import chatapate from '../../assets/chatapate.jpg'
+import img3 from '../../assets/images/img1 (3).png'
 
 import Octicons from 'react-native-vector-icons/Octicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -106,17 +107,17 @@ const Home = ({ navigation }) => {
       "food_picture": biryani,
       "price": 1500,
       "discount": 10,
-      "foodName": "Ham Burger",
+      "foodName": "Biryani",
       "no_fragments": null,
       "eatsNumber": 120,
       "rating": 4.5,
       "location": "Dharan, Bhanuchowk"
     },
     {
-      "food_picture": chatapate,
+      "food_picture": img3,
       "price": 1200,
       "discount": null,
-      "foodName": "Pizza",
+      "foodName": "Flat Momos",
       "no_fragments": "8",
       "eatsNumber": null,
       "rating": null,
@@ -126,17 +127,17 @@ const Home = ({ navigation }) => {
       "food_picture": momo,
       "price": 800,
       "discount": 5,
-      "foodName": "Pasta",
+      "foodName": "Jhol Momo",
       "no_fragments": null,
       "eatsNumber": 90,
       "rating": 4.2,
       "location": "Pokhara, Lakeside"
     },
     {
-      "food_picture": noodles,
+      "food_picture": chatapate,
       "price": 500,
       "discount": 20,
-      "foodName": "Sandwich",
+      "foodName": "Chatpate",
       "no_fragments": "6",
       "eatsNumber": 70,
       "rating": 4.0,

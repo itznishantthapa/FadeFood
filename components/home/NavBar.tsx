@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
     top: 0,
     gap: 5,
-    paddingHorizontal: 8,
+    paddingHorizontal: scaleWidth(8),
     
   },
   searchBar: {
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     // borderColor: '#FF5722',
     borderColor: '#333333',
     height: scaleHeight(45),
-    width: '70%',
+    width: '74%',
     borderTopLeftRadius: scaleWidth(20),
     borderBottomLeftRadius: scaleWidth(20),
     // backgroundColor: '#F5F5F5',

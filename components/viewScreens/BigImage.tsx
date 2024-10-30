@@ -7,9 +7,9 @@ import { AntDesign } from '@expo/vector-icons'; // Make sure you have expo vecto
 import { scanFromURLAsync } from 'expo-camera';
 
 const images = [
-  require('../../assets/chatapate.jpeg'),
-  require('../../assets/noodles.jpeg'),
-  require('../../assets/momo.jpeg'),
+  require('../../assets/images/img1 (1).png'),
+  require('../../assets/images/img1 (2).png'),
+  require('../../assets/images/img1 (3).png'),
 ];
 
 const BigImage = () => {
