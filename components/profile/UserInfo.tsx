@@ -17,13 +17,6 @@ const UserInfo = () => {
                 />
             
 
-            <View style={{ alignItems: 'center', gap: scaleHeight(4) }}>
-                <Text style={ownstyle.nameText}>Nishant Thapa</Text>
-                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: scaleWidth(5) }}>
-                    <SimpleLineIcon name='phone' size={scaleWidth(20)} />
-                    <Text>+977 9826327088</Text>
-                </View>
-            </View>
         </View>
     )
 }
@@ -31,7 +24,7 @@ const ownstyle = StyleSheet.create({
     profileImageContainer: {
         alignItems: 'center',
         marginTop: scaleHeight(10),
-        marginBottom: scaleHeight(30),
+        marginBottom: scaleHeight(10),
         gap: scaleHeight(10),
     },
     profileImage: {
@@ -40,10 +33,7 @@ const ownstyle = StyleSheet.create({
         borderRadius: scaleWidth(75),
         // backgroundColor: 'black',
     },
-    nameText: {
-        fontFamily: 'poppins_regular'
-    },
-  
+
 })
 
 

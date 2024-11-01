@@ -15,6 +15,7 @@ import FoodList from './screens/viewScreens/FoodList';
 import Inbox from './screens/viewScreens/Inbox';
 import TestScreen from './screens/viewScreens/TestScreen';
 import SearchScreen from './screens/viewScreens/SearchScreen';
+import ProfileUpdation from './components/profile/ProfileUpdation';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -58,6 +59,7 @@ export default function App() {
             <Stack.Screen name="Inbox" component={Inbox} options={{ headerShown: false }} />
             <Stack.Screen name="SearchScreen" component={SearchScreen} options={{ headerShown: false }} />
             <Stack.Screen name="TestScreen" component={TestScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="ProfileUpdation" component={ProfileUpdation} options={{ headerShown: false }} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

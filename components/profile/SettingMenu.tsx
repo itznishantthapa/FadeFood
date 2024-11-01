@@ -4,10 +4,13 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Ionicons } from '@expo/vector-icons'
 import { scaleHeight, scaleWidth } from '../../Scaling'
 
-const SettingMenu = ({menuName,iconName}) => {
+const SettingMenu = ({menuName,iconName,navigation}) => {
+    const handleSettingPage = () => {
+     navigation.navigate('ProfileUpdation')   
+    }
     return (
         <View style={styles1.menuContainer}>
-            <TouchableOpacity  style={styles1.menuItem}>
+            <TouchableOpacity  style={styles1.menuItem} onPress={handleSettingPage}>
                 <Ionicons name={iconName} size={scaleWidth(24)} color="#333333" style={{fontWeight:'bold'}}/>
                 <Text style={styles1.menuItemText}>{menuName}</Text>
                 <Ionicons name="chevron-forward-outline" size={scaleWidth(24)} color="#ccc" style={{fontWeight:'semibold'}} />
