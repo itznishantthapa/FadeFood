@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 import TopBar from '../viewScreens/TopBar'
@@ -11,6 +11,19 @@ import TextEditFields from './TextEditFields'
 
 
 const ProfileUpdation = ({ navigation }) => {
+  const [inputNameValue, setInputNameValue] = useState('Nishant Thapa')
+  const [inputPhoneValue, setInputPhoneValue] = useState('9826327088')
+  const [inputEmailValue, setInputEmailValue] = useState('itsnishantu@gamil.com')
+
+  const handleNameInputChange = (text) => {
+    setInputNameValue(text)
+  }
+  const handlePhoneInputChange = (text) => {
+    setInputPhoneValue(text)
+  }
+  const handleEmailInputChange = (text) => {
+    setInputEmailValue(text)
+  }
   return (
     <SafeAreaView >
       <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
@@ -26,11 +39,27 @@ const ProfileUpdation = ({ navigation }) => {
           </View>
         </View>
 
-        <TextEditFields label_name={'Name'} inputmode={'text'} key_type={'default'}/>
-        <TextEditFields label_name={'Phone'} inputmode={null} key_type={'number-pad'}/>
-        <TextEditFields label_name={'Email'} inputmode={null} key_type={'email-address'} />
-
-
+        <TextEditFields
+          label_name={'Name'}
+          inputmode={'text'}
+          key_type={'default'}
+          given_value={inputNameValue}
+          handleInputChange={handleNameInputChange}
+        />
+        <TextEditFields
+          label_name={'Phone'}
+          inputmode={null}
+          key_type={'number-pad'}
+          given_value={inputPhoneValue}
+          handleInputChange={handlePhoneInputChange}
+        />
+        <TextEditFields
+          label_name={'Email'}
+          inputmode={null}
+          key_type={'email-address'}
+          given_value={inputEmailValue}
+          handleInputChange={handleEmailInputChange}
+        />
       </View>
 
     </SafeAreaView>

@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View,TextInput } from 'react-native'
-import React from 'react'
+import React,{useState} from 'react'
 import { scaleHeight, scaleWidth } from '../../Scaling'
 
-const TextEditFields = ({label_name,inputmode,key_type}) => {
+const TextEditFields = ({label_name,inputmode,key_type,given_value,handleInputChange}) => {
+
   return (
     <View style={ownstyle.text_container}>
     <Text style={ownstyle.label_style}>{label_name}</Text>
@@ -12,6 +13,8 @@ const TextEditFields = ({label_name,inputmode,key_type}) => {
     selectionColor={'#a9d6e5'}
     keyboardType={key_type}
     inputMode={inputmode}
+    value={given_value}
+    onChangeText={handleInputChange}
     />
   </View>
   )
