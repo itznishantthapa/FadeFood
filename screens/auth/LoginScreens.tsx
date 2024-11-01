@@ -22,8 +22,8 @@ const LoginScreens = ({ navigation }) => {
             <View style={styles.mainViewStyle}>
                 <IntroText
                     headingText='Hi Foodie,'
-                    line1='Sign in to feast on your' 
-                    line2='fadefood delights' 
+                    line1='Sign in to feast on your'
+                    line2='fadefood delights'
                     style={styles.BigText_for_login}
                 />
                 <UserInput
@@ -47,13 +47,13 @@ const LoginScreens = ({ navigation }) => {
                     togglePasswordVisibility={togglePasswordVisibility}
                 />
                 <TouchableWithoutFeedback onPress={() => navigation.navigate('ForgetPassword')}>
-                    <Text style={{ color: '#757575', marginLeft: 'auto', paddingRight: '10%', marginTop: scaleHeight(20),fontFamily:'poppins_regular',fontSize:scaleWidth(12)  }}>Forget Password?</Text>
+                    <Text style={{ color: '#757575', marginLeft: 'auto', paddingRight: '10%', marginTop: scaleHeight(20), fontFamily: 'poppins_regular', fontSize: scaleWidth(12) }}>Forget Password?</Text>
                 </TouchableWithoutFeedback>
-                <Button style={styles.loginButton} btnText='Login' handleAuthBtn={() => {navigation.navigate('TabBars')}} />
+                <Button style={styles.loginButton} btnText='Login' handleAuthBtn={() => { navigation.navigate('TabBars') }} />
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ color: '#757575', marginTop: scaleHeight(10), fontSize: scaleWidth(15),fontFamily:'poppins_regular' }}>Don&#39;t have an account ?</Text>
+                    <Text style={{ color: '#757575', marginTop: scaleHeight(10), fontSize: scaleWidth(15), fontFamily: 'poppins_regular' }}>Don&#39;t have an account ?</Text>
                     <TouchableWithoutFeedback onPress={() => { navigation.navigate('SignupScreen') }}>
-                        <Text style={{ color: '#4CAF50', marginTop: scaleHeight(10), fontSize: scaleWidth(18) ,fontFamily:'poppins_regular' }}> SignUp</Text>
+                        <Text style={{ color: '#4CAF50', marginTop: scaleHeight(10), fontSize: scaleWidth(18), fontFamily: 'poppins_regular' }}> SignUp</Text>
                     </TouchableWithoutFeedback>
                 </View>
 

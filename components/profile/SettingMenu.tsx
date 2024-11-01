@@ -4,10 +4,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Ionicons } from '@expo/vector-icons'
 import { scaleHeight, scaleWidth } from '../../Scaling'
 
-const SettingMenu = ({menuName,iconName,navigation}) => {
-    const handleSettingPage = () => {
-     navigation.navigate('ProfileUpdation')   
-    }
+const SettingMenu = ({menuName,iconName,handleSettingPage}) => {
+   
     return (
         <View style={styles1.menuContainer}>
             <TouchableOpacity  style={styles1.menuItem} onPress={handleSettingPage}>

@@ -2,12 +2,12 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
-import TopBar from '../viewScreens/TopBar'
+import TopBar from '../../components/viewScreens/TopBar'
 import { styles } from '../../style/style'
-import UserInfo from './UserInfo'
+import UserInfo from '../../components/profile/UserInfo'
 import { scaleWidth } from '../../Scaling'
-import EditProfileButton from './EditProfileButton'
-import TextEditFields from './TextEditFields'
+import EditProfileButton from '../../components/profile/EditProfileButton'
+import TextEditFields from '../../components/profile/TextEditFields'
 
 
 const ProfileUpdation = ({ navigation }) => {
