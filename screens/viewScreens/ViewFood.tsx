@@ -3,7 +3,6 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableOpacity,
   Animated,
   Dimensions,
 } from "react-native";
@@ -17,6 +16,7 @@ import ItemName from "../../components/viewScreens/ItemName";
 import { styles } from "../../style/style";
 import { scaleHeight, scaleWidth } from "../../Scaling";
 import Price from "../../components/viewScreens/Price";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -31,6 +31,9 @@ const ViewFood = ({ navigation }) => {
   const handleAddtoList = () => {
     setonCheckout(true);
   };
+  const handleToRestaurantProfile = () => {
+    navigation.navigate('RestaurantProfile')
+  }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -80,7 +83,7 @@ const ViewFood = ({ navigation }) => {
             </View>
 
             {/* Restaurant Details */}
-            <View style={ownstyles.restaurantDetails}>
+            <TouchableOpacity style={ownstyles.restaurantDetails} onPress={handleToRestaurantProfile}>
               <Text style={ownstyles.restaurantName}>Delicious Restaurant</Text>
               <Text style={ownstyles.restaurantAddress}>
                 123 Food Street, Foodville
@@ -89,7 +92,7 @@ const ViewFood = ({ navigation }) => {
                 <Text style={ownstyles.rating}>4.5 ★</Text>
                 <Text style={ownstyles.ratingCount}>(234 reviews)</Text>
               </View>
-            </View>
+            </TouchableOpacity>
 
             {/* Review Section */}
             <View style={ownstyles.reviewSection}>
