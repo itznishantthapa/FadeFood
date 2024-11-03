@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { scaleWidth } from "../../Scaling";
 
-const ItemName = ({ foodName, restaurantName, fontsize }) => {
+const ItemName = ({ foodName,  fontsize }) => {
   return (
     <View style={styles.orderName}>
       <View style={styles.foodNameContainer}>

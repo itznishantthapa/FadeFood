@@ -37,6 +37,7 @@ export default function App() {
     'poppins_regular': require('./assets/fonts/Poppins-Regular.ttf'),
     'poppins_bold': require('./assets/fonts/Poppins-Bold.ttf'),
     'poppins_semibold': require('./assets/fonts/Poppins-SemiBold.ttf'),
+    'LeckerliOne_regular': require('./assets/fonts/LeckerliOne-Regular.ttf'),
   });
   useEffect(() => {
     if (loaded || error) {
