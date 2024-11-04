@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image,TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
@@ -10,6 +10,7 @@ import FoodItems from '../../components/home/FoodItemsCard'
 import ItemName from '../../components/viewScreens/ItemName'
 import Price from '../../components/viewScreens/Price'
 import img3 from '../../assets/images/img1 (3).png'
+import sprite from '../../assets/images/sprite.jpg'
 // import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Video, ResizeMode } from 'expo-av'
 import { AntDesign } from '@expo/vector-icons';
@@ -58,27 +59,32 @@ const RestaurantProfile = ({ navigation }) => {
 
                 <View style={ownstyle.restaurant_intro}>
                     {!isPlaying ? (
-                        <View style={ownstyle.poster}>
-                            <View style={ownstyle.resNameContainer}>
-                                <Text style={ownstyle.resText}>Delicious{'\n'}Restaurant</Text>
-                                <View style={styles.location}>
-                                    <Ionicon
-                                        name="location-sharp"
-                                        style={{ color: "grey", marginBottom: scaleHeight(3) }}
-                                        size={scaleWidth(20)}
-                                    />
-                                    <Text style={{ fontSize: scaleWidth(15), color: "grey", fontFamily: "poppins_semibold", }}>
-                                        1234, Sample Address, Sample City
-                                    </Text>
+                        <ImageBackground style={{ height: '100%', width: '100%' }} source={require('../../assets/biryani.jpg')}>
+                            <View style={ownstyle.poster}>
+
+                                <View style={ownstyle.resNameContainer}>
+                                    <Text style={ownstyle.resText}>Delicious{'\n'}Restaurant</Text>
+                                    <View style={styles.location}>
+                                        <Ionicon
+                                            name="location-sharp"
+                                            style={{ color: "#ffffff", marginBottom: scaleHeight(3) }}
+                                            size={scaleWidth(20)}
+                                        />
+                                        <Text style={{ fontSize: scaleWidth(15), color: "#ffffff", fontFamily: "poppins_semibold", }}>
+                                            1234, Sample Address, Sample City
+                                        </Text>
+                                    </View>
                                 </View>
+
+
+                                <TouchableOpacity style={ownstyle.playContainer} onPress={handlePlay}>
+                                    <AntDesign name='playcircleo' size={60} style={{ color: 'white' }}></AntDesign>
+                                </TouchableOpacity>
+
+
+
                             </View>
-
-                            <TouchableOpacity style={ownstyle.playContainer} onPress={handlePlay}>
-                                <AntDesign name='playcircleo' size={60} style={{ color: 'white' }}></AntDesign>
-                            </TouchableOpacity>
-
-
-                        </View>
+                        </ImageBackground>
                     ) : (
                         <View style={ownstyle.videoContainer}>
                             <Video
@@ -130,26 +136,57 @@ const RestaurantProfile = ({ navigation }) => {
                         </View>
                     </View>
                 </View>
-                <View>
-                    <View style={ownstyle.cardsContainer}>
-                        {
-                            Array(12).fill(0).map((_, index) => (
-                                <View key={index} style={ownstyle.restaurantFoodCard}>
-                                    <View style={ownstyle.foodImage}>
-                                        <Image source={img3} style={{ height: '100%', width: '100%', borderRadius: scaleWidth(8) }} resizeMode='stretch' />
-                                    </View>
-                                    <View style={ownstyle.price_and_name}>
-                                        <ItemName fontsize={20} foodName={'Momo'} />
-                                        <Price price={300} priceFontSize={16}></Price>
-                                    </View>
+
+                {
+                    activeCategory === 'Items' && (
+                        <View>
+                            <View>
+                                <View style={ownstyle.cardsContainer}>
+                                    {
+                                        Array(12).fill(0).map((_, index) => (
+                                            <View key={index} style={ownstyle.restaurantFoodCard}>
+                                                <View style={ownstyle.foodImage}>
+                                                    <Image source={img3} style={{ height: '100%', width: '100%', borderRadius: scaleWidth(8) }} resizeMode='stretch' />
+                                                </View>
+                                                <View style={ownstyle.price_and_name}>
+                                                    <ItemName fontsize={20} foodName={'Momo'} />
+                                                    <Price price={300} priceFontSize={16}></Price>
+                                                </View>
+                                            </View>
+
+                                        ))
+                                    }
+
                                 </View>
+                            </View>
+                        </View>
+                    )
+                }
+                {
+                    activeCategory === 'Drinks' && (
+                        <View>
+                            <View>
+                                <View style={ownstyle.cardsContainer}>
+                                    {
+                                        Array(6).fill(0).map((_, index) => (
+                                            <View key={index} style={ownstyle.restaurantFoodCard}>
+                                                <View style={ownstyle.foodImage}>
+                                                    <Image source={sprite} style={{ height: '100%', width: '100%', borderRadius: scaleWidth(8) }} resizeMode='stretch' />
+                                                </View>
+                                                <View style={ownstyle.price_and_name}>
+                                                    <ItemName fontsize={20} foodName={'Coca Cola'} />
+                                                    <Price price={300} priceFontSize={16}></Price>
+                                                </View>
+                                            </View>
 
-                            ))
-                        }
+                                        ))
+                                    }
 
-                    </View>
-                </View>
-
+                                </View>
+                            </View>
+                        </View>
+                    )
+                }
 
             </ScrollView>
         </SafeAreaView>
@@ -230,8 +267,8 @@ const ownstyle = StyleSheet.create({
     sectionBarContainer: {
         backgroundColor: '#F0F4F8',
         paddingBottom: scaleHeight(10),
-        borderBottomLeftRadius: scaleWidth(40),
-        borderBottomRightRadius: scaleWidth(40),
+        borderBottomLeftRadius: scaleWidth(20),
+        borderBottomRightRadius: scaleWidth(20),
     },
     activeStyle: {
         backgroundColor: '#FFFFFF',

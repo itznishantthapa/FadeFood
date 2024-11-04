@@ -83,16 +83,19 @@ const ViewFood = ({ navigation }) => {
             </View>
 
             {/* Restaurant Details */}
-            <TouchableOpacity style={ownstyles.restaurantDetails} onPress={handleToRestaurantProfile}>
+            <View style={ownstyles.restaurantDetails} >
+              <TouchableOpacity onPress={handleToRestaurantProfile} >
               <Text style={ownstyles.restaurantName}>Delicious Restaurant</Text>
+              </TouchableOpacity>
               <Text style={ownstyles.restaurantAddress}>
                 123 Food Street, Foodville
               </Text>
+           
               <View style={ownstyles.ratingContainer}>
                 <Text style={ownstyles.rating}>4.5 ★</Text>
                 <Text style={ownstyles.ratingCount}>(234 reviews)</Text>
               </View>
-            </TouchableOpacity>
+            </View>
 
             {/* Review Section */}
             <View style={ownstyles.reviewSection}>
@@ -199,6 +202,7 @@ const ownstyles = StyleSheet.create({
     padding: scaleWidth(16),
     backgroundColor: "#F8F8F8",
     borderRadius: scaleWidth(12),
+    alignItems:'flex-start'
   },
   restaurantName: {
     fontSize: scaleWidth(20),
