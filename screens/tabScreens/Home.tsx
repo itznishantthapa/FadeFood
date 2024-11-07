@@ -1,19 +1,13 @@
-import { View, Text, Dimensions, Image, ImageBackground, FlatList } from 'react-native'
-import TouchableWithoutFeedback from 'react-native-gesture-handler';
+import { View, Text, Dimensions, Image} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../../style/style';
 import { StatusBar } from 'expo-status-bar';
-import { nodeModuleNameResolver } from 'typescript';
-import dessert from '../../assets/dessert.jpg'
-import noodles from '../../assets/noodles.jpeg'
 import momo from '../../assets/momo.jpeg'
 import chatapate from '../../assets/chatapate.jpeg'
 import { ScrollView } from 'react-native-gesture-handler';
 import Map from '../../components/home/Map';
 import NavBar from '../../components/home/NavBar';
-import wallpaper from '../../assets/images/wallpaper.jpeg'
 import chicken from '../../assets/images/chicken.png'
-import burger from '../../assets/images/burger.png'
 import dishes from '../../assets/images/dishes.png'
 import categoryMOMO from '../../assets/images/categoryMOMO.png'
 import categoryNoodles from '../../assets/images/categoryNoodles.png'
@@ -22,21 +16,12 @@ import categoryCake from '../../assets/images/categoryCake.png'
 import categoryPizza from '../../assets/images/categoryPizza.png'
 import categoryChicken from '../../assets/images/categoryChicken.png'
 import biryani from '../../assets/biryani.jpg'
-// import chatapate from '../../assets/chatapate.jpg'
 import img3 from '../../assets/images/img1 (3).png'
-
-import Octicons from 'react-native-vector-icons/Octicons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-
 import { StyleSheet } from 'react-native';
 import PagerView from 'react-native-pager-view'
 import React, { useState, useEffect ,useContext} from 'react'
-import { LinearGradient } from 'expo-linear-gradient';
 import CategoriesRestaurant from '../../components/home/CategoriesRestaurant';
-import Price from '../../components/viewScreens/Price';
 import NearDishCard from '../../components/home/NearDishCard';
-import CardsCarousel from '../../components/home/Carousel';
 import Greeting from '../../components/home/Greeting';
 import FoodCard from '../../components/home/FoodCard';
 import { scaleHeight, scaleWidth } from '../../Scaling';
