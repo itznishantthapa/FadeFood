@@ -3,19 +3,31 @@ import React from 'react'
 import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons'
 import { Image } from 'react-native'
 import { scaleHeight, scaleWidth } from '../../Scaling'
-import  FontAwe  from 'react-native-vector-icons/FontAwesome6'
+import FontAwe from 'react-native-vector-icons/FontAwesome6'
 import { styles } from '../../style/style'
 
 
-const UserInfo = () => {
+const UserInfo = ({ photo }) => {
+; 
+    // http://192.168.1.64:5555/media/profile_pics/profile_picture_g0cbLvK.jpg
+
     return (
         <View style={ownstyle.profileImageContainer}>
-           
-                <Image
-                    source={require('../../assets/images/profile.webp')}
+
+            {
+                photo ? (
+                    <Image
+                        source={{ uri: photo }}
+                        style={ownstyle.profileImage}
+                    />
+                ) : (
+                    <Image source={require('../../assets/images/profile.webp')}
                     style={ownstyle.profileImage}
-                />
-            
+                    />
+                )
+            }
+
+
 
         </View>
     )

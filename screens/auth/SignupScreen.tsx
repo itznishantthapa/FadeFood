@@ -1,4 +1,4 @@
-import { Text, TouchableWithoutFeedback, View } from 'react-native'
+import { Text, TouchableWithoutFeedback, View,Alert } from 'react-native'
 import React, { useState } from 'react'
 import UserInput from '../../components/auth/UserInput'
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,6 +7,7 @@ import { styles } from '../../style/style';
 import { StatusBar } from 'expo-status-bar';
 import IntroText from '../../components/auth/IntroText';
 import { scaleWidth } from '../../Scaling';
+import { post_data, signup } from '../../service';
 
 const SignupScreen = ({ navigation }) => {
     const [email, set_email] = useState(null)
@@ -17,9 +18,25 @@ const SignupScreen = ({ navigation }) => {
         setPasswordVisible((prevState) => ({
             ...prevState, [field]: !prevState[field]
         }));
-
-
     };
+
+    const handleSignUp = async () => {
+        if(email === null || password.initialPassword === null || password.confirmPassword === null){
+            Alert.alert('Error','Please fill all the fields')
+            return
+        }
+        else if(password.initialPassword !== password.confirmPassword){
+            Alert.alert('Error','Password does not match')
+            return
+        }
+        const response =await signup( { email: email, password: password.initialPassword })
+        if(response.success){
+             Alert.alert('Success',response.returnData)
+             navigation.navigate('TabBars')
+        }else{
+            Alert.alert('Error',response.returnData)
+        }
+    }
     return (
         <SafeAreaView>
             <StatusBar hidden={false} backgroundColor='#F5F5F5' style='dark' />
@@ -64,12 +81,12 @@ const SignupScreen = ({ navigation }) => {
                 <Button
                     style={styles.loginButton}
                     btnText='Sign In'
-                    handleAuthBtn={() => console.log('signup btn is pressed')}
+                    handleAuthBtn={handleSignUp}
                 />
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ color: '#757575', marginTop: 10,fontSize: scaleWidth(15),fontFamily:'poppins_regular'  }}>Already have an account ?</Text>
+                    <Text style={{ color: '#757575', marginTop: 10, fontSize: scaleWidth(15), fontFamily: 'poppins_regular' }}>Already have an account ?</Text>
                     <TouchableWithoutFeedback onPress={() => { navigation.navigate('LoginScreens') }}>
-                        <Text style={{ color: '#4CAF50', marginTop: 10,  fontSize: scaleWidth(18) ,fontFamily:'poppins_regular' }}> Login</Text>
+                        <Text style={{ color: '#4CAF50', marginTop: 10, fontSize: scaleWidth(18), fontFamily: 'poppins_regular' }}> Login</Text>
                     </TouchableWithoutFeedback>
                 </View>
 

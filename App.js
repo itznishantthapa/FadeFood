@@ -52,7 +52,7 @@ export default function App() {
     <AppProvider > 
       <SafeAreaProvider >
         <NavigationContainer>
-          <Stack.Navigator initialRouteName='TabBars' >
+          <Stack.Navigator initialRouteName='LoginScreens' >
             <Stack.Screen name="LoginScreens" component={LoginScreens} options={{ headerShown: false }} />
             <Stack.Screen name="SignupScreen" component={SignupScreen} options={{ headerShown: false }} />
             <Stack.Screen name="ForgetPassword" component={ForgetPassword} options={{ headerShown: false }} />

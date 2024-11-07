@@ -1,4 +1,4 @@
-import { Text, TouchableWithoutFeedback, View } from 'react-native'
+import { Text, TouchableWithoutFeedback, View,Alert } from 'react-native'
 import React, { useState } from 'react'
 import UserInput from '../../components/auth/UserInput'
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,6 +7,7 @@ import { styles } from '../../style/style';
 import { StatusBar } from 'expo-status-bar';
 import IntroText from '../../components/auth/IntroText';
 import { scaleHeight, scaleWidth } from '../../Scaling';
+import { login, post_data, signup } from '../../service';
 
 const LoginScreens = ({ navigation }) => {
     const [email, set_email] = useState(null)
@@ -16,6 +17,20 @@ const LoginScreens = ({ navigation }) => {
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
     };
+
+    const handleLogin = async() => {
+        if(email === null || password === null){
+            Alert.alert('Error','Please fill all the fields')
+            return
+        }
+        const response = await login( { email: email, password: password })
+        if(response.success){
+            Alert.alert('Success',response.returnData)
+            navigation.navigate('TabBars')
+        }else{
+            Alert.alert('Error',response.data)
+        }
+    }
     return (
         <SafeAreaView>
             <StatusBar hidden={false} backgroundColor='#F5F5F5' style='dark' />
@@ -49,7 +64,7 @@ const LoginScreens = ({ navigation }) => {
                 <TouchableWithoutFeedback onPress={() => navigation.navigate('ForgetPassword')}>
                     <Text style={{ color: '#757575', marginLeft: 'auto', paddingRight: '10%', marginTop: scaleHeight(20), fontFamily: 'poppins_regular', fontSize: scaleWidth(12) }}>Forget Password?</Text>
                 </TouchableWithoutFeedback>
-                <Button style={styles.loginButton} btnText='Login' handleAuthBtn={() => { navigation.navigate('TabBars') }} />
+                <Button style={styles.loginButton} btnText='Login' handleAuthBtn={handleLogin} />
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{ color: '#757575', marginTop: scaleHeight(10), fontSize: scaleWidth(15), fontFamily: 'poppins_regular' }}>Don&#39;t have an account ?</Text>
                     <TouchableWithoutFeedback onPress={() => { navigation.navigate('SignupScreen') }}>

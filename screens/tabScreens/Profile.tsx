@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import TopBar from '../../components/viewScreens/TopBar';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,8 +7,11 @@ import { styles } from '../../style/style';
 import SettingMenu from '../../components/profile/SettingMenu';
 import UserInfo from '../../components/profile/UserInfo';
 import Name_Phone from '../../components/profile/Name_Phone';
+import { myContext } from '../../context/AppProvider';
+
 
 const ProfileScreen = ({ navigation }) => {
+    const {imageURI,state} = useContext(myContext);
 
     const handleEditProfileAccount = (screen_name) => {
         navigation.navigate(screen_name)
@@ -39,8 +42,8 @@ const ProfileScreen = ({ navigation }) => {
             <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
             <TopBar navigation={navigation} top_title='Profile' />
             <View style={styles.home_screen}>
-                <UserInfo />
-                <Name_Phone />
+                <UserInfo  photo={imageURI}/>
+                <Name_Phone name={state.name} phone_number={state.phone}/>
                 <SettingMenu
                     menuName={'Account'}
                     iconName={'person-outline'}
