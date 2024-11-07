@@ -2,10 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { scaleHeight, scaleWidth } from '../../Scaling';
 
-const Greeting = () => {
+const Greeting = ({name}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.greeting}>Good Afternoon, Nishant</Text>
+      <Text style={styles.greeting}>Good Afternoon, {name}</Text>
       <Text style={styles.subText}>What would you like to have today?</Text>
     </View>
   );

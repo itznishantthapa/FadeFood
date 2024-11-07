@@ -8,10 +8,7 @@ import dessert from '../../assets/dessert.jpg'
 import noodles from '../../assets/noodles.jpeg'
 import momo from '../../assets/momo.jpeg'
 import chatapate from '../../assets/chatapate.jpeg'
-import FoodItems from '../../components/home/FoodItemsCard';
 import { ScrollView } from 'react-native-gesture-handler';
-import SloganBox from '../../components/home/SloganBox';
-import Categories from '../../components/home/Categories';
 import Map from '../../components/home/Map';
 import NavBar from '../../components/home/NavBar';
 import wallpaper from '../../assets/images/wallpaper.jpeg'
@@ -34,7 +31,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import { StyleSheet } from 'react-native';
 import PagerView from 'react-native-pager-view'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect ,useContext} from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import CategoriesRestaurant from '../../components/home/CategoriesRestaurant';
 import Price from '../../components/viewScreens/Price';
@@ -43,6 +40,7 @@ import CardsCarousel from '../../components/home/Carousel';
 import Greeting from '../../components/home/Greeting';
 import FoodCard from '../../components/home/FoodCard';
 import { scaleHeight, scaleWidth } from '../../Scaling';
+import { myContext } from '../../context/AppProvider';
 
 
 const { width, height } = Dimensions.get('window');
@@ -56,7 +54,7 @@ const images = [
 
 const Home = ({ navigation }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-
+  const {state} =useContext(myContext)
   const dishItems = [
     {
       "image": categoryChicken,
@@ -253,7 +251,7 @@ const Home = ({ navigation }) => {
         >
 
           <View style={styles1.dashboardContainer} >
-            <Greeting />
+            <Greeting name={state.name}/>
             <PagerView
               ref={pagerRef}
               style={{ width: width, height: scaleHeight(150) }}

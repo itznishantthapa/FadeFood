@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Alert } from 'react-native'
-import React, { useState, useReducer,useContext } from 'react'
+import React, { useContext } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 import TopBar from '../../components/viewScreens/TopBar'
@@ -8,27 +8,16 @@ import UserInfo from '../../components/profile/UserInfo'
 import { scaleWidth } from '../../Scaling'
 import EditProfileButton from '../../components/profile/EditProfileButton'
 import TextEditFields from '../../components/profile/TextEditFields'
-import person from '../../assets/images/wallpaper.jpeg'
 import * as ImagePicker from 'expo-image-picker';
-import { get_data, post_data_with_img } from '../../service'
-import { useFocusEffect } from '@react-navigation/native'
+import { post_data_with_img } from '../../service'
 import { myContext } from '../../context/AppProvider'
 
 
 
 const ProfileUpdation = ({ navigation }) => {
-  const { state,userData, dispatch, imageURI, setImageURI } = useContext(myContext);
+  const { state, userData, dispatch, imageURI, setImageURI } = useContext(myContext);
 
-  const handleSave = async () => {
-    const method = userData ? 'put' : 'post'; 
-    console.log('Data is being ', method);
-    const response = await post_data_with_img('user_details', state, imageURI, method);
-    if (response.success) {
-      Alert.alert('Success', response.data);
-    } else {
-      Alert.alert('Error', response.data);
-    }
-  };
+
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -65,7 +54,18 @@ const ProfileUpdation = ({ navigation }) => {
       { cancelable: false }
     );
   };
-  
+
+  const handleSave = async () => {
+    const method = userData ? 'put' : 'post';
+    console.log('Data is being ', method);
+    const response = await post_data_with_img('user_details', state, imageURI, method);
+    if (response.success) {
+      Alert.alert('Success', response.data);
+    } else {
+      Alert.alert('Error', response.data);
+    }
+  };
+
   return (
     <SafeAreaView >
       <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
