@@ -12,7 +12,7 @@ import { myContext } from '../../context/AppProvider';
 import LoadingScreen from '../../components/viewScreens/LoadingScreen';
 
 const LoginScreens = ({ navigation }) => {
-    const { fetchData, setisUserLoggedIn, isLoading, setisLoading } = useContext(myContext)
+    const { fetchData, setisUserLoggedIn, isLoading, setisLoading,setsnackBar } = useContext(myContext)
     const [email, set_email] = useState(null)
     const [password, set_password] = useState(null)
     const [passwordVisible, setPasswordVisible] = useState(true);
@@ -30,12 +30,13 @@ const LoginScreens = ({ navigation }) => {
         setisLoading(true)
         const response = await login({ email: email, password: password })
         if (response.success) {
-            navigation.navigate('Home')
             console.log('Fetching user data-------')
             fetchData()
             setisUserLoggedIn(true);
-            console.log('User data fetched-------')
             setisLoading(false)
+            console.log('User data fetched-------')
+            navigation.navigate('Home')
+            setsnackBar(true)
         } else {
             setisLoading(false)
             Alert.alert('Error', response.returnData)

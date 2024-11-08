@@ -1,4 +1,4 @@
-import { View, Text, Dimensions, Image} from 'react-native'
+import { View, Text, Dimensions, Image, TouchableOpacity} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../../style/style';
 import { StatusBar } from 'expo-status-bar';
@@ -26,6 +26,8 @@ import Greeting from '../../components/home/Greeting';
 import FoodCard from '../../components/home/FoodCard';
 import { scaleHeight, scaleWidth } from '../../Scaling';
 import { myContext } from '../../context/AppProvider';
+import SnackBar from '../viewScreens/SnackBar';
+
 
 
 const { width, height } = Dimensions.get('window');
@@ -38,6 +40,7 @@ const images = [
 ];
 
 const Home = ({ navigation }) => {
+  const {snackBar,setsnackBar}=useContext(myContext)
   const [activeIndex, setActiveIndex] = useState(0);
   const {state} =useContext(myContext)
   const dishItems = [
@@ -218,13 +221,16 @@ const Home = ({ navigation }) => {
   const handleToFoodViewPage = () => {
     navigation.navigate('ViewFood')
   }
+
+
+
   return (
     <SafeAreaView>
       <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
       <View style={styles.home_screen}>
 
         <NavBar handleSearchScreen={handleSearchScreen} isTextInput={false} isBack={false} navigation={navigation} />
-
+        
         {/* <ScrollView showsVerticalScrollIndicator={false} stickyHeaderIndices={[1]}> */}
         <ScrollView showsVerticalScrollIndicator={false}
         nestedScrollEnabled={true}
@@ -232,6 +238,7 @@ const Home = ({ navigation }) => {
         >
 
           <View style={styles1.dashboardContainer} >
+          
             <Greeting name={state.name}/>
             <PagerView
               ref={pagerRef}
@@ -281,10 +288,13 @@ const Home = ({ navigation }) => {
                   dishImage={categoryChicken}
                   dishName={'Chicken'}
                 />
+               
+
                 <CategoriesRestaurant
                   dishImage={categoryCake}
                   dishName={'Cake'}
                 />
+             
               </View>
 
             </View>
@@ -368,17 +378,11 @@ const Home = ({ navigation }) => {
                 ))
               }
             </View>
-
-
-
-
-
-
-
-
           </View>
         </ScrollView>
+        <SnackBar message='Login Successfull' onClose={false} visible={snackBar}/>
       </View>
+      
     </SafeAreaView>
   )
 }

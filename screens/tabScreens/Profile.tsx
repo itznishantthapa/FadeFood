@@ -8,10 +8,11 @@ import SettingMenu from '../../components/profile/SettingMenu';
 import UserInfo from '../../components/profile/UserInfo';
 import Name_Phone from '../../components/profile/Name_Phone';
 import { myContext } from '../../context/AppProvider';
+import LoadingScreen from '../../components/viewScreens/LoadingScreen';
 
 
 const ProfileScreen = ({ navigation }) => {
-    const { imageURI, state, dispatch, setImageURI, setuserData, clearAllData, isUserLoggedIn, userData } = useContext(myContext);
+    const { imageURI, state, dispatch, setImageURI, setuserData, clearAllData, isUserLoggedIn, userData,isLoading,setisLoading } = useContext(myContext);
 
     const handleEditProfileAccount = (screen_name) => {
         navigation.navigate(screen_name)
@@ -27,8 +28,10 @@ const ProfileScreen = ({ navigation }) => {
                 },
                 {
                     text: "Logout",
-                    onPress: () => {
-                        clearAllData()
+                    onPress: async() => {
+                        setisLoading(true)
+                        await clearAllData()
+                        setisLoading(false)
                         navigation.navigate('Home')
                     },
                 },
@@ -42,6 +45,13 @@ const ProfileScreen = ({ navigation }) => {
     }
 
     return (
+    <>
+        {
+                isLoading && (
+                    <LoadingScreen />
+                )
+            }
+   
         <SafeAreaView >
             <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
             <TopBar navigation={navigation} top_title='Profile' />
@@ -99,6 +109,7 @@ const ProfileScreen = ({ navigation }) => {
 
             </View>
         </SafeAreaView>
+        </>
     );
 };
 

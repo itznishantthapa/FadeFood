@@ -47,7 +47,7 @@ const RestaurantProfile = ({ navigation }) => {
     return (
 
         <SafeAreaView >
-            <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
+            <StatusBar hidden={false} backgroundColor='#333333' style='light' />
             {/* <TopBar top_title={'Restaurant'} navigation={navigation}></TopBar> */}
             <ScrollView
                 nestedScrollEnabled={true}

@@ -1,13 +1,31 @@
-import { StyleSheet, Text, View,ActivityIndicator } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 const LoadingScreen = () => {
     return (
-        <View style={{ width: '100%', height: '100%', position: 'absolute', justifyContent: 'center', alignItems: 'center', backgroundColor: 'grey', zIndex: 999 }}>
-            <StatusBar hidden={false} backgroundColor='grey' style='light' />
-            <ActivityIndicator size="large" color="#0000ff" />
+        <View style={styles.container}>
+            <StatusBar backgroundColor="#ffffff" style='dark' />
+            <ActivityIndicator 
+                size="large"
+                color="#333333"
+            />
         </View>
-    )
-}
-export default LoadingScreen
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(255,255,255,0.8)',  // Semi-transparent white
+        zIndex: 1000
+    }
+});
+
+export default LoadingScreen;

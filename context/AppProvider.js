@@ -29,6 +29,7 @@ export const AppProvider = ({ children }) => {
   const [imageURI, setImageURI] = useState(null);
   const [isUserLoggedIn, setisUserLoggedIn] = useState(false);
   const [isLoading, setisLoading] = useState(false);
+  const [snackBar, setsnackBar] = useState(false)
 
   const fetchData = async () => {
     const response = await get_data("user_details"); // Call the GET function
@@ -41,7 +42,7 @@ export const AppProvider = ({ children }) => {
       if (response.data.profile_pic) {
         setImageURI(`http://192.168.1.64:5555/${response.data.profile_pic}`);
       }
-     
+      setisUserLoggedIn(true);
     } else {
       console.log(response.data); // Set error message if failed
     }
@@ -59,6 +60,7 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: "email", payload: "" });
     setImageURI(null);
     setisUserLoggedIn(false);
+    setsnackBar(false)
     console.log("All data cleared");
   };
 
@@ -76,7 +78,10 @@ export const AppProvider = ({ children }) => {
         isUserLoggedIn,
         setisUserLoggedIn,
         isLoading,
-        setisLoading
+        setisLoading,
+        snackBar,
+        setsnackBar
+  
       }}
     >
       {children}

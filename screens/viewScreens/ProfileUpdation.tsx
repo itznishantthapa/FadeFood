@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Alert } from 'react-native'
+import { StyleSheet, Text, View, Alert,Keyboard } from 'react-native'
 import React, { useContext } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
@@ -11,15 +11,17 @@ import TextEditFields from '../../components/profile/TextEditFields'
 import * as ImagePicker from 'expo-image-picker';
 import { delete_data, post_data_with_img } from '../../service'
 import { myContext } from '../../context/AppProvider'
+import LoadingScreen from '../../components/viewScreens/LoadingScreen'
 
 
 
 const ProfileUpdation = ({ navigation }) => {
-  const { state, userData, dispatch, imageURI, setImageURI } = useContext(myContext);
+  const { state, userData, dispatch, imageURI, setImageURI, isLoading, setisLoading } = useContext(myContext);
 
 
 
   const pickImage = async () => {
+    Keyboard.dismiss()
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -35,7 +37,7 @@ const ProfileUpdation = ({ navigation }) => {
 
 
   const handleDeletePicture = () => {
-
+    Keyboard.dismiss()
     if (imageURI == null) {
       return;
     }
@@ -50,9 +52,11 @@ const ProfileUpdation = ({ navigation }) => {
         {
           text: 'Delete',
           onPress: async () => {
-            const response=await delete_data('user_details');
+            setisLoading(true)
+            const response = await delete_data('user_details');
             setImageURI(null)
-            Alert.alert('Success',response.data );
+            setisLoading(false)
+            Alert.alert('Success', response.data);
 
           },
         },
@@ -62,57 +66,69 @@ const ProfileUpdation = ({ navigation }) => {
   };
 
   const handleSave = async () => {
+    Keyboard.dismiss()
+    setisLoading(true)
     const method = userData ? 'put' : 'post';
     console.log('Data is being ', method);
     console.log(userData);
     const response = await post_data_with_img('user_details', state, imageURI, method);
     if (response.success) {
+      setisLoading(false)
       Alert.alert('Success', response.data);
     } else {
+      setisLoading(false)
       Alert.alert('Error', response.data);
     }
   };
 
   return (
-    <SafeAreaView >
-      <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
-      <TopBar navigation={navigation} top_title='Edit Profile' />
-      <View style={[styles.home_screen, { alignItems: 'flex-start', paddingLeft: scaleWidth(40) }]}>
+    <>
+      {
+        isLoading && (
+          <LoadingScreen />
+        )
+      }
+
+      <SafeAreaView >
+        <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
+        <TopBar navigation={navigation} top_title='Edit Profile' />
+        <View style={[styles.home_screen, { alignItems: 'flex-start', paddingLeft: scaleWidth(40) }]}>
 
 
-        <View style={ownstyle.image_container}>
-          <UserInfo photo={imageURI}></UserInfo>
-          <View style={ownstyle.button_container}>
-            <EditProfileButton button_name={'Change Picture'} handleButton={pickImage} />
-            <EditProfileButton button_name={'Delete Picture'} handleButton={handleDeletePicture} />
-            <EditProfileButton button_name={'Save'} handleButton={handleSave} />
+          <View style={ownstyle.image_container}>
+            <UserInfo photo={imageURI}></UserInfo>
+            <View style={ownstyle.button_container}>
+              <EditProfileButton button_name={'Change Picture'} handleButton={pickImage} />
+              <EditProfileButton button_name={'Delete Picture'} handleButton={handleDeletePicture} />
+              <EditProfileButton button_name={'Save'} handleButton={handleSave} />
+            </View>
           </View>
+
+          <TextEditFields
+            label_name={'Name'}
+            inputmode={'text'}
+            key_type={'default'}
+            given_value={state.name}
+            handleInputChange={(text) => dispatch({ type: 'name', payload: text })}
+          />
+          <TextEditFields
+            label_name={'Phone'}
+            inputmode={null}
+            key_type={'number-pad'}
+            given_value={state.phone}
+            handleInputChange={(num) => dispatch({ type: 'phone', payload: num })}
+          />
+          <TextEditFields
+            label_name={'Email'}
+            inputmode={null}
+            key_type={'email-address'}
+            given_value={state.email}
+            handleInputChange={(text) => dispatch({ type: 'email', payload: text })}
+          />
         </View>
 
-        <TextEditFields
-          label_name={'Name'}
-          inputmode={'text'}
-          key_type={'default'}
-          given_value={state.name}
-          handleInputChange={(text) => dispatch({ type: 'name', payload: text })}
-        />
-        <TextEditFields
-          label_name={'Phone'}
-          inputmode={null}
-          key_type={'number-pad'}
-          given_value={state.phone}
-          handleInputChange={(num) => dispatch({ type: 'phone', payload: num })}
-        />
-        <TextEditFields
-          label_name={'Email'}
-          inputmode={null}
-          key_type={'email-address'}
-          given_value={state.email}
-          handleInputChange={(text) => dispatch({ type: 'email', payload: text })}
-        />
-      </View>
-
-    </SafeAreaView>
+      </SafeAreaView>
+    </>
   )
 }
 
