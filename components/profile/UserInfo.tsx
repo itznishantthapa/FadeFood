@@ -9,7 +9,6 @@ import { styles } from '../../style/style'
 
 const UserInfo = ({ photo }) => {
 ; 
-    // http://192.168.1.64:5555/media/profile_pics/profile_picture_g0cbLvK.jpg
 
     return (
         <View style={ownstyle.profileImageContainer}>

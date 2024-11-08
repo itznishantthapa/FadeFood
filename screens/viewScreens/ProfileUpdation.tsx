@@ -9,7 +9,7 @@ import { scaleWidth } from '../../Scaling'
 import EditProfileButton from '../../components/profile/EditProfileButton'
 import TextEditFields from '../../components/profile/TextEditFields'
 import * as ImagePicker from 'expo-image-picker';
-import { post_data_with_img } from '../../service'
+import { delete_data, post_data_with_img } from '../../service'
 import { myContext } from '../../context/AppProvider'
 
 
@@ -35,6 +35,7 @@ const ProfileUpdation = ({ navigation }) => {
 
 
   const handleDeletePicture = () => {
+
     if (imageURI == null) {
       return;
     }
@@ -48,7 +49,12 @@ const ProfileUpdation = ({ navigation }) => {
         },
         {
           text: 'Delete',
-          onPress: () => setImageURI(null),
+          onPress: async () => {
+            const response=await delete_data('user_details');
+            setImageURI(null)
+            Alert.alert('Success',response.data );
+
+          },
         },
       ],
       { cancelable: false }
@@ -58,6 +64,7 @@ const ProfileUpdation = ({ navigation }) => {
   const handleSave = async () => {
     const method = userData ? 'put' : 'post';
     console.log('Data is being ', method);
+    console.log(userData);
     const response = await post_data_with_img('user_details', state, imageURI, method);
     if (response.success) {
       Alert.alert('Success', response.data);

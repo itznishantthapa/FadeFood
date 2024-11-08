@@ -1,4 +1,4 @@
-import React,{useContext} from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import TopBar from '../../components/viewScreens/TopBar';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -11,7 +11,7 @@ import { myContext } from '../../context/AppProvider';
 
 
 const ProfileScreen = ({ navigation }) => {
-    const {imageURI,state} = useContext(myContext);
+    const { imageURI, state, dispatch, setImageURI, setuserData, clearAllData, isUserLoggedIn, userData } = useContext(myContext);
 
     const handleEditProfileAccount = (screen_name) => {
         navigation.navigate(screen_name)
@@ -28,13 +28,17 @@ const ProfileScreen = ({ navigation }) => {
                 {
                     text: "Logout",
                     onPress: () => {
-                        navigation.navigate('LoginScreens')
+                        clearAllData()
+                        navigation.navigate('Home')
                     },
                 },
             ],
-            { cancelable: false } 
+            { cancelable: false }
         );
+    }
 
+    const handleSignIn = () => {
+        navigation.navigate('LoginScreens')
     }
 
     return (
@@ -42,34 +46,57 @@ const ProfileScreen = ({ navigation }) => {
             <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
             <TopBar navigation={navigation} top_title='Profile' />
             <View style={styles.home_screen}>
-                <UserInfo  photo={imageURI}/>
-                <Name_Phone name={state.name} phone_number={state.phone}/>
-                <SettingMenu
-                    menuName={'Account'}
-                    iconName={'person-outline'}
-                    handleSettingPage={() => handleEditProfileAccount('ProfileUpdation')}
-                />
-                <SettingMenu
-                    menuName={'Privacy and Security'}
-                    iconName={'shield-outline'}
-                    handleSettingPage={() => handleEditProfileAccount('PrivacyAndSecurity')}
+                <UserInfo photo={imageURI} />
+                {
+                    userData && (
+                        <Name_Phone name={state.name} phone_number={state.phone} />
+                    )
+                }
 
-                />
-                <SettingMenu
-                    menuName={'Help and Support'}
-                    iconName={'help-circle-outline'}
-                    handleSettingPage={() => handleEditProfileAccount('ProfileUpdation')}
-                />
+                {
+                    isUserLoggedIn && (
+                        <>
+                            <SettingMenu
+                                menuName={'Account'}
+                                iconName={'person-outline'}
+                                handleSettingPage={() => handleEditProfileAccount('ProfileUpdation')}
+                            />
+                            <SettingMenu
+                                menuName={'Privacy and Security'}
+                                iconName={'shield-outline'}
+                                handleSettingPage={() => handleEditProfileAccount('PrivacyAndSecurity')}
+
+                            />
+                            <SettingMenu
+                                menuName={'Help and Support'}
+                                iconName={'help-circle-outline'}
+                                handleSettingPage={() => handleEditProfileAccount('ProfileUpdation')}
+                            />
+                        </>
+                    )
+                }
+
                 <SettingMenu
                     menuName={'About'}
                     iconName={'information-circle-outline'}
                     handleSettingPage={() => handleEditProfileAccount('AboutScreen')}
                 />
-                <SettingMenu
-                    menuName={'Logout'}
-                    iconName={'log-out-outline'}
-                    handleSettingPage={handleLogout}
-                />
+                {
+                    isUserLoggedIn ? (
+                        <SettingMenu
+                            menuName={'Logout'}
+                            iconName={'log-out-outline'}
+                            handleSettingPage={handleLogout}
+                        />
+                    ) : (
+                        <SettingMenu
+                            menuName={'SignUp'}
+                            iconName={'log-in-outline'}
+                            handleSettingPage={handleSignIn}
+                        />
+                    )
+                }
+
             </View>
         </SafeAreaView>
     );

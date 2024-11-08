@@ -17,8 +17,8 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: height * 0.052,
     color: '#212121',
-    fontWeight: 'bold',
-    fontSize: width * 0.03996,
+    fontSize: scaleWidth(16),
+    fontFamily:'montserrat_regular',
   },
 
   loginButton: {
@@ -45,7 +45,6 @@ export const styles = StyleSheet.create({
     width: '80%',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    marginBottom: width * 0.0888
 
   },
   verifyBoxContainer: {
@@ -97,11 +96,8 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 8,
     borderRadius: scaleWidth(20),
     width: '100%',
-    // marginBottom: 20,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    // gap:5
-
   },
   map_box: {
     borderWidth: scaleWidth(5),
@@ -123,7 +119,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
-    position: 'relative',    // Ensures it scrolls with the content until it reaches the navBar
+    position: 'relative',   
     zIndex: 10,
     backgroundColor: '#dc2f02',
     marginBottom: 4

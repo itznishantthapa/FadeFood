@@ -211,10 +211,6 @@ const Home = ({ navigation }) => {
 
   const pagerRef = React.useRef(null);
 
-  const handleNavigation = () => {
-    console.log('Navigating to food view page')
-    navigation.navigate('ViewFood')
-  }
   const handleSearchScreen = () => {
     navigation.navigate('SearchScreen')
     console.log('Navigating to search screen')

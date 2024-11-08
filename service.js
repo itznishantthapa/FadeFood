@@ -2,6 +2,8 @@ import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 import { Alert } from "react-native";
 
+
+
 // Store both access and refresh tokens
 const storeTokens = async (accessToken, refreshToken) => {
   try {
@@ -10,6 +12,7 @@ const storeTokens = async (accessToken, refreshToken) => {
   } catch (error) {
     console.error("Error storing the tokens", error);
   }
+
 };
 
 // Retrieve access token
@@ -31,6 +34,21 @@ const getRefreshToken = async () => {
     return null;
   }
 };
+
+
+// Clear tokens from secure storage
+export const clearTokens = async () => {
+  try {
+    await SecureStore.deleteItemAsync("access_token");
+    await SecureStore.deleteItemAsync("refresh_token");
+    console.log("Tokens cleared");
+  } catch (error) {
+    console.error("Error clearing tokens", error);
+  }
+};
+
+
+
 
 // Set up base URL for your Django API
 const api = axios.create({
@@ -65,10 +83,7 @@ export const login = async (data) => {
       return { success: true, returnData: response.data.msg };
     }
   } catch (error) {
-    return {
-      success: false,
-      returnData: error.response?.data?.msg || "Login failed",
-    };
+    return {success: false,returnData: error.response?.data?.msg};
   }
 };
 
@@ -135,6 +150,7 @@ export const get_data = async (endpoint) => {
     return { success: true, data: response.data };
   } catch (error) {
     if (error.response?.status === 401) {
+      console.log('get data calling refresh token')
       const newToken = await refreshAccessToken();
       if (newToken) {
         return get_data(endpoint); // Retry the GET request with the new token
@@ -159,12 +175,14 @@ export const post_data_with_img = async (endpoint, text_data, uri, method) => {
   Object.keys(text_data).forEach((key) => {
     formData.append(key, text_data[key]);
   });
+   if(uri){
 
-  formData.append("profile_picture", {
-    uri: uri,
-    type: "image/jpeg",
-    name: "profile_picture.jpg",
-  });
+     formData.append("profile_picture", {
+       uri: uri,
+       type: "image/jpeg",
+       name: "profile_picture.jpg",
+     });
+   }
 
   try {
     const response = await api({
@@ -179,9 +197,37 @@ export const post_data_with_img = async (endpoint, text_data, uri, method) => {
     return { success: true, data: response.data.msg };
   } catch (error) {
     if (error.response?.status === 401) {
+      console.log('post_data_with_img calling refresh token')
       const newToken = await refreshAccessToken();
       if (newToken) {
         return post_data_with_img(endpoint, text_data, uri, method); // Retry the GET request with the new token
+      }
+    }
+    return {
+      success: false,
+      data: error.response?.data?.msg || "Something went wrong",
+    };
+  }
+};
+
+//Function to delete the data
+export const delete_data = async (endpoint) => {
+  const token = await getAccessToken();
+  if (!token) {
+    return { success: false, data: "No token found. Please log in again." };
+  }
+
+  try {
+    const response = await api.delete(`${endpoint}/`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return { success: true, data: response.data.msg };
+  } catch (error) {
+    if (error.response?.status === 401) {
+      console.log('delete_data calling refresh token')
+      const newToken = await refreshAccessToken();
+      if (newToken) {
+        return delete_data(endpoint); // Retry the GET request with the new token
       }
     }
     return {
