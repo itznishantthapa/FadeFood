@@ -1,329 +1,349 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground } from 'react-native'
-import React, { useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { StatusBar } from 'expo-status-bar'
-import TopBar from '../../components/viewScreens/TopBar'
-import { styles } from '../../style/style'
-import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler'
-import { scaleHeight, scaleWidth } from '../../Scaling'
-import FoodItems from '../../components/home/FoodItemsCard'
-import ItemName from '../../components/viewScreens/ItemName'
-import Price from '../../components/viewScreens/Price'
-import img3 from '../../assets/images/img1 (3).png'
-import sprite from '../../assets/images/sprite.jpg'
-// import { TouchableOpacity } from 'react-native-gesture-handler'
-import { Video, ResizeMode } from 'expo-av'
-import { AntDesign } from '@expo/vector-icons';
-import Ionicon from 'react-native-vector-icons/Ionicons';
-
-
-import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Linking, Platform } from 'react-native';
+import React from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
+import { ScrollView } from 'react-native-gesture-handler';
+import { AntDesign, Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 const Tab = createMaterialTopTabNavigator();
 
+// Restaurant Looks Tab Component
+const LooksScreen = () => {
+  const restaurantViews = [
+    { 
+      id: 1, 
+      image: require('../../assets/images/wallpaper.jpeg'),
+      description: 'Elegant dining area with modern aesthetics'
+    },
+    { 
+      id: 2, 
+      image: require('../../assets/images/wallpaper.jpeg'),
+      description: 'Peaceful outdoor seating with garden view'
+    },
+    { 
+      id: 3, 
+      image: require('../../assets/images/wallpaper.jpeg'),
+      description: 'Premium bar with extensive collection'
+    },
+    // Add more views as needed
+  ];
+
+  return (
+    <ScrollView style={styles.tabContent} showsVerticalScrollIndicator={false}>
+      {restaurantViews.map((view) => (
+        <View key={view.id} style={styles.lookCard}>
+          <Image source={view.image} style={styles.lookImage} resizeMode="cover" />
+          <Text style={styles.lookDescription}>{view.description}</Text>
+        </View>
+      ))}
+    </ScrollView>
+  );
+};
+
+// Menu Items Tab Component
+const MenuItemsScreen = () => {
+  const foodItems = [
+    { id: 1, name: 'Chicken Biryani', price: 350, image: require('../../assets/images/img1 (3).png') },
+    { id: 2, name: 'Butter Chicken', price: 400, image: require('../../assets/images/img1 (3).png') },
+    // Add more items as needed
+  ];
+
+  return (
+    <ScrollView style={styles.tabContent} showsVerticalScrollIndicator={false}>
+      <View style={styles.cardsContainer}>
+        {foodItems.map((item) => (
+          <TouchableOpacity key={item.id} style={styles.foodCard}>
+            <Image source={item.image} style={styles.foodImage} resizeMode="cover" />
+            <View style={styles.foodDetails}>
+              <Text style={styles.foodName}>{item.name}</Text>
+              <Text style={styles.foodPrice}>₹{item.price}</Text>
+            </View>
+            <TouchableOpacity style={styles.addButton}>
+              <Text style={styles.addButtonText}>Add</Text>
+            </TouchableOpacity>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </ScrollView>
+  );
+};
+
+// Drinks Tab Component
+const DrinksScreen = () => {
+  const drinks = [
+    { id: 1, name: 'Fresh Lime Soda', price: 80, image: require('../../assets/images/sprite.jpg') },
+    { id: 2, name: 'Mango Lassi', price: 100, image: require('../../assets/images/sprite.jpg') },
+    // Add more drinks as needed
+  ];
+
+  return (
+    <ScrollView style={styles.tabContent} showsVerticalScrollIndicator={false}>
+      <View style={styles.cardsContainer}>
+        {drinks.map((drink) => (
+          <TouchableOpacity key={drink.id} style={styles.foodCard}>
+            <Image source={drink.image} style={styles.foodImage} resizeMode="cover" />
+            <View style={styles.foodDetails}>
+              <Text style={styles.foodName}>{drink.name}</Text>
+              <Text style={styles.foodPrice}>₹{drink.price}</Text>
+            </View>
+            <TouchableOpacity style={styles.addButton}>
+              <Text style={styles.addButtonText}>Add</Text>
+            </TouchableOpacity>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </ScrollView>
+  );
+};
 
 const RestaurantProfile = ({ navigation }) => {
-    const [isPlaying, setisPlaying] = useState(false)
-    const [activeCategory, setactiveCategory] = useState('Items')
+  const handleGoBack = () => navigation.goBack();
 
-    const categories = ['Items', 'Drinks']
+  const openMaps = () => {
+    const latitude = "26.8217"; 
+    const longitude = "87.2863";
+    const label = "Delicious Restaurant";
 
-    const handleActiveCategory = (category) => {
-        setactiveCategory(category)
-        console.log(activeCategory)
-    }
+    const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+    const latLng = `${latitude},${longitude}`;
+    const url = Platform.select({
+      ios: `${scheme}${label}@${latLng}`,
+      android: `${scheme}${latLng}(${label})`
+    });
 
-    const handlePlay = () => {
-        setisPlaying(true)
-    }
+    Linking.openURL(url);
+  };
 
-    const handleGoBack = () => {
-        navigation.goBack()
-    }
+  return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="dark" />
+      
+      {/* Restaurant Profile Header */}
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
+          <AntDesign name="arrowleft" size={24} color="#333" />
+        </TouchableOpacity>
 
+        <View style={styles.profileContainer}>
+          <Image 
+            source={require('../../assets/transparent_logo.png')} 
+            style={styles.restaurantLogo}
+          />
+          
+          <View style={styles.restaurantInfo}>
+            <Text style={styles.restaurantName}>Delicious Restaurant</Text>
+            <Text style={styles.cuisineText}>Italian • Continental • Chinese</Text>
+            
+            <View style={styles.statsContainer}>
+              <View style={styles.statItem}>
+                <AntDesign name="star" size={16} color="#FFD700" />
+                <Text style={styles.statText}>4.5 (500+)</Text>
+              </View>
+              <View style={styles.statDivider} />
+              <View style={styles.statItem}>
+                <MaterialIcons name="access-time" size={16} color="#666" />
+                <Text style={styles.statText}>30-40 min</Text>
+              </View>
+            </View>
 
+            <TouchableOpacity style={styles.locationContainer} onPress={openMaps}>
+              <Ionicons name="location-sharp" size={18} color="#E23744" />
+              <Text style={styles.locationText}>1234, Sample Address, Sample City</Text>
+              <MaterialIcons name="directions" size={20} color="#E23744" />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
 
-    return (
+      {/* Navigation Tabs */}
+      <Tab.Navigator
+        style={styles.tabNavigator}
+        screenOptions={{
+          tabBarStyle: styles.tabBar,
+          tabBarIndicatorStyle: styles.tabIndicator,
+          tabBarLabelStyle: styles.tabLabel,
+          tabBarActiveTintColor: '#E23744',
+          tabBarInactiveTintColor: '#666',
+        }}
+      >
+        <Tab.Screen name="Menu Items" component={MenuItemsScreen} />
+        <Tab.Screen name="Drinks" component={DrinksScreen} />
+        <Tab.Screen name="Looks" component={LooksScreen} />
+      </Tab.Navigator>
+    </SafeAreaView>
+  );
+};
 
-        <SafeAreaView >
-            <StatusBar hidden={false} backgroundColor='#333333' style='light' />
-            {/* <TopBar top_title={'Restaurant'} navigation={navigation}></TopBar> */}
-            <ScrollView
-                nestedScrollEnabled={true}
-                overScrollMode="never"
-                scrollEventThrottle={20}
-                showsVerticalScrollIndicator={false}
-                stickyHeaderIndices={[1]}
-            >
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F8F9FA',
+  },
+  header: {
+    // backgroundColor: '#F0F4F8',
+    backgroundColor: '#ffffff',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F0F0F0',
+  },
+  backButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#F0F0F0',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // marginBottom: 16,
+    position: 'absolute',
+    zIndex: 1,
+    left: 16,
+    top: 4
+  },
+  profileContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    backgroundColor:'transparent',
+    marginTop: 18,
+  },
+  restaurantLogo: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    marginRight: 16,
+  },
+  restaurantInfo: {
+    flex: 1,
+  },
+  restaurantName: {
+    fontSize: 24,
+    fontFamily: 'poppins_semibold',
+    color: '#333',
+    marginBottom: 4,
+  },
+  cuisineText: {
+    fontSize: 14,
+    fontFamily: 'poppins_regular',
+    color: '#666',
+    marginBottom: 12,
+  },
+  statsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  statItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  statText: {
+    marginLeft: 4,
+    fontSize: 14,
+    fontFamily: 'poppins_semibold',
+    color: '#333',
+  },
+  statDivider: {
+    width: 1,
+    height: 16,
+    backgroundColor: '#E0E0E0',
+    marginHorizontal: 12,
+  },
+  locationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFF0F1',
+    padding: 8,
+    borderRadius: 8,
+  },
+  locationText: {
+    flex: 1,
+    fontSize: 14,
+    fontFamily: 'poppins_regular',
+    color: '#666',
+    marginHorizontal: 8,
+  },
+  tabNavigator: {
+    flex: 1,
+  },
+  tabBar: {
+    backgroundColor: '#F0F4F8',
+    elevation: 0,
+    shadowOpacity: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F0F0F0',
+  },
+  tabIndicator: {
+    backgroundColor: '#E23744',
+    height: 3,
+  },
+  tabLabel: {
+    fontFamily: 'poppins_semibold',
+    textTransform: 'none',
+  },
+  tabContent: {
+    flex: 1,
+    backgroundColor: '#F0F4F8',
+  },
+  cardsContainer: {
+    padding: 16,
+  },
+  foodCard: {
+    backgroundColor: 'white',
+    borderRadius: 12,
+    marginBottom: 16,
+    overflow: 'hidden',
+    elevation: 2,
+  },
+  foodImage: {
+    width: '100%',
+    height: 200,
+  },
+  foodDetails: {
+    padding: 16,
+  },
+  foodName: {
+    fontSize: 18,
+    fontFamily: 'poppins_semibold',
+    color: '#333',
+  },
+  foodPrice: {
+    fontSize: 16,
+    fontFamily: 'poppins_regular',
+    color: '#E23744',
+    marginTop: 4,
+  },
+  addButton: {
+    position: 'absolute',
+    right: 16,
+    bottom: 16,
+    backgroundColor: '#E23744',
+    paddingHorizontal: 20,
+    paddingVertical: 8,
+    borderRadius: 20,
+  },
+  addButtonText: {
+    color: 'white',
+    fontSize: 14,
+    fontFamily: 'poppins_semibold',
+  },
+  lookCard: {
+    backgroundColor: 'white',
+    borderRadius: 12,
+    marginHorizontal: 16,
+    marginVertical: 8,
+    overflow: 'hidden',
+    elevation: 2,
+  },
+  lookImage: {
+    width: '100%',
+    height: 250,
+  },
+  lookDescription: {
+    padding: 16,
+    fontSize: 16,
+    fontFamily: 'poppins_semibold',
+    color: '#333',
+  },
+});
 
-                <View style={ownstyle.restaurant_intro}>
-                    {!isPlaying ? (
-                        <ImageBackground style={{ height: '100%', width: '100%' }} source={require('../../assets/biryani.jpg')}>
-                            <View style={ownstyle.poster}>
-
-                                <View style={ownstyle.resNameContainer}>
-                                    <Text style={ownstyle.resText}>Delicious{'\n'}Restaurant</Text>
-                                    <View style={styles.location}>
-                                        <Ionicon
-                                            name="location-sharp"
-                                            style={{ color: "#ffffff", marginBottom: scaleHeight(3) }}
-                                            size={scaleWidth(20)}
-                                        />
-                                        <Text style={{ fontSize: scaleWidth(15), color: "#ffffff", fontFamily: "poppins_semibold", }}>
-                                            1234, Sample Address, Sample City
-                                        </Text>
-                                    </View>
-                                </View>
-
-
-                                <TouchableOpacity style={ownstyle.playContainer} onPress={handlePlay}>
-                                    <AntDesign name='playcircleo' size={60} style={{ color: 'white' }}></AntDesign>
-                                </TouchableOpacity>
-
-
-
-                            </View>
-                        </ImageBackground>
-                    ) : (
-                        <View style={ownstyle.videoContainer}>
-                            <Video
-                                source={{ uri: 'https://videos.pexels.com/video-files/1111420/1111420-hd_1920_1080_30fps.mp4' }}
-                                style={{ height: '100%', width: '100%' }}
-                                rate={0.5}
-                                volume={1.0}
-                                isMuted={true}
-                                shouldPlay
-                                isLooping={false}
-                                resizeMode={ResizeMode.COVER}
-                                onPlaybackStatusUpdate={status => {
-                                    if (status.isLoaded && !status.isPlaying) {
-                                        setisPlaying(false);
-                                    }
-                                }}
-                            />
-                        </View>
-                    )}
-                    <TouchableOpacity
-                        onPress={handleGoBack}
-                        style={ownstyle.backButton}
-                    >
-                        <View style={ownstyle.backButtonContainer}>
-                            <AntDesign
-                                name='arrowleft'
-                                size={scaleWidth(30)}
-                                color='white'
-                            />
-                        </View>
-                    </TouchableOpacity>
-                </View>
-                <View>
-                    <View style={ownstyle.sectionBarContainer}>
-
-                        <View style={ownstyle.lineContainer}>
-                            <View style={ownstyle.lines}></View>
-                            <Text style={{ fontFamily: 'jakarta_bold', fontSize: 25, color: '#333333' }}>Our Menu</Text>
-                            <View style={ownstyle.lines}></View>
-                        </View>
-                        <View style={ownstyle.categoryContainer}>
-                            {
-                                categories.map((category, index) => (
-                                    <TouchableOpacity key={index} style={[ownstyle.category, activeCategory === category && ownstyle.activeStyle]} onPress={() => handleActiveCategory(category)}>
-                                        <Text style={ownstyle.categoryText}>{category}</Text>
-                                    </TouchableOpacity>
-                                ))
-                            }
-                        </View>
-                    </View>
-                </View>
-
-                {
-                    activeCategory === 'Items' && (
-                        <View>
-                            <View>
-                                <View style={ownstyle.cardsContainer}>
-                                    {
-                                        Array(12).fill(0).map((_, index) => (
-                                            <View key={index} style={ownstyle.restaurantFoodCard}>
-                                                <View style={ownstyle.foodImage}>
-                                                    <Image source={img3} style={{ height: '100%', width: '100%', borderRadius: scaleWidth(8) }} resizeMode='stretch' />
-                                                </View>
-                                                <View style={ownstyle.price_and_name}>
-                                                    <ItemName fontsize={20} foodName={'Momo'} />
-                                                    <Price price={300} priceFontSize={16}></Price>
-                                                </View>
-                                            </View>
-
-                                        ))
-                                    }
-
-                                </View>
-                            </View>
-                        </View>
-                    )
-                }
-                {
-                    activeCategory === 'Drinks' && (
-                        <View>
-                            <View>
-                                <View style={ownstyle.cardsContainer}>
-                                    {
-                                        Array(6).fill(0).map((_, index) => (
-                                            <View key={index} style={ownstyle.restaurantFoodCard}>
-                                                <View style={ownstyle.foodImage}>
-                                                    <Image source={sprite} style={{ height: '100%', width: '100%', borderRadius: scaleWidth(8) }} resizeMode='stretch' />
-                                                </View>
-                                                <View style={ownstyle.price_and_name}>
-                                                    <ItemName fontsize={20} foodName={'Coca Cola'} />
-                                                    <Price price={300} priceFontSize={16}></Price>
-                                                </View>
-                                            </View>
-
-                                        ))
-                                    }
-
-                                </View>
-                            </View>
-                        </View>
-                    )
-                }
-
-            </ScrollView>
-        </SafeAreaView>
-
-    )
-}
-
-export default RestaurantProfile
-
-const ownstyle = StyleSheet.create({
-    restaurant_intro: {
-        height: scaleHeight(250),
-        width: '100%',
-        backgroundColor: 'black',
-        position: 'relative'
-    },
-    restaurantFoodCard: {
-        height: scaleHeight(230),
-        width: '48%',
-        backgroundColor: '#ffffff',
-        borderRadius: scaleWidth(8)
-    },
-    foodImage: {
-        height: '75%',
-        width: '100%',
-        backgroundColor: 'transparent',
-        borderRadius: scaleWidth(8)
-    },
-    cardsContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-        gap: scaleHeight(10),
-        paddingHorizontal: scaleWidth(10),
-        marginTop: scaleHeight(10),
-        backgroundColor: '#F0F4F8'
-    },
-    price_and_name: {
-        height: '25%',
-        width: '100%',
-        alignItems: 'center',
-    },
-    lines: {
-        height: scaleHeight(2),
-        width: '30%',
-        backgroundColor: '#000',
-        marginVertical: scaleHeight(10)
-    },
-    lineContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
-        width: '100%',
-
-
-    },
-    category: {
-        backgroundColor: '#FFFFFF',
-        alignSelf: 'flex-start',
-        paddingVertical: 8,
-        paddingHorizontal: 20,
-        borderRadius: 5,
-
-    },
-    categoryText: {
-        fontSize: scaleWidth(12),
-        fontFamily: 'poppins_regular',
-        color: '#000000'
-    },
-    categoryContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        paddingHorizontal: scaleWidth(10),
-        gap: scaleWidth(10)
-    },
-    sectionBarContainer: {
-        backgroundColor: '#F0F4F8',
-        paddingBottom: scaleHeight(10),
-        borderBottomLeftRadius: scaleWidth(20),
-        borderBottomRightRadius: scaleWidth(20),
-    },
-    activeStyle: {
-        backgroundColor: '#FFFFFF',
-        alignSelf: 'flex-start',
-        paddingVertical: 8,
-        paddingHorizontal: 20,
-        borderRadius: 5,
-        borderColor: 'red',
-        borderBottomWidth: 2
-    },
-    poster: {
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        flexDirection: 'row'
-    },
-    resNameContainer: {
-        marginLeft: scaleWidth(20),
-        marginTop: scaleHeight(50),
-        width: '70%',
-    },
-    playContainer: {
-        width: '30%',
-        marginTop: scaleHeight(50),
-    },
-    resText: {
-        color: '#fff',
-        fontSize: scaleWidth(35),
-        fontFamily: 'jakarta_bold',
-
-    },
-    videoContainer: {
-        height: '100%',
-        width: '100%',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-    },
-    backButton: {
-        position: 'absolute',
-        top: 12,
-        left: 16,
-        zIndex: 10,
-        elevation: 5, // Add this for Android
-    },
-    backButtonContainer: {
-        width: scaleWidth(40),
-        height: scaleWidth(40),
-        borderRadius: scaleWidth(20),
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-})
+export default RestaurantProfile;

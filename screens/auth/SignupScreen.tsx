@@ -12,7 +12,7 @@ import { myContext } from '../../context/AppProvider';
 import LoadingScreen from '../../components/viewScreens/LoadingScreen';
 
 const SignupScreen = ({ navigation }) => {
-    const { fetchData, setisUserLoggedIn, isLoading, setisLoading } = useContext(myContext)
+    const { fetchData, setisUserLoggedIn, isLoading, setisLoading,setmessage,setsnackBar } = useContext(myContext)
     const [email, set_email] = useState(null)
     const [password, set_password] = useState({ initialPassword: null, confirmPassword: null })
     const [passwordVisible, setPasswordVisible] = useState({ initialPassword: true, confirmPassword: true });
@@ -36,14 +36,17 @@ const SignupScreen = ({ navigation }) => {
             Alert.alert('Error', 'Password does not match')
             return
         }
-
+        
         const response = await signup({ email: email, password: password.initialPassword })
         if (response.success) {
             fetchData()
             setisUserLoggedIn(true);
-            Alert.alert('Success', response.returnData)
-            navigation.navigate('Home')
             setisLoading(false)
+            navigation.navigate('Home')
+
+            setsnackBar(true)
+            setmessage(response.returnData)
+            setTimeout(() => setsnackBar(false), 3000);
         } else {
             Alert.alert('Error', response.returnData)
             setisLoading(false)

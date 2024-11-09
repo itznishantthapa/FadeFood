@@ -12,27 +12,28 @@ const images = [
   require('../../assets/images/img1 (3).png'),
 ];
 
-const BigImage = () => {
+const BigImage = ({scaleAnim,toggleFavorite,isFavorite}) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const scaleAnim = useRef(new Animated.Value(1)).current;
+  // const [isFavorite, setIsFavorite] = useState(false);
+  // const scaleAnim = useRef(new Animated.Value(1)).current;
 
-  const toggleFavorite = () => {
-    Animated.sequence([
-      Animated.timing(scaleAnim, {
-        toValue: 1.3,
-        duration: 150,
-        useNativeDriver: true,
-      }),
-      Animated.timing(scaleAnim, {
-        toValue: 1,
-        duration: 150,
-        useNativeDriver: true,
-      }),
-    ]).start();
+  // const toggleFavorite = () => {
+  //   Animated.sequence([
+  //     Animated.timing(scaleAnim, {
+  //       toValue: 1.3,
+  //       duration: 150,
+  //       useNativeDriver: true,
+  //     }),
+  //     Animated.timing(scaleAnim, {
+  //       toValue: 1,
+  //       duration: 150,
+  //       useNativeDriver: true,
+  //     }),
+  //   ]).start();
 
-    setIsFavorite(!isFavorite);
-  };
+
+  //   setIsFavorite(!isFavorite);
+  // };
 
   return (
     <View style={{ height: scaleHeight(500), width: '100%' }}>

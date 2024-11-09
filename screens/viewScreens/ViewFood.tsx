@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useRef } from "react";
 import {
   StyleSheet,
   View,
@@ -17,10 +17,19 @@ import { styles } from "../../style/style";
 import { scaleHeight, scaleWidth } from "../../Scaling";
 import Price from "../../components/viewScreens/Price";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import SnackBar from "./SnackBar";
+import { myContext } from "../../context/AppProvider";
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 
 const ViewFood = ({ navigation }) => {
+
+  const { snackBar, message, setsnackBar,setmessage } = useContext(myContext);
+
+
+  const [isFavorite, setIsFavorite] = useState(false);
+  const scaleAnim = useRef(new Animated.Value(1)).current;
+
   const [onCheckout, setonCheckout] = useState(false);
   const handleSearchScreen = () => {
     navigation.navigate("SearchScreen");
@@ -35,6 +44,33 @@ const ViewFood = ({ navigation }) => {
     navigation.navigate('RestaurantProfile')
   }
 
+
+
+
+
+  const toggleFavorite = () => {
+    Animated.sequence([
+      Animated.timing(scaleAnim, {
+        toValue: 1.3,
+        duration: 150,
+        useNativeDriver: true,
+      }),
+      Animated.timing(scaleAnim, {
+        toValue: 1,
+        duration: 150,
+        useNativeDriver: true,
+      }),
+    ]).start();
+
+
+    setsnackBar(true)
+    setmessage("Added to Favorites")
+    setTimeout(() => setsnackBar(false), 3000);
+
+
+
+    setIsFavorite(!isFavorite);
+  };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar hidden={false} backgroundColor="#F0F4F8" style="dark" />
@@ -53,11 +89,10 @@ const ViewFood = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
       >
         <View style={ownstyles.mainSection}>
-          <BigImage />
+          <BigImage toggleFavorite={toggleFavorite} scaleAnim={scaleAnim} isFavorite={isFavorite} />
           <View style={ownstyles.restaurantInfo}>
             <ItemName
               foodName={"Momo"}
-              restaurantName={"Delicious Restaurant"}
               fontsize={26}
             />
             <View style={ownstyles.priceSection}>
@@ -85,12 +120,12 @@ const ViewFood = ({ navigation }) => {
             {/* Restaurant Details */}
             <View style={ownstyles.restaurantDetails} >
               <TouchableOpacity onPress={handleToRestaurantProfile} >
-              <Text style={ownstyles.restaurantName}>Delicious Restaurant</Text>
+                <Text style={ownstyles.restaurantName}>Delicious Restaurant</Text>
               </TouchableOpacity>
               <Text style={ownstyles.restaurantAddress}>
                 123 Food Street, Foodville
               </Text>
-           
+
               <View style={ownstyles.ratingContainer}>
                 <Text style={ownstyles.rating}>4.5 ★</Text>
                 <Text style={ownstyles.ratingCount}>(234 reviews)</Text>
@@ -162,17 +197,18 @@ const ViewFood = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
+      <SnackBar message={message} visible={snackBar} />
     </SafeAreaView>
   );
 };
 
 const ownstyles = StyleSheet.create({
   mainSection: {
-    minHeight: SCREEN_HEIGHT-scaleHeight(60) ,
+    minHeight: SCREEN_HEIGHT - scaleHeight(60),
     backgroundColor: "#F0F4F8",
   },
   restaurantInfo: {
-    paddingHorizontal:8,
+    paddingHorizontal: 8,
     width: "100%",
   },
   priceSection: {
@@ -195,14 +231,14 @@ const ownstyles = StyleSheet.create({
   buttonText: {
     color: "#fff",
     fontWeight: "600",
-    fontSize:scaleWidth(14),
+    fontSize: scaleWidth(14),
   },
   restaurantDetails: {
     marginTop: scaleHeight(24),
     padding: scaleWidth(16),
     backgroundColor: "#F8F8F8",
     borderRadius: scaleWidth(12),
-    alignItems:'flex-start'
+    alignItems: 'flex-start'
   },
   restaurantName: {
     fontSize: scaleWidth(20),

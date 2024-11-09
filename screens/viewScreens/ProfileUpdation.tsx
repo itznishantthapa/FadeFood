@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Alert,Keyboard } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext,useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 import TopBar from '../../components/viewScreens/TopBar'
@@ -12,11 +12,13 @@ import * as ImagePicker from 'expo-image-picker';
 import { delete_data, post_data_with_img } from '../../service'
 import { myContext } from '../../context/AppProvider'
 import LoadingScreen from '../../components/viewScreens/LoadingScreen'
+import SnackBar from './SnackBar'
 
 
 
 const ProfileUpdation = ({ navigation }) => {
-  const { state, userData, dispatch, imageURI, setImageURI, isLoading, setisLoading } = useContext(myContext);
+  const { state, userData, dispatch, imageURI, setImageURI, isLoading, setisLoading,snackBar,setsnackBar,message,setmessage } = useContext(myContext);
+
 
 
 
@@ -56,7 +58,9 @@ const ProfileUpdation = ({ navigation }) => {
             const response = await delete_data('user_details');
             setImageURI(null)
             setisLoading(false)
-            Alert.alert('Success', response.data);
+            setsnackBar(true)
+            setmessage(response.data)
+            setTimeout(() => setsnackBar(false), 3000);
 
           },
         },
@@ -74,7 +78,10 @@ const ProfileUpdation = ({ navigation }) => {
     const response = await post_data_with_img('user_details', state, imageURI, method);
     if (response.success) {
       setisLoading(false)
-      Alert.alert('Success', response.data);
+      setsnackBar(true)
+      setmessage(response.data)
+      setTimeout(() => setsnackBar(false), 3000);
+    
     } else {
       setisLoading(false)
       Alert.alert('Error', response.data);
@@ -126,7 +133,7 @@ const ProfileUpdation = ({ navigation }) => {
             handleInputChange={(text) => dispatch({ type: 'email', payload: text })}
           />
         </View>
-
+        <SnackBar message={message} visible={snackBar}/>
       </SafeAreaView>
     </>
   )

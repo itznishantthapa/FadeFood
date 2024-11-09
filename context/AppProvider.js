@@ -30,6 +30,7 @@ export const AppProvider = ({ children }) => {
   const [isUserLoggedIn, setisUserLoggedIn] = useState(false);
   const [isLoading, setisLoading] = useState(false);
   const [snackBar, setsnackBar] = useState(false)
+  const [message, setmessage] = useState('')
 
   const fetchData = async () => {
     const response = await get_data("user_details"); // Call the GET function
@@ -61,6 +62,7 @@ export const AppProvider = ({ children }) => {
     setImageURI(null);
     setisUserLoggedIn(false);
     setsnackBar(false)
+    setmessage('')
     console.log("All data cleared");
   };
 
@@ -80,7 +82,9 @@ export const AppProvider = ({ children }) => {
         isLoading,
         setisLoading,
         snackBar,
-        setsnackBar
+        setsnackBar,
+        message,
+        setmessage
   
       }}
     >

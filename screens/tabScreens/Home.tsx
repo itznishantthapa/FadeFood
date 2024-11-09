@@ -40,7 +40,7 @@ const images = [
 ];
 
 const Home = ({ navigation }) => {
-  const {snackBar,setsnackBar}=useContext(myContext)
+  const {snackBar,setsnackBar,message}=useContext(myContext)
   const [activeIndex, setActiveIndex] = useState(0);
   const {state} =useContext(myContext)
   const dishItems = [
@@ -380,7 +380,7 @@ const Home = ({ navigation }) => {
             </View>
           </View>
         </ScrollView>
-        <SnackBar message='Login Successfull' onClose={false} visible={snackBar}/>
+        <SnackBar message={message} visible={snackBar}/>
       </View>
       
     </SafeAreaView>
@@ -394,9 +394,9 @@ const styles1 = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    // backgroundColor: '#ff7900',
+    backgroundColor: '#ffffff',
     // backgroundColor: '#ced4da',
-    backgroundColor: '#DDE1E3',
+    // backgroundColor: '#DDE1E3',
     // padding: 10,
     //  marginBottom: scaleHeight(10),
     //  paddingBottom: scaleHeight(10),

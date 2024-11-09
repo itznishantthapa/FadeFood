@@ -21,6 +21,7 @@ import AboutScreen from './screens/viewScreens/AboutScreen';
 import RestaurantProfile from './screens/viewScreens/RestaurantProfile';
 
 
+
 SplashScreen.preventAutoHideAsync();
 const Stack = createStackNavigator();
 

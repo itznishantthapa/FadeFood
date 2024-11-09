@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Animated, TouchableOpacity, StyleSheet } from 'react-native';
-import { scaleHeight } from '../../Scaling';
+import { scaleHeight, scaleWidth } from '../../Scaling';
 
-const SnackBar = ({ message, visible, onClose }) => {
+const SnackBar = ({ message, visible }) => {
   const [slideAnim] = useState(new Animated.Value(50)); // Initial slide position
 
   useEffect(() => {
@@ -24,10 +24,10 @@ const SnackBar = ({ message, visible, onClose }) => {
 
   const handleClose = () => {
     Animated.timing(slideAnim, {
-      toValue: 50,
+      toValue: 100,
       duration: 300,
       useNativeDriver: true,
-    }).start(() => onClose && onClose());
+    }).start();
   };
 
   if (!visible) return null;
@@ -35,9 +35,6 @@ const SnackBar = ({ message, visible, onClose }) => {
   return (
     <Animated.View style={[styles.snackbar, { transform: [{ translateY: slideAnim }] }]}>
       <Text style={styles.snackbarText}>{message}</Text>
-      <TouchableOpacity onPress={handleClose}>
-        <Text style={styles.closeText}>CLOSE</Text>
-      </TouchableOpacity>
     </Animated.View>
   );
 };
@@ -46,16 +43,21 @@ const styles = StyleSheet.create({
   snackbar: {
     position: 'absolute',
     bottom: scaleHeight(65),
-    left: 20,
-    right: 20,
-    padding: 10,
-    backgroundColor: '#333333',
-    borderRadius: 5,
+    left: scaleWidth(20),
+    right: scaleWidth(20),
+    paddingHorizontal: scaleHeight(10),
+    paddingVertical: scaleHeight(10),
+    // backgroundColor: '#4CAF50',
+    backgroundColor: '#f6fff8',
+    borderRadius: scaleWidth(10),
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   snackbarText: {
-    color: '#fff',
+    // color: '#fff',
+    color: '#333333',
+    fontSize: scaleWidth(14),
+    fontFamily: 'jakarta_bold',
   },
   closeText: {
     color: '#FFEB3B',
