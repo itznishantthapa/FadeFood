@@ -24,8 +24,6 @@ const Love = () => {
                     backgroundColor: isFavorite ? '#FF6347' : '#FFFFFF', // Change background based on state
                     borderTopRightRadius: 12, 
                     borderBottomLeftRadius: 12, 
-                    // borderBottomRightRadius: 12, 
-                    // borderTopLeftRadius: 12, 
                     marginLeft: 'auto', 
                     alignItems: 'center', 
                     justifyContent: 'center',

@@ -24,6 +24,7 @@ const reducer = (state, action) => {
 export const myContext = createContext();
 
 export const AppProvider = ({ children }) => {
+  const [user_type, setuser_type] = useState('seller')
   const [state, dispatch] = useReducer(reducer, initialState);
   const [userData, setuserData] = useState(null);
   const [imageURI, setImageURI] = useState(null);
@@ -84,7 +85,8 @@ export const AppProvider = ({ children }) => {
         snackBar,
         setsnackBar,
         message,
-        setmessage
+        setmessage,
+        user_type
   
       }}
     >

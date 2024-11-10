@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useContext } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -14,10 +14,18 @@ import Scanner from './Scanner';
 import Profile from '../tabScreens/Profile';
 import Chat from '../tabScreens/Chat';
 import { scaleHeight, scaleWidth } from '../../Scaling';
+import Menu from '../../sellerScreen/Menu';
+import AddFood from '../../sellerScreen/AddFood';
+import Notifications from '../../sellerScreen/Notifications';
+import { FA6Style } from 'react-native-vector-icons/FontAwesome6';
+import { myContext } from '../../context/AppProvider';
+
 
 const Tab = createBottomTabNavigator();
-const TabBars = () => {
+const CustomerTabBars = () => {
   return (
+
+
     <Tab.Navigator
       initialRouteName='Home'
       screenOptions={({ route }) => ({
@@ -69,6 +77,77 @@ const TabBars = () => {
         component={Profile}
       />
     </Tab.Navigator>
+  )
+}
+
+const SellerTabBars = () => {
+  return (
+    <Tab.Navigator
+      initialRouteName='Home'
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'Menu') {
+            return <MaterialIcon name="menu-book" color={color} size={scaleWidth(35)} />
+
+          } else if (route.name === 'AddFood') {
+            return <MaterialCommunityIcons name={focused ? "plus-circle-multiple" : "plus-circle-multiple-outline"} color={color} size={scaleWidth(35)} />
+          } else if (route.name === 'Chat') {
+            return <Ionicons name={focused ? "chatbubbles-sharp" : "chatbubbles-outline"} color={color} size={scaleWidth(30)} />;
+
+          } else if (route.name === 'Notifications') {
+            return <Ionicons name={focused ? "notifications" : "notifications-outline"} color={color} size={scaleWidth(30)} />;
+          }
+        },
+        tabBarActiveTintColor: '#333333',
+        tabBarInactiveTintColor: '#333333',
+        tabBarStyle: {
+          backgroundColor: '#ffffff',
+          height: scaleHeight(60)
+        }
+      })}
+    >
+      <Tab.Screen
+        name="Menu"
+        component={Menu}
+      />
+      <Tab.Screen
+        name="AddFood"
+        component={AddFood}
+      />
+
+
+      <Tab.Screen
+        name="Chat"
+        component={Chat}
+      />
+      <Tab.Screen
+        name="Notifications"
+        component={Notifications}
+      />
+    </Tab.Navigator>
+  )
+}
+
+
+
+
+const TabBars = () => {
+  const {user_type}=useContext(myContext)
+  return (
+    <>
+
+      {
+        user_type==='customer' ? (<CustomerTabBars></CustomerTabBars>) : (<SellerTabBars></SellerTabBars>)
+      }
+
+
+    </>
+
+
   )
 }
 

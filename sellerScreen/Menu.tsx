@@ -5,17 +5,18 @@ import { StatusBar } from 'expo-status-bar';
 import { ScrollView } from 'react-native-gesture-handler';
 import { AntDesign, Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import ProfileHeader from '../../components/restaurant_profile/ProfileHeader';
-import { LooksScreen } from '../../components/restaurant_profile/Looks';
-import { DrinksScreen } from '../../components/restaurant_profile/DrinkSection';
-import { MenuItemsScreen } from '../../components/restaurant_profile/MenuSection';
+import ProfileHeader from '../components/restaurant_profile/ProfileHeader';
+import { MenuItemsScreen } from '../components/restaurant_profile/MenuSection';
+import { DrinksScreen } from '../components/restaurant_profile/DrinkSection';
+import { LooksScreen } from '../components/restaurant_profile/Looks';
+
 
 const Tab = createMaterialTopTabNavigator();
 
 
 
 
-const RestaurantProfile = ({ navigation }) => {
+const Menu = ({ navigation }) => {
   const handleGoBack = () => navigation.goBack();
 
   const openMaps = () => {
@@ -86,4 +87,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RestaurantProfile;
+export default Menu;

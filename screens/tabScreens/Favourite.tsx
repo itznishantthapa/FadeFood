@@ -66,6 +66,7 @@ const Favourite = ({ navigation }) => {
                 restaurantName={item.restaurantName}
                 images={item.image}
                 navigation={navigation}
+                withRestaurant={true}
               />
             ))}
           </View>

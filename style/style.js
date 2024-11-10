@@ -231,4 +231,81 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+
+
+
+
+
+
+
+
+//List component Styles
+
+  food_container: {
+    backgroundColor: "#FFFFFF",
+    borderTopRightRadius: scaleWidth(10),
+    width: "95%",
+    alignSelf: "center",
+    marginVertical: scaleHeight(10),
+    padding: scaleWidth(10),
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  foodImage: {
+    width: "30%",
+    height: scaleHeight(150),
+    backgroundColor: "#EAEAEA",
+  },
+  infoSection: {
+    width: "100%",
+    marginTop: scaleHeight(10),
+  },
+  namePriceRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingBottom: scaleHeight(5),
+  },
+  foodName: {
+    fontFamily: "poppins_semibold",
+    fontSize: scaleWidth(20),
+    color: "#333333",
+  },
+  restaurantRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: scaleHeight(5),
+  },
+  restaurantInfo: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  restaurantLogo: {
+    backgroundColor: "#FFA726",
+    height: scaleHeight(30),
+    width: scaleWidth(30),
+    borderRadius: scaleWidth(15),
+    marginRight: scaleWidth(8),
+  },
+  restaurantName: {
+    fontSize: scaleWidth(14),
+    color: "#555555",
+    fontFamily: "poppins_regular",
+  },
+  addToList: {
+    fontSize: scaleWidth(14),
+    color: "#0066CC",
+    fontFamily: "poppins_semibold",
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "600",
+  },
+  addToListButton: {
+    backgroundColor: "#333333",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 25,
+  },
 })
