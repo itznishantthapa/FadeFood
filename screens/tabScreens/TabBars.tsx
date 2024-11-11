@@ -19,6 +19,7 @@ import AddFood from '../../sellerScreen/AddFood';
 import Notifications from '../../sellerScreen/Notifications';
 import { FA6Style } from 'react-native-vector-icons/FontAwesome6';
 import { myContext } from '../../context/AppProvider';
+import RestaurantNotification from '../../sellerScreen/RestaurantNotification';
 
 
 const Tab = createBottomTabNavigator();
@@ -126,7 +127,7 @@ const SellerTabBars = () => {
       />
       <Tab.Screen
         name="Notifications"
-        component={Notifications}
+        component={RestaurantNotification}
       />
     </Tab.Navigator>
   )

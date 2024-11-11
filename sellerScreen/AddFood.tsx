@@ -49,7 +49,7 @@ const PreviewFoodCard = ({ foodName, price, images }) => {
   );
 };
 
-const AddFood = ({navigation}) => {
+const AddFood = ({ navigation }) => {
   const [foodName, setFoodName] = useState('');
   const [price, setPrice] = useState('');
   const [images, setImages] = useState([]);
@@ -70,7 +70,7 @@ const AddFood = ({navigation}) => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [3, 4],
       quality: 1,
     });
 
@@ -93,7 +93,7 @@ const AddFood = ({navigation}) => {
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F0F4F8" }}>
       <StatusBar hidden={false} backgroundColor="#F0F4F8" style="dark" />
       <TopBar navigation={navigation} top_title='Add/Edit' />
-      <ScrollView style={{ padding: 10 }}>
+      <View style={{ padding: 10 }}>
         <PreviewFoodCard
           foodName={foodName}
           price={Number(price)}
@@ -117,7 +117,7 @@ const AddFood = ({navigation}) => {
             placeholder="Enter price"
             keyboardType="numeric"
           />
-          <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={localStyles.label}>Images ({images.length}/3)</Text>
             <TouchableOpacity onPress={handleDeleteLastImage}>
               <FontAwesome6 name="delete-left" size={20} color='red'></FontAwesome6>
@@ -127,21 +127,24 @@ const AddFood = ({navigation}) => {
             style={localStyles.imagePickerButton}
             onPress={pickImage}
           >
-            <Text style={localStyles.imagePickerButtonText}>
-              Pick an Image
-            </Text>
+            <Text style={localStyles.imagePickerButtonText}> Pick an Image </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={localStyles.uploadButton}
-            onPress={handleUpload}
-          >
-            <Text style={localStyles.uploadButtonText}>
-              Upload Food Item
-            </Text>
-          </TouchableOpacity>
+          <View style={{ gap: 10, marginTop: 80 }}>
+            <TouchableOpacity
+              style={localStyles.uploadButton}
+              onPress={handleUpload}
+            >
+              <Text style={localStyles.uploadButtonText}>Upload Food Item</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[localStyles.uploadButton, { backgroundColor: 'red' }]} onPress={handleUpload}>
+              <Text style={localStyles.uploadButtonText}> Delete Item</Text>
+            </TouchableOpacity>
+          </View>
+
+
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
@@ -152,14 +155,6 @@ const localStyles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 12,
     marginTop: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
   },
   label: {
     fontSize: 16,
