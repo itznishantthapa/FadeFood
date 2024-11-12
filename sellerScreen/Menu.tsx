@@ -3,7 +3,6 @@ import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView } from 'react-native-gesture-handler';
-import { AntDesign, Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import ProfileHeader from '../components/restaurant_profile/ProfileHeader';
 import { MenuItemsScreen } from '../components/restaurant_profile/MenuSection';

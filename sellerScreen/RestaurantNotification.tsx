@@ -130,4 +130,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RestaurantNotification;
+export default RestaurantNotification; 

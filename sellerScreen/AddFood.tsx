@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
 import React, { useState } from 'react';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import {  TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import * as ImagePicker from 'expo-image-picker';
@@ -8,7 +8,6 @@ import Price from '../components/viewScreens/Price';
 import { scaleHeight, scaleWidth } from '../Scaling';
 import { styles } from '../style/style';
 import { FontAwesome6 } from '@expo/vector-icons';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import TopBar from '../components/viewScreens/TopBar';
 
 const PreviewFoodCard = ({ foodName, price, images }) => {
