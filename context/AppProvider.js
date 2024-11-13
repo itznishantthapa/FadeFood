@@ -1,8 +1,6 @@
 // UserContext.tsx
 import React, { createContext, useEffect, useReducer, useState } from "react";
-import * as ImagePicker from "expo-image-picker";
 import { clearTokens, get_data } from "../service";
-import { Alert } from "react-native";
 
 const initialState = {
   name: "",
@@ -24,7 +22,7 @@ const reducer = (state, action) => {
 export const myContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [user_type, setuser_type] = useState('seller')
+  const [user_type, setuser_type] = useState('customer')
   const [state, dispatch] = useReducer(reducer, initialState);
   const [userData, setuserData] = useState(null);
   const [imageURI, setImageURI] = useState(null);
