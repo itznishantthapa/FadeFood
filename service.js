@@ -12,7 +12,6 @@ const storeTokens = async (accessToken, refreshToken) => {
   } catch (error) {
     console.error("Error storing the tokens", error);
   }
-
 };
 
 // Retrieve access token
@@ -53,6 +52,7 @@ export const clearTokens = async () => {
 // Set up base URL for your Django API
 const api = axios.create({
   baseURL: "http://192.168.1.64:5555/",
+  // baseURL: "http://192.168.14.215:5555/",
 });
 
 // Function for signup

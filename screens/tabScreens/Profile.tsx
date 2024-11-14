@@ -69,7 +69,7 @@ const ProfileScreen = ({ navigation }) => {
                             <SettingMenu
                                 menuName={'Account'}
                                 iconName={'person-outline'}
-                                handleSettingPage={() => handleEditProfileAccount('ProfileUpdation')}
+                                handleSettingPage={() => handleEditProfileAccount('AccountSwitch')}
                             />
                             <SettingMenu
                                 menuName={'Privacy and Security'}

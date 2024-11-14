@@ -19,6 +19,8 @@ import ProfileUpdation from './screens/viewScreens/ProfileUpdation';
 import PrivacyAndSecurity from './screens/viewScreens/PirvacyAndSecurity';
 import AboutScreen from './screens/viewScreens/AboutScreen';
 import RestaurantProfile from './screens/viewScreens/RestaurantProfile';
+import RegistrationScreen from './sellerScreen/RegistrationScreen';
+import AccountSwitch from './screens/viewScreens/AccountSwitch';
 
 
 
@@ -68,6 +70,8 @@ export default function App() {
             <Stack.Screen name="PrivacyAndSecurity" component={PrivacyAndSecurity} options={{ headerShown: false }} />
             <Stack.Screen name="AboutScreen" component={AboutScreen} options={{ headerShown: false }} />
             <Stack.Screen name="RestaurantProfile" component={RestaurantProfile} options={{ headerShown: false }} />
+            <Stack.Screen name="AccountSwitch" component={AccountSwitch} options={{ headerShown: false }} />
+            <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} options={{ headerShown: false }} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
