@@ -127,7 +127,7 @@ const NabBar = ({ handleSearchScreen, isTextInput, isBack,navigation }) => {
                   returnKeyType="search"
                 />
               ) : (
-                <TouchableWithoutFeedback onPress={handleSearchScreen} style={{ justifyContent: 'center', height: '100%' }} >
+                <TouchableWithoutFeedback onPress={handleSearchScreen} style={{ justifyContent: 'center' }} >
                   <TextInput
                     selectionColor="#BDBDBD"
                     style={styles.searchInput}
@@ -136,6 +136,7 @@ const NabBar = ({ handleSearchScreen, isTextInput, isBack,navigation }) => {
                     onChangeText={text => setSearchText(text)}
                     returnKeyType="search"
                     editable={false}
+
                   />
                 </TouchableWithoutFeedback>
 
@@ -221,11 +222,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   searchInput: {
-    height: '80%',
+    height: '100%',
     color: '#666666',
     fontSize: scaleWidth(16),
     fontFamily: 'poppins_regular',
     textAlignVertical: 'bottom',
+    // textAlignVertical: 'center', 
+    backgroundColor:'grey',
   },
   nav_logo: {
     height: scaleHeight(30),

@@ -22,7 +22,7 @@ const AccountSwitch = ({ navigation }) => {
 
         <SafeAreaView >
             <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
-            <TopBar navigation={navigation} top_title='Profile' />
+            <TopBar navigation={navigation} top_title='Manage Account' />
             <View style={styles.home_screen}>
 
                     <SettingMenu
@@ -38,21 +38,10 @@ const AccountSwitch = ({ navigation }) => {
                     />
 
 
-
-
             </View>
         </SafeAreaView>
 
     );
 };
-
-const styles1 = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-
-
-});
 
 export default AccountSwitch;
