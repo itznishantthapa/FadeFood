@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from 'react';
-import {  StyleSheet, View, ScrollView, Text } from 'react-native';
+import { StyleSheet, View, ScrollView, Text } from 'react-native';
 import TextEditFields from '../components/profile/TextEditFields'
 import TopBar from '../components/viewScreens/TopBar';
 import LoadingScreen from '../components/viewScreens/LoadingScreen'
@@ -9,22 +9,26 @@ import { Picker } from '@react-native-picker/picker';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../style/style';
+import Button from '../components/auth/Button';
+import { post_data, post_data_with_img, signup } from '../service';
 
 const initialState = {
   // Basic Information
+  restaurant_name: '',
   name: '',
-  ownerName: '',
-  email: '',
   phone: '',
 
+
   // Address & Location
-  streetAddress: '',
+  street_address: '',
   city: '',
 
 
   // Business Details
-  businessType: '',
-  openingHours: '',
+  business_type: '',
+  opening_hours: '',
+
+  is_seller: true,
 
 };
 
@@ -58,37 +62,44 @@ const RestaurantRegistration = ({ navigation }) => {
     setSnackBar(true);
   };
 
+  const handleRegister = async () => {
+  
+    console.log(state);
+    const response = await post_data('user_details', { name: state.name, phone: state.phone, is_seller: true });
+    if (response.success) {
+      console.log(response.returnData);
+    } else {
+      console.log(response.returnData);
+    }
+
+
+  }
+
   return (
     <>
       {isLoading && <LoadingScreen />}
 
       <SafeAreaView>
         <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
-        <TopBar navigation={navigation} top_title='Restaurant Registration' />
+        <TopBar navigation={navigation} top_title='Restaurant Registration' withSettingIcons={false} handleSetting={undefined}/>
         <ScrollView >
-          <View style={[ownstyles.container, { alignItems: 'flex-start', paddingLeft: scaleWidth(40) }]}>
+          <View style={[ownstyles.container, { alignItems: 'flex-start', paddingLeft: scaleWidth(40), marginBottom: 40 }]}>
             <SectionTitle title="Basic Information" />
             <TextEditFields
               label_name={'Restaurant Name'}
               inputmode={'text'}
               key_type={'default'}
-              given_value={state.restaurantName}
-              handleInputChange={(text) => dispatch({ type: 'restaurantName', payload: text })}
+              given_value={state.restaurant_name}
+              handleInputChange={(text) => dispatch({ type: 'restaurant_name', payload: text })}
             />
             <TextEditFields
               label_name={'Owner\'s Name'}
               inputmode={'text'}
               key_type={'default'}
-              given_value={state.ownerName}
-              handleInputChange={(text) => dispatch({ type: 'ownerName', payload: text })}
+              given_value={state.name}
+              handleInputChange={(text) => dispatch({ type: 'name', payload: text })}
             />
-            <TextEditFields
-              label_name={'Email'}
-              inputmode={null}
-              key_type={'email-address'}
-              given_value={state.email}
-              handleInputChange={(text) => dispatch({ type: 'email', payload: text })}
-            />
+
             <TextEditFields
               label_name={'Phone'}
               inputmode={null}
@@ -103,8 +114,8 @@ const RestaurantRegistration = ({ navigation }) => {
               label_name={'Street Address'}
               inputmode={'text'}
               key_type={'default'}
-              given_value={state.streetAddress}
-              handleInputChange={(text) => dispatch({ type: 'streetAddress', payload: text })}
+              given_value={state.street_address}
+              handleInputChange={(text) => dispatch({ type: 'street_address', payload: text })}
             />
             <TextEditFields
               label_name={'City'}
@@ -123,8 +134,8 @@ const RestaurantRegistration = ({ navigation }) => {
               <View style={{ borderWidth: 1, borderColor: 'black', borderRadius: 12 }}>
                 <Picker
                   style={{ width: scaleWidth(150) }}
-                  selectedValue={state.businessType}
-                  onValueChange={(itemValue) => dispatch({ type: 'businessType', payload: itemValue })}
+                  selectedValue={state.business_type}
+                  onValueChange={(itemValue) => dispatch({ type: 'business_type', payload: itemValue })}
                 >
                   <Picker.Item label="Cafe" value="cafe" />
                   <Picker.Item label="Restaurant" value="restaurant" />
@@ -139,8 +150,17 @@ const RestaurantRegistration = ({ navigation }) => {
               label_name={'Opening Hours'}
               inputmode={'text'}
               key_type={'default'}
-              given_value={state.openingHours}
-              handleInputChange={(text) => dispatch({ type: 'openingHours', payload: text })}
+              given_value={state.opening_hours}
+              handleInputChange={(text) => dispatch({ type: 'opening_hours', payload: text })}
+            />
+
+
+
+
+            <Button
+              style={styles.loginButton}
+              btnText='Register'
+              handleAuthBtn={handleRegister}
             />
 
           </View>
@@ -161,12 +181,15 @@ const ownstyles = StyleSheet.create({
   container: {
     flex: 1,
     paddingBottom: scaleWidth(20),
+    backgroundColor: '#F0F4F8',
   },
   image_container: {
     flexDirection: 'row',
     gap: scaleWidth(10),
     alignItems: 'center',
-    marginTop: scaleWidth(10)
+    marginTop: scaleWidth(10),
+    // backgroundColor:'black'
+    // backgroundColor:'#F0F4F8'
   },
   button_container: {
     flexDirection: 'column',

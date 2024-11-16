@@ -1,4 +1,4 @@
-import { View, Text, Dimensions, Image, TouchableOpacity} from 'react-native'
+import { View, Text, Dimensions, Image, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../../style/style';
 import { StatusBar } from 'expo-status-bar';
@@ -19,7 +19,7 @@ import biryani from '../../assets/biryani.jpg'
 import img3 from '../../assets/images/img1 (3).png'
 import { StyleSheet } from 'react-native';
 import PagerView from 'react-native-pager-view'
-import React, { useState, useEffect ,useContext} from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import CategoriesRestaurant from '../../components/home/CategoriesRestaurant';
 import NearDishCard from '../../components/home/NearDishCard';
 import Greeting from '../../components/home/Greeting';
@@ -40,9 +40,9 @@ const images = [
 ];
 
 const Home = ({ navigation }) => {
-  const {snackBar,setsnackBar,message}=useContext(myContext)
+  const { snackBar, setsnackBar, message } = useContext(myContext)
   const [activeIndex, setActiveIndex] = useState(0);
-  const {state} =useContext(myContext)
+  const { state } = useContext(myContext)
   const dishItems = [
     {
       "image": categoryChicken,
@@ -160,7 +160,7 @@ const Home = ({ navigation }) => {
       "price": 1800,
       "discount": 30,
       "foodName": "Sushi",
-      "no_fragments":null,
+      "no_fragments": null,
       "eatsNumber": 130,
       "rating": 4.6,
       "location": "Bhaktapur, Durbar Square"
@@ -230,40 +230,45 @@ const Home = ({ navigation }) => {
       <View style={styles.home_screen}>
 
         <NavBar handleSearchScreen={handleSearchScreen} isTextInput={false} isBack={false} navigation={navigation} />
-        
+
         {/* <ScrollView showsVerticalScrollIndicator={false} stickyHeaderIndices={[1]}> */}
         <ScrollView showsVerticalScrollIndicator={false}
-        nestedScrollEnabled={true}
-        overScrollMode='never'
+          nestedScrollEnabled={true}
+          overScrollMode='never'
         >
 
           <View style={styles1.dashboardContainer} >
-          
-            <Greeting name={state.name}/>
-            <PagerView
-              ref={pagerRef}
-              style={{ width: width, height: scaleHeight(150) }}
-              initialPage={0}
-              onPageSelected={(e) => setActiveIndex(e.nativeEvent.position)}
-            >
-              {images.map((image, index) => (
-                <View key={index} style={{ alignItems: 'center', height: '100%', paddingHorizontal: scaleWidth(8) }}>
-                  <View style={{ width: '100%', backgroundColor: "black", borderRadius: scaleWidth(20) }}>
-                    <Image resizeMode='stretch' style={{ height: '100%', width: '100%', borderRadius: scaleWidth(20) }} source={image}></Image>
+
+            <Greeting name={state.name} />
+            
+            <View>
+              <PagerView
+                ref={pagerRef}
+                style={{ width: width, height: scaleHeight(150) }}
+                initialPage={0}
+                onPageSelected={(e) => setActiveIndex(e.nativeEvent.position)}
+              >
+                {images.map((image, index) => (
+                  <View key={index} style={{ alignItems: 'center', height: '100%', paddingHorizontal: scaleWidth(8) }}>
+                    <View style={{ width: '100%', backgroundColor: "black", borderRadius: scaleWidth(20) }}>
+                      <Image resizeMode='stretch' style={{ height: '100%', width: '100%', borderRadius: scaleWidth(20) }} source={image}></Image>
+                    </View>
                   </View>
-                </View>
 
-              ))}
-            </PagerView>
+                ))}
+              </PagerView>
 
 
-            <View style={styles1.dashContainer}>
-              {images.map((_, index) => (
-                <View key={index} style={index === activeIndex ? [styles1.activeDash, { width: scaleWidth(50) - (index * scaleWidth(10)) }] : [styles1.dash, { width: scaleWidth(50) - (index * scaleWidth(10)) }]} />
-              ))}
+              <View style={styles1.dashContainer}>
+                {images.map((_, index) => (
+                  <View key={index} style={index === activeIndex ? [styles1.activeDash, { width: scaleWidth(50) - (index * scaleWidth(10)) }] : [styles1.dash, { width: scaleWidth(50) - (index * scaleWidth(10)) }]} />
+                ))}
+              </View>
             </View>
 
-            <View style={{ gap: scaleHeight(5), marginTop: scaleHeight(10), backgroundColor: '#F0F4F8', paddingVertical: scaleHeight(10),width:'100%' }}>
+
+
+            <View style={{ gap: scaleHeight(5), marginTop: scaleHeight(10), backgroundColor: '#F0F4F8', paddingVertical: scaleHeight(10), width: '100%' }}>
               <View style={{ width: '100%', paddingHorizontal: scaleWidth(8) }}>
                 <Text style={{ fontFamily: 'poppins_bold', fontSize: scaleWidth(18) }}>Restaurant Categories</Text>
               </View>
@@ -288,13 +293,13 @@ const Home = ({ navigation }) => {
                   dishImage={categoryChicken}
                   dishName={'Chicken'}
                 />
-               
+
 
                 <CategoriesRestaurant
                   dishImage={categoryCake}
                   dishName={'Cake'}
                 />
-             
+
               </View>
 
             </View>
@@ -341,7 +346,7 @@ const Home = ({ navigation }) => {
 
 
           <View style={styles.foodItems_container}>
-            <View style={{ width: '50%', alignItems: 'center'}}>
+            <View style={{ width: '50%', alignItems: 'center' }}>
               {
                 leftColumn.map((item, index) => (
                   <FoodCard
@@ -380,9 +385,9 @@ const Home = ({ navigation }) => {
             </View>
           </View>
         </ScrollView>
-        <SnackBar message={message} visible={snackBar}/>
+        <SnackBar message={message} visible={snackBar} />
       </View>
-      
+
     </SafeAreaView>
   )
 }
@@ -404,8 +409,8 @@ const styles1 = StyleSheet.create({
   dashContainer: {
     flexDirection: 'row',
     gap: scaleWidth(10),
-    position: 'static',
-    bottom: scaleHeight(15),
+    position: 'absolute',
+    bottom: scaleHeight(10),
     width: '100%',
     zIndex: 1,
     justifyContent: 'center',

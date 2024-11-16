@@ -6,7 +6,7 @@ import { scaleHeight, scaleWidth } from '../../Scaling';
 
 const { width, height } = Dimensions.get('window');
 
-const TopBar = ({ top_title, navigation }) => {
+const TopBar = ({ top_title, navigation,withSettingIcons,handleSetting }) => {
   return (
     <View style={styles.topBarContainer} >
 
@@ -19,9 +19,17 @@ const TopBar = ({ top_title, navigation }) => {
         <View style={styles.underline} />
       </View>
 
-      <TouchableOpacity style={styles.menuButton}>
-        <Ionicons name="menu" size={scaleWidth(25)} color="#333333" />
-      </TouchableOpacity>
+ {
+   withSettingIcons?(
+    <TouchableOpacity style={styles.menuButton} onPress={handleSetting}>
+    <Ionicons name="settings" size={scaleWidth(25)} color="#333333" />
+  </TouchableOpacity>
+   ):(
+    <View style={{padding:scaleWidth(20)}}>
+    </View>
+   )
+
+ }
     </View>
   );
 };

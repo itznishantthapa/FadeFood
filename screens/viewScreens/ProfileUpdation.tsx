@@ -98,7 +98,7 @@ const ProfileUpdation = ({ navigation }) => {
 
       <SafeAreaView >
         <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
-        <TopBar navigation={navigation} top_title='Edit Profile' />
+        <TopBar navigation={navigation} top_title='Edit Profile' withSettingIcons={false} handleSetting={undefined} />
         <View style={[styles.home_screen, { alignItems: 'flex-start', paddingLeft: scaleWidth(40) }]}>
 
 

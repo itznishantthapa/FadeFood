@@ -8,11 +8,11 @@ import { TextInput } from 'react-native-gesture-handler';
 import { Entypo } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AntDesign } from '@expo/vector-icons';
-import { scaleWidth,scaleHeight } from '../../Scaling';
+import { scaleWidth, scaleHeight } from '../../Scaling';
 
 
 
-const NabBar = ({ handleSearchScreen, isTextInput, isBack,navigation }) => {
+const NabBar = ({ handleSearchScreen, isTextInput, isBack, navigation }) => {
   const [searchText, setSearchText] = useState('');
   // Array of placeholder texts that will rotate
   const placeholders = [
@@ -82,7 +82,7 @@ const NabBar = ({ handleSearchScreen, isTextInput, isBack,navigation }) => {
 
   const handleBackButton = () => {
     navigation.goBack();
-}
+  }
 
   return (
     <View style={styles.navBar}>
@@ -106,43 +106,38 @@ const NabBar = ({ handleSearchScreen, isTextInput, isBack,navigation }) => {
 
 
       <View style={{ flexDirection: 'row', width: '100%', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
-
-
-
-
         <View style={styles.searchBar} >
-
-
-          <Animated.View style={{ opacity: fadeAnim, width: '90%' }}>
-            {
-              isTextInput ? (
-                <TextInput
-                  autoFocus={true}
-                  selectionColor="#BDBDBD"
-                  cursorColor={'grey'}
-                  style={styles.searchInput}
-                  placeholder={placeholders[currentPlaceholderIndex]}
-                  value={searchText}
-                  onChangeText={text => setSearchText(text)}
-                  returnKeyType="search"
-                />
-              ) : (
-                <TouchableWithoutFeedback onPress={handleSearchScreen} style={{ justifyContent: 'center' }} >
+          <Animated.View style={{ opacity: fadeAnim, width: '90%', height: '100%' }}>
+            <View  >
+              {
+                isTextInput ? (
                   <TextInput
+                    autoFocus={true}
                     selectionColor="#BDBDBD"
-                    style={styles.searchInput}
+                    cursorColor={'grey'}
+                    style={{fontSize:scaleWidth(16)}}
                     placeholder={placeholders[currentPlaceholderIndex]}
                     value={searchText}
                     onChangeText={text => setSearchText(text)}
                     returnKeyType="search"
-                    editable={false}
-
                   />
-                </TouchableWithoutFeedback>
+                ) : (
+                  <TouchableWithoutFeedback onPress={handleSearchScreen} style={{ justifyContent: 'center' }} >
+                    <TextInput
+                      selectionColor="#BDBDBD"
+                      style={{fontSize:scaleWidth(16),fontFamily:'poppins_regular'}}
+                      placeholder={placeholders[currentPlaceholderIndex]}
+                      value={searchText}
+                      onChangeText={text => setSearchText(text)}
+                      returnKeyType="search"
+                      editable={false}
 
-              )
-            }
+                    />
+                  </TouchableWithoutFeedback>
 
+                )
+              }
+            </View>
           </Animated.View>
 
 
@@ -189,7 +184,7 @@ const styles = StyleSheet.create({
     top: 0,
     gap: 5,
     paddingHorizontal: scaleWidth(8),
-    
+
   },
   searchBar: {
     flexDirection: 'row',
@@ -220,15 +215,6 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: scaleWidth(40),
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  searchInput: {
-    height: '100%',
-    color: '#666666',
-    fontSize: scaleWidth(16),
-    fontFamily: 'poppins_regular',
-    textAlignVertical: 'bottom',
-    // textAlignVertical: 'center', 
-    backgroundColor:'grey',
   },
   nav_logo: {
     height: scaleHeight(30),

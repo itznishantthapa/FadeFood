@@ -91,7 +91,7 @@ const AddFood = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F0F4F8" }}>
       <StatusBar hidden={false} backgroundColor="#F0F4F8" style="dark" />
-      <TopBar navigation={navigation} top_title='Add/Edit' />
+      <TopBar navigation={navigation} top_title='Add/Edit' withSettingIcons={false} handleSetting={undefined} />
       <View style={{ padding: 10 }}>
         <PreviewFoodCard
           foodName={foodName}

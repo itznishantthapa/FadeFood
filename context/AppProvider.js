@@ -22,7 +22,7 @@ const reducer = (state, action) => {
 export const myContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [user_type, setuser_type] = useState('customer')
+  const [user_type, setuser_type] = useState(null)
   const [state, dispatch] = useReducer(reducer, initialState);
   const [userData, setuserData] = useState(null);
   const [imageURI, setImageURI] = useState(null);
@@ -34,8 +34,9 @@ export const AppProvider = ({ children }) => {
   const fetchData = async () => {
     const response = await get_data("user_details"); // Call the GET function
     if (response.success) {
-      console.log(response.data); // Set data to state if successful
+      console.log(response.data); 
       setuserData(response.data);
+      setuser_type(response.data.is_seller? 'seller' : 'customer')
       dispatch({ type: "name", payload: response.data.name });
       dispatch({ type: "phone", payload: response.data.phone });
       dispatch({ type: "email", payload: response.data.email });

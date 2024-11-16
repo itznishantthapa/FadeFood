@@ -120,7 +120,7 @@ export const post_data = async (endpoint, data) => {
     if (response.data.access) {
       await storeTokens(response.data.access, response.data.refresh); // Store both tokens
     }
-    return { success: true, data: response.data.msg };
+    return { success: true, returnData: response.data.msg };
   } catch (error) {
     // If token is expired, try refreshing it
     if (error.response?.status === 401) {
@@ -131,7 +131,7 @@ export const post_data = async (endpoint, data) => {
     }
     return {
       success: false,
-      data: error.response?.data?.msg || "Something went wrong",
+      returnData: error.response?.data?.msg || "Something went wrong",
     };
   }
 };
