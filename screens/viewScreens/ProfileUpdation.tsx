@@ -17,7 +17,7 @@ import SnackBar from './SnackBar'
 
 
 const ProfileUpdation = ({ navigation }) => {
-  const { state, userData, dispatch, imageURI, setImageURI, isLoading, setisLoading,snackBar,setsnackBar,message,setmessage } = useContext(myContext);
+  const { state, dispatch, imageURI, setImageURI } = useContext(myContext);
 
 
 
@@ -43,55 +43,31 @@ const ProfileUpdation = ({ navigation }) => {
     if (imageURI == null) {
       return;
     }
-    Alert.alert(
-      'Delete Picture',
-      'Are you sure you want to delete your picture?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Delete',
-          onPress: async () => {
-            setisLoading(true)
-            const response = await delete_data('user_details');
-            setImageURI(null)
-            setisLoading(false)
-            setsnackBar(true)
-            setmessage(response.data)
-            setTimeout(() => setsnackBar(false), 3000);
-
-          },
-        },
-      ],
-      { cancelable: false }
-    );
   };
 
   const handleSave = async () => {
-    Keyboard.dismiss()
-    setisLoading(true)
-    const method = userData ? 'put' : 'post';
-    console.log('Data is being ', method);
-    console.log(userData);
-    const response = await post_data_with_img('user_details', state, imageURI, method);
-    if (response.success) {
-      setisLoading(false)
-      setsnackBar(true)
-      setmessage(response.data)
-      setTimeout(() => setsnackBar(false), 3000);
+    // Keyboard.dismiss()
+    // setisLoading(true)
+    // const method = userData ? 'put' : 'post';
+    // console.log('Data is being ', method);
+    // console.log(userData);
+    // const response = await post_data_with_img('user_details', state, imageURI, method);
+    // if (response.success) {
+    //   setisLoading(false)
+    //   setsnackBar(true)
+    //   setmessage(response.data)
+    //   setTimeout(() => setsnackBar(false), 3000);
     
-    } else {
-      setisLoading(false)
-      Alert.alert('Error', response.data);
-    }
+    // } else {
+    //   setisLoading(false)
+    //   Alert.alert('Error', response.data);
+    // }
   };
 
   return (
     <>
       {
-        isLoading && (
+        false && (
           <LoadingScreen />
         )
       }
@@ -133,7 +109,7 @@ const ProfileUpdation = ({ navigation }) => {
             handleInputChange={(text) => dispatch({ type: 'email', payload: text })}
           />
         </View>
-        <SnackBar message={message} visible={snackBar}/>
+        {/* <SnackBar message={message} visible={snackBar}/> */}
       </SafeAreaView>
     </>
   )

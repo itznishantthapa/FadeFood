@@ -23,36 +23,10 @@ const FoodList = ({ navigation }) => {
                                 price='50'
                                 foodName='Chatpaate'
                                 restaurantName='Delicious Restaurant'
-                                image={chatpate}
-                                isLoveNeeded={false}
                                 navigation={navigation}
-                            />
-                        
-                            <List
-                                price='50'
-                                foodName='Chatpaate'
-                                restaurantName='Delicious Restaurant'
-                                image={chatpate}
-                                isLoveNeeded={false}
-                                navigation={navigation}
-                            />
-                        
-                            <List
-                                price='50'
-                                foodName='Chatpaate'
-                                restaurantName='Delicious Restaurant'
-                                image={chatpate}
-                                isLoveNeeded={false}
-                                navigation={navigation}
-                            />
-                        
-                            <List
-                                price='50'
-                                foodName='Chatpaate'
-                                restaurantName='Delicious Restaurant'
-                                image={chatpate}
-                                isLoveNeeded={false}
-                                navigation={navigation}
+                                withRestaurant={true}
+                                images={chatpate}
+
                             />
                         
                           

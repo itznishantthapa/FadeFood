@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Linking, Platform } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -8,6 +8,7 @@ import ProfileHeader from '../components/restaurant_profile/ProfileHeader';
 import { MenuItemsScreen } from '../components/restaurant_profile/MenuSection';
 import { DrinksScreen } from '../components/restaurant_profile/DrinkSection';
 import { LooksScreen } from '../components/restaurant_profile/Looks';
+import { myContext } from '../context/AppProvider';
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -16,6 +17,7 @@ const Tab = createMaterialTopTabNavigator();
 
 
 const Menu = ({ navigation }) => {
+  const {restaurantDetails} = useContext(myContext)
   const handleGoBack = () => navigation.goBack();
 
   const openMaps = () => {
@@ -40,6 +42,11 @@ const Menu = ({ navigation }) => {
       <ProfileHeader 
       handleGoBack={handleGoBack}
       openMaps={openMaps}
+      restaurantName={'hello'}
+      openingHour={12}
+      rating={12}
+      cityName={12}
+      streetAddress={12}
       />
       
       {/* Navigation Tabs */}

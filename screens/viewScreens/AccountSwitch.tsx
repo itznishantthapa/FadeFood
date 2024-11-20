@@ -25,17 +25,20 @@ const AccountSwitch = ({ navigation }) => {
             <TopBar navigation={navigation} top_title='Manage Account' withSettingIcons={false} handleSetting={undefined} />
             <View style={styles.home_screen}>
 
-                    <SettingMenu
-                        menuName={'Edit Profile'}
-                        iconName={'pencil'}
-                        handleSettingPage={() => handleEditProfileAccount('ProfileUpdation')}
-                    />
-                    <SettingMenu
-                        menuName={'Switch To Bussiness Account'}
-                        iconName={'business'}
-                        handleSettingPage={() => handleEditProfileAccount('RegistrationScreen')}
+                <SettingMenu
+                    menuName={'Edit Info'}
+                    iconName={'pencil'}
+                    handleSettingPage={() => handleEditProfileAccount(true?'ProfileUpdation':'RegistrationScreen')}
+                />
+                {
+                    true && (
+                        <SettingMenu
+                            menuName={'Switch To Bussiness Account'}
+                            iconName={'business'}
+                            handleSettingPage={() => handleEditProfileAccount('RegistrationScreen')}
 
-                    />
+                        />)
+                }
 
 
             </View>

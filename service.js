@@ -236,3 +236,30 @@ export const delete_data = async (endpoint) => {
     };
   }
 };
+
+//function to update data
+export const update_data = async (endpoint, data) => {
+  const token = await getAccessToken();
+  if (!token) {
+    return { success: false, data: "No token found. Please log in again." };
+  }
+
+  try {
+    const response = await api.put(`${endpoint}/`, data, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return { success: true, returnData: response.data.msg };
+  } catch (error) {
+    if (error.response?.status === 401) {
+      console.log('update_data calling refresh token')
+      const newToken = await refreshAccessToken();
+      if (newToken) {
+        return update_data(endpoint, data); // Retry the GET request with the new token
+      }
+    }
+    return {
+      success: false,
+      returnData: error.response?.data?.msg || "Something went wrong",
+    };
+  }
+};

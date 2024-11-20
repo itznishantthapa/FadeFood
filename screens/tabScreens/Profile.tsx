@@ -12,8 +12,6 @@ import LoadingScreen from '../../components/viewScreens/LoadingScreen';
 
 
 const ProfileScreen = ({ navigation }) => {
-    const { imageURI, state, dispatch, setImageURI, setuserData, clearAllData, isUserLoggedIn, userData,isLoading,setisLoading } = useContext(myContext);
-
     const handleEditProfileAccount = (screen_name) => {
         navigation.navigate(screen_name)
     }
@@ -29,10 +27,7 @@ const ProfileScreen = ({ navigation }) => {
                 {
                     text: "Logout",
                     onPress: async() => {
-                        setisLoading(true)
-                        await clearAllData()
-                        setisLoading(false)
-                        navigation.navigate('Home')
+                        console.log("Logout Pressed")
                     },
                 },
             ],
@@ -47,7 +42,7 @@ const ProfileScreen = ({ navigation }) => {
     return (
     <>
         {
-                isLoading && (
+                false && (
                     <LoadingScreen />
                 )
             }
@@ -56,15 +51,15 @@ const ProfileScreen = ({ navigation }) => {
             <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
             <TopBar navigation={navigation} top_title='Profile' withSettingIcons={true} handleSetting={undefined}/>
             <View style={styles.home_screen}>
-                <UserInfo photo={imageURI} />
+                <UserInfo photo={undefined} />
                 {
-                    userData && (
-                        <Name_Phone name={state.name} phone_number={state.phone} />
+                    true && (
+                        <Name_Phone name={'hero'} phone_number={'983433452345'} />
                     )
                 }
 
                 {
-                    isUserLoggedIn && (
+                    true && (
                         <>
                             <SettingMenu
                                 menuName={'Account'}
@@ -92,7 +87,7 @@ const ProfileScreen = ({ navigation }) => {
                     handleSettingPage={() => handleEditProfileAccount('AboutScreen')}
                 />
                 {
-                    isUserLoggedIn ? (
+                    false ? (
                         <SettingMenu
                             menuName={'Logout'}
                             iconName={'log-out-outline'}

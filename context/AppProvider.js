@@ -22,21 +22,15 @@ const reducer = (state, action) => {
 export const myContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [user_type, setuser_type] = useState(null)
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [userData, setuserData] = useState(null);
   const [imageURI, setImageURI] = useState(null);
-  const [isUserLoggedIn, setisUserLoggedIn] = useState(false);
-  const [isLoading, setisLoading] = useState(false);
-  const [snackBar, setsnackBar] = useState(false)
-  const [message, setmessage] = useState('')
 
   const fetchData = async () => {
     const response = await get_data("user_details"); // Call the GET function
     if (response.success) {
       console.log(response.data); 
       setuserData(response.data);
-      setuser_type(response.data.is_seller? 'seller' : 'customer')
+      await setuser_type(response.data.is_seller? 'seller' : 'customer')
       dispatch({ type: "name", payload: response.data.name });
       dispatch({ type: "phone", payload: response.data.phone });
       dispatch({ type: "email", payload: response.data.email });
@@ -49,44 +43,22 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  
   useEffect(() => {
     fetchData();
   }, []);
 
   const clearAllData = async () => {
     await clearTokens();
-    setuserData(null);
-    dispatch({ type: "name", payload: "" });
-    dispatch({ type: "phone", payload: "" });
-    dispatch({ type: "email", payload: "" });
-    setImageURI(null);
-    setisUserLoggedIn(false);
-    setsnackBar(false)
-    setmessage('')
-    console.log("All data cleared");
   };
 
   return (
     <myContext.Provider
       value={{
         state,
-        userData,
-        setuserData,
         setImageURI,
         dispatch,
         imageURI,
-        fetchData,
-        clearAllData,
-        isUserLoggedIn,
-        setisUserLoggedIn,
-        isLoading,
-        setisLoading,
-        snackBar,
-        setsnackBar,
-        message,
-        setmessage,
-        user_type
-  
       }}
     >
       {children}

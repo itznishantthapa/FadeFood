@@ -40,7 +40,6 @@ const images = [
 ];
 
 const Home = ({ navigation }) => {
-  const { snackBar, setsnackBar, message } = useContext(myContext)
   const [activeIndex, setActiveIndex] = useState(0);
   const { state } = useContext(myContext)
   const dishItems = [
@@ -385,7 +384,7 @@ const Home = ({ navigation }) => {
             </View>
           </View>
         </ScrollView>
-        <SnackBar message={message} visible={snackBar} />
+
       </View>
 
     </SafeAreaView>

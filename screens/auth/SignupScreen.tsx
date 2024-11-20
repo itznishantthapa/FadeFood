@@ -12,7 +12,6 @@ import { myContext } from '../../context/AppProvider';
 import LoadingScreen from '../../components/viewScreens/LoadingScreen';
 
 const SignupScreen = ({ navigation }) => {
-    const { fetchData, setisUserLoggedIn, isLoading, setisLoading,setmessage,setsnackBar } = useContext(myContext)
     const [email, set_email] = useState(null)
     const [password, set_password] = useState({ initialPassword: null, confirmPassword: null })
     const [passwordVisible, setPasswordVisible] = useState({ initialPassword: true, confirmPassword: true });
@@ -25,37 +24,20 @@ const SignupScreen = ({ navigation }) => {
 
     const handleSignUp = async () => {
         Keyboard.dismiss()
-        setisLoading(true)
         if (email === null || password.initialPassword === null || password.confirmPassword === null) {
-            setisLoading(false)
             Alert.alert('Error', 'Please fill all the fields')
             return
         }
         else if (password.initialPassword !== password.confirmPassword) {
-            setisLoading(false)
             Alert.alert('Error', 'Password does not match')
             return
         }
         
-        const response = await signup({ email: email, password: password.initialPassword })
-        if (response.success) {
-            fetchData()
-            setisUserLoggedIn(true);
-            setisLoading(false)
-            navigation.navigate('Home')
-
-            setsnackBar(true)
-            setmessage(response.returnData)
-            setTimeout(() => setsnackBar(false), 3000);
-        } else {
-            Alert.alert('Error', response.returnData)
-            setisLoading(false)
-        }
     }
     return (
         <>
             {
-                isLoading && (
+                false && (
                     <LoadingScreen />
                 )
             }

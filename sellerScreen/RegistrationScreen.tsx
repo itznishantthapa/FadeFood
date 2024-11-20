@@ -10,7 +10,7 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../style/style';
 import Button from '../components/auth/Button';
-import { post_data, post_data_with_img, signup } from '../service';
+import { post_data, post_data_with_img, signup, update_data } from '../service';
 
 const initialState = {
   // Basic Information
@@ -26,7 +26,7 @@ const initialState = {
 
   // Business Details
   business_type: '',
-  opening_hours: '',
+  opening_hour: '',
 
   is_seller: true,
 
@@ -65,11 +65,18 @@ const RestaurantRegistration = ({ navigation }) => {
   const handleRegister = async () => {
   
     console.log(state);
-    const response = await post_data('user_details', { name: state.name, phone: state.phone, is_seller: true });
+    const response = await update_data('user_details', { name: state.name, phone: state.phone, is_seller: true });
     if (response.success) {
       console.log(response.returnData);
     } else {
       console.log(response.returnData);
+    }
+
+    const response2 = await post_data('register_or_update_restaurant', state);
+    if (response2.success) {
+      console.log(response2.returnData);
+    } else {
+      console.log(response2.returnData);
     }
 
 
@@ -150,8 +157,8 @@ const RestaurantRegistration = ({ navigation }) => {
               label_name={'Opening Hours'}
               inputmode={'text'}
               key_type={'default'}
-              given_value={state.opening_hours}
-              handleInputChange={(text) => dispatch({ type: 'opening_hours', payload: text })}
+              given_value={state.opening_hour}
+              handleInputChange={(text) => dispatch({ type: 'opening_hour', payload: text })}
             />
 
 
@@ -159,7 +166,7 @@ const RestaurantRegistration = ({ navigation }) => {
 
             <Button
               style={styles.loginButton}
-              btnText='Register'
+              btnText={'Register'}
               handleAuthBtn={handleRegister}
             />
 

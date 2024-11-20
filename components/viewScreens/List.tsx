@@ -18,7 +18,7 @@ const List = ({
   navigation,
   withRestaurant
 }) => {
-  const {user_type}=useContext(myContext);
+
   const handlePress = () => {
     navigation.navigate("ViewFood");
   };
@@ -36,7 +36,7 @@ const List = ({
 
         <View style={{ position: 'absolute', right: 0 }}>
           {
-            user_type === 'customer' ? (
+            true? (
               <Love />
             ) : (
               <Edit />
@@ -54,7 +54,7 @@ const List = ({
             <Price priceFontSize={18} price={price} />
           </View>
           {
-            user_type === 'customer' && (
+           true && (
               <View style={styles.restaurantRow}>
 
 

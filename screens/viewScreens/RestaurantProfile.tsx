@@ -19,7 +19,7 @@ const RestaurantProfile = ({ navigation }) => {
   const handleGoBack = () => navigation.goBack();
 
   const openMaps = () => {
-    const latitude = "26.8217"; 
+    const latitude = "26.8217";
     const longitude = "87.2863";
     const label = "Delicious Restaurant";
 
@@ -37,11 +37,16 @@ const RestaurantProfile = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
 
-      <ProfileHeader 
-      handleGoBack={handleGoBack}
-      openMaps={openMaps}
+      <ProfileHeader
+        restaurantName='Delicious Restaurant'
+        openingHour='10:00 AM - 10:00 PM'
+        rating='4.5'
+        cityName='Kathmandu'
+        streetAddress='Boudha, Kathmandu'
+        handleGoBack={handleGoBack}
+        openMaps={openMaps}
       />
-      
+
       {/* Navigation Tabs */}
       <Tab.Navigator
         style={styles.tabNavigator}
@@ -51,12 +56,25 @@ const RestaurantProfile = ({ navigation }) => {
           tabBarLabelStyle: styles.tabLabel,
           tabBarActiveTintColor: '#E23744',
           tabBarInactiveTintColor: '#666',
+          // tabBarItemStyle: { key: undefined }, // Ensure `key` is excluded here
+
         }}
       >
         <Tab.Screen name="Menu Items" component={MenuItemsScreen} />
         <Tab.Screen name="Drinks" component={DrinksScreen} />
         <Tab.Screen name="Looks" component={LooksScreen} />
       </Tab.Navigator>
+
+      {/* screenOptions={({ route }) => ({
+    tabBarStyle: styles.tabBar,
+    tabBarIndicatorStyle: styles.tabIndicator,
+    tabBarLabelStyle: styles.tabLabel,
+    tabBarActiveTintColor: '#E23744',
+    tabBarInactiveTintColor: '#666',
+    tabBarItemStyle: { key: undefined }, // Ensure `key` is excluded here
+  })} */}
+
+
     </SafeAreaView>
   );
 };

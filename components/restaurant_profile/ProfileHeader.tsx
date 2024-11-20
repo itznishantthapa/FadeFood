@@ -4,12 +4,11 @@ import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { Image, TouchableOpacity } from 'react-native'
 import { myContext } from '../../context/AppProvider'
 
-const ProfileHeader = ({handleGoBack,openMaps}) => {
-  const {user_type}=useContext(myContext);
+const ProfileHeader = ({handleGoBack,openMaps,restaurantName,openingHour,rating,cityName,streetAddress}) => {
   return (
     <View style={styles.header}>
       {
-        user_type === 'customer' &&
+        false &&
     <TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
       <AntDesign name="arrowleft" size={24} color="#333" />
     </TouchableOpacity>
@@ -22,24 +21,24 @@ const ProfileHeader = ({handleGoBack,openMaps}) => {
       />
       
       <View style={styles.restaurantInfo}>
-        <Text style={styles.restaurantName}>Delicious Restaurant</Text>
+        <Text style={styles.restaurantName}>{restaurantName}</Text>
         <Text style={styles.cuisineText}>Italian • Continental • Chinese</Text>
         
         <View style={styles.statsContainer}>
           <View style={styles.statItem}>
             <AntDesign name="star" size={16} color="#FFD700" />
-            <Text style={styles.statText}>4.5 (500+)</Text>
+            <Text style={styles.statText}>{rating} (500+)</Text>
           </View>
           <View style={styles.statDivider} />
           <View style={styles.statItem}>
             <MaterialIcons name="access-time" size={16} color="#666" />
-            <Text style={styles.statText}>30-40 min</Text>
+            <Text style={styles.statText}>{openingHour}</Text>
           </View>
         </View>
 
         <TouchableOpacity style={styles.locationContainer} onPress={openMaps}>
           <Ionicons name="location-sharp" size={18} color="#E23744" />
-          <Text style={styles.locationText}>1234, Sample Address, Sample City</Text>
+          <Text style={styles.locationText}>{streetAddress}, {cityName}</Text>
           <MaterialIcons name="directions" size={20} color="#E23744" />
         </TouchableOpacity>
       </View>

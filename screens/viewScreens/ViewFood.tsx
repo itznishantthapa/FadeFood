@@ -24,8 +24,6 @@ const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 
 const ViewFood = ({ navigation }) => {
 
-  const { snackBar, message, setsnackBar,setmessage } = useContext(myContext);
-
 
   const [isFavorite, setIsFavorite] = useState(false);
   const scaleAnim = useRef(new Animated.Value(1)).current;
@@ -61,12 +59,6 @@ const ViewFood = ({ navigation }) => {
         useNativeDriver: true,
       }),
     ]).start();
-
-
-    setsnackBar(true)
-    setmessage("Added to Favorites")
-    setTimeout(() => setsnackBar(false), 3000);
-
 
 
     setIsFavorite(!isFavorite);
@@ -197,7 +189,7 @@ const ViewFood = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
-      <SnackBar message={message} visible={snackBar} />
+      {/* <SnackBar message={message} visible={snackBar} /> */}
     </SafeAreaView>
   );
 };

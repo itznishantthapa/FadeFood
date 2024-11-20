@@ -12,7 +12,6 @@ import { myContext } from '../../context/AppProvider';
 import LoadingScreen from '../../components/viewScreens/LoadingScreen';
 
 const LoginScreens = ({ navigation }) => {
-    const { fetchData, setisUserLoggedIn, isLoading, setisLoading,setsnackBar,setmessage } = useContext(myContext)
     const [email, set_email] = useState(null)
     const [password, set_password] = useState(null)
     const [passwordVisible, setPasswordVisible] = useState(true);
@@ -22,34 +21,13 @@ const LoginScreens = ({ navigation }) => {
     };
 
     const handleLogin = async () => {
-        Keyboard.dismiss()
-        if (email === null || password === null) {
-            Alert.alert('Error', 'Please fill all the fields')
-            return
-        }
-        setisLoading(true)
-        const response = await login({ email: email, password: password })
-        if (response.success) {
-            console.log('Fetching user data-------')
-            fetchData()
-            setisUserLoggedIn(true);
-            setisLoading(false)
-            console.log('User data fetched-------')
-            navigation.navigate('Home')
-            
-            setsnackBar(true)
-            setmessage(response.returnData)
-            setTimeout(() => setsnackBar(false), 3000);
-        } else {
-            setisLoading(false)
-            Alert.alert('Error', response.returnData)
-        }
+
 
     }
     return (
         <>
             {
-                isLoading && (
+                false && (
                     <LoadingScreen />
                 )
             }
