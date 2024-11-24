@@ -35,7 +35,7 @@ const SellerSetting = ({ navigation }) => {
     return (
         <SafeAreaView >
             <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
-            <TopBar navigation={navigation} top_title='Settings' withSettingIcons={false} handleSetting={undefined} />
+            <TopBar navigation={navigation} top_title='Settings' withSettingIcons={undefined} handleSettingIcon={undefined} />
             <View style={styles.home_screen}>
 
 

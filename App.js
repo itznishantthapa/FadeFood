@@ -22,7 +22,6 @@ import RestaurantProfile from './screens/viewScreens/RestaurantProfile';
 import RegistrationScreen from './sellerScreen/RegistrationScreen';
 import AccountSwitch from './screens/viewScreens/AccountSwitch';
 import SellerSetting from './sellerScreen/SellerSetting';
-import Home from './screens/tabScreens/Home';
 
 
 

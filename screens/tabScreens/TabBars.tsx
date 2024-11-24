@@ -16,9 +16,11 @@ import Chat from '../tabScreens/Chat';
 import { scaleHeight, scaleWidth } from '../../Scaling';
 import Menu from '../../sellerScreen/Menu';
 import AddFood from '../../sellerScreen/AddFood';
+import Notifications from '../../sellerScreen/Notifications';
 import { FA6Style } from 'react-native-vector-icons/FontAwesome6';
 import { myContext } from '../../context/AppProvider';
 import RestaurantNotification from '../../sellerScreen/RestaurantNotification';
+import LoadingScreen from '../../components/viewScreens/LoadingScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -57,27 +59,22 @@ const CustomerTabBars = () => {
       })}
     >
       <Tab.Screen
-        key={1}
         name="Home"
         component={Home}
       />
       <Tab.Screen
-        key={2}
         name="Favourite"
         component={Favourite}
       />
       <Tab.Screen
-        key={3}
         name="Scanner"
         component={Scanner}
       />
       <Tab.Screen
-        key={4}
         name="Chat"
         component={Chat}
       />
       <Tab.Screen
-        key={5}
         name="Profile"
         component={Profile}
       />
@@ -88,7 +85,7 @@ const CustomerTabBars = () => {
 const SellerTabBars = () => {
   return (
     <Tab.Navigator
-      initialRouteName='Home'
+      initialRouteName='Menu'
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: false,
@@ -103,7 +100,7 @@ const SellerTabBars = () => {
           } else if (route.name === 'Chat') {
             return <Ionicons name={focused ? "chatbubbles-sharp" : "chatbubbles-outline"} color={color} size={scaleWidth(30)} />;
 
-          } else if (route.name === 'RestaurantNotification') {
+          } else if (route.name === 'Notifications') {
             return <Ionicons name={focused ? "notifications" : "notifications-outline"} color={color} size={scaleWidth(30)} />;
           }
         },
@@ -116,25 +113,21 @@ const SellerTabBars = () => {
       })}
     >
       <Tab.Screen
-        key={1}
         name="Menu"
         component={Menu}
       />
       <Tab.Screen
-        key={2}
         name="AddFood"
         component={AddFood}
       />
 
 
       <Tab.Screen
-        key={3}
         name="Chat"
         component={Chat}
       />
       <Tab.Screen
-        key={4}
-        name="RestaurantNotification"
+        name="Notifications"
         component={RestaurantNotification}
       />
     </Tab.Navigator>
@@ -145,19 +138,12 @@ const SellerTabBars = () => {
 
 
 const TabBars = () => {
-  return (
-    <>
+  const { state } = useContext(myContext);
 
-      {
-        true ? (<CustomerTabBars></CustomerTabBars>) : (<SellerTabBars></SellerTabBars>)
-      }
+  return state.role === 'customer' ? <CustomerTabBars /> : <SellerTabBars />;
+};
 
 
-    </>
-
-
-  )
-}
 
 export default TabBars
 

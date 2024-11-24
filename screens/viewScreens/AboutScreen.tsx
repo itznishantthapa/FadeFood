@@ -8,7 +8,7 @@ const AboutScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
           <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
-          <TopBar navigation={navigation} top_title='About Us' withSettingIcons={false} handleSetting={undefined}/>
+          <TopBar navigation={navigation} top_title='About Us' withSettingIcons={undefined} handleSettingIcon={undefined}/>
       <ScrollView showsVerticalScrollIndicator={false} style={{marginTop:-12}} >
         <View style={styles.headerSection}>
           <Text style={styles.appName}>FadeFood</Text>

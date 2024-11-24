@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Linking, Platform } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -9,6 +9,7 @@ import ProfileHeader from '../../components/restaurant_profile/ProfileHeader';
 import { LooksScreen } from '../../components/restaurant_profile/Looks';
 import { DrinksScreen } from '../../components/restaurant_profile/DrinkSection';
 import { MenuItemsScreen } from '../../components/restaurant_profile/MenuSection';
+import { myContext } from '../../context/AppProvider';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -16,10 +17,32 @@ const Tab = createMaterialTopTabNavigator();
 
 
 const RestaurantProfile = ({ navigation }) => {
+  const { isLoading, setisLoading, snackBar, setsnackBar, dispatch,state,seller_state,seller_dispatch } = useContext(myContext);
+
   const handleGoBack = () => navigation.goBack();
+const foodItems1 = [
+        {
+          id:1,
+            food_price: "$5.00",
+            food_name: "ChatpatebyRestaurantProfile",
+            restaurantName: "Food Corner",
+            image: { undefined },
+            isLoveNeeded: true,
+          },
+          {
+            id:2,
+            food_price: "$5.00",
+            food_name: "ChatpatebyRestaurantProfile",
+            restaurantName: "Food Corner",
+            image: { undefined },
+            isLoveNeeded: true,
+          }]
+  const MenuItemsWrapper = () => {
+    return <MenuItemsScreen foodItems={foodItems1} navigation={navigation}/>;
+  };
 
   const openMaps = () => {
-    const latitude = "26.8217";
+    const latitude = "26.8217"; 
     const longitude = "87.2863";
     const label = "Delicious Restaurant";
 
@@ -38,15 +61,16 @@ const RestaurantProfile = ({ navigation }) => {
       <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
 
       <ProfileHeader
-        restaurantName='Delicious Restaurant'
-        openingHour='10:00 AM - 10:00 PM'
-        rating='4.5'
-        cityName='Kathmandu'
-        streetAddress='Boudha, Kathmandu'
-        handleGoBack={handleGoBack}
-        openMaps={openMaps}
+      openMaps={openMaps}
+      restaurantName={seller_state.name}
+      openingHour={seller_state.opening_hour}
+      rating={seller_state.rating}
+      cityName={seller_state.city}
+      streetAddress={seller_state.street_address}
+      activeStatus={state.is_active}
+      handleGoBack={handleGoBack}
       />
-
+      
       {/* Navigation Tabs */}
       <Tab.Navigator
         style={styles.tabNavigator}
@@ -56,25 +80,12 @@ const RestaurantProfile = ({ navigation }) => {
           tabBarLabelStyle: styles.tabLabel,
           tabBarActiveTintColor: '#E23744',
           tabBarInactiveTintColor: '#666',
-          // tabBarItemStyle: { key: undefined }, // Ensure `key` is excluded here
-
         }}
       >
-        <Tab.Screen name="Menu Items" component={MenuItemsScreen} />
+        <Tab.Screen name="Menu Items" component={MenuItemsWrapper} />
         <Tab.Screen name="Drinks" component={DrinksScreen} />
         <Tab.Screen name="Looks" component={LooksScreen} />
       </Tab.Navigator>
-
-      {/* screenOptions={({ route }) => ({
-    tabBarStyle: styles.tabBar,
-    tabBarIndicatorStyle: styles.tabIndicator,
-    tabBarLabelStyle: styles.tabLabel,
-    tabBarActiveTintColor: '#E23744',
-    tabBarInactiveTintColor: '#666',
-    tabBarItemStyle: { key: undefined }, // Ensure `key` is excluded here
-  })} */}
-
-
     </SafeAreaView>
   );
 };

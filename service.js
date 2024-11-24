@@ -2,8 +2,6 @@ import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 import { Alert } from "react-native";
 
-
-
 // Store both access and refresh tokens
 const storeTokens = async (accessToken, refreshToken) => {
   try {
@@ -34,7 +32,6 @@ const getRefreshToken = async () => {
   }
 };
 
-
 // Clear tokens from secure storage
 export const clearTokens = async () => {
   try {
@@ -45,9 +42,6 @@ export const clearTokens = async () => {
     console.error("Error clearing tokens", error);
   }
 };
-
-
-
 
 // Set up base URL for your Django API
 const api = axios.create({
@@ -63,12 +57,12 @@ export const signup = async (data) => {
     if (response.data.access && response.data.refresh) {
       console.log("hereeeeeeeeeeeeeeeeeee");
       await storeTokens(response.data.access, response.data.refresh); // Store both tokens
-      return { success: true, returnData: response.data.msg };
+      return { success: true, data: response.data.msg };
     }
   } catch (error) {
     return {
       success: false,
-      returnData: error.response?.data?.msg || "Signup failed",
+      data: error.response?.data?.msg || "Signup failed",
     };
   }
 };
@@ -77,13 +71,17 @@ export const signup = async (data) => {
 export const login = async (data) => {
   try {
     // const response = await api.post("login/", data);
-    const response = await api({ method: "post", url: "login/", data: data });
+    const response = await api({
+      method: "post",
+      url: "login_user/",
+      data: data,
+    });
     if (response.data.access && response.data.refresh) {
       await storeTokens(response.data.access, response.data.refresh); // Store both tokens
-      return { success: true, returnData: response.data.msg };
+      return { success: true, data: response.data.msg };
     }
   } catch (error) {
-    return {success: false,returnData: error.response?.data?.msg};
+    return { success: false, data: error.response?.data?.msg };
   }
 };
 
@@ -120,7 +118,7 @@ export const post_data = async (endpoint, data) => {
     if (response.data.access) {
       await storeTokens(response.data.access, response.data.refresh); // Store both tokens
     }
-    return { success: true, returnData: response.data.msg };
+    return { success: true, data: response.data.ofBackendData, msg: response.data.msg };
   } catch (error) {
     // If token is expired, try refreshing it
     if (error.response?.status === 401) {
@@ -131,7 +129,7 @@ export const post_data = async (endpoint, data) => {
     }
     return {
       success: false,
-      returnData: error.response?.data?.msg || "Something went wrong",
+      data: error.response?.data?.msg || "Something went wrong",
     };
   }
 };
@@ -147,10 +145,10 @@ export const get_data = async (endpoint) => {
     const response = await api.get(`${endpoint}/`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    return { success: true, data: response.data };
+    return { success: true, data: response.data.ofBackendData };
   } catch (error) {
     if (error.response?.status === 401) {
-      console.log('get data calling refresh token')
+      console.log("get data calling refresh token");
       const newToken = await refreshAccessToken();
       if (newToken) {
         return get_data(endpoint); // Retry the GET request with the new token
@@ -175,14 +173,13 @@ export const post_data_with_img = async (endpoint, text_data, uri, method) => {
   Object.keys(text_data).forEach((key) => {
     formData.append(key, text_data[key]);
   });
-   if(uri){
-
-     formData.append("profile_picture", {
-       uri: uri,
-       type: "image/jpeg",
-       name: "profile_picture.jpg",
-     });
-   }
+  if (uri) {
+    formData.append("profile_picture", {
+      uri: uri,
+      type: "image/jpeg",
+      name: "profile_picture.jpg",
+    });
+  }
 
   try {
     const response = await api({
@@ -197,7 +194,7 @@ export const post_data_with_img = async (endpoint, text_data, uri, method) => {
     return { success: true, data: response.data.msg };
   } catch (error) {
     if (error.response?.status === 401) {
-      console.log('post_data_with_img calling refresh token')
+      console.log("post_data_with_img calling refresh token");
       const newToken = await refreshAccessToken();
       if (newToken) {
         return post_data_with_img(endpoint, text_data, uri, method); // Retry the GET request with the new token
@@ -224,7 +221,7 @@ export const delete_data = async (endpoint) => {
     return { success: true, data: response.data.msg };
   } catch (error) {
     if (error.response?.status === 401) {
-      console.log('delete_data calling refresh token')
+      console.log("delete_data calling refresh token");
       const newToken = await refreshAccessToken();
       if (newToken) {
         return delete_data(endpoint); // Retry the GET request with the new token
@@ -248,7 +245,7 @@ export const update_data = async (endpoint, data) => {
     const response = await api.put(`${endpoint}/`, data, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    return { success: true, returnData: response.data.msg };
+    return { success: true, data: response.data.msg };
   } catch (error) {
     if (error.response?.status === 401) {
       console.log('update_data calling refresh token')
@@ -257,9 +254,6 @@ export const update_data = async (endpoint, data) => {
         return update_data(endpoint, data); // Retry the GET request with the new token
       }
     }
-    return {
-      success: false,
-      returnData: error.response?.data?.msg || "Something went wrong",
-    };
+    return {success: false,  data: error.response?.data?.msg || "Something went wrong"};
   }
 };

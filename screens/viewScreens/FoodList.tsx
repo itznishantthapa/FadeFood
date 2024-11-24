@@ -15,7 +15,7 @@ const FoodList = ({ navigation }) => {
         <SafeAreaView style={{ flex: 1 }}>
             <StatusBar hidden={false} backgroundColor='#dc2f02' style='light' />
             <View style={[styles.home_screen, { alignItems: 'center', backgroundColor: '#F0F0F0' }]}>
-                <TopBar navigation={navigation} top_title='My List' withSettingIcons={false} handleSetting={undefined}/>
+                <TopBar navigation={navigation} top_title='My List' withSettingIcons={undefined} handleSettingIcon={undefined}/>
                 <View style={{ height: '52%', width: '100%', paddingVertical: 10 }}>
                     <ScrollView showsVerticalScrollIndicator={false} >
                         <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 10 }}>
@@ -23,10 +23,36 @@ const FoodList = ({ navigation }) => {
                                 price='50'
                                 foodName='Chatpaate'
                                 restaurantName='Delicious Restaurant'
+                                image={chatpate}
+                                isLoveNeeded={false}
                                 navigation={navigation}
-                                withRestaurant={true}
-                                images={chatpate}
-
+                            />
+                        
+                            <List
+                                price='50'
+                                foodName='Chatpaate'
+                                restaurantName='Delicious Restaurant'
+                                image={chatpate}
+                                isLoveNeeded={false}
+                                navigation={navigation}
+                            />
+                        
+                            <List
+                                price='50'
+                                foodName='Chatpaate'
+                                restaurantName='Delicious Restaurant'
+                                image={chatpate}
+                                isLoveNeeded={false}
+                                navigation={navigation}
+                            />
+                        
+                            <List
+                                price='50'
+                                foodName='Chatpaate'
+                                restaurantName='Delicious Restaurant'
+                                image={chatpate}
+                                isLoveNeeded={false}
+                                navigation={navigation}
                             />
                         
                           

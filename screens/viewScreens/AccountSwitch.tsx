@@ -22,23 +22,22 @@ const AccountSwitch = ({ navigation }) => {
 
         <SafeAreaView >
             <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
-            <TopBar navigation={navigation} top_title='Manage Account' withSettingIcons={false} handleSetting={undefined} />
+            <TopBar navigation={navigation} top_title='Profile' withSettingIcons={undefined} handleSettingIcon={undefined}/>
             <View style={styles.home_screen}>
 
-                <SettingMenu
-                    menuName={'Edit Info'}
-                    iconName={'pencil'}
-                    handleSettingPage={() => handleEditProfileAccount(true?'ProfileUpdation':'RegistrationScreen')}
-                />
-                {
-                    true && (
-                        <SettingMenu
-                            menuName={'Switch To Bussiness Account'}
-                            iconName={'business'}
-                            handleSettingPage={() => handleEditProfileAccount('RegistrationScreen')}
+                    <SettingMenu
+                        menuName={'Edit Profile'}
+                        iconName={'pencil'}
+                        handleSettingPage={() => handleEditProfileAccount('ProfileUpdation')}
+                    />
+                    <SettingMenu
+                        menuName={'Switch To Bussiness Account'}
+                        iconName={'business'}
+                        handleSettingPage={() => handleEditProfileAccount('RegistrationScreen')}
 
-                        />)
-                }
+                    />
+
+
 
 
             </View>
@@ -46,5 +45,14 @@ const AccountSwitch = ({ navigation }) => {
 
     );
 };
+
+const styles1 = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+
+
+});
 
 export default AccountSwitch;

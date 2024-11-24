@@ -3,8 +3,9 @@ import React, { useContext } from 'react'
 import { AntDesign, Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { Image, TouchableOpacity } from 'react-native'
 import { myContext } from '../../context/AppProvider'
+import WavePulse from './WavePulse'
 
-const ProfileHeader = ({handleGoBack,openMaps,restaurantName,openingHour,rating,cityName,streetAddress}) => {
+const ProfileHeader = ({handleGoBack,openMaps,restaurantName,openingHour,rating,cityName,streetAddress,activeStatus}) => {
   return (
     <View style={styles.header}>
       {
@@ -13,6 +14,14 @@ const ProfileHeader = ({handleGoBack,openMaps,restaurantName,openingHour,rating,
       <AntDesign name="arrowleft" size={24} color="#333" />
     </TouchableOpacity>
       }
+      <View style={styles.activeStatus}>
+       <Text style={styles.activeStatusText}>{activeStatus?'Open':'Close'}</Text>
+       <WavePulse
+        size={10} 
+        isActive={activeStatus} 
+        style={{ margin: 0 }} />
+
+      </View>
 
     <View style={styles.profileContainer}>
       <Image 
@@ -21,6 +30,7 @@ const ProfileHeader = ({handleGoBack,openMaps,restaurantName,openingHour,rating,
       />
       
       <View style={styles.restaurantInfo}>
+
         <Text style={styles.restaurantName}>{restaurantName}</Text>
         <Text style={styles.cuisineText}>Italian • Continental • Chinese</Text>
         
@@ -71,6 +81,23 @@ const styles = StyleSheet.create({
         left: 16,
         top: 4
       },
+      activeStatus: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#F0F0F0',
+        paddingHorizontal: 20,
+        paddingVertical: 8,
+        gap : 8,
+        borderRadius: 8,
+        alignSelf: 'flex-end',
+        position: 'absolute',
+        right: 16,
+        top:8
+      },
+      activeStatusText: {
+         fontFamily: 'montserrat_semibold',
+      }
+        ,
       profileContainer: {
         flexDirection: 'row',
         alignItems: 'flex-start',

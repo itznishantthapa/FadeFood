@@ -18,7 +18,7 @@ const List = ({
   navigation,
   withRestaurant
 }) => {
-
+  const {state}=useContext(myContext);
   const handlePress = () => {
     navigation.navigate("ViewFood");
   };
@@ -29,14 +29,14 @@ const List = ({
       <View style={styles.food_container}>
 
         <View style={{ flexDirection: 'row' }}>
-          <Image source={images.image1} resizeMode="cover" style={styles.foodImage} />
-          <Image source={images.image2} resizeMode="cover" style={styles.foodImage} />
-          <Image source={images.image3} resizeMode="cover" style={styles.foodImage} />
+          <Image source={undefined} resizeMode="cover" style={styles.foodImage} />
+          <Image source={undefined} resizeMode="cover" style={styles.foodImage} />
+          <Image source={undefined} resizeMode="cover" style={styles.foodImage} />
         </View>
 
         <View style={{ position: 'absolute', right: 0 }}>
           {
-            true? (
+            state.role === 'customer' ? (
               <Love />
             ) : (
               <Edit />
@@ -54,7 +54,7 @@ const List = ({
             <Price priceFontSize={18} price={price} />
           </View>
           {
-           true && (
+            state.role === 'customer' && (
               <View style={styles.restaurantRow}>
 
 

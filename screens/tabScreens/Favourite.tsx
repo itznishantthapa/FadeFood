@@ -54,7 +54,7 @@ const Favourite = ({ navigation }) => {
     <SafeAreaView style={ownstyles.safeArea}>
       <StatusBar hidden={false} backgroundColor="#F0F4F8" style="dark" />
       <View style={ownstyles.homeScreen}>
-        <TopBar navigation={navigation} top_title="Favorite" withSettingIcons={false} handleSetting={undefined}/>
+        <TopBar navigation={navigation} top_title="Favorite"  withSettingIcons={undefined} handleSettingIcon={undefined} />
 
         <ScrollView style={ownstyles.scrollView} showsVerticalScrollIndicator={false}>
           <View style={ownstyles.contentContainer}>

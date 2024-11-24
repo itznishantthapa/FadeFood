@@ -1,148 +1,142 @@
-import React, { useReducer, useState } from 'react';
-import { StyleSheet, View, ScrollView, Text } from 'react-native';
-import TextEditFields from '../components/profile/TextEditFields'
+import React, { useContext, useReducer } from 'react';
+import { 
+  StyleSheet, 
+  View, 
+  ScrollView, 
+  Text, 
+  Keyboard, 
+  Alert,
+  KeyboardAvoidingView,
+  Dimensions,
+  Platform 
+} from 'react-native';
+import TextEditFields from '../components/profile/TextEditFields';
 import TopBar from '../components/viewScreens/TopBar';
-import LoadingScreen from '../components/viewScreens/LoadingScreen'
-import SnackBar from '../screens/viewScreens/SnackBar'
-import { scaleWidth } from '../Scaling';
+import LoadingScreen from '../components/viewScreens/LoadingScreen';
+import SnackBar from '../screens/viewScreens/SnackBar';
+import { scaleHeight, scaleWidth } from '../Scaling';
 import { Picker } from '@react-native-picker/picker';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../style/style';
 import Button from '../components/auth/Button';
-import { post_data, post_data_with_img, signup, update_data } from '../service';
+import { get_data, update_data } from '../service';
+import { myContext } from '../context/AppProvider';
+import { useFocusEffect } from '@react-navigation/native';
 
-const initialState = {
-  // Basic Information
-  restaurant_name: '',
-  name: '',
-  phone: '',
+const { width, height } = Dimensions.get('window');
 
+// const initialseller_state = {
+//   name: '',
+//   street_address: '',
+//   city: '',
+//   business_type: '',
+//   opening_hour: '',
+//   citizenship_number: '',
+//   pan_number: '',
+//   is_seller: true,
+// };
 
-  // Address & Location
-  street_address: '',
-  city: '',
-
-
-  // Business Details
-  business_type: '',
-  opening_hour: '',
-
-  is_seller: true,
-
-};
-
-const reducer = (state, action) => {
-  return {
-    ...state,
-    [action.type]: action.payload
-  };
-};
+// const seller_reducer = (seller_state, action) => {
+//   return {
+//     ...seller_state,
+//     [action.type]: action.payload
+//   };
+// };
 
 const RestaurantRegistration = ({ navigation }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const [isLoading, setIsLoading] = useState(false);
-  const [snackBar, setSnackBar] = useState(false);
-  const [message, setMessage] = useState('');
-  const [imageURI, setImageURI] = useState(null);
+  const { isLoading, setisLoading, snackBar, setsnackBar, dispatch,state,seller_state,seller_dispatch } = useContext(myContext);
+  // const [seller_state, seller_dispatch] = useReducer(seller_reducer, initialseller_state);
 
-  const pickImage = async () => {
-    // Image picking logic here
-  };
+  // const fetchData = async () => {
+  //   setisLoading(true);
+  //   const response = await get_data('get_restaurant');
+  //   if (response.success) {
+  //     setisLoading(false);
+  //     Object.entries(response.data).forEach(([key, value]) => {
+  //       if (initialseller_state.hasOwnProperty(key)) {
+  //         seller_dispatch({ type: key, payload: value });
+  //       }
+  //     });
+  //   } else {
+  //     setisLoading(false);
+  //     Alert.alert('Error', response.data);
+  //   }
+  // };
 
-  const handleDeletePicture = () => {
-    setImageURI(null);
-  };
-
-  const handleSave = async () => {
-    setIsLoading(true);
-    // Save logic here
-    setIsLoading(false);
-    setMessage('Restaurant registered successfully!');
-    setSnackBar(true);
-  };
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     fetchData();
+  //     return () => {};
+  //   }, [])
+  // );
 
   const handleRegister = async () => {
-  
-    console.log(state);
-    const response = await update_data('user_details', { name: state.name, phone: state.phone, is_seller: true });
+    Keyboard.dismiss();
+    setisLoading(true);
+    const response = await update_data('edit_restaurant', seller_state);
+    
     if (response.success) {
-      console.log(response.returnData);
+      setisLoading(false);
+      setsnackBar(true);
+      dispatch({ type: 'snackmessage', payload: response.data });
+      setTimeout(() => setsnackBar(false), 3000);
     } else {
-      console.log(response.returnData);
+      setisLoading(false);
+      Alert.alert('Error', response.data);
     }
-
-    const response2 = await post_data('register_or_update_restaurant', state);
-    if (response2.success) {
-      console.log(response2.returnData);
-    } else {
-      console.log(response2.returnData);
-    }
-
-
-  }
+  };
 
   return (
-    <>
+    <SafeAreaView style={ownstyles.safeArea}>
       {isLoading && <LoadingScreen />}
-
-      <SafeAreaView>
-        <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
-        <TopBar navigation={navigation} top_title='Restaurant Registration' withSettingIcons={false} handleSetting={undefined}/>
-        <ScrollView >
-          <View style={[ownstyles.container, { alignItems: 'flex-start', paddingLeft: scaleWidth(40), marginBottom: 40 }]}>
+      <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
+      <TopBar navigation={navigation} top_title='Restaurant Registration' withSettingIcons={undefined} handleSettingIcon={undefined} />
+      
+      <KeyboardAvoidingView 
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={ownstyles.keyboardView}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
+      >
+        <ScrollView
+          contentContainerStyle={ownstyles.scrollContent}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View style={ownstyles.formContainer}>
             <SectionTitle title="Basic Information" />
             <TextEditFields
               label_name={'Restaurant Name'}
               inputmode={'text'}
               key_type={'default'}
-              given_value={state.restaurant_name}
-              handleInputChange={(text) => dispatch({ type: 'restaurant_name', payload: text })}
-            />
-            <TextEditFields
-              label_name={'Owner\'s Name'}
-              inputmode={'text'}
-              key_type={'default'}
-              given_value={state.name}
-              handleInputChange={(text) => dispatch({ type: 'name', payload: text })}
+              given_value={seller_state.name}
+              handleInputChange={(text) => seller_dispatch({ type: 'name', payload: text })}
             />
 
-            <TextEditFields
-              label_name={'Phone'}
-              inputmode={null}
-              key_type={'phone-pad'}
-              given_value={state.phone}
-              handleInputChange={(text) => dispatch({ type: 'phone', payload: text })}
-            />
-
-            {/* Address & Location */}
             <SectionTitle title="Address & Location" />
             <TextEditFields
               label_name={'Street Address'}
               inputmode={'text'}
               key_type={'default'}
-              given_value={state.street_address}
-              handleInputChange={(text) => dispatch({ type: 'street_address', payload: text })}
+              given_value={seller_state.street_address}
+              handleInputChange={(text) => seller_dispatch({ type: 'street_address', payload: text })}
             />
             <TextEditFields
               label_name={'City'}
               inputmode={'text'}
               key_type={'default'}
-              given_value={state.city}
-              handleInputChange={(text) => dispatch({ type: 'city', payload: text })}
+              given_value={seller_state.city}
+              handleInputChange={(text) => seller_dispatch({ type: 'city', payload: text })}
             />
 
-            {/* Business Details */}
             <SectionTitle title="Business Details" />
-
-            <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 12 }}>
-              <Text style={{ fontFamily: 'poppins_regular', fontSize: scaleWidth(15), }}>Business Type : </Text>
-
-              <View style={{ borderWidth: 1, borderColor: 'black', borderRadius: 12 }}>
+            <View style={ownstyles.pickerContainer}>
+              <Text style={ownstyles.pickerLabel}>Business Type : </Text>
+              <View style={ownstyles.picker}>
                 <Picker
                   style={{ width: scaleWidth(150) }}
-                  selectedValue={state.business_type}
-                  onValueChange={(itemValue) => dispatch({ type: 'business_type', payload: itemValue })}
+                  selectedValue={seller_state.business_type}
+                  onValueChange={(itemValue) => seller_dispatch({ type: 'business_type', payload: itemValue })}
                 >
                   <Picker.Item label="Cafe" value="cafe" />
                   <Picker.Item label="Restaurant" value="restaurant" />
@@ -151,30 +145,41 @@ const RestaurantRegistration = ({ navigation }) => {
               </View>
             </View>
 
-
-
             <TextEditFields
               label_name={'Opening Hours'}
               inputmode={'text'}
               key_type={'default'}
-              given_value={state.opening_hour}
-              handleInputChange={(text) => dispatch({ type: 'opening_hour', payload: text })}
+              given_value={seller_state.opening_hour}
+              handleInputChange={(text) => seller_dispatch({ type: 'opening_hour', payload: text })}
             />
 
-
-
-
-            <Button
-              style={styles.loginButton}
-              btnText={'Register'}
-              handleAuthBtn={handleRegister}
+            <SectionTitle title="KYC" />
+            <TextEditFields
+              label_name={'Citizenship Number'}
+              inputmode={'text'}
+              key_type={'default'}
+              given_value={seller_state.citizenship_number}
+              handleInputChange={(text) => seller_dispatch({ type: 'citizenship_number', payload: text })}
+            />
+            <TextEditFields
+              label_name={'PAN Number'}
+              inputmode={'text'}
+              key_type={'default'}
+              given_value={seller_state.pan_number}
+              handleInputChange={(text) => seller_dispatch({ type: 'pan_number', payload: text })}
             />
 
+            <View style={ownstyles.buttonContainer}>
+              <Button
+                style={styles.loginButton}
+                btnText={state.role==='customer'?'Register':'Update'}
+                handleAuthBtn={handleRegister}
+              />
+            </View>
           </View>
         </ScrollView>
-
-      </SafeAreaView>
-    </>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
@@ -185,22 +190,40 @@ const SectionTitle = ({ title }) => (
 );
 
 const ownstyles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
-    paddingBottom: scaleWidth(20),
     backgroundColor: '#F0F4F8',
   },
-  image_container: {
-    flexDirection: 'row',
-    gap: scaleWidth(10),
-    alignItems: 'center',
-    marginTop: scaleWidth(10),
-    // backgroundColor:'black'
-    // backgroundColor:'#F0F4F8'
+  keyboardView: {
+    flex: 1,
   },
-  button_container: {
-    flexDirection: 'column',
-    gap: scaleWidth(5),
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 40,
+  },
+  formContainer: {
+    paddingHorizontal: scaleWidth(40),
+    paddingBottom: scaleWidth(20),
+  },
+  pickerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+  },
+  pickerLabel: {
+    fontFamily: 'poppins_regular',
+    fontSize: scaleWidth(15),
+  },
+  picker: {
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 12,
+  },
+  buttonContainer: {
+    width:'100%',
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: Platform.OS === 'ios' ? 40 : 20,
   },
   sectionTitleContainer: {
     marginTop: scaleWidth(20),

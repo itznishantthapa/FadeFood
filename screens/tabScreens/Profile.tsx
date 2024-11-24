@@ -12,6 +12,8 @@ import LoadingScreen from '../../components/viewScreens/LoadingScreen';
 
 
 const ProfileScreen = ({ navigation }) => {
+    const {  state, dispatch,  clearAllData,isLoading,setisLoading } = useContext(myContext);
+
     const handleEditProfileAccount = (screen_name) => {
         navigation.navigate(screen_name)
     }
@@ -27,7 +29,10 @@ const ProfileScreen = ({ navigation }) => {
                 {
                     text: "Logout",
                     onPress: async() => {
-                        console.log("Logout Pressed")
+                        setisLoading(true)
+                        await clearAllData()
+                        setisLoading(false)
+                        navigation.navigate('Home')
                     },
                 },
             ],
@@ -39,27 +44,31 @@ const ProfileScreen = ({ navigation }) => {
         navigation.navigate('LoginScreens')
     }
 
+    const handleSettingIcon = () => {
+    navigation.navigate('SellerSetting')
+    }
+
     return (
     <>
         {
-                false && (
+                isLoading && (
                     <LoadingScreen />
                 )
             }
    
         <SafeAreaView >
             <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
-            <TopBar navigation={navigation} top_title='Profile' withSettingIcons={true} handleSetting={undefined}/>
+            <TopBar navigation={navigation} top_title='Profile' withSettingIcons={true} handleSettingIcon={handleSettingIcon}/>
             <View style={styles.home_screen}>
-                <UserInfo photo={undefined} />
+                <UserInfo photo={state.profile_picture} />
                 {
-                    true && (
-                        <Name_Phone name={'hero'} phone_number={'983433452345'} />
+                    state.name && (
+                        <Name_Phone name={state.name} phone_number={state.phone} />
                     )
                 }
 
                 {
-                    true && (
+                    state.name && (
                         <>
                             <SettingMenu
                                 menuName={'Account'}
@@ -87,7 +96,7 @@ const ProfileScreen = ({ navigation }) => {
                     handleSettingPage={() => handleEditProfileAccount('AboutScreen')}
                 />
                 {
-                    false ? (
+                    state.name ? (
                         <SettingMenu
                             menuName={'Logout'}
                             iconName={'log-out-outline'}

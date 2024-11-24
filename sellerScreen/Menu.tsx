@@ -16,9 +16,21 @@ const Tab = createMaterialTopTabNavigator();
 
 
 
+
+
+
+
 const Menu = ({ navigation }) => {
-  const {restaurantDetails} = useContext(myContext)
+  const { seller_state } = useContext(myContext);
+  // console.log('--------------------------------->',food_state);
   const handleGoBack = () => navigation.goBack();
+
+
+  // Wrapper components to pass props
+const MenuItemsWrapper = () => {
+  const { food_state } = useContext(myContext);
+  return <MenuItemsScreen foodItems={food_state} navigation={navigation}/>;
+};
 
   const openMaps = () => {
     const latitude = "26.8217"; 
@@ -42,14 +54,15 @@ const Menu = ({ navigation }) => {
       <ProfileHeader 
       handleGoBack={handleGoBack}
       openMaps={openMaps}
-      restaurantName={'hello'}
-      openingHour={12}
-      rating={12}
-      cityName={12}
-      streetAddress={12}
+      restaurantName={seller_state.name}
+      openingHour={seller_state.opening_hour}
+      rating={seller_state.rating}
+      cityName={seller_state.city}
+      streetAddress={seller_state.street_address}
+      activeStatus={seller_state.is_active}
       />
       
-      {/* Navigation Tabs */}
+      
       <Tab.Navigator
         style={styles.tabNavigator}
         screenOptions={{
@@ -60,10 +73,11 @@ const Menu = ({ navigation }) => {
           tabBarInactiveTintColor: '#666',
         }}
       >
-        <Tab.Screen name="Menu Items" component={MenuItemsScreen} />
+        <Tab.Screen name="Menu Items" component={MenuItemsWrapper} />
         <Tab.Screen name="Drinks" component={DrinksScreen} />
         <Tab.Screen name="Looks" component={LooksScreen} />
       </Tab.Navigator>
+
     </SafeAreaView>
   );
 };
