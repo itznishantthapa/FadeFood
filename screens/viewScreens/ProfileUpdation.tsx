@@ -17,7 +17,7 @@ import SnackBar from './SnackBar'
 
 
 const ProfileUpdation = ({ navigation }) => {
-  const { state, userData, dispatch, imageURI, setImageURI, isLoading, setisLoading,snackBar,setsnackBar,message,setmessage } = useContext(myContext);
+  const { state, userData, dispatch, isLoading, setisLoading,snackBar,setsnackBar } = useContext(myContext);
 
 
 
@@ -33,14 +33,14 @@ const ProfileUpdation = ({ navigation }) => {
     if (!result.canceled) {
       const selectedImage = result.assets[0].uri;
       console.log(selectedImage);
-      setImageURI(selectedImage);
+      // setprofile_picture(selectedImage);
     }
   };
 
 
   const handleDeletePicture = () => {
     Keyboard.dismiss()
-    if (imageURI == null) {
+    if (state.profile_picture == null) {
       return;
     }
     Alert.alert(
@@ -56,10 +56,10 @@ const ProfileUpdation = ({ navigation }) => {
           onPress: async () => {
             setisLoading(true)
             const response = await delete_data('user_details');
-            setImageURI(null)
+            // setprofile_picture(null)
             setisLoading(false)
             setsnackBar(true)
-            setmessage(response.data)
+            dispatch({type:'snackmessage',payload:response.data})
             setTimeout(() => setsnackBar(false), 3000);
 
           },
@@ -72,14 +72,13 @@ const ProfileUpdation = ({ navigation }) => {
   const handleSave = async () => {
     Keyboard.dismiss()
     setisLoading(true)
-    const method = userData ? 'put' : 'post';
+    const method = state.name ? 'put' : 'post';
     console.log('Data is being ', method);
-    console.log(userData);
-    const response = await post_data_with_img('user_details', state, imageURI, method);
+    const response = await post_data_with_img('edit_user_details', {name:state.name,phone:state.phone,email:state.email}, state.profile_picture, method);
     if (response.success) {
       setisLoading(false)
       setsnackBar(true)
-      setmessage(response.data)
+      dispatch({type:'snackmessage',payload:response.data})
       setTimeout(() => setsnackBar(false), 3000);
     
     } else {
@@ -98,12 +97,12 @@ const ProfileUpdation = ({ navigation }) => {
 
       <SafeAreaView >
         <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
-        <TopBar navigation={navigation} top_title='Edit Profile' />
+        <TopBar navigation={navigation} top_title='Edit Profile' withSettingIcons={undefined} handleSettingIcon={undefined}/>
         <View style={[styles.home_screen, { alignItems: 'flex-start', paddingLeft: scaleWidth(40) }]}>
 
 
           <View style={ownstyle.image_container}>
-            <UserInfo photo={imageURI}></UserInfo>
+            <UserInfo photo={state.profile_picture}></UserInfo>
             <View style={ownstyle.button_container}>
               <EditProfileButton button_name={'Change Picture'} handleButton={pickImage} />
               <EditProfileButton button_name={'Delete Picture'} handleButton={handleDeletePicture} />
@@ -133,7 +132,7 @@ const ProfileUpdation = ({ navigation }) => {
             handleInputChange={(text) => dispatch({ type: 'email', payload: text })}
           />
         </View>
-        <SnackBar message={message} visible={snackBar}/>
+        <SnackBar message={state.snackmessage} visible={snackBar}/>
       </SafeAreaView>
     </>
   )

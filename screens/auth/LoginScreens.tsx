@@ -12,7 +12,7 @@ import { myContext } from '../../context/AppProvider';
 import LoadingScreen from '../../components/viewScreens/LoadingScreen';
 
 const LoginScreens = ({ navigation }) => {
-    const { fetchData, setisUserLoggedIn, isLoading, setisLoading,setsnackBar,setmessage } = useContext(myContext)
+    const { fetchData, isLoading, setisLoading,setsnackBar,state,dispatch } = useContext(myContext)
     const [email, set_email] = useState(null)
     const [password, set_password] = useState(null)
     const [passwordVisible, setPasswordVisible] = useState(true);
@@ -32,13 +32,13 @@ const LoginScreens = ({ navigation }) => {
         if (response.success) {
             console.log('Fetching user data-------')
             fetchData()
-            setisUserLoggedIn(true);
             setisLoading(false)
             console.log('User data fetched-------')
             navigation.navigate('Home')
             
             setsnackBar(true)
-            setmessage(response.returnData)
+            // state.snackmessage(response.returnData)
+            dispatch({type:'snackmessage',payload:response.returnData})
             setTimeout(() => setsnackBar(false), 3000);
         } else {
             setisLoading(false)

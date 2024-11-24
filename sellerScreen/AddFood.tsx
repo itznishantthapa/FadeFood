@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {  TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -9,8 +9,10 @@ import { scaleHeight, scaleWidth } from '../Scaling';
 import { styles } from '../style/style';
 import { FontAwesome6 } from '@expo/vector-icons';
 import TopBar from '../components/viewScreens/TopBar';
+import { myContext } from '../context/AppProvider';
+import { post_data } from '../service';
 
-const PreviewFoodCard = ({ foodName, price, images }) => {
+const PreviewFoodCard = ({ food_name, price, images }) => {
   return (
     <View style={styles.food_container}>
       <View style={{ flexDirection: 'row' }}>
@@ -29,7 +31,7 @@ const PreviewFoodCard = ({ foodName, price, images }) => {
 
       <View style={styles.infoSection}>
         <View style={styles.namePriceRow}>
-          <Text style={styles.foodName}>{foodName || 'Food Name'}</Text>
+          <Text style={styles.foodName}>{food_name || 'Food Name'}</Text>
           <Price priceFontSize={18} price={price || 0} />
         </View>
 
@@ -49,9 +51,11 @@ const PreviewFoodCard = ({ foodName, price, images }) => {
 };
 
 const AddFood = ({ navigation }) => {
-  const [foodName, setFoodName] = useState('');
-  const [price, setPrice] = useState('');
-  const [images, setImages] = useState([]);
+  const { food_state,food_dispatch } = useContext(myContext);
+
+  const [food_name, setfood_name] = useState('');
+  const [food_price, setPrice] = useState('');
+  const [food_image, setImages] = useState([]);
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -61,7 +65,7 @@ const AddFood = ({ navigation }) => {
       return;
     }
 
-    if (images.length >= 3) {
+    if (food_image.length >= 3) {
       alert('You can only upload up to 3 images');
       return;
     }
@@ -74,50 +78,58 @@ const AddFood = ({ navigation }) => {
     });
 
     if (!result.canceled) {
-      setImages([...images, result.assets[0].uri]);
+      setImages([...food_image, result.assets[0].uri]);
     }
   };
 
-  const handleUpload = () => {
-    // Here you would implement the upload logic
-    console.log('Uploading:', { foodName, price, images });
-    alert('Food item ready for upload!');
+  const handleUpload = async() => {
+    //Validate the input
+    if (!food_name || !food_price ) {
+      alert('Please fill all the fields');
+      return;
+    }
+    const response = await post_data('add_food',{food_name:food_name,food_price:food_price});
+    console.log({food_name:food_name,food_price:food_price})
+    if(response.success){
+      food_dispatch({ type: "ADD_FOOD", payload: response.data });
+    console.log('Food added successfully');
+    }
   };
 
   const handleDeleteLastImage = () => {
-    setImages(images.slice(0, -1));
+    setImages(food_image.slice(0, -1));
   };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F0F4F8" }}>
       <StatusBar hidden={false} backgroundColor="#F0F4F8" style="dark" />
-      <TopBar navigation={navigation} top_title='Add/Edit' />
+      <TopBar navigation={navigation} top_title='Add/Edit' withSettingIcons={undefined} handleSettingIcon={undefined}/>
       <View style={{ padding: 10 }}>
         <PreviewFoodCard
-          foodName={foodName}
-          price={Number(price)}
-          images={images}
+          food_name={food_name}
+          price={Number(food_price)}
+          images={food_image}
         />
 
         <View style={localStyles.inputContainer}>
           <Text style={localStyles.label}>Food Name</Text>
           <TextInput
             style={localStyles.input}
-            value={foodName}
-            onChangeText={setFoodName}
+            value={food_name}
+            onChangeText={setfood_name}
             placeholder="Enter food name"
           />
 
           <Text style={localStyles.label}>Price</Text>
           <TextInput
             style={localStyles.input}
-            value={price}
+            value={food_price}
             onChangeText={setPrice}
             placeholder="Enter price"
             keyboardType="numeric"
           />
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={localStyles.label}>Images ({images.length}/3)</Text>
+            <Text style={localStyles.label}>Images ({food_image.length}/3)</Text>
             <TouchableOpacity onPress={handleDeleteLastImage}>
               <FontAwesome6 name="delete-left" size={20} color='red'></FontAwesome6>
             </TouchableOpacity>

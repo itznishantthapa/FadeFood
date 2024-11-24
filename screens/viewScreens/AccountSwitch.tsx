@@ -22,7 +22,7 @@ const AccountSwitch = ({ navigation }) => {
 
         <SafeAreaView >
             <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
-            <TopBar navigation={navigation} top_title='Profile' />
+            <TopBar navigation={navigation} top_title='Profile' withSettingIcons={undefined} handleSettingIcon={undefined}/>
             <View style={styles.home_screen}>
 
                     <SettingMenu

@@ -39,8 +39,8 @@ const Inbox = ({ navigation }) => {
 
         return (
             <SafeAreaView style={{ flex: 1 }}>
-                <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
-                <TopBar navigation={navigation} top_title='Inbox' />
+                <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark'  />
+                <TopBar navigation={navigation} top_title='Inbox' withSettingIcons={undefined} handleSettingIcon={undefined} />
                 <KeyboardAvoidingView
                     style={{ flex: 1, justifyContent: 'flex-end',paddingTop:scaleHeight(60) }}
                     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

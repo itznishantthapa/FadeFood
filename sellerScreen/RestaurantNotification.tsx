@@ -35,7 +35,7 @@ const RestaurantNotification = ({navigation}) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F0F4F8" }}>
     <StatusBar hidden={false} backgroundColor="#F0F4F8" style="dark" />
-    <TopBar navigation={navigation} top_title='Notifications' />
+    <TopBar navigation={navigation} top_title='Notifications' withSettingIcons={undefined} handleSettingIcon={undefined}/>
     <View style={styles.container}>
 
       {notifications.map((notification) => (

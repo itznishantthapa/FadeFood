@@ -26,7 +26,7 @@ const PrivacyAndSecurity = ({ navigation }) => {
     return (
         <SafeAreaView >
             <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
-            <TopBar navigation={navigation} top_title='Privacy and Security' />
+            <TopBar navigation={navigation} top_title='Privacy and Security' withSettingIcons={undefined} handleSettingIcon={undefined}/>
             <View style={[styles.home_screen, { alignItems: 'flex-start', paddingLeft: scaleWidth(40) }]}>
 
                 <TextEditFields

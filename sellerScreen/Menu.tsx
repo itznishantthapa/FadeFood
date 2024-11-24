@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Linking, Platform } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -8,6 +8,7 @@ import ProfileHeader from '../components/restaurant_profile/ProfileHeader';
 import { MenuItemsScreen } from '../components/restaurant_profile/MenuSection';
 import { DrinksScreen } from '../components/restaurant_profile/DrinkSection';
 import { LooksScreen } from '../components/restaurant_profile/Looks';
+import { myContext } from '../context/AppProvider';
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -15,8 +16,21 @@ const Tab = createMaterialTopTabNavigator();
 
 
 
+
+
+
+
 const Menu = ({ navigation }) => {
+  const { seller_state } = useContext(myContext);
+  // console.log('--------------------------------->',food_state);
   const handleGoBack = () => navigation.goBack();
+
+
+  // Wrapper components to pass props
+const MenuItemsWrapper = () => {
+  const { food_state } = useContext(myContext);
+  return <MenuItemsScreen foodItems={food_state} navigation={navigation}/>;
+};
 
   const openMaps = () => {
     const latitude = "26.8217"; 
@@ -40,9 +54,15 @@ const Menu = ({ navigation }) => {
       <ProfileHeader 
       handleGoBack={handleGoBack}
       openMaps={openMaps}
+      restaurantName={seller_state.name}
+      openingHour={seller_state.opening_hour}
+      rating={seller_state.rating}
+      cityName={seller_state.city}
+      streetAddress={seller_state.street_address}
+      activeStatus={seller_state.is_active}
       />
       
-      {/* Navigation Tabs */}
+      
       <Tab.Navigator
         style={styles.tabNavigator}
         screenOptions={{
@@ -53,10 +73,11 @@ const Menu = ({ navigation }) => {
           tabBarInactiveTintColor: '#666',
         }}
       >
-        <Tab.Screen name="Menu Items" component={MenuItemsScreen} />
+        <Tab.Screen name="Menu Items" component={MenuItemsWrapper} />
         <Tab.Screen name="Drinks" component={DrinksScreen} />
         <Tab.Screen name="Looks" component={LooksScreen} />
       </Tab.Navigator>
+
     </SafeAreaView>
   );
 };

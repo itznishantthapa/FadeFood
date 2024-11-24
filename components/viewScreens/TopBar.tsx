@@ -5,8 +5,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { scaleHeight, scaleWidth } from '../../Scaling';
 
 const { width, height } = Dimensions.get('window');
-
-const TopBar = ({ top_title, navigation }) => {
+// withSettingIcons={false} handleSetting={undefined}
+const TopBar = ({ top_title, navigation, handleSettingIcon, withSettingIcons }) => {
   return (
     <View style={styles.topBarContainer} >
 
@@ -18,10 +18,15 @@ const TopBar = ({ top_title, navigation }) => {
         <Text style={styles.topBarTitle}>{top_title}</Text>
         <View style={styles.underline} />
       </View>
+      {
+        withSettingIcons?
+        (<TouchableOpacity style={styles.menuButton} onPress={handleSettingIcon}>
+          <Ionicons name="settings" size={scaleWidth(25)} color="#333333" />
+        </TouchableOpacity>):(
+          <View style={{padding:scaleWidth(25)}}></View>
+        )
+      }
 
-      <TouchableOpacity style={styles.menuButton}>
-        <Ionicons name="menu" size={scaleWidth(25)} color="#333333" />
-      </TouchableOpacity>
     </View>
   );
 };
@@ -34,8 +39,8 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: width * 0.04,
     paddingBottom: scaleHeight(6),
-    backgroundColor:'#F0F4F8',
-    zIndex:999
+    backgroundColor: '#F0F4F8',
+    zIndex: 999
   },
   backButton: {
     padding: scaleWidth(5),

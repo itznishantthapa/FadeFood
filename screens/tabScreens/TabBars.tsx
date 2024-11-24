@@ -20,6 +20,7 @@ import Notifications from '../../sellerScreen/Notifications';
 import { FA6Style } from 'react-native-vector-icons/FontAwesome6';
 import { myContext } from '../../context/AppProvider';
 import RestaurantNotification from '../../sellerScreen/RestaurantNotification';
+import LoadingScreen from '../../components/viewScreens/LoadingScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -84,7 +85,7 @@ const CustomerTabBars = () => {
 const SellerTabBars = () => {
   return (
     <Tab.Navigator
-      initialRouteName='Home'
+      initialRouteName='Menu'
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: false,
@@ -137,20 +138,12 @@ const SellerTabBars = () => {
 
 
 const TabBars = () => {
-  const {user_type}=useContext(myContext)
-  return (
-    <>
+  const { state } = useContext(myContext);
 
-      {
-        user_type==='customer' ? (<CustomerTabBars></CustomerTabBars>) : (<SellerTabBars></SellerTabBars>)
-      }
+  return state.role === 'customer' ? <CustomerTabBars /> : <SellerTabBars />;
+};
 
 
-    </>
-
-
-  )
-}
 
 export default TabBars
 

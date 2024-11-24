@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Animated } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, Animated, Keyboard } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import React, { useState, useEffect, useRef, forwardRef } from 'react'
 import { Feather } from '@expo/vector-icons';
@@ -81,6 +81,7 @@ const NabBar = ({ handleSearchScreen, isTextInput, isBack,navigation }) => {
   }, [searchText]); // Now depends on searchText to restart animation when text is cleared
 
   const handleBackButton = () => {
+    Keyboard.dismiss();
     navigation.goBack();
 }
 
