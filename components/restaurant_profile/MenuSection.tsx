@@ -12,41 +12,15 @@ import { myContext } from '../../context/AppProvider';
 // import { useRoute } from '@react-navigation/native';
 
 
-export const MenuItemsScreen = ({navigation,foodItems}) => {
+export const MenuItemsScreen = ({navigation,foodItems,handlePressonList}) => {
   // const { seller_state,food_state } = useContext(myContext);
 
   console.log('--------------------------------->***',foodItems);
 
-    // const foodItems1 = [
-    //     {
-    //         price: "$5.00",
-    //         foodName: "Chatpate",
-    //         restaurantName: "Food Corner",
-    //         image: { image1: m1, image2: m2, image3: m3 },
-    //         isLoveNeeded: true,
-    //       },
-    //       {
-    //         price: "$5.00",
-    //         foodName: "Chatpate",
-    //         restaurantName: "Food Corner",
-    //         image: { image1: m1, image2: m2, image3: m3 },
-    //         isLoveNeeded: true,
-    //       },
-    //       {
-    //         price: "$5.00",
-    //         foodName: "Chatpate",
-    //         restaurantName: "Food Corner",
-    //         image: chatpate,
-    //         isLoveNeeded: true,
-    //       },
-    //       {
-    //         price: "$5.00",
-    //         foodName: "Chatpate",
-    //         restaurantName: "Food Corner",
-    //         image: chatpate,
-    //         isLoveNeeded: true,
-    //       },
-    // ];
+  const handleEditPen = (item) => {
+    navigation.navigate('AddFood',{food_id_params:item.id,food_name_params:item.food_name,food_price_params:item.food_price});
+    console.log('Edit Pen Clicked');
+  }
 
 
   
@@ -62,6 +36,8 @@ export const MenuItemsScreen = ({navigation,foodItems}) => {
                          images={undefined}
                          navigation={navigation}
                          withRestaurant={false}
+                         handlePressonList={handlePressonList}
+                          handleEditPen={()=>handleEditPen(item)}
                        />
           ))}
         </View>

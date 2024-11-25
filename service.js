@@ -245,7 +245,7 @@ export const update_data = async (endpoint, data) => {
     const response = await api.put(`${endpoint}/`, data, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    return { success: true, data: response.data.msg };
+    return { success: true, data: response.data.ofBackendData, msg: response.data.msg };
   } catch (error) {
     if (error.response?.status === 401) {
       console.log('update_data calling refresh token')
@@ -255,5 +255,35 @@ export const update_data = async (endpoint, data) => {
       }
     }
     return {success: false,  data: error.response?.data?.msg || "Something went wrong"};
+  }
+};
+
+//delete function with id
+export const delete_data_with_id = async (endpoint, data) => {
+  const token = await getAccessToken();
+  if (!token) {
+    return { success: false, data: "No token found. Please log in again." };
+  }
+
+  try {
+    const response = await api.delete(`${endpoint}/`, {
+      headers: { Authorization: `Bearer ${token}` },
+      data,
+    });
+    return { success: true, data: response.data.msg };
+  } catch (error) {
+    console.log('here')
+    if (error.response?.status === 401) {
+      console.log('here2')
+      console.log("delete_data_with_id calling refresh token");
+      const newToken = await refreshAccessToken();
+      if (newToken) {
+        return delete_data_with_id(endpoint, id); // Retry the GET request with the new token
+      }
+    }
+    return {
+      success: false,
+      data: error.response?.data?.msg || "Something went wrong",
+    };
   }
 };

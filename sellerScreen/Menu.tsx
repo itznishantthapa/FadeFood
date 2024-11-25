@@ -26,10 +26,12 @@ const Menu = ({ navigation }) => {
   const handleGoBack = () => navigation.goBack();
 
 
+
+
   // Wrapper components to pass props
 const MenuItemsWrapper = () => {
   const { food_state } = useContext(myContext);
-  return <MenuItemsScreen foodItems={food_state} navigation={navigation}/>;
+  return <MenuItemsScreen foodItems={food_state} navigation={navigation} handlePressonList={undefined} />;
 };
 
   const openMaps = () => {

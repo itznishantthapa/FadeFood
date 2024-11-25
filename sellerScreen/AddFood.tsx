@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
-import React, { useContext, useState } from 'react';
-import {  TouchableOpacity } from 'react-native-gesture-handler';
+import React, { useContext, useEffect, useState } from 'react';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import * as ImagePicker from 'expo-image-picker';
@@ -10,7 +10,8 @@ import { styles } from '../style/style';
 import { FontAwesome6 } from '@expo/vector-icons';
 import TopBar from '../components/viewScreens/TopBar';
 import { myContext } from '../context/AppProvider';
-import { post_data } from '../service';
+import { delete_data, delete_data_with_id, post_data, update_data } from '../service';
+import { useFocusEffect } from '@react-navigation/native';
 
 const PreviewFoodCard = ({ food_name, price, images }) => {
   return (
@@ -50,12 +51,41 @@ const PreviewFoodCard = ({ food_name, price, images }) => {
   );
 };
 
-const AddFood = ({ navigation }) => {
-  const { food_state,food_dispatch } = useContext(myContext);
+const AddFood = ({ navigation, route }) => {
+  const { food_state, food_dispatch } = useContext(myContext);
 
   const [food_name, setfood_name] = useState('');
   const [food_price, setPrice] = useState('');
   const [food_image, setImages] = useState([]);
+  const [id, setid] = useState(null)
+  const [isgoingToUpdate, setisgoingToUpdate] = useState(false)
+
+  // Update state when route.params changes
+  useEffect(() => {
+    const { food_id_params = null, food_name_params = '', food_price_params = '' } = route.params || {};
+    if (food_name_params && food_price_params) {
+      setisgoingToUpdate(true);
+    }
+    setid(food_id_params);
+    setfood_name(food_name_params);
+    setPrice(food_price_params.toString() || '');
+    setImages([]); // Reset images if needed
+
+  }, [route.params]);
+
+  // Clear the state on focus out
+  useFocusEffect(
+    React.useCallback(() => {
+      return () => {
+        setid(null);
+        setfood_name('');
+        setPrice('');
+        setImages([]);
+        setisgoingToUpdate(false);
+        console.log('Focus out, state cleared');
+      };
+    }, [])
+  );
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -82,28 +112,51 @@ const AddFood = ({ navigation }) => {
     }
   };
 
-  const handleUpload = async() => {
+  const handleUpload = async () => {
     //Validate the input
-    if (!food_name || !food_price ) {
+    if (!food_name || !food_price) {
       alert('Please fill all the fields');
       return;
     }
-    const response = await post_data('add_food',{food_name:food_name,food_price:food_price});
-    console.log({food_name:food_name,food_price:food_price})
-    if(response.success){
-      food_dispatch({ type: "ADD_FOOD", payload: response.data });
-    console.log('Food added successfully');
+    if (!isgoingToUpdate) {
+      console.log('Going to POST');
+      const response = await post_data('add_food', { food_name: food_name, food_price: food_price });
+      console.log({ food_name: food_name, food_price: food_price })
+      if (response.success) {
+        food_dispatch({ type: "ADD_FOOD", payload: response.data });
+        navigation.navigate('Menu');
+        console.log('Food added successfully----------post--------->',`${response.data}`);
+      }
+    }else if(isgoingToUpdate){
+      console.log('Going to PUT');
+       const response = await update_data('edit_food',{food_name:food_name,food_price:food_price,id:id});
+        if(response.success){
+          food_dispatch({type:'UPDATE_FOOD',payload:response.data});
+          navigation.navigate('Menu');
+          console.log('Food added successfully--------put----------->',`${response.data}`);
+          console.log('Food updated successfully');
+        }
     }
+
   };
 
   const handleDeleteLastImage = () => {
     setImages(food_image.slice(0, -1));
   };
 
+  const handleDeleteFood = async () => {
+    const response = await delete_data_with_id('delete_food',{id:id});
+    if(response.success){
+      food_dispatch({type:'REMOVE_FOOD',payload:id});
+      navigation.navigate('Menu');
+      console.log('Food deleted successfully');
+    }
+  }
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F0F4F8" }}>
       <StatusBar hidden={false} backgroundColor="#F0F4F8" style="dark" />
-      <TopBar navigation={navigation} top_title='Add/Edit' withSettingIcons={undefined} handleSettingIcon={undefined}/>
+      <TopBar navigation={navigation} top_title='Add/Edit' withSettingIcons={undefined} handleSettingIcon={undefined} />
       <View style={{ padding: 10 }}>
         <PreviewFoodCard
           food_name={food_name}
@@ -146,11 +199,16 @@ const AddFood = ({ navigation }) => {
               style={localStyles.uploadButton}
               onPress={handleUpload}
             >
-              <Text style={localStyles.uploadButtonText}>Upload Food Item</Text>
+              <Text style={localStyles.uploadButtonText}>{isgoingToUpdate ? 'Update' : 'Upload'} Food Item</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[localStyles.uploadButton, { backgroundColor: 'red' }]} onPress={handleUpload}>
-              <Text style={localStyles.uploadButtonText}> Delete Item</Text>
-            </TouchableOpacity>
+            {
+              isgoingToUpdate && (
+
+                <TouchableOpacity style={[localStyles.uploadButton, { backgroundColor: 'red' }]} onPress={handleDeleteFood}>
+                  <Text style={localStyles.uploadButtonText}> Delete Item</Text>
+                </TouchableOpacity>
+              )
+            }
           </View>
 
 

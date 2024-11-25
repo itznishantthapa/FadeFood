@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View, TouchableWithoutFeedback, Image } from "react-native";
+import { StyleSheet, Text, View, TouchableWithoutFeedback, Image,TouchableOpacity } from "react-native";
 import React, { useContext } from "react";
 import Price from "./Price";
 import { scaleHeight, scaleWidth } from "../../Scaling";
-import { TouchableOpacity } from "react-native-gesture-handler";
+// import { TouchableOpacity } from "react-native-gesture-handler";
 import Love from "./Love";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import Edit from "./Edit";
@@ -16,15 +16,22 @@ const List = ({
   restaurantName,
   price,
   navigation,
-  withRestaurant
+  withRestaurant,
+  handlePressonList,
+  handleEditPen
 }) => {
   const {state}=useContext(myContext);
-  const handlePress = () => {
-    navigation.navigate("ViewFood");
-  };
+  // const handlePress = () => {
+  //   navigation.navigate("ViewFood");
+  // };
+
+  const onListPress = (e: { stopPropagation: () => void; }) => {
+    e.stopPropagation();
+    console.log("Add to List");
+  }
 
   return (
-    <TouchableWithoutFeedback onPress={handlePress}>
+    <TouchableWithoutFeedback onPress={handlePressonList}>
 
       <View style={styles.food_container}>
 
@@ -39,7 +46,7 @@ const List = ({
             state.role === 'customer' ? (
               <Love />
             ) : (
-              <Edit />
+              <Edit handleEditPen={handleEditPen}/>
             )
 
 
@@ -66,7 +73,7 @@ const List = ({
                   </View>) : (<View></View>)
                 }
 
-                <TouchableOpacity style={styles.addToListButton}>
+                <TouchableOpacity style={styles.addToListButton} onPress={onListPress}>
                   <Text style={styles.buttonText}>Add to List</Text>
                 </TouchableOpacity>
               </View>
