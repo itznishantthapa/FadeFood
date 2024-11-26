@@ -20,7 +20,7 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../style/style';
 import Button from '../components/auth/Button';
-import { get_data, update_data } from '../service';
+import { get_data, post_data, update_data } from '../service';
 import { myContext } from '../context/AppProvider';
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -74,7 +74,10 @@ const RestaurantRegistration = ({ navigation }) => {
   const handleRegister = async () => {
     Keyboard.dismiss();
     setisLoading(true);
-    const response = await update_data('edit_restaurant', seller_state);
+    console.log(seller_state)
+    
+    // const response = await update_data('edit_restaurant', seller_state);
+    const response = await post_data('register_restaurant', seller_state);
     
     if (response.success) {
       setisLoading(false);

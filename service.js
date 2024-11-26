@@ -2,6 +2,8 @@ import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 import { Alert } from "react-native";
 
+export const baseURL = "http://192.168.1.64:5555/";
+
 // Store both access and refresh tokens
 const storeTokens = async (accessToken, refreshToken) => {
   try {
@@ -43,6 +45,7 @@ export const clearTokens = async () => {
   }
 };
 
+
 // Set up base URL for your Django API
 const api = axios.create({
   baseURL: "http://192.168.1.64:5555/",
@@ -52,17 +55,16 @@ const api = axios.create({
 // Function for signup
 export const signup = async (data) => {
   try {
-    const response = await api.post("signup/", data); // Use the signup endpoint
-    console.log("hereeeeeeeeeeeeeeeeeee1");
+    const response = await api.post("create_user/", data); 
     if (response.data.access && response.data.refresh) {
-      console.log("hereeeeeeeeeeeeeeeeeee");
-      await storeTokens(response.data.access, response.data.refresh); // Store both tokens
-      return { success: true, data: response.data.msg };
+      await storeTokens(response.data.access, response.data.refresh);
+      console.log("Token stored--------BY SIGNUP");
+      return { success: true, message: response.data.ofBackendMessage };
     }
   } catch (error) {
     return {
       success: false,
-      data: error.response?.data?.msg || "Signup failed",
+      message: error.response?.data?.ofBackendMessage || "Signup failed",
     };
   }
 };
@@ -78,10 +80,11 @@ export const login = async (data) => {
     });
     if (response.data.access && response.data.refresh) {
       await storeTokens(response.data.access, response.data.refresh); // Store both tokens
-      return { success: true, data: response.data.msg };
+      console.log("Token stored--------BY LOGIN");
+      return { success: true, message: response.data.ofBackendMessage };
     }
   } catch (error) {
-    return { success: false, data: error.response?.data?.msg };
+    return { success: false, message: error.response?.data?.ofBackendMessage };
   }
 };
 
@@ -95,7 +98,6 @@ const refreshAccessToken = async () => {
       refresh: refreshToken,
     });
     await storeTokens(response.data.access, refreshToken); // Store new access token
-    Alert.alert("Hey", "Token refreshed");
     console.log("Token refreshed----------------------hureyyyyyyyyy");
     return response.data.access;
   } catch (error) {
@@ -112,13 +114,24 @@ export const post_data = async (endpoint, data) => {
   }
 
   try {
+
     const response = await api.post(`${endpoint}/`, data, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { 
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}` 
+    
+    },
+      
     });
     if (response.data.access) {
       await storeTokens(response.data.access, response.data.refresh); // Store both tokens
     }
-    return { success: true, data: response.data.ofBackendData, msg: response.data.msg };
+    return {
+      success: true,
+      data: response.data.ofBackendData,
+      images: response.data.ofFoodImages,
+      ofBackendMessage: response.data.ofBackendMessage,
+    };
   } catch (error) {
     // If token is expired, try refreshing it
     if (error.response?.status === 401) {
@@ -129,7 +142,7 @@ export const post_data = async (endpoint, data) => {
     }
     return {
       success: false,
-      data: error.response?.data?.msg || "Something went wrong",
+      data: error.response?.data?.ofBackendMessage || "Something went wrong",
     };
   }
 };
@@ -156,13 +169,13 @@ export const get_data = async (endpoint) => {
     }
     return {
       success: false,
-      data: error.response?.data?.msg || "Something went wrong",
+      data: error.response?.data?.ofBackendMessage || "Something went wrong by get_data",
     };
   }
 };
 
 //export post function for profile picture
-export const post_data_with_img = async (endpoint, text_data, uri, method) => {
+export const post_data_with_img = async (hitpoint, text_data, food_image, method) => {
   const token = await getAccessToken();
   if (!token) {
     return { success: false, data: "No token found. Please log in again." };
@@ -170,39 +183,66 @@ export const post_data_with_img = async (endpoint, text_data, uri, method) => {
 
   const formData = new FormData();
 
+  // Append text data
   Object.keys(text_data).forEach((key) => {
     formData.append(key, text_data[key]);
   });
-  if (uri) {
-    formData.append("profile_picture", {
-      uri: uri,
-      type: "image/jpeg",
-      name: "profile_picture.jpg",
-    });
+
+  console.log("Here");
+
+  // Append images
+  if (food_image) {
+    console.log(food_image)
+    console.log('appending multiple images')
+    console.log("Here2");
+    // Add images to FormData
+    if (food_image && Array.isArray(food_image)) {
+      console.log("Here3");
+      food_image.forEach((imageUri, index) => {
+        formData.append("images", {
+          
+          uri: imageUri,
+          type: "image/jpeg",
+          name: `food_image_${index}.jpg`,
+        });
+        console.log("Here4");
+      });
+    } else {
+      console.log('appending single image')
+      // Handle a single image
+      formData.append("image", {
+        uri: images,
+        type: "image/jpeg", // Adjust type as needed
+        name: `food_image_${index}.jpg`,
+      });
+    }
   }
 
   try {
+    console.log('here5')
     const response = await api({
       method: method,
-      url: `${endpoint}/`,
+      url: `${hitpoint}/`,
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
     });
-    return { success: true, data: response.data.msg };
-  } catch (error) {
+    console.log('here6')
+    return { success: true, data: response.data.ofBackendData,image:response.data.ofFoodImages , ofBackendMessage: response.data.ofBackendMessage };
+  } catch ( error) { 
+    console.log(error)
     if (error.response?.status === 401) {
       console.log("post_data_with_img calling refresh token");
       const newToken = await refreshAccessToken();
       if (newToken) {
-        return post_data_with_img(endpoint, text_data, uri, method); // Retry the GET request with the new token
+        return post_data_with_img(hitpoint, text_data, food_image, method); // Retry the request with new token
       }
     }
     return {
       success: false,
-      data: error.response?.data?.msg || "Something went wrong",
+      data: error.response?.data?.ofBackendMessage || "Something went wrong",
     };
   }
 };
@@ -218,7 +258,7 @@ export const delete_data = async (endpoint) => {
     const response = await api.delete(`${endpoint}/`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    return { success: true, data: response.data.msg };
+    return { success: true, data: response.data.ofBackendMessage };
   } catch (error) {
     if (error.response?.status === 401) {
       console.log("delete_data calling refresh token");
@@ -229,7 +269,7 @@ export const delete_data = async (endpoint) => {
     }
     return {
       success: false,
-      data: error.response?.data?.msg || "Something went wrong",
+      data: error.response?.data?.ofBackendMessage || "Something went wrong",
     };
   }
 };
@@ -245,16 +285,23 @@ export const update_data = async (endpoint, data) => {
     const response = await api.put(`${endpoint}/`, data, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    return { success: true, data: response.data.ofBackendData, msg: response.data.msg };
+    return {
+      success: true,
+      data: response.data.ofBackendData,
+      ofBackendMessage: response.data.ofBackendMessage,
+    };
   } catch (error) {
     if (error.response?.status === 401) {
-      console.log('update_data calling refresh token')
+      console.log("update_data calling refresh token");
       const newToken = await refreshAccessToken();
       if (newToken) {
         return update_data(endpoint, data); // Retry the GET request with the new token
       }
     }
-    return {success: false,  data: error.response?.data?.msg || "Something went wrong"};
+    return {
+      success: false,
+      data: error.response?.data?.ofBackendMessage || "Something went wrong",
+    };
   }
 };
 
@@ -270,11 +317,11 @@ export const delete_data_with_id = async (endpoint, data) => {
       headers: { Authorization: `Bearer ${token}` },
       data,
     });
-    return { success: true, data: response.data.msg };
+    return { success: true, data: response.data.ofBackendMessage };
   } catch (error) {
-    console.log('here')
+    console.log("here");
     if (error.response?.status === 401) {
-      console.log('here2')
+      console.log("here2");
       console.log("delete_data_with_id calling refresh token");
       const newToken = await refreshAccessToken();
       if (newToken) {
@@ -283,7 +330,7 @@ export const delete_data_with_id = async (endpoint, data) => {
     }
     return {
       success: false,
-      data: error.response?.data?.msg || "Something went wrong",
+      data: error.response?.data?.ofBackendMessage || "Something went wrong",
     };
   }
 };

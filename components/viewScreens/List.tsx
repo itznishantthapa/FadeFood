@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableWithoutFeedback, Image,TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableWithoutFeedback, Image, TouchableOpacity } from "react-native";
 import React, { useContext } from "react";
 import Price from "./Price";
 import { scaleHeight, scaleWidth } from "../../Scaling";
@@ -8,6 +8,7 @@ import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import Edit from "./Edit";
 import { myContext } from "../../context/AppProvider";
 import { styles } from "../../style/style";
+import { baseURL } from "../../service";
 
 
 const List = ({
@@ -20,7 +21,7 @@ const List = ({
   handlePressonList,
   handleEditPen
 }) => {
-  const {state}=useContext(myContext);
+  const { state } = useContext(myContext);
   // const handlePress = () => {
   //   navigation.navigate("ViewFood");
   // };
@@ -30,23 +31,37 @@ const List = ({
     console.log("Add to List");
   }
 
+  console.log('---------------------printing from valid List.tsx---------------------->', images);
+
   return (
     <TouchableWithoutFeedback onPress={handlePressonList}>
 
       <View style={styles.food_container}>
 
-        <View style={{ flexDirection: 'row' }}>
-          <Image source={undefined} resizeMode="cover" style={styles.foodImage} />
-          <Image source={undefined} resizeMode="cover" style={styles.foodImage} />
-          <Image source={undefined} resizeMode="cover" style={styles.foodImage} />
-        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'center',alignItems:'flex-start',gap:1 }}>
+          {
+          images && Array.isArray(images) && images.length > 0 ? (
+            images.map((imageObj) => (
+              <Image
+                key={imageObj.id}
+                source={{ uri: `${baseURL}${imageObj.image}` }}
+                resizeMode="cover"
+                style={styles.foodImage}
+              />
+            ))
+          ) : (
+            Array(3).fill(0).map((_, index) => (
+              <View key={index} style={[styles.foodImage, { backgroundColor: '#ccc' }]} />))
+            )
+              }
+              </View>
 
         <View style={{ position: 'absolute', right: 0 }}>
           {
             state.role === 'customer' ? (
               <Love />
             ) : (
-              <Edit handleEditPen={handleEditPen}/>
+              <Edit handleEditPen={handleEditPen} />
             )
 
 

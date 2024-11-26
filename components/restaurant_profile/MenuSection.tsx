@@ -18,7 +18,7 @@ export const MenuItemsScreen = ({navigation,foodItems,handlePressonList}) => {
   console.log('--------------------------------->***',foodItems);
 
   const handleEditPen = (item) => {
-    navigation.navigate('AddFood',{food_id_params:item.id,food_name_params:item.food_name,food_price_params:item.food_price});
+    navigation.navigate('AddFood',{food_id_params:item.id,food_name_params:item.food_name,food_price_params:item.food_price,food_image_params:item.images});
     console.log('Edit Pen Clicked');
   }
 
@@ -33,7 +33,7 @@ export const MenuItemsScreen = ({navigation,foodItems,handlePressonList}) => {
                          price={item.food_price}
                          foodName={item.food_name}
                          restaurantName={undefined}
-                         images={undefined}
+                         images={item.images}
                          navigation={navigation}
                          withRestaurant={false}
                          handlePressonList={handlePressonList}

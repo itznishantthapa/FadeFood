@@ -41,7 +41,6 @@ const initialseller_state = {
   opening_hour: '',
   citizenship_number: '',
   pan_number: '',
-  is_seller: true,
   logo: null,
   rating: 0,
   is_active: false,
@@ -66,6 +65,7 @@ export const AppProvider = ({ children }) => {
   const [food_state, food_dispatch] = useReducer(food_reducer, initialfood_state);
 
   const [isLoading, setisLoading] = useState(false);
+  const [isLogged, setisLogged] = useState(false);
   const [snackBar, setsnackBar] = useState(false);
 
   const fetchData = async () => {
@@ -73,18 +73,21 @@ export const AppProvider = ({ children }) => {
       const response = await get_data("get_user_details");
       if (response.success) {
         console.log(response.data);
-        dispatch({ type: "name", payload: response.data.username });
+        setisLogged(true);
+        dispatch({ type: "name", payload: response.data.name });
         dispatch({ type: "phone", payload: response.data.phone });
         dispatch({ type: "email", payload: response.data.email });
         dispatch({ type: "role", payload: response.data.role });
         dispatch({
           type: "profile_picture",
-          payload: `http://192.168.1.64:5555${response.data.profile_picture}`,
+          payload: response.data.profile_picture.startsWith('http') ? response.data.profile_picture : `http://192.168.1.64:5555${response.data.profile_picture}`
         });
       } else {
         console.log(response.data);
       }
     }
+
+    return;
     
       const response = await get_data('get_restaurant');
         if (response.success) {
@@ -96,15 +99,16 @@ export const AppProvider = ({ children }) => {
             }
           });
         } else {
-          Alert.alert('Error', response.data);
+          console.log('Error', response.data);
         }
 
         const responsebyfood = await get_data('get_food');
         if (responsebyfood.success) {
+          console.log('#####################################------------>',responsebyfood.data)
           food_dispatch({ type: "SET_FOOD_LIST", payload: responsebyfood.data });
           console.log('food state is settt');
         } else {
-          Alert.alert('Error', responsebyfood.data);
+          console.log('Error', responsebyfood.data);
         }
     
   };
@@ -117,6 +121,8 @@ export const AppProvider = ({ children }) => {
     await clearTokens();
     dispatch({ type: "RESET" });
     setsnackBar(false);
+    setisLoading(false);
+    setisLogged(false);
     console.log("All data cleared");
     console.log(state);
     console.log(initialState);
@@ -136,7 +142,9 @@ export const AppProvider = ({ children }) => {
         seller_state,
         seller_dispatch,
         food_state,
-        food_dispatch
+        food_dispatch,
+        isLogged,
+        setisLogged,
       }}
     >
       {children}

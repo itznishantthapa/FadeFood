@@ -9,10 +9,11 @@ import UserInfo from '../../components/profile/UserInfo';
 import Name_Phone from '../../components/profile/Name_Phone';
 import { myContext } from '../../context/AppProvider';
 import LoadingScreen from '../../components/viewScreens/LoadingScreen';
+import { CommonActions } from '@react-navigation/native';
 
 
 const ProfileScreen = ({ navigation }) => {
-    const {  state, dispatch,  clearAllData,isLoading,setisLoading } = useContext(myContext);
+    const {  state, dispatch,  clearAllData,isLoading,setisLoading , isLogged} = useContext(myContext);
 
     const handleEditProfileAccount = (screen_name) => {
         navigation.navigate(screen_name)
@@ -32,7 +33,13 @@ const ProfileScreen = ({ navigation }) => {
                         setisLoading(true)
                         await clearAllData()
                         setisLoading(false)
-                        navigation.navigate('Home')
+                        // navigation.navigate('TabBars')
+                        navigation.dispatch(
+                            CommonActions.reset({
+                                index: 0,
+                                routes: [{ name: 'TabBars' }],
+                            })
+                        );
                     },
                 },
             ],
@@ -68,7 +75,7 @@ const ProfileScreen = ({ navigation }) => {
                 }
 
                 {
-                    state.name && (
+                    true && (
                         <>
                             <SettingMenu
                                 menuName={'Account'}
@@ -96,7 +103,7 @@ const ProfileScreen = ({ navigation }) => {
                     handleSettingPage={() => handleEditProfileAccount('AboutScreen')}
                 />
                 {
-                    state.name ? (
+                    isLogged ? (
                         <SettingMenu
                             menuName={'Logout'}
                             iconName={'log-out-outline'}
@@ -104,7 +111,7 @@ const ProfileScreen = ({ navigation }) => {
                         />
                     ) : (
                         <SettingMenu
-                            menuName={'SignUp'}
+                            menuName={'Sign In'}
                             iconName={'log-in-outline'}
                             handleSettingPage={handleSignIn}
                         />

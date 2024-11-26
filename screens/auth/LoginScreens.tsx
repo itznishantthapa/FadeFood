@@ -10,6 +10,7 @@ import { scaleHeight, scaleWidth } from '../../Scaling';
 import { get_data, login, post_data, signup } from '../../service';
 import { myContext } from '../../context/AppProvider';
 import LoadingScreen from '../../components/viewScreens/LoadingScreen';
+import { CommonActions } from '@react-navigation/native';
 
 const LoginScreens = ({ navigation }) => {
     const { fetchData, isLoading, setisLoading,setsnackBar,state,dispatch } = useContext(myContext)
@@ -34,7 +35,13 @@ const LoginScreens = ({ navigation }) => {
             fetchData()
             setisLoading(false)
             console.log('User data fetched-------')
-            navigation.navigate('Home')
+            // navigation.navigate('TabBars')
+            navigation.dispatch(
+                CommonActions.reset({
+                    index: 0,
+                    routes: [{ name: 'TabBars' }],
+                })
+            );
             
             setsnackBar(true)
             // state.snackmessage(response.returnData)

@@ -140,7 +140,8 @@ const SellerTabBars = () => {
 const TabBars = () => {
   const { state } = useContext(myContext);
 
-  return state.role === 'customer' ? <CustomerTabBars /> : <SellerTabBars />;
+  // return state.role === 'seller' ? <CustomerTabBars /> : <SellerTabBars />;
+  return true ? <CustomerTabBars /> : <SellerTabBars />;
 };
 
 

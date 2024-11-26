@@ -10,24 +10,30 @@ import { styles } from '../style/style';
 import { FontAwesome6 } from '@expo/vector-icons';
 import TopBar from '../components/viewScreens/TopBar';
 import { myContext } from '../context/AppProvider';
-import { delete_data, delete_data_with_id, post_data, update_data } from '../service';
+import { baseURL, delete_data, delete_data_with_id, post_data, post_data_with_img, update_data } from '../service';
 import { useFocusEffect } from '@react-navigation/native';
 
 const PreviewFoodCard = ({ food_name, price, images }) => {
   return (
     <View style={styles.food_container}>
       <View style={{ flexDirection: 'row' }}>
-        {images.map((image, index) => (
-          <Image
-            key={index}
-            source={{ uri: image }}
-            resizeMode="cover"
-            style={styles.foodImage}
-          />
-        ))}
-        {[...Array(3 - images.length)].map((_, index) => (
-          <View key={`empty-${index}`} style={[styles.foodImage, { backgroundColor: '#E1E1E1' }]} />
-        ))}
+        {
+            images.map((imageObj, index) => (
+              <Image
+                key={index}
+                source={{ uri: imageObj.image.startsWith('file') ? imageObj.image : `${baseURL}${imageObj.image}` }}
+                // source={{ uri: imageObj.image }}
+                resizeMode="cover"
+                style={styles.foodImage}
+              />
+            ))
+        
+        }
+        {
+            [...Array(3 - images.length)].map((_, index) => (
+              <View key={`empty-${index}`} style={[styles.foodImage, { backgroundColor: '#E1E1E1' }]} />
+            ))
+        }
       </View>
 
       <View style={styles.infoSection}>
@@ -62,15 +68,20 @@ const AddFood = ({ navigation, route }) => {
 
   // Update state when route.params changes
   useEffect(() => {
-    const { food_id_params = null, food_name_params = '', food_price_params = '' } = route.params || {};
+    const { food_id_params = null, food_name_params = '', food_price_params = '', food_image_params = null } = route.params || {};
     if (food_name_params && food_price_params) {
       setisgoingToUpdate(true);
     }
     setid(food_id_params);
     setfood_name(food_name_params);
     setPrice(food_price_params.toString() || '');
-    setImages([]); // Reset images if needed
 
+    if (food_image_params) {
+      const newImages = food_image_params.map((item) => ({ image: item.image }));
+      setImages(newImages);
+    } else {
+      setImages([]);
+    }
   }, [route.params]);
 
   // Clear the state on focus out
@@ -88,6 +99,7 @@ const AddFood = ({ navigation, route }) => {
   );
 
   const pickImage = async () => {
+    console.log('Pick Image');
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (status !== 'granted') {
@@ -102,15 +114,18 @@ const AddFood = ({ navigation, route }) => {
 
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
+      // allowsEditing: true,
       aspect: [3, 4],
       quality: 1,
     });
 
     if (!result.canceled) {
-      setImages([...food_image, result.assets[0].uri]);
+      setImages([...food_image, { image: result.assets[0].uri }]);
+      // setImages([...food_image, result.assets[0].uri]);
     }
   };
+
+  console.log(food_image)
 
   const handleUpload = async () => {
     //Validate the input
@@ -118,24 +133,39 @@ const AddFood = ({ navigation, route }) => {
       alert('Please fill all the fields');
       return;
     }
+    const imageUris = food_image.map((item) => item.image);
+    // (endpoint, text_data, uris, method)
     if (!isgoingToUpdate) {
       console.log('Going to POST');
-      const response = await post_data('add_food', { food_name: food_name, food_price: food_price });
-      console.log({ food_name: food_name, food_price: food_price })
+      const response = await post_data_with_img(
+        'add_food', // Endpoint
+        { food_name, food_price }, // Text data
+        imageUris, // Images array
+        'POST' // HTTP method
+      );
+      console.log({ food_name, food_price, images: imageUris });
       if (response.success) {
         food_dispatch({ type: "ADD_FOOD", payload: response.data });
         navigation.navigate('Menu');
-        console.log('Food added successfully----------post--------->',`${response.data}`);
+        console.log('Food added successfully----------post--------->', `${JSON.stringify(response.data)}`)
+        console.log('-------images-------------->', JSON.stringify(response.image));
+        // Log each image object individually
+        response.image.forEach((img, index) => {
+          console.log(`Image ${index + 1}:`, img);
+          console.log('Image URL:', img.image);
+          console.log('Image ID:', img.id);
+        });
       }
-    }else if(isgoingToUpdate){
+    } else if (isgoingToUpdate) {
       console.log('Going to PUT');
-       const response = await update_data('edit_food',{food_name:food_name,food_price:food_price,id:id});
-        if(response.success){
-          food_dispatch({type:'UPDATE_FOOD',payload:response.data});
-          navigation.navigate('Menu');
-          console.log('Food added successfully--------put----------->',`${response.data}`);
-          console.log('Food updated successfully');
-        }
+      // const response = await update_data('edit_food', { food_name: food_name, food_price: food_price, id: id });
+      const response = await post_data_with_img('edit_food',{ food_name, food_price, id },imageUris, 'PUT');
+      if (response.success) {
+        food_dispatch({ type: 'UPDATE_FOOD', payload: response.data });
+        navigation.navigate('Menu');
+        console.log('Food added successfully--------put----------->', `${response.data}`);
+        console.log('Food updated successfully');
+      }
     }
 
   };
@@ -145,9 +175,9 @@ const AddFood = ({ navigation, route }) => {
   };
 
   const handleDeleteFood = async () => {
-    const response = await delete_data_with_id('delete_food',{id:id});
-    if(response.success){
-      food_dispatch({type:'REMOVE_FOOD',payload:id});
+    const response = await delete_data_with_id('delete_food', { id: id });
+    if (response.success) {
+      food_dispatch({ type: 'REMOVE_FOOD', payload: id });
       navigation.navigate('Menu');
       console.log('Food deleted successfully');
     }

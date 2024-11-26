@@ -22,6 +22,7 @@ import RestaurantProfile from './screens/viewScreens/RestaurantProfile';
 import RegistrationScreen from './sellerScreen/RegistrationScreen';
 import AccountSwitch from './screens/viewScreens/AccountSwitch';
 import SellerSetting from './sellerScreen/SellerSetting';
+import Home from './screens/tabScreens/Home';
 
 
 
@@ -74,6 +75,8 @@ export default function App() {
             <Stack.Screen name="AccountSwitch" component={AccountSwitch} options={{ headerShown: false }} />
             <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} options={{ headerShown: false }} />
             <Stack.Screen name="SellerSetting" component={SellerSetting} options={{ headerShown: false }} />
+            <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

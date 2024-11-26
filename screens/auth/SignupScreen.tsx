@@ -10,9 +10,10 @@ import { scaleWidth } from '../../Scaling';
 import { post_data, signup } from '../../service';
 import { myContext } from '../../context/AppProvider';
 import LoadingScreen from '../../components/viewScreens/LoadingScreen';
+import { CommonActions } from '@react-navigation/native';
 
 const SignupScreen = ({ navigation }) => {
-    const { fetchData, setisUserLoggedIn, isLoading, setisLoading,setmessage,setsnackBar } = useContext(myContext)
+    const { fetchData, isLoading, setisLoading,setmessage,setsnackBar,dispatch } = useContext(myContext)
     const [email, set_email] = useState(null)
     const [password, set_password] = useState({ initialPassword: null, confirmPassword: null })
     const [passwordVisible, setPasswordVisible] = useState({ initialPassword: true, confirmPassword: true });
@@ -39,16 +40,20 @@ const SignupScreen = ({ navigation }) => {
         
         const response = await signup({ email: email, password: password.initialPassword })
         if (response.success) {
-            fetchData()
-            setisUserLoggedIn(true);
+           await fetchData()
             setisLoading(false)
-            navigation.navigate('Home')
+            navigation.dispatch(
+                CommonActions.reset({
+                    index: 0,
+                    routes: [{ name: 'TabBars' }],
+                })
+            );
 
+            dispatch({type:'snackmessage',payload:response.message})
             setsnackBar(true)
-            setmessage(response.returnData)
             setTimeout(() => setsnackBar(false), 3000);
         } else {
-            Alert.alert('Error', response.returnData)
+            Alert.alert('Error', response.message)
             setisLoading(false)
         }
     }
