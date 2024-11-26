@@ -31,11 +31,8 @@ const LoginScreens = ({ navigation }) => {
         setisLoading(true)
         const response = await login({ email: email, password: password })
         if (response.success) {
-            console.log('Fetching user data-------')
             fetchData()
             setisLoading(false)
-            console.log('User data fetched-------')
-            // navigation.navigate('TabBars')
             navigation.dispatch(
                 CommonActions.reset({
                     index: 0,
@@ -44,12 +41,11 @@ const LoginScreens = ({ navigation }) => {
             );
             
             setsnackBar(true)
-            // state.snackmessage(response.returnData)
-            dispatch({type:'snackmessage',payload:response.returnData})
+            dispatch({type:'snackmessage',payload:response.message})
             setTimeout(() => setsnackBar(false), 3000);
         } else {
             setisLoading(false)
-            Alert.alert('Error', response.returnData)
+            Alert.alert('Error', response.message)
         }
 
     }
