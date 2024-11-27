@@ -1,7 +1,7 @@
 // UserContext.tsx
 import React, { createContext, useEffect, useReducer, useState } from "react";
-import { clearTokens, get_data } from "../service";
-import { initialfood_state,food_reducer } from "./FoodService";
+import { clearTokens, get_data, refreshAccessToken } from "../service";
+import { initialfood_state, food_reducer } from "./FoodService";
 
 const initialState = {
   name: "",
@@ -32,15 +32,14 @@ const reducer = (state, action) => {
   }
 };
 
-
 const initialseller_state = {
-  name: '',
-  street_address: '',
-  city: '',
-  business_type: '',
-  opening_hour: '',
-  citizenship_number: '',
-  pan_number: '',
+  name: "",
+  street_address: "",
+  city: "",
+  business_type: "",
+  opening_hour: "",
+  citizenship_number: "",
+  pan_number: "",
   logo: null,
   rating: 0,
   is_active: false,
@@ -49,20 +48,22 @@ const initialseller_state = {
 const seller_reducer = (seller_state, action) => {
   return {
     ...seller_state,
-    [action.type]: action.payload
+    [action.type]: action.payload,
   };
 };
-
-
-
-
 
 export const myContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [seller_state, seller_dispatch] = useReducer(seller_reducer, initialseller_state);
-  const [food_state, food_dispatch] = useReducer(food_reducer, initialfood_state);
+  const [seller_state, seller_dispatch] = useReducer(
+    seller_reducer,
+    initialseller_state
+  );
+  const [food_state, food_dispatch] = useReducer(
+    food_reducer,
+    initialfood_state
+  );
 
   const [isLoading, setisLoading] = useState(false);
   const [isLogged, setisLogged] = useState(false);
@@ -80,7 +81,9 @@ export const AppProvider = ({ children }) => {
         dispatch({ type: "role", payload: response.data.role });
         dispatch({
           type: "profile_picture",
-          payload: response.data.profile_picture.startsWith('http') ? response.data.profile_picture : `http://192.168.1.64:5555${response.data.profile_picture}`
+          payload: response.data.profile_picture.startsWith("http")
+            ? response.data.profile_picture
+            : `http://192.168.1.64:5555${response.data.profile_picture}`,
         });
       } else {
         console.log(response.data);
@@ -88,33 +91,35 @@ export const AppProvider = ({ children }) => {
     }
 
     return;
-    
-      const response = await get_data('get_restaurant');
-        if (response.success) {
-          console.log(response.data);
 
-          Object.entries(response.data).forEach(([key, value]) => {
-            if (initialseller_state.hasOwnProperty(key)) {
-              seller_dispatch({ type: key, payload: value });
-            }
-          });
-        } else {
-          console.log('Error', response.data);
-        }
+    const response = await get_data("get_restaurant");
+    if (response.success) {
+      console.log(response.data);
 
-        const responsebyfood = await get_data('get_food');
-        if (responsebyfood.success) {
-          console.log('#####################################------------>',responsebyfood.data)
-          food_dispatch({ type: "SET_FOOD_LIST", payload: responsebyfood.data });
-          console.log('food state is settt');
-        } else {
-          console.log('Error', responsebyfood.data);
+      Object.entries(response.data).forEach(([key, value]) => {
+        if (initialseller_state.hasOwnProperty(key)) {
+          seller_dispatch({ type: key, payload: value });
         }
-    
+      });
+    } else {
+      console.log("Error", response.data);
+    }
+
+    const responsebyfood = await get_data("get_food");
+    if (responsebyfood.success) {
+      console.log(
+        "#####################################------------>",
+        responsebyfood.data
+      );
+      food_dispatch({ type: "SET_FOOD_LIST", payload: responsebyfood.data });
+      console.log("food state is settt");
+    } else {
+      console.log("Error", responsebyfood.data);
+    }
   };
 
   useEffect(() => {
-    fetchData();
+  fetchData();
   }, []);
 
   const clearAllData = async () => {

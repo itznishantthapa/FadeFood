@@ -27,6 +27,7 @@ import FoodCard from '../../components/home/FoodCard';
 import { scaleHeight, scaleWidth } from '../../Scaling';
 import { myContext } from '../../context/AppProvider';
 import SnackBar from '../viewScreens/SnackBar';
+import CustomSnackbar from '../viewScreens/CustomSnackbar';
 
 
 
@@ -379,6 +380,7 @@ const Home = ({ navigation }) => {
             </View>
           </View>
         </ScrollView>
+        {/* <CustomSnackbar message={state.snackmessage} visible={snackBar}></CustomSnackbar> */}
         <SnackBar message={state.snackmessage} visible={snackBar}/>
       </View>
       

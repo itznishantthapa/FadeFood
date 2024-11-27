@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: scaleHeight(10),
     paddingVertical: scaleHeight(10),
     // backgroundColor: '#4CAF50',
-    backgroundColor: '#f6fff8',
+    backgroundColor: '#80ed99',
     borderRadius: scaleWidth(10),
     flexDirection: 'row',
     justifyContent: 'space-between',

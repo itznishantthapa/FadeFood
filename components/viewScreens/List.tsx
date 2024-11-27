@@ -31,7 +31,7 @@ const List = ({
     console.log("Add to List");
   }
 
-  console.log('---------------------printing from valid List.tsx---------------------->', images);
+  // console.log('---------------------printing from valid List.tsx---------------------->', images);
 
   return (
     <TouchableWithoutFeedback onPress={handlePressonList}>

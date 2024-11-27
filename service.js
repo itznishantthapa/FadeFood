@@ -49,7 +49,7 @@ export const clearTokens = async () => {
 // Set up base URL for your Django API
 const api = axios.create({
   baseURL: "http://192.168.1.64:5555/",
-  // baseURL: "http://192.168.14.215:5555/",
+  // baseURL: "http://192.168.15.215:5555/",
 });
 
 // Function for signup
@@ -89,7 +89,7 @@ export const login = async (data) => {
 };
 
 // Refresh access token using the refresh token
-const refreshAccessToken = async () => {
+export const refreshAccessToken = async () => {
   const refreshToken = await getRefreshToken();
   if (!refreshToken) return null;
 
@@ -99,7 +99,7 @@ const refreshAccessToken = async () => {
     });
     await storeTokens(response.data.access, refreshToken); // Store new access token
     console.log("Token refreshed----------------------hureyyyyyyyyy");
-    return response.data.access;
+    return { success: true, data: response.data.access, message: response.data.ofBackendMessage}
   } catch (error) {
     console.error("Error refreshing access token", error);
     return null;
