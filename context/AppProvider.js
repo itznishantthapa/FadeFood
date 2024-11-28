@@ -90,7 +90,7 @@ export const AppProvider = ({ children }) => {
       }
     }
 
-    return;
+    // return;
 
     const response = await get_data("get_restaurant");
     if (response.success) {

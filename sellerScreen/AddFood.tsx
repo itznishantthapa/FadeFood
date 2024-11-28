@@ -93,13 +93,11 @@ const AddFood = ({ navigation, route }) => {
         setPrice('');
         setImages([]);
         setisgoingToUpdate(false);
-        console.log('Focus out, state cleared');
       };
     }, [])
   );
 
   const pickImage = async () => {
-    console.log('Pick Image');
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (status !== 'granted') {
@@ -125,7 +123,7 @@ const AddFood = ({ navigation, route }) => {
     }
   };
 
-  console.log(food_image)
+
 
   const handleUpload = async () => {
     //Validate the input
@@ -134,21 +132,19 @@ const AddFood = ({ navigation, route }) => {
       return;
     }
     const imageUris = food_image.map((item) => item.image);
-    // (endpoint, text_data, uris, method)
+    console.log('imageUris:-->', imageUris);
     if (!isgoingToUpdate) {
       console.log('Going to POST');
       const response = await post_data_with_img(
-        'add_food', // Endpoint
-        { food_name, food_price }, // Text data
-        imageUris, // Images array
-        'POST' // HTTP method
+        'add_food', 
+        { food_name, food_price }, 
+        imageUris, 
+        'POST' 
       );
-      console.log({ food_name, food_price, images: imageUris });
       if (response.success) {
         food_dispatch({ type: "ADD_FOOD", payload: response.data });
         navigation.navigate('Menu');
-        console.log('Food added successfully----------post--------->', `${JSON.stringify(response.data)}`)
-        console.log('-------images-------------->', JSON.stringify(response.image));
+        // console.log('Food added successfully----------post--------->', `${JSON.stringify(response.data)}`)
         // Log each image object individually
         response.image.forEach((img, index) => {
           console.log(`Image ${index + 1}:`, img);
@@ -163,7 +159,6 @@ const AddFood = ({ navigation, route }) => {
       if (response.success) {
         food_dispatch({ type: 'UPDATE_FOOD', payload: response.data });
         navigation.navigate('Menu');
-        console.log('Food added successfully--------put----------->', `${response.data}`);
         console.log('Food updated successfully');
       }
     }

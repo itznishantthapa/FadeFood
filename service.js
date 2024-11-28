@@ -50,6 +50,7 @@ export const clearTokens = async () => {
 const api = axios.create({
   baseURL: "http://192.168.1.64:5555/",
   // baseURL: "http://192.168.15.215:5555/",
+  // baseURL: "http://192.168.67.215:5555/",
 });
 
 // Function for signup
@@ -89,7 +90,7 @@ export const login = async (data) => {
 };
 
 // Refresh access token using the refresh token
-export const refreshAccessToken = async () => {
+ const refreshAccessToken = async () => {
   const refreshToken = await getRefreshToken();
   if (!refreshToken) return null;
 
@@ -102,6 +103,13 @@ export const refreshAccessToken = async () => {
     return { success: true, data: response.data.access, message: response.data.ofBackendMessage}
   } catch (error) {
     console.error("Error refreshing access token", error);
+     //we need to implement login again
+    await clearTokens();
+    Alert.alert("Session expired", "Please log in again" , [
+      { text: "OK", onPress: () => navigation.navigate("Login") },
+    ]);
+
+
     return null;
   }
 };
@@ -190,15 +198,20 @@ export const post_data_with_img = async (hitpoint, text_data, food_image, method
 
   console.log("Here");
 
+
   // Append images
   if (food_image) {
     console.log(food_image)
     console.log('appending multiple images')
     console.log("Here2");
     // Add images to FormData
+    //
     if (food_image && Array.isArray(food_image)) {
+      const filteredImages = food_image.filter( image => !image.startsWith('/media'));
+      console.log('filteredImages-->',filteredImages)
       console.log("Here3");
-      food_image.forEach((imageUri, index) => {
+      
+      filteredImages.forEach((imageUri, index) => {
         formData.append("images", {
           
           uri: imageUri,
@@ -231,7 +244,7 @@ export const post_data_with_img = async (hitpoint, text_data, food_image, method
     });
     console.log('here6')
     return { success: true, data: response.data.ofBackendData,image:response.data.ofFoodImages , ofBackendMessage: response.data.ofBackendMessage };
-  } catch ( error) { 
+  } catch ( error) {       
     console.log(error)
     if (error.response?.status === 401) {
       console.log("post_data_with_img calling refresh token");
@@ -264,7 +277,7 @@ export const delete_data = async (endpoint) => {
       console.log("delete_data calling refresh token");
       const newToken = await refreshAccessToken();
       if (newToken) {
-        return delete_data(endpoint); // Retry the GET request with the new token
+        return delete_data(endpoint); 
       }
     }
     return {
