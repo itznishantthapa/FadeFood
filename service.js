@@ -45,6 +45,8 @@ export const clearTokens = async () => {
   }
 };
 
+// clearTokens();
+
 
 // Set up base URL for your Django API
 const api = axios.create({
@@ -243,7 +245,7 @@ export const post_data_with_img = async (hitpoint, text_data, food_image, method
       },
     });
     console.log('here6')
-    return { success: true, data: response.data.ofBackendData,image:response.data.ofFoodImages , ofBackendMessage: response.data.ofBackendMessage };
+    return { success: true, data: response.data.ofBackendData , ofBackendMessage: response.data.ofBackendMessage };
   } catch ( error) {       
     console.log(error)
     if (error.response?.status === 401) {

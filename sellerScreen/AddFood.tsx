@@ -144,9 +144,7 @@ const AddFood = ({ navigation, route }) => {
       if (response.success) {
         food_dispatch({ type: "ADD_FOOD", payload: response.data });
         navigation.navigate('Menu');
-        // console.log('Food added successfully----------post--------->', `${JSON.stringify(response.data)}`)
-        // Log each image object individually
-        response.image.forEach((img, index) => {
+        response.data.images.forEach((img, index) => {
           console.log(`Image ${index + 1}:`, img);
           console.log('Image URL:', img.image);
           console.log('Image ID:', img.id);
