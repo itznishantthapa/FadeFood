@@ -203,26 +203,41 @@ export const post_data_with_img = async (hitpoint, text_data, food_image, method
 
   // Append images
   if (food_image) {
-    console.log(food_image)
-    console.log('appending multiple images')
-    console.log("Here2");
+    // console.log(food_image)
+    // console.log('appending multiple images')
+    // console.log("Here2");
     // Add images to FormData
     //
-    if (food_image && Array.isArray(food_image)) {
-      const filteredImages = food_image.filter( image => !image.startsWith('/media'));
-      console.log('filteredImages-->',filteredImages)
-      console.log("Here3");
+    // if (food_image && Array.isArray(food_image)) {
+    //   const filteredImages = food_image.filter( image => !image.startsWith('/media'));
+    //   console.log('filteredImages-->',filteredImages)
+    //   console.log("Here3");
       
-      filteredImages.forEach((imageUri, index) => {
-        formData.append("images", {
+    //   filteredImages.forEach((imageUri, index) => {
+    //     formData.append("images", {
           
-          uri: imageUri,
-          type: "image/jpeg",
-          name: `food_image_${index}.jpg`,
+    //       uri: imageUri,
+    //       type: "image/jpeg",
+    //       name: `food_image_${index}.jpg`,
+    //     });
+    //     console.log("Here4");
+    //   });
+    // } 
+
+    if(food_image && Array.isArray(food_image)){
+       //filtred the images from this array [{id:1, image: 'image1'}, {id:2, image: 'image2'}]  to ['image1', 'image2'] and only filtred those image startsWith '/media'
+      const filteredImages = food_image.map( image => image.image).filter( image => !image.startsWith('/media'));
+
+      console.log('filteredImages-->',filteredImages)
+      filteredImages.forEach((img, index) => {
+        formData.append("images", {
+          uri: img,
+          type: "image/jpeg" || "image/png", // Adjust type as needed
+          name: `food_image_${index}.jpg` || `food_image_${index}.png`,
         });
-        console.log("Here4");
-      });
-    } else {
+      })
+    }
+    else {
       console.log('appending single image')
       // Handle a single image
       formData.append("image", {
