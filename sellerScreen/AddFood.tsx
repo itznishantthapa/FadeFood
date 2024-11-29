@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
-import React, { useContext, useEffect, useState } from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
+import { Switch, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import * as ImagePicker from 'expo-image-picker';
@@ -19,9 +19,10 @@ const PreviewFoodCard = ({ food_name, price, images }) => {
       <View style={{ flexDirection: 'row' }}>
         {
             images.map((imageObj, index) => (
+
               <Image
                 key={index}
-                source={{ uri: imageObj.image.startsWith('file') ? imageObj.image : `${baseURL}${imageObj.image}` }}
+                source={{  uri: imageObj.image.startsWith('file') ? imageObj.image : `${baseURL}${imageObj.image}` }}
                 // source={{ uri: imageObj.image }}
                 resizeMode="cover"
                 style={styles.foodImage}
@@ -30,7 +31,7 @@ const PreviewFoodCard = ({ food_name, price, images }) => {
         
         }
         {
-            [...Array(3 - images.length)].map((_, index) => (
+            [...Array(3 - images.length )].map((_, index) => (
               <View key={`empty-${index}`} style={[styles.foodImage, { backgroundColor: '#E1E1E1' }]} />
             ))
         }
@@ -57,13 +58,42 @@ const PreviewFoodCard = ({ food_name, price, images }) => {
   );
 };
 
+const foodInitialInfoState={
+  food_name: '',
+  food_price: '',
+  images: []
+}
+
+const foodInfoReducer = (state, action) => {
+  switch(action.type){
+    case 'id':
+      return {...state, id: action.payload}
+    case 'add_food_name':
+      return {...state, food_name: action.payload}
+    case 'add_food_price':
+      return {...state, food_price: action.payload}
+    case 'add_food_image':
+      return {...state, images: [...state.images,action.payload]}
+    case 'remove_image':
+      return {...state, images: state.images.filter(image => image.image !== action.payload) 
+      }
+      case 'clear_food_images':
+        return {
+          ...state,
+          images: [],
+        };
+  }
+}
+
 const AddFood = ({ navigation, route }) => {
+
   const { food_state, food_dispatch } = useContext(myContext);
 
-  const [food_name, setfood_name] = useState('');
-  const [food_price, setPrice] = useState('');
-  const [food_image, setImages] = useState([]);
-  const [id, setid] = useState(null)
+  const [foodInfoState, foodInfo_dispatch] = useReducer(foodInfoReducer, foodInitialInfoState);
+  // const [food_name, setfood_name] = useState('');
+  // const [food_price, setPrice] = useState('');
+  // const [food_image, setImages] = useState([]);
+  // const [id, setid] = useState(null)
   const [isgoingToUpdate, setisgoingToUpdate] = useState(false)
 
   // Update state when route.params changes
@@ -72,15 +102,23 @@ const AddFood = ({ navigation, route }) => {
     if (food_name_params && food_price_params) {
       setisgoingToUpdate(true);
     }
-    setid(food_id_params);
-    setfood_name(food_name_params);
-    setPrice(food_price_params.toString() || '');
+    // setid(food_id_params);
+    foodInfo_dispatch({type: 'id', payload: food_id_params})
+    // setfood_name(food_name_params);
+    foodInfo_dispatch({type: 'add_food_name', payload: food_name_params})
+    // setPrice(food_price_params.toString() || '');
+    foodInfo_dispatch({type: 'add_food_price', payload: food_price_params.toString() || ''})
 
     if (food_image_params) {
-      const newImages = food_image_params.map((item) => ({ image: item.image }));
-      setImages(newImages);
+      const newImages = food_image_params.map((item) => ({id:item.id, image: item.image }));
+      // setImages(newImages);
+      newImages.forEach((image) => {
+        foodInfo_dispatch({type: 'add_food_image', payload: image})
+      })
     } else {
-      setImages([]);
+      // setImages([]);
+      // foodInfo_dispatch({type: 'add_food_image', payload  : []})
+      foodInfo_dispatch({ type: 'clear_food_images' });
     }
   }, [route.params]);
 
@@ -88,10 +126,14 @@ const AddFood = ({ navigation, route }) => {
   useFocusEffect(
     React.useCallback(() => {
       return () => {
-        setid(null);
-        setfood_name('');
-        setPrice('');
-        setImages([]);
+        // setid(null);
+        // setfood_name('');
+        // setPrice('');
+        // setImages([]);
+        foodInfo_dispatch({type: 'id', payload: null})
+        foodInfo_dispatch({type: 'add_food_name', payload: ''})
+        foodInfo_dispatch({type: 'add_food_price', payload: ''})
+        foodInfo_dispatch({ type: 'clear_food_images' });
         setisgoingToUpdate(false);
       };
     }, [])
@@ -105,7 +147,12 @@ const AddFood = ({ navigation, route }) => {
       return;
     }
 
-    if (food_image.length >= 3) {
+    // if (food_image.length >= 3) {
+    //   alert('You can only upload up to 3 images');
+    //   return;
+    // }
+
+    if (foodInfoState.images.length >= 3) {
       alert('You can only upload up to 3 images');
       return;
     }
@@ -118,7 +165,8 @@ const AddFood = ({ navigation, route }) => {
     });
 
     if (!result.canceled) {
-      setImages([...food_image, { image: result.assets[0].uri }]);
+      // setImages([...food_image, { image: result.assets[0].uri }]);
+      foodInfo_dispatch({type: 'add_food_image', payload: { image: result.assets[0].uri}})
       // setImages([...food_image, result.assets[0].uri]);
     }
   };
@@ -126,21 +174,26 @@ const AddFood = ({ navigation, route }) => {
 
 
   const handleUpload = async () => {
-    //Validate the input
-    if (!food_name || !food_price) {
+    //Validate the input and all images are uploaded
+    if (!foodInfoState.food_name || !foodInfoState.food_price ) {
       alert('Please fill all the fields');
       return;
     }
-    const imageUris = food_image.map((item) => item.image);
-    console.log('imageUris:-->', imageUris);
+
+    if (!(foodInfoState.images.length === 3)) {
+      alert('Please upload 3 images');
+      return
+    }
+    // const imageUris = food_image.map((item) => item.image);
+    const foodObj = {
+      food_name: foodInfoState.food_name,
+      food_price: foodInfoState.food_price,
+      id: foodInfoState.id,
+    }
+    console.log('imageUris:-->', foodInfoState.images);
     if (!isgoingToUpdate) {
       console.log('Going to POST');
-      const response = await post_data_with_img(
-        'add_food', 
-        { food_name, food_price }, 
-        imageUris, 
-        'POST' 
-      );
+      const response = await post_data_with_img('add_food', foodObj, foodInfoState.images, 'POST');
       if (response.success) {
         food_dispatch({ type: "ADD_FOOD", payload: response.data });
         navigation.navigate('Menu');
@@ -153,7 +206,7 @@ const AddFood = ({ navigation, route }) => {
     } else if (isgoingToUpdate) {
       console.log('Going to PUT');
       // const response = await update_data('edit_food', { food_name: food_name, food_price: food_price, id: id });
-      const response = await post_data_with_img('edit_food',{ food_name, food_price, id },imageUris, 'PUT');
+      const response = await post_data_with_img('edit_food',foodObj, foodInfoState.images , 'PUT');
       if (response.success) {
         food_dispatch({ type: 'UPDATE_FOOD', payload: response.data });
         navigation.navigate('Menu');
@@ -164,13 +217,17 @@ const AddFood = ({ navigation, route }) => {
   };
 
   const handleDeleteLastImage = () => {
-    setImages(food_image.slice(0, -1));
+   // setImages(food_image.slice(0, -1));
+
+    if (foodInfoState.images.length > 0) {
+      foodInfo_dispatch({type: 'remove_image', payload: foodInfoState.images[foodInfoState.images.length - 1].image}) 
+    }
   };
 
   const handleDeleteFood = async () => {
-    const response = await delete_data_with_id('delete_food', { id: id });
+    const response = await delete_data_with_id('delete_food', { id: foodInfoState.id });
     if (response.success) {
-      food_dispatch({ type: 'REMOVE_FOOD', payload: id });
+      food_dispatch({ type: 'REMOVE_FOOD', payload: foodInfoState.id });
       navigation.navigate('Menu');
       console.log('Food deleted successfully');
     }
@@ -182,30 +239,30 @@ const AddFood = ({ navigation, route }) => {
       <TopBar navigation={navigation} top_title='Add/Edit' withSettingIcons={undefined} handleSettingIcon={undefined} />
       <View style={{ padding: 10 }}>
         <PreviewFoodCard
-          food_name={food_name}
-          price={Number(food_price)}
-          images={food_image}
+          food_name={foodInfoState.food_name}
+          price={Number( foodInfoState.food_price)}
+          images={ foodInfoState.images}
         />
 
         <View style={localStyles.inputContainer}>
           <Text style={localStyles.label}>Food Name</Text>
           <TextInput
             style={localStyles.input}
-            value={food_name}
-            onChangeText={setfood_name}
+            value={foodInfoState.food_name}
+            onChangeText={(text) => foodInfo_dispatch({type: 'add_food_name', payload: text})}
             placeholder="Enter food name"
           />
 
           <Text style={localStyles.label}>Price</Text>
           <TextInput
             style={localStyles.input}
-            value={food_price}
-            onChangeText={setPrice}
+            value={foodInfoState.food_price}
+            onChangeText={(text) => foodInfo_dispatch({type: 'add_food_price', payload: text})}
             placeholder="Enter price"
             keyboardType="numeric"
           />
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={localStyles.label}>Images ({food_image.length}/3)</Text>
+            <Text style={localStyles.label}>Images ({foodInfoState.images.length}/3)</Text>
             <TouchableOpacity onPress={handleDeleteLastImage}>
               <FontAwesome6 name="delete-left" size={20} color='red'></FontAwesome6>
             </TouchableOpacity>
