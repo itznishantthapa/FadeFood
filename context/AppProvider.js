@@ -42,7 +42,7 @@ const initialseller_state = {
   pan_number: "",
   logo: null,
   rating: 0,
-  is_active: false,
+  is_active: true,
 };
 
 const seller_reducer = (seller_state, action) => {
@@ -56,10 +56,7 @@ export const myContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [seller_state, seller_dispatch] = useReducer(
-    seller_reducer,
-    initialseller_state
-  );
+  const [seller_state, seller_dispatch] = useReducer(seller_reducer, initialseller_state);
   const [food_state, food_dispatch] = useReducer(
     food_reducer,
     initialfood_state
@@ -105,7 +102,7 @@ export const AppProvider = ({ children }) => {
       console.log("Error", response.data);
     }
 
-    const responsebyfood = await get_data("get_food");
+    const responsebyfood = await get_data("get_all_food");
     if (responsebyfood.success) {
       console.log(
         "#####################################------------>",
@@ -146,6 +143,7 @@ export const AppProvider = ({ children }) => {
         setsnackBar,
         seller_state,
         seller_dispatch,
+        initialseller_state,
         food_state,
         food_dispatch,
         isLogged,

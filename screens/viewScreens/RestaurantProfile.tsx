@@ -17,7 +17,7 @@ const Tab = createMaterialTopTabNavigator();
 
 
 const RestaurantProfile = ({ navigation }) => {
-  const { isLoading, setisLoading, snackBar, setsnackBar, dispatch,state,seller_state,seller_dispatch } = useContext(myContext);
+  const { isLoading, setisLoading, snackBar, setsnackBar, dispatch,state,seller_state,seller_dispatch,food_state,food_dispatch } = useContext(myContext);
 
   const handleGoBack = () => navigation.goBack();
 const foodItems1 = [
@@ -37,8 +37,9 @@ const foodItems1 = [
             image: { undefined },
             isLoveNeeded: true,
           }]
+
   const MenuItemsWrapper = () => {
-    return <MenuItemsScreen foodItems={foodItems1} navigation={navigation}/>;
+    return <MenuItemsScreen foodItems={foodItems1} navigation={navigation} handlePressonList={undefined}/>;
   };
 
   const openMaps = () => {
@@ -67,7 +68,7 @@ const foodItems1 = [
       rating={seller_state.rating}
       cityName={seller_state.city}
       streetAddress={seller_state.street_address}
-      activeStatus={state.is_active}
+      activeStatus={seller_state.is_active}
       handleGoBack={handleGoBack}
       />
       

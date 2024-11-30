@@ -184,6 +184,34 @@ export const get_data = async (endpoint) => {
   }
 };
 
+//get_data_with_id function
+export const get_data_with_id = async (endpoint, data) => {
+  let token = await getAccessToken();
+  if (!token) {
+    return { success: false, data: "No token found. Please log in again." };
+  }
+
+  try {
+    const response = await api.get(`${endpoint}/`, {
+      headers: { Authorization: `Bearer ${token}` },
+      params: data,
+    });
+    return { success: true, data: response.data.ofBackendData };
+  } catch (error) {
+    if (error.response?.status === 401) {
+      console.log("get_data_with_id calling refresh token");
+      const newToken = await refreshAccessToken();
+      if (newToken) {
+        return get_data_with_id(endpoint, data); // Retry the GET request with the new token
+      }
+    }
+    return {
+      success: false,
+      data: error.response?.data?.ofBackendMessage || "Something went wrong",
+    };
+  }
+}
+
 //export post function for profile picture
 export const post_data_with_img = async (hitpoint, text_data, food_image, method) => {
   const token = await getAccessToken();
@@ -355,7 +383,7 @@ export const delete_data_with_id = async (endpoint, data) => {
       console.log("delete_data_with_id calling refresh token");
       const newToken = await refreshAccessToken();
       if (newToken) {
-        return delete_data_with_id(endpoint, id); // Retry the GET request with the new token
+        return delete_data_with_id(endpoint, data); // Retry the GET request with the new token
       }
     }
     return {

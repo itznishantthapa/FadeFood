@@ -8,8 +8,10 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 import { styles } from '../style/style'
 import { myContext } from '../context/AppProvider'
+import { CommonActions } from '@react-navigation/native'
 
 const SellerSetting = ({ navigation }) => {
+    const {  state, dispatch,  clearAllData,isLoading,setisLoading , isLogged} = useContext(myContext);
 
     const handleEditProfileAccount = (screen_name) => {
         navigation.navigate(screen_name)
@@ -25,7 +27,16 @@ const SellerSetting = ({ navigation }) => {
                 {
                     text: "Logout",
                     onPress: async() => {
-                        console.log("Logout Pressed")
+                        setisLoading(true)
+                        await clearAllData()
+                        setisLoading(false)
+                        // navigation.navigate('TabBars')
+                        navigation.dispatch(
+                            CommonActions.reset({
+                                index: 0,
+                                routes: [{ name: 'LoginScreens' }],
+                            })
+                        );
                     },
                 },
             ],

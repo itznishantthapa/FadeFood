@@ -6,10 +6,13 @@ import Ionicon from "react-native-vector-icons/Ionicons";
 import { styles } from "../../style/style";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { scaleHeight, scaleWidth } from "../../Scaling";
+import { baseURL } from "../../service";
+import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 
 
 const FoodCard = ({
   food_picture,
+  restaurant_name,
   price,
   discount,
   foodName,
@@ -32,7 +35,7 @@ const FoodCard = ({
         <Image
           resizeMode="cover"
           style={{ height: "100%", width: "100%" }}
-          source={food_picture}
+          source={{ uri: `${baseURL}${food_picture}` }}
         ></Image>
       </View>
 
@@ -45,8 +48,8 @@ const FoodCard = ({
             justifyContent: "space-between",
           }}
         >
-          <Price price={price} priceFontSize={24} />
-          {discount && (
+          <Price price={price} priceFontSize={20} />
+          {discount > 0 && (
             <Text
               style={{
                 color: "#708090",
@@ -64,33 +67,47 @@ const FoodCard = ({
           )}
         </View>
         <Text
-          style={{ fontFamily: "poppins_semibold", fontSize: scaleWidth(20) }}
+          style={{ fontFamily: 'poppins_semibold', fontSize:scaleWidth(14)  }}
         >
           {foodName}
         </Text>
-        {/* {no_fragments && (
-          <Text
-            style={{
+
+        {
+          restaurant_name && (
+            <View style={{
               backgroundColor: "#B0A4B5",
               paddingHorizontal: scaleWidth(5),
               alignSelf: "flex-start",
               borderRadius: 4,
-              marginBottom: scaleWidth(8),
-              fontFamily: "poppins_semibold",
-              color: "#ffffff",
-              fontSize: scaleWidth(12),
-            }}
-          >
-            Collect Fragments {no_fragments}
-          </Text>
-        )} */}
+              marginVertical: scaleWidth(2),
+              marginBottom: scaleWidth(5),
+              flexDirection: "row",
+              alignItems: "center",
+              gap: scaleWidth(5),
+            }}>
+              <MaterialIcon name='restaurant-menu' size={15} color={'#ffffff'}></MaterialIcon>
+              <Text
+                style={{
+                  fontFamily: "poppins_semibold",
+                  color: "#ffffff",
+                  fontSize: scaleWidth(12),
+                }}
+              >
+                {restaurant_name}
+              </Text>
+            </View>
+
+          )
+        }
+
+
         {
-          eatsNumber &&
-        <Reviews
-        reviewsName={"Eats"}
-        reviewsNumber={eatsNumber}
-        rating={rating}
-      />
+          rating > 0 &&
+          <Reviews
+            reviewsName={"Eats"}
+            reviewsNumber={eatsNumber}
+            rating={rating}
+          />
         }
 
         {location && (

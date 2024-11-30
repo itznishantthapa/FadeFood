@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef, useEffect, useReducer } from "react";
 import {
   StyleSheet,
   View,
@@ -19,15 +19,50 @@ import Price from "../../components/viewScreens/Price";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import SnackBar from "./SnackBar";
 import { myContext } from "../../context/AppProvider";
+import { get_data, get_data_with_id } from "../../service";
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 
-const ViewFood = ({ navigation }) => {
+const initial_food_details = {
+  food_name: "",
+  food_price: "",
+  images: [],
+  food_restaurant: "",
+  food_location: "",
+  rating: 0,
+  is_available: false,
+  reviews: 0,
+  restaurant_name: null,
+}
+const food_details_reducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_FOOD_DETAILS':
+      return {
+        ...state,
+        food_name: action.payload.food_name,
+        food_price: action.payload.food_price,
+        images: action.payload.images,
+        food_restaurant: action.payload.food_restaurant,
+        food_location: action.payload.food_location,
+        rating: action.payload.rating,
+        is_available: action.payload.is_available,
+        reviews: action.payload.reviews,
+        restaurant_name: action.payload.restaurant_name
+      }
+    default:
+      return state;
+  }
+}
+const ViewFood = ({ navigation, route }) => {
 
-  const { snackBar, state,dispatch, setsnackBar } = useContext(myContext);
-
-
+  const { snackBar, state, dispatch, setsnackBar, seller_dispatch, initialseller_state } = useContext(myContext);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [food_details_state, food_details_dispatch] = useReducer(food_details_reducer, initial_food_details);
+
+  useEffect(() => {
+    food_details_dispatch({ type: 'SET_FOOD_DETAILS', payload: route.params.food_details });
+  }, [route.params.food_details])
+
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   const [onCheckout, setonCheckout] = useState(false);
@@ -43,6 +78,28 @@ const ViewFood = ({ navigation }) => {
   const handleToRestaurantProfile = () => {
     navigation.navigate('RestaurantProfile')
   }
+
+  const getting_restaurant_details = async () => {
+    const response = await get_data_with_id("get_specific_restaurant", { restaurant_name: food_details_state.restaurant_name });
+    console.log('-----------restaurant_name>>---------------------------',food_details_state.restaurant_name);
+    if (response.success) {
+      console.log('-----------data_with_id---------------------------',response.data);
+
+      Object.entries(response.data).forEach(([key, value]) => {
+        if (initialseller_state.hasOwnProperty(key)) {
+          console.log('-----------key---------------------------',key, value);
+          seller_dispatch({ type: key, payload: value });
+        }
+      });
+    } else {
+      console.log("Error", response.data);
+    }
+  }
+  useEffect(() => {
+
+    getting_restaurant_details()
+
+  }, [food_details_state.restaurant_name]);
 
 
 
@@ -64,7 +121,7 @@ const ViewFood = ({ navigation }) => {
 
 
     setsnackBar(true)
-    dispatch({type:'snackmessage',payload:'Added to Favorites'})
+    dispatch({ type: 'snackmessage', payload: 'Added to Favorites' })
     // setmessage("Added to Favorites")
     setTimeout(() => setsnackBar(false), 3000);
 
@@ -90,14 +147,14 @@ const ViewFood = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
       >
         <View style={ownstyles.mainSection}>
-          <BigImage toggleFavorite={toggleFavorite} scaleAnim={scaleAnim} isFavorite={isFavorite} />
+          <BigImage toggleFavorite={toggleFavorite} scaleAnim={scaleAnim} isFavorite={isFavorite} images={food_details_state.images} />
           <View style={ownstyles.restaurantInfo}>
             <ItemName
-              foodName={"Momo"}
+              foodName={food_details_state.food_name}
               fontsize={26}
             />
             <View style={ownstyles.priceSection}>
-              <Price priceFontSize={24} price={200}></Price>
+              <Price priceFontSize={24} price={food_details_state.food_price}></Price>
               {onCheckout ? (
                 <TouchableOpacity
                   style={[
@@ -121,15 +178,15 @@ const ViewFood = ({ navigation }) => {
             {/* Restaurant Details */}
             <View style={ownstyles.restaurantDetails} >
               <TouchableOpacity onPress={handleToRestaurantProfile} >
-                <Text style={ownstyles.restaurantName}>Delicious Restaurant</Text>
+                <Text style={ownstyles.restaurantName}>{food_details_state.food_restaurant}</Text>
               </TouchableOpacity>
               <Text style={ownstyles.restaurantAddress}>
-                123 Food Street, Foodville
+                {food_details_state.food_location}
               </Text>
 
               <View style={ownstyles.ratingContainer}>
-                <Text style={ownstyles.rating}>4.5 ★</Text>
-                <Text style={ownstyles.ratingCount}>(234 reviews)</Text>
+                <Text style={ownstyles.rating}>{food_details_state.rating} ★</Text>
+                <Text style={ownstyles.ratingCount}>({food_details_state.reviews} reviews)</Text>
               </View>
             </View>
 
@@ -166,6 +223,7 @@ const ViewFood = ({ navigation }) => {
                   <FoodCard
                     key={index}
                     food_picture={null}
+                    restaurant_name={null}
                     price={112}
                     discount={null}
                     foodName={"Chowmin"}
@@ -184,6 +242,7 @@ const ViewFood = ({ navigation }) => {
                   <FoodCard
                     key={index}
                     food_picture={null}
+                    restaurant_name={null}
                     price={112}
                     discount={null}
                     foodName={"Chowmin"}

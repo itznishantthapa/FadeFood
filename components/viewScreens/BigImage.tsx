@@ -5,14 +5,16 @@ import PagerView from 'react-native-pager-view'
 import { scaleHeight, scaleWidth } from '../../Scaling';
 import { AntDesign } from '@expo/vector-icons'; // Make sure you have expo vector icons installed
 import { scanFromURLAsync } from 'expo-camera';
+import { baseURL } from '../../service';
 
-const images = [
-  require('../../assets/images/img1 (1).png'),
-  require('../../assets/images/img1 (2).png'),
-  require('../../assets/images/img1 (3).png'),
-];
+// const images = [
+//   require('../../assets/images/img1 (1).png'),
+//   require('../../assets/images/img1 (2).png'),
+//   require('../../assets/images/img1 (3).png'),
+// ];
 
-const BigImage = ({scaleAnim,toggleFavorite,isFavorite}) => {
+const BigImage = ({scaleAnim,toggleFavorite,isFavorite,images}) => {
+  console.log('images',images)
   const [activeIndex, setActiveIndex] = useState(0);
   // const [isFavorite, setIsFavorite] = useState(false);
   // const scaleAnim = useRef(new Animated.Value(1)).current;
@@ -42,9 +44,9 @@ const BigImage = ({scaleAnim,toggleFavorite,isFavorite}) => {
         initialPage={0}
         onPageSelected={(e) => setActiveIndex(e.nativeEvent.position)}
       >
-        {images.map((image, index) => (
+        {images.map((img, index) => (
           <View key={index} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Image resizeMode='cover' style={{ height: '100%', width: '100%' }} source={image} />
+            <Image resizeMode='cover' style={{ height: '100%', width: '100%' }}  source={{ uri: `${baseURL}${img.image}` }} />
           </View>
         ))}
       </PagerView>

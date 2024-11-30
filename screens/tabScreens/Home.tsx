@@ -28,6 +28,7 @@ import { scaleHeight, scaleWidth } from '../../Scaling';
 import { myContext } from '../../context/AppProvider';
 import SnackBar from '../viewScreens/SnackBar';
 import CustomSnackbar from '../viewScreens/CustomSnackbar';
+import { baseURL } from '../../service';
 
 
 
@@ -41,6 +42,7 @@ const images = [
 ];
 
 const Home = ({ navigation }) => {
+  const { food_state } = useContext(myContext);
   const {snackBar,setsnackBar,state}=useContext(myContext)
   const [activeIndex, setActiveIndex] = useState(0);
   const dishItems = [
@@ -88,106 +90,106 @@ const Home = ({ navigation }) => {
     },
   ]
 
-  const FoodData = [
-    {
-      "food_picture": biryani,
-      "price": 1500,
-      "discount": 10,
-      "foodName": "Biryani",
-      "no_fragments": null,
-      "eatsNumber": 120,
-      "rating": 4.5,
-      "location": "Dharan, Bhanuchowk"
-    },
-    {
-      "food_picture": img3,
-      "price": 1200,
-      "discount": null,
-      "foodName": "Flat Momos",
-      "no_fragments": "8",
-      "eatsNumber": null,
-      "rating": null,
-      "location": "Kathmandu, Thamel"
-    },
-    {
-      "food_picture": momo,
-      "price": 800,
-      "discount": 5,
-      "foodName": "Jhol Momo",
-      "no_fragments": null,
-      "eatsNumber": 90,
-      "rating": 4.2,
-      "location": "Pokhara, Lakeside"
-    },
-    {
-      "food_picture": chatapate,
-      "price": 500,
-      "discount": 20,
-      "foodName": "Chatpate",
-      "no_fragments": "6",
-      "eatsNumber": 70,
-      "rating": 4.0,
-      "location": "Biratnagar, Main Road"
-    },
-    {
-      "price": 300,
-      "discount": 10,
-      "foodName": "Momo",
-      "no_fragments": "3",
-      "eatsNumber": 150,
-      "rating": 4.7,
-      "location": "Chitwan, Narayangarh"
-    },
-    {
-      "price": 2000,
-      "discount": 25,
-      "foodName": "Steak",
-      "no_fragments": "10",
-      "eatsNumber": 80,
-      "rating": 4.9,
-      "location": "Lalitpur, Jhamsikhel"
-    },
-    {
-      "price": 400,
-      "discount": 12,
-      "foodName": "Fries",
-      "no_fragments": "2",
-      "eatsNumber": 110,
-      "rating": 4.1,
-      "location": "Itahari, Bus Park"
-    },
-    {
-      "price": 1800,
-      "discount": 30,
-      "foodName": "Sushi",
-      "no_fragments":null,
-      "eatsNumber": 130,
-      "rating": 4.6,
-      "location": "Bhaktapur, Durbar Square"
-    },
-    {
-      "price": 1000,
-      "discount": 18,
-      "foodName": "Tacos",
-      "no_fragments": "7",
-      "eatsNumber": 95,
-      "rating": 4.3,
-      "location": "Butwal, Traffic Chowk"
-    },
-    {
-      "price": 1000,
-      "discount": 18,
-      "foodName": "Tacos",
-      "no_fragments": null,
-      "eatsNumber": 95,
-      "rating": 4.3,
-      "location": "Butwal, Traffic Chowk"
-    },
+  // const FoodData = [
+  //   {
+  //     "food_picture": biryani,
+  //     "price": 1500,
+  //     "discount": 10,
+  //     "foodName": "Biryani",
+  //     "no_fragments": null,
+  //     "eatsNumber": 120,
+  //     "rating": 4.5,
+  //     "location": "Dharan, Bhanuchowk"
+  //   },
+  //   {
+  //     "food_picture": img3,
+  //     "price": 1200,
+  //     "discount": null,
+  //     "foodName": "Flat Momos",
+  //     "no_fragments": "8",
+  //     "eatsNumber": null,
+  //     "rating": null,
+  //     "location": "Kathmandu, Thamel"
+  //   },
+  //   {
+  //     "food_picture": momo,
+  //     "price": 800,
+  //     "discount": 5,
+  //     "foodName": "Jhol Momo",
+  //     "no_fragments": null,
+  //     "eatsNumber": 90,
+  //     "rating": 4.2,
+  //     "location": "Pokhara, Lakeside"
+  //   },
+  //   {
+  //     "food_picture": chatapate,
+  //     "price": 500,
+  //     "discount": 20,
+  //     "foodName": "Chatpate",
+  //     "no_fragments": "6",
+  //     "eatsNumber": 70,
+  //     "rating": 4.0,
+  //     "location": "Biratnagar, Main Road"
+  //   },
+  //   {
+  //     "price": 300,
+  //     "discount": 10,
+  //     "foodName": "Momo",
+  //     "no_fragments": "3",
+  //     "eatsNumber": 150,
+  //     "rating": 4.7,
+  //     "location": "Chitwan, Narayangarh"
+  //   },
+  //   {
+  //     "price": 2000,
+  //     "discount": 25,
+  //     "foodName": "Steak",
+  //     "no_fragments": "10",
+  //     "eatsNumber": 80,
+  //     "rating": 4.9,
+  //     "location": "Lalitpur, Jhamsikhel"
+  //   },
+  //   {
+  //     "price": 400,
+  //     "discount": 12,
+  //     "foodName": "Fries",
+  //     "no_fragments": "2",
+  //     "eatsNumber": 110,
+  //     "rating": 4.1,
+  //     "location": "Itahari, Bus Park"
+  //   },
+  //   {
+  //     "price": 1800,
+  //     "discount": 30,
+  //     "foodName": "Sushi",
+  //     "no_fragments":null,
+  //     "eatsNumber": 130,
+  //     "rating": 4.6,
+  //     "location": "Bhaktapur, Durbar Square"
+  //   },
+  //   {
+  //     "price": 1000,
+  //     "discount": 18,
+  //     "foodName": "Tacos",
+  //     "no_fragments": "7",
+  //     "eatsNumber": 95,
+  //     "rating": 4.3,
+  //     "location": "Butwal, Traffic Chowk"
+  //   },
+  //   {
+  //     "price": 1000,
+  //     "discount": 18,
+  //     "foodName": "Tacos",
+  //     "no_fragments": null,
+  //     "eatsNumber": 95,
+  //     "rating": 4.3,
+  //     "location": "Butwal, Traffic Chowk"
+  //   },
 
-  ]
+  // ]
   // Split data into two columns
-  const leftColumn = FoodData.filter((_, i) => i % 2 === 0);
-  const rightColumn = FoodData.filter((_, i) => i % 2 === 1);
+  const leftColumn = food_state.filter((_, i) => i % 2 === 0);
+  const rightColumn = food_state.filter((_, i) => i % 2 === 1);
 
 
   // const renderDishItems = ({ item }) => <NearDishCard
@@ -218,8 +220,10 @@ const Home = ({ navigation }) => {
     navigation.navigate('SearchScreen')
     console.log('Navigating to search screen')
   }
-  const handleToFoodViewPage = () => {
-    navigation.navigate('ViewFood')
+  const handleToFoodViewPage = (item) => {
+    // navigation.navigate('AddFood',{food_id_params:item.id,food_name_params:item.food_name,food_price_params:item.food_price,food_image_params:item.images});
+
+    navigation.navigate('ViewFood',{food_details:item})
   }
 
 
@@ -345,17 +349,18 @@ const Home = ({ navigation }) => {
               {
                 leftColumn.map((item, index) => (
                   <FoodCard
-                    key={index}
-                    food_picture={item.food_picture}
-                    price={item.price}
-                    discount={item.discount}
-                    foodName={item.foodName}
-                    no_fragments={item.no_fragments}
-                    eatsNumber={item.eatsNumber}
-                    rating={item.rating}
-                    location={item.location}
-                    handleToFoodViewPage={handleToFoodViewPage}
-                  />
+                  key={item.id}
+                  food_picture={item.images.length > 0 ? item.images[0].image : null}
+                  price={item.food_price}
+                  restaurant_name={item.food_restaurant || 'KFC'}
+                  discount={item.discount || 12}
+                  foodName={item.food_name}
+                  no_fragments={null}
+                  eatsNumber={item.totol_eats || 120}
+                  rating={item.rating || 3.5}
+                  location={item.food_location || 'Kathmandu, Thamel'}
+                  handleToFoodViewPage={()=>handleToFoodViewPage(item)}
+                />
                 ))
               }
             </View>
@@ -364,17 +369,18 @@ const Home = ({ navigation }) => {
               {
                 rightColumn.map((item, index) => (
                   <FoodCard
-                    key={index}
-                    food_picture={item.food_picture}
-                    price={item.price}
-                    discount={item.discount}
-                    foodName={item.foodName}
-                    no_fragments={item.no_fragments}
-                    eatsNumber={item.eatsNumber}
-                    rating={item.rating}
-                    location={item.location}
-                    handleToFoodViewPage={handleToFoodViewPage}
-                  />
+                  key={item.id}
+                  food_picture={item.images.length > 0 ? item.images[0].image : null}
+                  price={item.food_price}
+                  restaurant_name={item.food_restaurant || 'Muskan Khaja Ghar'}
+                  discount={item.discount || 12}
+                  foodName={item.food_name}
+                  no_fragments={null}
+                  eatsNumber={item.totol_eats || 120}
+                  rating={item.rating || 3.5}
+                  location={item.food_location || 'Kathmandu, Thamel'}
+                  handleToFoodViewPage={()=>handleToFoodViewPage(item)}
+                />
                 ))
               }
             </View>

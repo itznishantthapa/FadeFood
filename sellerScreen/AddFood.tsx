@@ -159,7 +159,7 @@ const AddFood = ({ navigation, route }) => {
 
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      // allowsEditing: true,
+      allowsEditing: true,
       aspect: [3, 4],
       quality: 1,
     });
@@ -310,6 +310,7 @@ const localStyles = StyleSheet.create({
     fontWeight: '600',
     marginBottom: 8,
     color: '#333',
+    fontFamily: 'montserrat_semibold',
   },
   input: {
     borderWidth: 1,

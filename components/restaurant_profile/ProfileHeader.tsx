@@ -6,6 +6,8 @@ import { myContext } from '../../context/AppProvider'
 import WavePulse from './WavePulse'
 
 const ProfileHeader = ({handleGoBack,openMaps,restaurantName,openingHour,rating,cityName,streetAddress,activeStatus}) => {
+
+  console.log(activeStatus,'-------------------------by profile header')
   return (
     <View style={styles.header}>
       {
