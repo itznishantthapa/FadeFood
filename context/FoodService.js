@@ -41,6 +41,9 @@ export const food_reducer = (state, action) => {
     case "REMOVE_FOOD":
       return state.filter((item) => item.id !== action.payload); // Remove food by ID.
 
+    case "CLEAR_FOOD":
+      return initialfood_state; // Clear the food list.
+
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }

@@ -39,6 +39,7 @@ const food_details_reducer = (state, action) => {
     case 'SET_FOOD_DETAILS':
       return {
         ...state,
+        restaurant_name: action.payload.restaurant_name,
         food_name: action.payload.food_name,
         food_price: action.payload.food_price,
         images: action.payload.images,
@@ -47,7 +48,6 @@ const food_details_reducer = (state, action) => {
         rating: action.payload.rating,
         is_available: action.payload.is_available,
         reviews: action.payload.reviews,
-        restaurant_name: action.payload.restaurant_name
       }
     default:
       return state;
@@ -55,12 +55,18 @@ const food_details_reducer = (state, action) => {
 }
 const ViewFood = ({ navigation, route }) => {
 
-  const { snackBar, state, dispatch, setsnackBar, seller_dispatch, initialseller_state } = useContext(myContext);
+  const { snackBar, state, dispatch, setsnackBar, seller_dispatch, initialseller_state,getting_restaurant_details } = useContext(myContext);
   const [isFavorite, setIsFavorite] = useState(false);
   const [food_details_state, food_details_dispatch] = useReducer(food_details_reducer, initial_food_details);
 
+
+  const fetching = async () => {
+    await getting_restaurant_details(route.params.food_details.restaurant_name)
+  }
   useEffect(() => {
     food_details_dispatch({ type: 'SET_FOOD_DETAILS', payload: route.params.food_details });
+    fetching()
+
   }, [route.params.food_details])
 
   const scaleAnim = useRef(new Animated.Value(1)).current;
@@ -76,30 +82,32 @@ const ViewFood = ({ navigation, route }) => {
     setonCheckout(true);
   };
   const handleToRestaurantProfile = () => {
-    navigation.navigate('RestaurantProfile')
+    // navigation.navigate('RestaurantProfile',{restaurant_id:food_details_state.restaurant_name});
+    navigation.navigate('RestaurantProfile');
+    // console.log('Restaurant ID----->',route.params.food_details.restaurant_name);
   }
 
-  const getting_restaurant_details = async () => {
-    const response = await get_data_with_id("get_specific_restaurant", { restaurant_name: food_details_state.restaurant_name });
-    console.log('-----------restaurant_name>>---------------------------',food_details_state.restaurant_name);
-    if (response.success) {
-      console.log('-----------data_with_id---------------------------',response.data);
+  // const getting_restaurant_details = async () => {
+  //   const response = await get_data_with_id("get_specific_restaurant", { restaurant_name: food_details_state.restaurant_name });
+  //   console.log('-----------restaurant_name>>---------------------------',food_details_state.restaurant_name);
+  //   if (response.success) {
+  //     console.log('-----------data_with_id---------------------------',response.data);
 
-      Object.entries(response.data).forEach(([key, value]) => {
-        if (initialseller_state.hasOwnProperty(key)) {
-          console.log('-----------key---------------------------',key, value);
-          seller_dispatch({ type: key, payload: value });
-        }
-      });
-    } else {
-      console.log("Error", response.data);
-    }
-  }
-  useEffect(() => {
+  //     Object.entries(response.data).forEach(([key, value]) => {
+  //       if (initialseller_state.hasOwnProperty(key)) {
+  //         console.log('-----------key---------------------------',key, value);
+  //         seller_dispatch({ type: key, payload: value });
+  //       }
+  //     });
+  //   } else {
+  //     console.log("Error", response.data);
+  //   }
+  // }
+  // useEffect(() => {
 
-    getting_restaurant_details()
+  //   getting_restaurant_details()
 
-  }, [food_details_state.restaurant_name]);
+  // }, [food_details_state.restaurant_name]);
 
 
 
