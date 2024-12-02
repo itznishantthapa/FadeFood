@@ -1,71 +1,50 @@
-// UserContext.tsx
 import React, { createContext, useEffect, useReducer, useState } from "react";
-import { clearTokens, get_data, get_data_with_id, refreshAccessToken } from "../service";
+import { clearTokens, get_data_with_id } from "../service";
 import { initialfood_state, food_reducer } from "./userReducerFood";
 import { user_reducer, userinitialState } from "./useReducerUser";
 import { initialseller_state, seller_reducer } from "./useReducerRestaurant";
-
-
-
+import {getUserInformation} from "../apis/getUserInformation";
 export const myContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(user_reducer, userinitialState);
   const [seller_state, seller_dispatch] = useReducer(seller_reducer, initialseller_state);
   const [food_state, food_dispatch] = useReducer(food_reducer,initialfood_state);
-
   const [isLoading, setisLoading] = useState(false);
   const [isLogged, setisLogged] = useState(false);
   const [snackBar, setsnackBar] = useState(false);
 
   const fetchData = async () => {
     if (state.role === "customer") {
-      const response = await get_data("get_user_details");
-      if (response.success) {
-        console.log(response.data);
-        setisLogged(true);
-        dispatch({ type: "name", payload: response.data.name });
-        dispatch({ type: "phone", payload: response.data.phone });
-        dispatch({ type: "email", payload: response.data.email });
-        dispatch({ type: "role", payload: response.data.role });
-        dispatch({
-          type: "profile_picture",
-          payload: response.data.profile_picture.startsWith("http")
-            ? response.data.profile_picture
-            : `http://192.168.1.64:5555${response.data.profile_picture}`,
-        });
-      } else {
-        console.log(response.data);
-      }
+      await getUserInformation(dispatch, setisLogged);
     }
 
-    // return;
 
-    const response = await get_data("get_restaurant");
-    if (response.success) {
-      console.log(response.data);
+    // const response = await get_data("get_restaurant");
+    // if (response.success) {
+    //   console.log(response.data);
 
-      Object.entries(response.data).forEach(([key, value]) => {
-        if (initialseller_state.hasOwnProperty(key)) {
-          seller_dispatch({ type: "SET_DATA", key, payload: value });
-        }
-      });
+    //   Object.entries(response.data).forEach(([key, value]) => {
+    //     if (initialseller_state.hasOwnProperty(key)) {
+    //       seller_dispatch({ type: "SET_DATA", key, payload: value });
+    //     }
+    //   });
       
-    } else {
-      console.log("Error", response.data);
-    }
+    // } else {
+    //   console.log("Error", response.data);
+    // }
 
-    const responsebyfood = await get_data("get_all_food");
-    if (responsebyfood.success) {
-      console.log(
-        "################get all food#####################------------>",
-        responsebyfood.data
-      );
-      food_dispatch({ type: "SET_FOOD_LIST", payload: responsebyfood.data });
-      console.log("food state is settt");
-    } else {
-      console.log("Error", responsebyfood.data);
-    }
+    // const responsebyfood = await get_data("get_all_food");
+    // if (responsebyfood.success) {
+    //   console.log(
+    //     "################get all food#####################------------>",
+    //     responsebyfood.data
+    //   );
+    //   food_dispatch({ type: "SET_FOOD_LIST", payload: responsebyfood.data });
+    //   console.log("food state is settt");
+    // } else {
+    //   console.log("Error", responsebyfood.data);
+    // }
   };
 
   useEffect(() => {
@@ -102,7 +81,7 @@ export const AppProvider = ({ children }) => {
     setisLogged(false);
     console.log("All data cleared");
     console.log(state);
-    console.log(initialState);
+    console.log(userinitialState);
   };
 
   return (

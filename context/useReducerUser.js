@@ -21,7 +21,7 @@ export const userinitialState = {
       case "snackmessage":
         return { ...state, snackmessage: action.payload };
       case "RESET":
-        return initialState;
+        return userinitialState;
       default:
         return state;
     }
