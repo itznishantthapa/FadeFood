@@ -2,64 +2,9 @@
 import React, { createContext, useEffect, useReducer, useState } from "react";
 import { clearTokens, get_data, get_data_with_id, refreshAccessToken } from "../service";
 import { initialfood_state, food_reducer } from "./userReducerFood";
+import { user_reducer, userinitialState } from "./useReducerUser";
+import { initialseller_state, seller_reducer } from "./useReducerRestaurant";
 
-const userinitialState = {
-  name: "",
-  phone: "",
-  email: "",
-  profile_picture: null,
-  role: "customer",
-  snackmessage: "",
-};
-const user_reducer = (state, action) => {
-  switch (action.type) {
-    case "name":
-      return { ...state, name: action.payload };
-    case "phone":
-      return { ...state, phone: action.payload };
-    case "email":
-      return { ...state, email: action.payload };
-    case "profile_picture":
-      return { ...state, profile_picture: action.payload };
-    case "role":
-      return { ...state, role: action.payload };
-    case "snackmessage":
-      return { ...state, snackmessage: action.payload };
-    case "RESET":
-      return initialState;
-    default:
-      return state;
-  }
-};
-
-const initialseller_state = {
-  name: "",
-  street_address: "",
-  city: "",
-  business_type: "",
-  opening_hour: "",
-  citizenship_number: "",
-  pan_number: "",
-  logo: null,
-  rating: 0,
-  is_active: false,
-};
-
-
-
-const seller_reducer = (seller_state, action) => {
-  switch (action.type) {
-    case "SET_DATA":
-      return {
-        ...seller_state,
-        [action.key]: action.payload, // Updated to allow key-based updates
-      };
-    case "CLEAR":
-      return initialseller_state; // Reset to initial state
-    default:
-      return seller_state;
-  }
-};
 
 
 export const myContext = createContext();
@@ -67,10 +12,7 @@ export const myContext = createContext();
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(user_reducer, userinitialState);
   const [seller_state, seller_dispatch] = useReducer(seller_reducer, initialseller_state);
-  const [food_state, food_dispatch] = useReducer(
-    food_reducer,
-    initialfood_state
-  );
+  const [food_state, food_dispatch] = useReducer(food_reducer,initialfood_state);
 
   const [isLoading, setisLoading] = useState(false);
   const [isLogged, setisLogged] = useState(false);
