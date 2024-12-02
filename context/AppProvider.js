@@ -17,36 +17,16 @@ export const AppProvider = ({ children }) => {
   const [snackBar, setsnackBar] = useState(false);
 
   const fetchData = async () => {
-    if (state.role === "customer") {
-      await getUserInformation(dispatch, setisLogged);
-    }
-      await  getRestaurantInformation(seller_dispatch);
+
+    state.role === "customer" && await getUserInformation(dispatch, setisLogged);
+      //correct stetup
+      // await  getRestaurantInformation(seller_dispatch , id = null, initialseller_state); 
       await getAllFood(food_dispatch);
   };
 
   useEffect(() => {
   fetchData();
   }, []);
-
-
-
-  const getting_restaurant_details = async (restaurant_id) => {
-    const response = await get_data_with_id("get_specific_restaurant", { restaurant_name: restaurant_id });
-    console.log('-----------restaurant_name by myContext Profile>>---------------------------', restaurant_id);
-    if (response.success) {
-      console.log('-----------data_with_id---------------------------', response.data);
-
-      Object.entries(response.data).forEach(([key, value]) => {
-        if (initialseller_state.hasOwnProperty(key)) {
-          seller_dispatch({ type: "SET_DATA", key, payload: value });
-        }
-      });
-      
-    } else {
-      console.log("Error", response.data);
-    }
-  }
-
 
   const clearAllData = async () => {
     await clearTokens();
@@ -79,7 +59,6 @@ export const AppProvider = ({ children }) => {
         food_dispatch,
         isLogged,
         setisLogged,
-        getting_restaurant_details,
       }}
     >
       {children}

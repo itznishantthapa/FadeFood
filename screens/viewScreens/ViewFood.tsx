@@ -20,6 +20,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import SnackBar from "./SnackBar";
 import { myContext } from "../../context/AppProvider";
 import { get_data, get_data_with_id } from "../../service";
+import { getRestaurantInformation } from "../../apis/getRestaurantInformation";
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -61,7 +62,9 @@ const ViewFood = ({ navigation, route }) => {
 
 
   const fetching = async () => {
-    await getting_restaurant_details(route.params.food_details.restaurant_name)
+    // await getting_restaurant_details(route.params.food_details.restaurant_name)
+    await getRestaurantInformation(seller_dispatch, route.params.food_details.restaurant_name,initialseller_state)
+
   }
   useEffect(() => {
     food_details_dispatch({ type: 'SET_FOOD_DETAILS', payload: route.params.food_details });
