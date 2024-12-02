@@ -4,6 +4,8 @@ import { initialfood_state, food_reducer } from "./userReducerFood";
 import { user_reducer, userinitialState } from "./useReducerUser";
 import { initialseller_state, seller_reducer } from "./useReducerRestaurant";
 import {getUserInformation} from "../apis/getUserInformation";
+import { getRestaurantInformation } from "../apis/getRestaurantInformation";
+import { getAllFood } from "../apis/getAllFoods";
 export const myContext = createContext();
 
 export const AppProvider = ({ children }) => {
@@ -18,33 +20,8 @@ export const AppProvider = ({ children }) => {
     if (state.role === "customer") {
       await getUserInformation(dispatch, setisLogged);
     }
-
-
-    // const response = await get_data("get_restaurant");
-    // if (response.success) {
-    //   console.log(response.data);
-
-    //   Object.entries(response.data).forEach(([key, value]) => {
-    //     if (initialseller_state.hasOwnProperty(key)) {
-    //       seller_dispatch({ type: "SET_DATA", key, payload: value });
-    //     }
-    //   });
-      
-    // } else {
-    //   console.log("Error", response.data);
-    // }
-
-    // const responsebyfood = await get_data("get_all_food");
-    // if (responsebyfood.success) {
-    //   console.log(
-    //     "################get all food#####################------------>",
-    //     responsebyfood.data
-    //   );
-    //   food_dispatch({ type: "SET_FOOD_LIST", payload: responsebyfood.data });
-    //   console.log("food state is settt");
-    // } else {
-    //   console.log("Error", responsebyfood.data);
-    // }
+      await  getRestaurantInformation(seller_dispatch);
+      await getAllFood(food_dispatch);
   };
 
   useEffect(() => {
