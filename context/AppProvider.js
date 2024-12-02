@@ -1,9 +1,9 @@
 // UserContext.tsx
 import React, { createContext, useEffect, useReducer, useState } from "react";
 import { clearTokens, get_data, get_data_with_id, refreshAccessToken } from "../service";
-import { initialfood_state, food_reducer } from "./FoodService";
+import { initialfood_state, food_reducer } from "./userReducerFood";
 
-const initialState = {
+const userinitialState = {
   name: "",
   phone: "",
   email: "",
@@ -11,7 +11,7 @@ const initialState = {
   role: "customer",
   snackmessage: "",
 };
-const reducer = (state, action) => {
+const user_reducer = (state, action) => {
   switch (action.type) {
     case "name":
       return { ...state, name: action.payload };
@@ -65,7 +65,7 @@ const seller_reducer = (seller_state, action) => {
 export const myContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(user_reducer, userinitialState);
   const [seller_state, seller_dispatch] = useReducer(seller_reducer, initialseller_state);
   const [food_state, food_dispatch] = useReducer(
     food_reducer,
