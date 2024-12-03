@@ -17,7 +17,6 @@ export const AppProvider = ({ children }) => {
   const [snackBar, setsnackBar] = useState(false);
 
   const fetchData = async () => {
-
     state.role === "customer" && await getUserInformation(dispatch, setisLogged);
       //correct stetup
       // await  getRestaurantInformation(seller_dispatch , id = null, initialseller_state); 

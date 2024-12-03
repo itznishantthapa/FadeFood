@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native' // Add TouchableOpacity
+import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableWithoutFeedback } from 'react-native' // Add TouchableOpacity
 import React, { useState } from 'react' // Add useState
 import Price from '../viewScreens/Price'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -16,7 +16,7 @@ const NearDishCard = ({ image, price, name, reiwesNumber, rating }) => {
     };
 
     return (
-        <View style={{ height: scaleHeight(165), width: scaleWidth(150), backgroundColor: '#FFFFFF', borderRadius: scaleWidth(15), padding: 5 }}>
+        <TouchableOpacity style={{ height: scaleHeight(165), width: scaleWidth(150), backgroundColor: '#FFFFFF', borderRadius: scaleWidth(15), padding: 5 }}>
             <View style={{ height: '60%', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start' }}>
                 <View style={{  position: 'absolute', top:scaleHeight(-25), left: scaleWidth(-25) }}>
                     <Image resizeMode='stretch' style={{ height: scaleHeight(120), width: scaleWidth(120), }} source={image}></Image>
@@ -51,7 +51,7 @@ const NearDishCard = ({ image, price, name, reiwesNumber, rating }) => {
                 <Text style={{ fontFamily: 'poppins_semibold', fontSize:scaleWidth(14)  }}>{name}</Text>
                 <Reviews reviewsName={'Reviews'} reviewsNumber={320} rating={4.5} />
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

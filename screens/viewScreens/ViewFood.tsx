@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef, useEffect, useReducer } from "react";
+import React, { useState, useContext, useRef, useEffect, useReducer, useMemo } from "react";
 import {
   StyleSheet,
   View,
@@ -61,14 +61,12 @@ const ViewFood = ({ navigation, route }) => {
   const [food_details_state, food_details_dispatch] = useReducer(food_details_reducer, initial_food_details);
 
 
-  const fetching = async () => {
-    // await getting_restaurant_details(route.params.food_details.restaurant_name)
-    await getRestaurantInformation(seller_dispatch, route.params.food_details.restaurant_name,initialseller_state)
+  
 
-  }
+  // }
   useEffect(() => {
     food_details_dispatch({ type: 'SET_FOOD_DETAILS', payload: route.params.food_details });
-    fetching()
+    // fetching()
 
   }, [route.params.food_details])
 
@@ -89,29 +87,6 @@ const ViewFood = ({ navigation, route }) => {
     navigation.navigate('RestaurantProfile');
     // console.log('Restaurant ID----->',route.params.food_details.restaurant_name);
   }
-
-  // const getting_restaurant_details = async () => {
-  //   const response = await get_data_with_id("get_specific_restaurant", { restaurant_name: food_details_state.restaurant_name });
-  //   console.log('-----------restaurant_name>>---------------------------',food_details_state.restaurant_name);
-  //   if (response.success) {
-  //     console.log('-----------data_with_id---------------------------',response.data);
-
-  //     Object.entries(response.data).forEach(([key, value]) => {
-  //       if (initialseller_state.hasOwnProperty(key)) {
-  //         console.log('-----------key---------------------------',key, value);
-  //         seller_dispatch({ type: key, payload: value });
-  //       }
-  //     });
-  //   } else {
-  //     console.log("Error", response.data);
-  //   }
-  // }
-  // useEffect(() => {
-
-  //   getting_restaurant_details()
-
-  // }, [food_details_state.restaurant_name]);
-
 
 
 

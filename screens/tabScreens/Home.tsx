@@ -91,11 +91,6 @@ const Home = ({ navigation }) => {
   ]
 
 
-  // Split data into two columns
-  // const leftColumn = food_state.filter((_, i) => i % 2 === 0);
-  // const rightColumn = food_state.filter((_, i) => i % 2 === 1);
-
-
   const leftColumn = useMemo(() => food_state.filter((_, i) => i % 2 === 0), [food_state]);
   const rightColumn = useMemo(() => food_state.filter((_, i) => i % 2 === 1), [food_state]);
 
@@ -144,16 +139,16 @@ const Home = ({ navigation }) => {
             <Greeting name={state.name} />
             <PagerView
               ref={pagerRef}
-              style={{ width: width, height: scaleHeight(150) }}
+              style={{ width: width, height: scaleHeight(125) }}
               initialPage={0}
               onPageSelected={(e) => setActiveIndex(e.nativeEvent.position)}
             >
               {images.map((image, index) => (
-                <View key={index} style={{ alignItems: 'center', height: '100%', paddingHorizontal: scaleWidth(8) }}>
+                <TouchableOpacity key={index} style={{ alignItems: 'center', height: '100%', paddingHorizontal: scaleWidth(8) }}>
                   <View style={{ width: '100%', backgroundColor: "black", borderRadius: scaleWidth(20) }}>
-                    <Image resizeMode='stretch' style={{ height: '100%', width: '100%', borderRadius: scaleWidth(20) }} source={image}></Image>
+                    <Image resizeMode='stretch'  style={{ height: '100%', width: '100%', borderRadius: scaleWidth(20)}} source={image}></Image>
                   </View>
-                </View>
+                </TouchableOpacity>
 
               ))}
             </PagerView>

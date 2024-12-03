@@ -5,7 +5,11 @@ import { scaleHeight, scaleWidth } from '../../Scaling';
 const Greeting = ({name}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.greeting}>Good Afternoon, {name || 'Foodie'}</Text>
+      <View style={styles.greet_name}>
+      <Text style={styles.greeting}>Good Afternoon, </Text>
+      <Text style={styles.name}>{name || 'Foodie'}</Text>
+
+      </View>
       <Text style={styles.subText}>What would you like to have today?</Text>
     </View>
   );
@@ -14,20 +18,20 @@ const Greeting = ({name}) => {
 const styles = StyleSheet.create({
     container: {
         padding: scaleWidth(10),
-        // backgroundColor: '#fff',
         width:'100%',
         justifyContent: 'center',
       },
       greeting: {
         fontSize: scaleWidth(20),
-        // fontWeight: '700',
-        fontFamily: 'poppins_bold',
-        color: '#1A1A1A',
-        // marginBottom: 8,
-        // Add text shadow for subtle depth
+        fontFamily: 'poppins_semibold',
+        color: '#014f86',
         textShadowColor: 'rgba(0, 0, 0, 0.05)',
         textShadowOffset: { width: 0, height: scaleHeight(1) },
         textShadowRadius: scaleWidth(2),
+      },
+      name:{
+        fontFamily:'poppins_regular',
+        fontSize:scaleWidth(16)
       },
       subText: {
         fontSize: scaleWidth(14),
@@ -35,6 +39,10 @@ const styles = StyleSheet.create({
         fontFamily: 'poppins_semibold',
         letterSpacing:scaleWidth(0.3),
         marginTop:scaleHeight(-5)
+      },
+      greet_name: {
+        flexDirection: 'row',
+        alignItems: 'center',
       },
     
 });

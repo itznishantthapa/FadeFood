@@ -38,7 +38,7 @@ const List = ({
 
       <View style={styles.food_container}>
 
-        <View style={{ flexDirection: 'row', justifyContent: 'center',alignItems:'flex-start',gap:1 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center',alignItems:'flex-start' }}>
           {
           images && Array.isArray(images) && images.length > 0 ? (
             images.map((imageObj) => (

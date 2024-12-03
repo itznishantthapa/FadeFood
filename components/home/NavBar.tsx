@@ -89,6 +89,7 @@ const NabBar = ({ handleSearchScreen, isTextInput, isBack,navigation }) => {
 
   return (
     <View style={styles.navBar}>
+
       {isBack ? (
         <TouchableOpacity onPress={handleBackButton}>
           <AntDesign
@@ -108,15 +109,9 @@ const NabBar = ({ handleSearchScreen, isTextInput, isBack,navigation }) => {
       }
 
 
-      <View style={{ flexDirection: 'row', width: '100%', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
-
-
-
-
+      {/* <View style={{ flexDirection: 'row', width: '100%', alignItems: 'flex-start', justifyContent: 'flex-start' }}> */}
         <View style={styles.searchBar} >
-
-
-          <Animated.View style={{ opacity: fadeAnim, width: '90%' }}>
+          <Animated.View style={{ opacity: fadeAnim, width: '70%' }}>
             {
               isTextInput ? (
                 <TextInput
@@ -158,20 +153,22 @@ const NabBar = ({ handleSearchScreen, isTextInput, isBack,navigation }) => {
             </TouchableOpacity>
           )}
 
-        </View>
 
 
-        <View style={styles.searchView}>
-          <Feather
+        <TouchableOpacity style={{height:'95%',width:'20%',backgroundColor:'#333333',marginLeft:'auto',borderTopRightRadius:scaleWidth(17),borderBottomRightRadius:scaleWidth(17),justifyContent:'center',alignItems:'center'}}>
+          {/* <Feather
             name="search"
             size={scaleWidth(30)}
             style={{ color: '#333333' }}
-          />
+          /> */}
+          <Text  style={{ color: '#ffffff',fontSize:scaleWidth(15),fontFamily:'poppins_semibold' }}>Search</Text>
+        </TouchableOpacity>
         </View>
 
-      </View>
-      {/* </TouchableWithoutFeedback> */}
 
+
+      {/* </View> */}
+      {/* </TouchableWithoutFeedback> */}
     </View>
   )
 }
@@ -184,7 +181,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: scaleHeight(60),
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: '#F0F4F8',
     zIndex: 10,
@@ -196,33 +193,36 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderLeftWidth: scaleWidth(2),
-    borderTopWidth: scaleWidth(2),
-    borderBottomWidth: scaleWidth(2),
+    borderWidth: scaleWidth(1.5),
+    
+    // borderLeftWidth: scaleWidth(2),
+    // borderTopWidth: scaleWidth(2),
+    // borderBottomWidth: scaleWidth(2),
     // borderColor: '#FF5722',
     borderColor: '#333333',
+    // borderColor: 'red',
     height: scaleHeight(45),
-    width: '74%',
-    borderTopLeftRadius: scaleWidth(20),
-    borderBottomLeftRadius: scaleWidth(20),
+    width: '88%',
+    borderRadius: scaleWidth(20),
+    // borderBottomLeftRadius: scaleWidth(20),
     // backgroundColor: '#F5F5F5',
     paddingHorizontal: scaleWidth(1),
     paddingLeft: scaleWidth(10),
-    paddingRight: scaleWidth(2),
+    // paddingRight: scaleWidth(0),
 
   },
-  searchView: {
-    height: scaleHeight(45),
-    borderColor: '#333333',
-    width: '15%',
-    borderWidth: scaleWidth(2),
-    borderLeftWidth: 0,
-    borderTopRightRadius: scaleWidth(20),
-    borderBottomRightRadius: scaleWidth(20),
-    borderBottomLeftRadius: scaleWidth(40),
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
+  // searchView: {
+  //   height: scaleHeight(45),
+  //   borderColor: '#333333',
+  //   width: '15%',
+  //   borderWidth: scaleWidth(2),
+  //   borderLeftWidth: 0,
+  //   borderTopRightRadius: scaleWidth(20),
+  //   borderBottomRightRadius: scaleWidth(20),
+  //   borderBottomLeftRadius: scaleWidth(40),
+  //   alignItems: 'center',
+  //   justifyContent: 'center'
+  // },
   searchInput: {
     height: '80%',
     color: '#666666',
