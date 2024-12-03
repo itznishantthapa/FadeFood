@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Animated, Keyboard } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import React, { useState, useEffect, useRef, forwardRef } from 'react'
+import React, { useState, useEffect, useRef, forwardRef, useMemo } from 'react'
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { TextInput } from 'react-native-gesture-handler';
@@ -15,12 +15,21 @@ import { scaleWidth,scaleHeight } from '../../Scaling';
 const NabBar = ({ handleSearchScreen, isTextInput, isBack,navigation }) => {
   const [searchText, setSearchText] = useState('');
   // Array of placeholder texts that will rotate
-  const placeholders = [
-    'Go for your favorite restaurant',
-    'Mo:mo',
-    'Keema Noodles',
-    'Find delicious meals'
-  ];
+  // const placeholders = [
+  //   'Go for your favorite restaurant',
+  //   'Mo:mo',
+  //   'Keema Noodles',
+  //   'Find delicious meals'
+  // ];
+
+  const placeholders= useMemo(()=>
+    [
+      'Go for your favorite restaurant',
+      'Mo:mo',
+      'Keema Noodles',
+      'Find delicious meals'
+    ]
+    ,[]);
 
   // State to keep track of current placeholder index
   const [currentPlaceholderIndex, setCurrentPlaceholderIndex] = useState(0);

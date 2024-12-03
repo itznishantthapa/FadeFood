@@ -1,4 +1,4 @@
-import { View, Text, Dimensions, Image, TouchableOpacity} from 'react-native'
+import { View, Text, Dimensions, Image, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../../style/style';
 import { StatusBar } from 'expo-status-bar';
@@ -19,7 +19,7 @@ import biryani from '../../assets/biryani.jpg'
 import img3 from '../../assets/images/img1 (3).png'
 import { StyleSheet } from 'react-native';
 import PagerView from 'react-native-pager-view'
-import React, { useState, useEffect ,useContext} from 'react'
+import React, { useState, useEffect, useContext, useMemo } from 'react'
 import CategoriesRestaurant from '../../components/home/CategoriesRestaurant';
 import NearDishCard from '../../components/home/NearDishCard';
 import Greeting from '../../components/home/Greeting';
@@ -43,7 +43,7 @@ const images = [
 
 const Home = ({ navigation }) => {
   const { food_state } = useContext(myContext);
-  const {snackBar,setsnackBar,state}=useContext(myContext)
+  const { snackBar, setsnackBar, state } = useContext(myContext)
   const [activeIndex, setActiveIndex] = useState(0);
   const dishItems = [
     {
@@ -90,120 +90,20 @@ const Home = ({ navigation }) => {
     },
   ]
 
-  // const FoodData = [
-  //   {
-  //     "food_picture": biryani,
-  //     "price": 1500,
-  //     "discount": 10,
-  //     "foodName": "Biryani",
-  //     "no_fragments": null,
-  //     "eatsNumber": 120,
-  //     "rating": 4.5,
-  //     "location": "Dharan, Bhanuchowk"
-  //   },
-  //   {
-  //     "food_picture": img3,
-  //     "price": 1200,
-  //     "discount": null,
-  //     "foodName": "Flat Momos",
-  //     "no_fragments": "8",
-  //     "eatsNumber": null,
-  //     "rating": null,
-  //     "location": "Kathmandu, Thamel"
-  //   },
-  //   {
-  //     "food_picture": momo,
-  //     "price": 800,
-  //     "discount": 5,
-  //     "foodName": "Jhol Momo",
-  //     "no_fragments": null,
-  //     "eatsNumber": 90,
-  //     "rating": 4.2,
-  //     "location": "Pokhara, Lakeside"
-  //   },
-  //   {
-  //     "food_picture": chatapate,
-  //     "price": 500,
-  //     "discount": 20,
-  //     "foodName": "Chatpate",
-  //     "no_fragments": "6",
-  //     "eatsNumber": 70,
-  //     "rating": 4.0,
-  //     "location": "Biratnagar, Main Road"
-  //   },
-  //   {
-  //     "price": 300,
-  //     "discount": 10,
-  //     "foodName": "Momo",
-  //     "no_fragments": "3",
-  //     "eatsNumber": 150,
-  //     "rating": 4.7,
-  //     "location": "Chitwan, Narayangarh"
-  //   },
-  //   {
-  //     "price": 2000,
-  //     "discount": 25,
-  //     "foodName": "Steak",
-  //     "no_fragments": "10",
-  //     "eatsNumber": 80,
-  //     "rating": 4.9,
-  //     "location": "Lalitpur, Jhamsikhel"
-  //   },
-  //   {
-  //     "price": 400,
-  //     "discount": 12,
-  //     "foodName": "Fries",
-  //     "no_fragments": "2",
-  //     "eatsNumber": 110,
-  //     "rating": 4.1,
-  //     "location": "Itahari, Bus Park"
-  //   },
-  //   {
-  //     "price": 1800,
-  //     "discount": 30,
-  //     "foodName": "Sushi",
-  //     "no_fragments":null,
-  //     "eatsNumber": 130,
-  //     "rating": 4.6,
-  //     "location": "Bhaktapur, Durbar Square"
-  //   },
-  //   {
-  //     "price": 1000,
-  //     "discount": 18,
-  //     "foodName": "Tacos",
-  //     "no_fragments": "7",
-  //     "eatsNumber": 95,
-  //     "rating": 4.3,
-  //     "location": "Butwal, Traffic Chowk"
-  //   },
-  //   {
-  //     "price": 1000,
-  //     "discount": 18,
-  //     "foodName": "Tacos",
-  //     "no_fragments": null,
-  //     "eatsNumber": 95,
-  //     "rating": 4.3,
-  //     "location": "Butwal, Traffic Chowk"
-  //   },
 
-  // ]
   // Split data into two columns
-  const leftColumn = food_state.filter((_, i) => i % 2 === 0);
-  const rightColumn = food_state.filter((_, i) => i % 2 === 1);
+  // const leftColumn = food_state.filter((_, i) => i % 2 === 0);
+  // const rightColumn = food_state.filter((_, i) => i % 2 === 1);
 
 
-  // const renderDishItems = ({ item }) => <NearDishCard
-  //   image={item.image}
-  //   price={item.price}
-  //   name={item.name}
-  //   reiwesNumber={item.reviewsNumber}
-  //   rating={item.rating}
-  // />
+  const leftColumn = useMemo(() => food_state.filter((_, i) => i % 2 === 0), [food_state]);
+  const rightColumn = useMemo(() => food_state.filter((_, i) => i % 2 === 1), [food_state]);
+
 
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 4000); // Change wallpaper every 4 seconds
+    }, 4000);
 
     return () => clearInterval(interval); // Clear interval on component unmount
   }, []);
@@ -221,9 +121,7 @@ const Home = ({ navigation }) => {
     console.log('Navigating to search screen')
   }
   const handleToFoodViewPage = (item) => {
-    // navigation.navigate('AddFood',{food_id_params:item.id,food_name_params:item.food_name,food_price_params:item.food_price,food_image_params:item.images});
-
-    navigation.navigate('ViewFood',{food_details:item})
+    navigation.navigate('ViewFood', { food_details: item })
   }
 
 
@@ -234,16 +132,16 @@ const Home = ({ navigation }) => {
       <View style={styles.home_screen}>
 
         <NavBar handleSearchScreen={handleSearchScreen} isTextInput={false} isBack={false} navigation={navigation} />
-        
+
         {/* <ScrollView showsVerticalScrollIndicator={false} stickyHeaderIndices={[1]}> */}
         <ScrollView showsVerticalScrollIndicator={false}
-        nestedScrollEnabled={true}
-        overScrollMode='never'
+          nestedScrollEnabled={true}
+          overScrollMode='never'
         >
 
           <View style={styles1.dashboardContainer} >
-          
-            <Greeting name={state.name}/>
+
+            <Greeting name={state.name} />
             <PagerView
               ref={pagerRef}
               style={{ width: width, height: scaleHeight(150) }}
@@ -267,7 +165,7 @@ const Home = ({ navigation }) => {
               ))}
             </View>
 
-            <View style={{ gap: scaleHeight(5), marginTop: scaleHeight(10), backgroundColor: '#F0F4F8', paddingVertical: scaleHeight(10),width:'100%' }}>
+            <View style={{ gap: scaleHeight(5), marginTop: scaleHeight(10), backgroundColor: '#F0F4F8', paddingVertical: scaleHeight(10), width: '100%' }}>
               <View style={{ width: '100%', paddingHorizontal: scaleWidth(8) }}>
                 <Text style={{ fontFamily: 'poppins_bold', fontSize: scaleWidth(18) }}>Restaurant Categories</Text>
               </View>
@@ -292,13 +190,11 @@ const Home = ({ navigation }) => {
                   dishImage={categoryChicken}
                   dishName={'Chicken'}
                 />
-               
-
                 <CategoriesRestaurant
                   dishImage={categoryCake}
                   dishName={'Cake'}
                 />
-             
+
               </View>
 
             </View>
@@ -334,33 +230,34 @@ const Home = ({ navigation }) => {
                       }
                     </View>
                   </ScrollView>
-                  {/* <View style={{width:width,borderWidth:1,borderColor:'grey',bottom:10,position:'absolute'}}></View> */}
                 </View>
               </View>
             </View>
-
-
-
           </View>
 
 
+          {/*
+          FoodCards Section with two columns , Left and Right
+          The Left column and Right column are first filtered and 
+          then mapped with the food data from the server
+          */}
           <View style={styles.foodItems_container}>
-            <View style={{ width: '50%', alignItems: 'center'}}>
+            <View style={{ width: '50%', alignItems: 'center' }}>
               {
                 leftColumn.map((item, index) => (
                   <FoodCard
-                  key={item.id}
-                  food_picture={item.images.length > 0 ? item.images[0].image : null}
-                  price={item.food_price}
-                  restaurant_name={item.food_restaurant || 'KFC'}
-                  discount={item.discount || 12}
-                  foodName={item.food_name}
-                  no_fragments={null}
-                  eatsNumber={item.totol_eats || 120}
-                  rating={item.rating || 3.5}
-                  location={item.food_location || 'Kathmandu, Thamel'}
-                  handleToFoodViewPage={()=>handleToFoodViewPage(item)}
-                />
+                    key={item.id}
+                    food_picture={item.images.length > 0 ? item.images[0].image : null}
+                    price={item.food_price}
+                    restaurant_name={item.food_restaurant || 'KFC'}
+                    discount={item.discount || 12}
+                    foodName={item.food_name}
+                    no_fragments={null}
+                    eatsNumber={item.totol_eats || 120}
+                    rating={item.rating || 3.5}
+                    location={item.food_location || 'Kathmandu, Thamel'}
+                    handleToFoodViewPage={() => handleToFoodViewPage(item)}
+                  />
                 ))
               }
             </View>
@@ -369,27 +266,27 @@ const Home = ({ navigation }) => {
               {
                 rightColumn.map((item, index) => (
                   <FoodCard
-                  key={item.id}
-                  food_picture={item.images.length > 0 ? item.images[0].image : null}
-                  price={item.food_price}
-                  restaurant_name={item.food_restaurant || 'Muskan Khaja Ghar'}
-                  discount={item.discount || 12}
-                  foodName={item.food_name}
-                  no_fragments={null}
-                  eatsNumber={item.totol_eats || 120}
-                  rating={item.rating || 3.5}
-                  location={item.food_location || 'Kathmandu, Thamel'}
-                  handleToFoodViewPage={()=>handleToFoodViewPage(item)}
-                />
+                    key={item.id}
+                    food_picture={item.images.length > 0 ? item.images[0].image : null}
+                    price={item.food_price}
+                    restaurant_name={item.food_restaurant || 'Muskan Khaja Ghar'}
+                    discount={item.discount || 12}
+                    foodName={item.food_name}
+                    no_fragments={null}
+                    eatsNumber={item.totol_eats || 120}
+                    rating={item.rating || 3.5}
+                    location={item.food_location || 'Kathmandu, Thamel'}
+                    handleToFoodViewPage={() => handleToFoodViewPage(item)}
+                  />
                 ))
               }
             </View>
           </View>
         </ScrollView>
         {/* <CustomSnackbar message={state.snackmessage} visible={snackBar}></CustomSnackbar> */}
-        <SnackBar message={state.snackmessage} visible={snackBar}/>
+        <SnackBar message={state.snackmessage} visible={snackBar} />
       </View>
-      
+
     </SafeAreaView>
   )
 }
@@ -402,11 +299,6 @@ const styles1 = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#ffffff',
-    // backgroundColor: '#ced4da',
-    // backgroundColor: '#DDE1E3',
-    // padding: 10,
-    //  marginBottom: scaleHeight(10),
-    //  paddingBottom: scaleHeight(10),
   },
   dashContainer: {
     flexDirection: 'row',
@@ -429,6 +321,4 @@ const styles1 = StyleSheet.create({
     height: 0,
     borderRadius: 5
   },
-
-
 })
