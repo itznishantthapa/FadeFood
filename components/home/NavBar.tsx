@@ -14,13 +14,6 @@ import { scaleWidth,scaleHeight } from '../../Scaling';
 
 const NabBar = ({ handleSearchScreen, isTextInput, isBack,navigation }) => {
   const [searchText, setSearchText] = useState('');
-  // Array of placeholder texts that will rotate
-  // const placeholders = [
-  //   'Go for your favorite restaurant',
-  //   'Mo:mo',
-  //   'Keema Noodles',
-  //   'Find delicious meals'
-  // ];
 
   const placeholders= useMemo(()=>
     [
