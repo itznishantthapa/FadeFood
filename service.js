@@ -108,7 +108,7 @@ export const login = async (data) => {
      //we need to implement login again
     await clearTokens();
     Alert.alert("Session expired", "Please log in again" , [
-      { text: "OK", onPress: () => navigation.navigate("Login") },
+      // { text: "OK", onPress: () => navigation.navigate("Login") },
     ]);
 
 

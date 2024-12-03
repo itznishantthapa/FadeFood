@@ -156,26 +156,15 @@ const NabBar = ({ handleSearchScreen, isTextInput, isBack,navigation }) => {
 
 
         <TouchableOpacity style={{height:'95%',width:'20%',backgroundColor:'#333333',marginLeft:'auto',borderTopRightRadius:scaleWidth(17),borderBottomRightRadius:scaleWidth(17),justifyContent:'center',alignItems:'center'}}>
-          {/* <Feather
-            name="search"
-            size={scaleWidth(30)}
-            style={{ color: '#333333' }}
-          /> */}
           <Text  style={{ color: '#ffffff',fontSize:scaleWidth(15),fontFamily:'poppins_semibold' }}>Search</Text>
         </TouchableOpacity>
         </View>
-
-
-
-      {/* </View> */}
-      {/* </TouchableWithoutFeedback> */}
     </View>
   )
 }
 
 export default NabBar
 
-//create stylesheets funcation here
 const styles = StyleSheet.create({
   navBar: {
     width: '100%',
@@ -194,35 +183,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: scaleWidth(1.5),
-    
-    // borderLeftWidth: scaleWidth(2),
-    // borderTopWidth: scaleWidth(2),
-    // borderBottomWidth: scaleWidth(2),
-    // borderColor: '#FF5722',
     borderColor: '#333333',
-    // borderColor: 'red',
     height: scaleHeight(45),
     width: '88%',
     borderRadius: scaleWidth(20),
-    // borderBottomLeftRadius: scaleWidth(20),
-    // backgroundColor: '#F5F5F5',
     paddingHorizontal: scaleWidth(1),
     paddingLeft: scaleWidth(10),
-    // paddingRight: scaleWidth(0),
-
   },
-  // searchView: {
-  //   height: scaleHeight(45),
-  //   borderColor: '#333333',
-  //   width: '15%',
-  //   borderWidth: scaleWidth(2),
-  //   borderLeftWidth: 0,
-  //   borderTopRightRadius: scaleWidth(20),
-  //   borderBottomRightRadius: scaleWidth(20),
-  //   borderBottomLeftRadius: scaleWidth(40),
-  //   alignItems: 'center',
-  //   justifyContent: 'center'
-  // },
+
   searchInput: {
     height: '80%',
     color: '#666666',

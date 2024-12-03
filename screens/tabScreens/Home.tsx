@@ -29,6 +29,8 @@ import { myContext } from '../../context/AppProvider';
 import SnackBar from '../viewScreens/SnackBar';
 import CustomSnackbar from '../viewScreens/CustomSnackbar';
 import { baseURL } from '../../service';
+import { Skeleton } from '@rneui/themed';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 
@@ -137,6 +139,7 @@ const Home = ({ navigation }) => {
           <View style={styles1.dashboardContainer} >
 
             <Greeting name={state.name} />
+
             <PagerView
               ref={pagerRef}
               style={{ width: width, height: scaleHeight(125) }}
@@ -146,7 +149,7 @@ const Home = ({ navigation }) => {
               {images.map((image, index) => (
                 <TouchableOpacity key={index} style={{ alignItems: 'center', height: '100%', paddingHorizontal: scaleWidth(8) }}>
                   <View style={{ width: '100%', backgroundColor: "black", borderRadius: scaleWidth(20) }}>
-                    <Image resizeMode='stretch'  style={{ height: '100%', width: '100%', borderRadius: scaleWidth(20)}} source={image}></Image>
+                    <Image resizeMode='stretch' style={{ height: '100%', width: '100%', borderRadius: scaleWidth(20) }} source={image}></Image>
                   </View>
                 </TouchableOpacity>
 

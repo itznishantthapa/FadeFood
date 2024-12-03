@@ -8,6 +8,7 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { scaleHeight, scaleWidth } from "../../Scaling";
 import { baseURL } from "../../service";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
+import SkeletonPaper from "../../screens/viewScreens/SkeletonPaper";
 
 
 const FoodCard = ({
@@ -32,11 +33,15 @@ const FoodCard = ({
       onPress={handleToFoodViewPage}
     >
       <View style={{ height: scaleHeight(150), width: "100%" }}>
-        <Image
+        {/* <Image
           resizeMode="cover"
           style={{ height: "100%", width: "100%" }}
           source={{ uri: `${baseURL}${food_picture}` }}
-        ></Image>
+        ></Image> */}
+        <SkeletonPaper 
+        SkeletonHeight={'100%'}
+        SkeletonWidth={'100%'}
+        />
       </View>
 
       {/* <View style={{ paddingLeft: 15, paddingBottom: 5 }}> */}
