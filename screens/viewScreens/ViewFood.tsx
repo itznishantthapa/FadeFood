@@ -83,8 +83,8 @@ const ViewFood = ({ navigation, route }) => {
     setonCheckout(true);
   };
   const handleToRestaurantProfile = () => {
-    // navigation.navigate('RestaurantProfile',{restaurant_id:food_details_state.restaurant_name});
-    navigation.navigate('RestaurantProfile');
+    navigation.navigate('RestaurantProfile',{restaurant_id:food_details_state.restaurant_name});
+    // navigation.navigate('RestaurantProfile');
     // console.log('Restaurant ID----->',route.params.food_details.restaurant_name);
   }
 

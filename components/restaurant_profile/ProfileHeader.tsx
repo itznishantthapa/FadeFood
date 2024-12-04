@@ -6,20 +6,21 @@ import { myContext } from '../../context/AppProvider'
 import WavePulse from './WavePulse'
 import SkeletonPaper, { SkeletonCircle } from '../../screens/viewScreens/SkeletonPaper'
 import { scaleHeight } from '../../Scaling'
+import { FA5Style } from '@expo/vector-icons/build/FontAwesome5'
 
-const ProfileHeader = ({ handleGoBack, logo,openMaps, restaurantName, openingHour, rating, cityName, streetAddress, activeStatus ,businessType}) => {
+const ProfileHeader = ({ handleGoBack, logo, openMaps, restaurantName, openingHour, rating, cityName, streetAddress, activeStatus, businessType }) => {
+  const { state } = useContext(myContext)
 
   console.log(activeStatus, '-------------------------by profile header')
   return (
     <View style={styles.header}>
       {
-        false &&
+        handleGoBack &&
         <TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
           <AntDesign name="arrowleft" size={24} color="#333" />
         </TouchableOpacity>
       }
       {
-        activeStatus ? (
           <View style={styles.activeStatus}>
             <Text style={styles.activeStatusText}>{activeStatus ? 'Open' : 'Close'}</Text>
             <WavePulse
@@ -28,19 +29,11 @@ const ProfileHeader = ({ handleGoBack, logo,openMaps, restaurantName, openingHou
               style={{ margin: 0 }} />
 
           </View>
-        ) : (
-          // <View style={[styles.activeStatus,{paddingVertical:0,paddingHorizontal:0}]}>
-          <SkeletonPaper
-            SkeletonHeight={30}
-            SkeletonWidth={80}
-            style={[styles.activeStatus, { paddingVertical: 0, paddingHorizontal: 0 }]}
-          />
-          // </View>
-        )
+    
       }
 
 
-      <View style={styles.profileContainer}>
+      <View style={[styles.profileContainer, { marginTop: state.role === 'customer' ? 27 : 18 }]}>
         {
           logo ? (
             <Image
@@ -75,12 +68,11 @@ const ProfileHeader = ({ handleGoBack, logo,openMaps, restaurantName, openingHou
           }
           {
             businessType ? (
-
               <Text style={styles.cuisineText}>{businessType}</Text>
             ) : (
-              <View style={{ marginBottom: scaleHeight(12) }}>
+              <View style={{ marginBottom: scaleHeight(12), marginTop: scaleHeight(2) }}>
                 <SkeletonPaper
-                  SkeletonHeight={15}
+                  SkeletonHeight={20}
                   SkeletonWidth={150}
                   style={undefined}
                 />
@@ -88,7 +80,7 @@ const ProfileHeader = ({ handleGoBack, logo,openMaps, restaurantName, openingHou
             )
           }
           {
-            rating && openingHour? (
+            openingHour ? (
               <View style={styles.statsContainer}>
                 <View style={styles.statItem}>
                   <AntDesign name="star" size={16} color="#FFD700" />
@@ -102,7 +94,7 @@ const ProfileHeader = ({ handleGoBack, logo,openMaps, restaurantName, openingHou
               </View>
             ) : (
               <SkeletonPaper
-                SkeletonHeight={18}
+                SkeletonHeight={22}
                 SkeletonWidth={150}
                 style={styles.statsContainer}
               />
@@ -110,21 +102,21 @@ const ProfileHeader = ({ handleGoBack, logo,openMaps, restaurantName, openingHou
           }
 
 
-{
-  streetAddress && cityName ?(
-    <TouchableOpacity style={styles.locationContainer} onPress={openMaps}>
-    <Ionicons name="location-sharp" size={18} color="#E23744" />
-    <Text style={styles.locationText}>{streetAddress}, {cityName}</Text>
-    <MaterialIcons name="directions" size={20} color="#E23744" />
-  </TouchableOpacity>
-  ):(
-    <SkeletonPaper
-    SkeletonHeight={40}
-    SkeletonWidth={320}
-    style={styles.locationContainer}
-  />
-  )
-}
+          {
+            streetAddress && cityName ? (
+              <TouchableOpacity style={styles.locationContainer} onPress={openMaps}>
+                <Ionicons name="location-sharp" size={18} color="#E23744" />
+                <Text style={styles.locationText}>{streetAddress}, {cityName}</Text>
+                <MaterialIcons name="directions" size={20} color="#E23744" />
+              </TouchableOpacity>
+            ) : (
+              <SkeletonPaper
+                SkeletonHeight={40}
+                SkeletonWidth={320}
+                style={styles.locationContainer}
+              />
+            )
+          }
 
 
         </View>
@@ -178,7 +170,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     backgroundColor: 'transparent',
-    marginTop: 18,
+    // marginTop: 27,
   },
   restaurantLogo: {
     width: 80,
@@ -193,13 +185,12 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontFamily: 'poppins_semibold',
     color: '#333',
-    marginBottom: 4,
   },
   cuisineText: {
     fontSize: 14,
     fontFamily: 'poppins_regular',
     color: '#666',
-    marginBottom: 12,
+    marginBottom: scaleHeight(12),
   },
   statsContainer: {
     flexDirection: 'row',

@@ -12,15 +12,16 @@ import { MenuItemsScreen } from '../../components/restaurant_profile/MenuSection
 import { myContext } from '../../context/AppProvider';
 import { get_data_with_id } from '../../service';
 import { useFocusEffect } from '@react-navigation/native';
+import { getRestaurantInformation } from '../../apis/getRestaurantInformation';
 
 const Tab = createMaterialTopTabNavigator();
 
 
 
 
-const RestaurantProfile = ({ navigation }) => {
+const RestaurantProfile = ({ navigation,route }) => {
   const { isLoading, setisLoading, snackBar, setsnackBar, initialseller_state, dispatch, state, seller_state, seller_dispatch, food_state, food_dispatch } = useContext(myContext);
-  // const { restaurant_id } = route.params;
+  const { restaurant_id } = route.params;
 
 
   // const getting_restaurant_details = async () => {
@@ -51,6 +52,25 @@ const RestaurantProfile = ({ navigation }) => {
   //     };
   //   }, [])
   // );
+
+  // export const getRestaurantInformation = async (seller_dispatch,id,initialseller_state)
+  const fetchRestaurantDetails = async () => {
+
+      await getRestaurantInformation(seller_dispatch,restaurant_id,initialseller_state)
+      console.log('-----------restaurant_name by Restaurant Profile>>---------------------------', restaurant_id);
+  };
+
+  useEffect(() => {
+    // Fetch and set restaurant info
+
+    fetchRestaurantDetails();
+    return () => {
+      // Clear data when screen is unfocused
+      seller_dispatch({ type: "CLEAR" });
+      console.log("Restaurant Profile Unfocused");
+    };
+  }, [])
+
 
 
   const handleGoBack = () => navigation.goBack();
@@ -104,6 +124,8 @@ const RestaurantProfile = ({ navigation }) => {
         streetAddress={seller_state.street_address}
         activeStatus={seller_state.is_active}
         handleGoBack={handleGoBack}
+        logo={false}
+        businessType={seller_state.business_type}
       />
 
       {/* Navigation Tabs */}
@@ -113,7 +135,7 @@ const RestaurantProfile = ({ navigation }) => {
           tabBarStyle: styles.tabBar,
           tabBarIndicatorStyle: styles.tabIndicator,
           tabBarLabelStyle: styles.tabLabel,
-          tabBarActiveTintColor: '#E23744',
+          tabBarActiveTintColor: '#333333',
           tabBarInactiveTintColor: '#666',
         }}
       >
@@ -141,7 +163,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#F0F0F0',
   },
   tabIndicator: {
-    backgroundColor: '#E23744',
+    backgroundColor: '#333333',
     height: 3,
   },
   tabLabel: {
