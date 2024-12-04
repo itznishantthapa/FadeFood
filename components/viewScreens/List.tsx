@@ -60,6 +60,7 @@ const List = ({
              <SkeletonPaper 
              SkeletonHeight={scaleHeight(150)}
              SkeletonWidth={'90%'}
+             style={undefined}
              />
             )
               }
@@ -81,8 +82,29 @@ const List = ({
         <View style={styles.infoSection}>
 
           <View style={styles.namePriceRow}>
-            <Text style={styles.foodName}>{foodName}</Text>
-            <Price priceFontSize={18} price={price} />
+            {
+              false?(
+
+                <Text style={styles.foodName}>{foodName}</Text>
+              ):(
+                <SkeletonPaper
+                SkeletonHeight={25}
+                SkeletonWidth={200}
+                style={styles.foodName}
+              />
+              )
+            }
+            {
+              false?(
+                <Price priceFontSize={18} price={price} />
+              ):(
+                <SkeletonPaper
+                SkeletonHeight={25}
+                SkeletonWidth={60}
+                style={undefined}
+              />
+              )
+            }
           </View>
           {
             state.role === 'customer' && (
