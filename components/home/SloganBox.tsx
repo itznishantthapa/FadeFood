@@ -30,4 +30,3 @@ const SloganBox = ({ solgan_line1, solgan_line2, solgan_line3 }) => {
 
 export default SloganBox
 
-// const styles = StyleSheet.create({})

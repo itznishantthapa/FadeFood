@@ -50,9 +50,10 @@ export const clearTokens = async () => {
 
 // Set up base URL for your Django API
 const api = axios.create({
-  baseURL: "http://192.168.1.65:5555/",
-  // baseURL: "http://192.168.15.215:5555/",
+  // baseURL: "http://192.168.1.65:5555/",
+  baseURL: "http://192.168.55.215:5555/",
   // baseURL: "http://192.168.67.215:5555/",
+  // baseURL: "http://192.168.46.163:5555/",
 });
 
 // Function for signup

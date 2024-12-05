@@ -22,4 +22,3 @@ const CategoriesRestaurant = ({dishImage,dishName}) => {
 
 export default CategoriesRestaurant
 
-// const styles = StyleSheet.create({})
