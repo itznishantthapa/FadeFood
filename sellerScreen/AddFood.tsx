@@ -23,7 +23,6 @@ const PreviewFoodCard = ({ food_name, price, images }) => {
               <Image
                 key={index}
                 source={{  uri: imageObj.image.startsWith('file') ? imageObj.image : `${baseURL}${imageObj.image}` }}
-                // source={{ uri: imageObj.image }}
                 resizeMode="cover"
                 style={styles.foodImage}
               />
@@ -90,10 +89,6 @@ const AddFood = ({ navigation, route }) => {
   const { food_state, food_dispatch } = useContext(myContext);
 
   const [foodInfoState, foodInfo_dispatch] = useReducer(foodInfoReducer, foodInitialInfoState);
-  // const [food_name, setfood_name] = useState('');
-  // const [food_price, setPrice] = useState('');
-  // const [food_image, setImages] = useState([]);
-  // const [id, setid] = useState(null)
   const [isgoingToUpdate, setisgoingToUpdate] = useState(false)
 
   // Update state when route.params changes
@@ -111,13 +106,10 @@ const AddFood = ({ navigation, route }) => {
 
     if (food_image_params) {
       const newImages = food_image_params.map((item) => ({id:item.id, image: item.image }));
-      // setImages(newImages);
       newImages.forEach((image) => {
         foodInfo_dispatch({type: 'add_food_image', payload: image})
       })
     } else {
-      // setImages([]);
-      // foodInfo_dispatch({type: 'add_food_image', payload  : []})
       foodInfo_dispatch({ type: 'clear_food_images' });
     }
   }, [route.params]);
@@ -126,10 +118,6 @@ const AddFood = ({ navigation, route }) => {
   useFocusEffect(
     React.useCallback(() => {
       return () => {
-        // setid(null);
-        // setfood_name('');
-        // setPrice('');
-        // setImages([]);
         foodInfo_dispatch({type: 'id', payload: null})
         foodInfo_dispatch({type: 'add_food_name', payload: ''})
         foodInfo_dispatch({type: 'add_food_price', payload: ''})
@@ -147,10 +135,6 @@ const AddFood = ({ navigation, route }) => {
       return;
     }
 
-    // if (food_image.length >= 3) {
-    //   alert('You can only upload up to 3 images');
-    //   return;
-    // }
 
     if (foodInfoState.images.length >= 3) {
       alert('You can only upload up to 3 images');
