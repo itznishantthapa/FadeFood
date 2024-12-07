@@ -26,50 +26,9 @@ import { useFocusEffect } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('window');
 
-// const initialseller_state = {
-//   name: '',
-//   street_address: '',
-//   city: '',
-//   business_type: '',
-//   opening_hour: '',
-//   citizenship_number: '',
-//   pan_number: '',
-//   is_seller: true,
-// };
-
-// const seller_reducer = (seller_state, action) => {
-//   return {
-//     ...seller_state,
-//     [action.type]: action.payload
-//   };
-// };
 
 const RestaurantRegistration = ({ navigation }) => {
   const { isLoading, setisLoading, snackBar, setsnackBar, dispatch,state,seller_state,seller_dispatch } = useContext(myContext);
-  // const [seller_state, seller_dispatch] = useReducer(seller_reducer, initialseller_state);
-
-  // const fetchData = async () => {
-  //   setisLoading(true);
-  //   const response = await get_data('get_restaurant');
-  //   if (response.success) {
-  //     setisLoading(false);
-  //     Object.entries(response.data).forEach(([key, value]) => {
-  //       if (initialseller_state.hasOwnProperty(key)) {
-  //         seller_dispatch({ type: key, payload: value });
-  //       }
-  //     });
-  //   } else {
-  //     setisLoading(false);
-  //     Alert.alert('Error', response.data);
-  //   }
-  // };
-
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     fetchData();
-  //     return () => {};
-  //   }, [])
-  // );
 
   const handleRegister = async () => {
     Keyboard.dismiss();
