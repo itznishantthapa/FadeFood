@@ -69,13 +69,6 @@ const Favourite = ({ navigation }) => {
                 withRestaurant={true}
                 handlePressonList={()=>{navigation.navigate('ViewFood')}}
               />
-              // images,
-              // foodName,
-              // restaurantName,
-              // price,
-              // navigation,
-              // withRestaurant,
-              // handlePressonList
             ))}
           </View>
         </ScrollView>
