@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   snackbarText: {
-    // color: '#fff',
     color: '#333333',
     fontSize: scaleWidth(14),
     fontFamily: 'jakarta_bold',

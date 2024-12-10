@@ -10,7 +10,6 @@ import { myContext } from "../../context/AppProvider";
 import { styles } from "../../style/style";
 import { baseURL } from "../../service";
 import SkeletonPaper from "../../screens/viewScreens/SkeletonPaper";
-// import SkeletonPaper from '../viewScreens/SkeletonPaper';
 
 
 
@@ -35,9 +34,6 @@ const List = ({
   }
 
 
-
-  // console.log('---------------------printing from valid List.tsx---------------------->', images);
-
   return (
     <TouchableWithoutFeedback onPress={handlePressonList}>
 
@@ -55,8 +51,6 @@ const List = ({
               />
             ))
           ) : (
-            // Array(3).fill(0).map((_, index) => (
-              // <View key={index} style={[styles.foodImage, { backgroundColor: '#ccc' }]} />))
              <SkeletonPaper 
              SkeletonHeight={scaleHeight(150)}
              SkeletonWidth={'90%'}

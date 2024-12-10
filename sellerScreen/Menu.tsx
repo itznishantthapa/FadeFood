@@ -22,7 +22,6 @@ const Tab = createMaterialTopTabNavigator();
 
 const Menu = ({ navigation }) => {
   const { seller_state } = useContext(myContext);
-  // console.log('--------------------------------->',food_state);
   const handleGoBack = () => navigation.goBack();
 
 

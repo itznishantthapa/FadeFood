@@ -91,5 +91,3 @@ const SellerSetting = ({ navigation }) => {
 }
 
 export default SellerSetting
-
-// const styles = StyleSheet.create({})
