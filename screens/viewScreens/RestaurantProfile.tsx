@@ -24,35 +24,6 @@ const RestaurantProfile = ({ navigation,route }) => {
   const { restaurant_id } = route.params;
 
 
-  // const getting_restaurant_details = async () => {
-  //   const response = await get_data_with_id("get_specific_restaurant", { restaurant_name: restaurant_id });
-  //   console.log('-----------restaurant_name by Restaurant Profile>>---------------------------', restaurant_id);
-  //   if (response.success) {
-  //     console.log('-----------data_with_id---------------------------', response.data);
-
-  //     Object.entries(response.data).forEach(([key, value]) => {
-  //       if (initialseller_state.hasOwnProperty(key)) {
-  //         seller_dispatch({ type: "SET_DATA", key, payload: value });
-  //       }
-  //     });
-      
-  //   } else {
-  //     console.log("Error", response.data);
-  //   }
-  // }
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     // Fetch and set restaurant info
-  //     getting_restaurant_details();
-
-  //     return () => {
-  //       // Clear data when screen is unfocused
-  //       seller_dispatch({ type: "CLEAR" });
-  //       console.log("Restaurant Profile Unfocused");
-  //     };
-  //   }, [])
-  // );
-
   // export const getRestaurantInformation = async (seller_dispatch,id,initialseller_state)
   const fetchRestaurantDetails = async () => {
 

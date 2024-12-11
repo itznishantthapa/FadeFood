@@ -5,7 +5,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { scaleHeight, scaleWidth } from '../../Scaling';
 
 const { width, height } = Dimensions.get('window');
-// withSettingIcons={false} handleSetting={undefined}
 const TopBar = ({ top_title, navigation, handleSettingIcon, withSettingIcons }) => {
   return (
     <View style={styles.topBarContainer} >
