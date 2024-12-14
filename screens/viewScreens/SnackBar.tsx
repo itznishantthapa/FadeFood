@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     right: scaleWidth(20),
     paddingHorizontal: scaleHeight(10),
     paddingVertical: scaleHeight(10),
-    // backgroundColor: '#4CAF50',
     backgroundColor: '#80ed99',
     borderRadius: scaleWidth(10),
     flexDirection: 'row',

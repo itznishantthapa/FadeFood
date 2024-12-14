@@ -10,22 +10,22 @@ const Edit = ({handleEditPen}) => {
     style={{ 
         height: scaleHeight(30), 
         width: scaleWidth(40), 
-        backgroundColor:  '#FFFFFF', // Change background based on state
+        backgroundColor:  '#FFFFFF', 
         borderTopRightRadius: 12, 
         borderBottomLeftRadius: 12, 
         marginLeft: 'auto', 
         alignItems: 'center', 
         justifyContent: 'center',
-        elevation: 2 // Optional: adds shadow on Android
+        elevation: 2 
     }}
 
-    onPress={handleEditPen} // Add onPress event
+    onPress={handleEditPen}
 >
     <AntDesign
-        name={ 'edit'} // Change icon based on state
+        name={ 'edit'} 
         size={scaleWidth(25)} 
         style={{ 
-            color: '#FF6347' // Change color based on state
+            color: '#FF6347' 
         }}
     />
 </TouchableOpacity>
