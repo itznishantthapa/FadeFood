@@ -114,7 +114,6 @@ const AddFood = ({ navigation, route }) => {
     }
   }, [route.params]);
 
-  // Clear the state on focus out
   useFocusEffect(
     React.useCallback(() => {
       return () => {
@@ -158,7 +157,6 @@ const AddFood = ({ navigation, route }) => {
 
 
   const handleUpload = async () => {
-    //Validate the input and all images are uploaded
     if (!foodInfoState.food_name || !foodInfoState.food_price ) {
       alert('Please fill all the fields');
       return;
@@ -168,7 +166,6 @@ const AddFood = ({ navigation, route }) => {
       alert('Please upload 3 images');
       return
     }
-    // const imageUris = food_image.map((item) => item.image);
     const foodObj = {
       food_name: foodInfoState.food_name,
       food_price: foodInfoState.food_price,
@@ -189,7 +186,6 @@ const AddFood = ({ navigation, route }) => {
       }
     } else if (isgoingToUpdate) {
       console.log('Going to PUT');
-      // const response = await update_data('edit_food', { food_name: food_name, food_price: food_price, id: id });
       const response = await post_data_with_img('edit_food',foodObj, foodInfoState.images , 'PUT');
       if (response.success) {
         food_dispatch({ type: 'UPDATE_FOOD', payload: response.data });
