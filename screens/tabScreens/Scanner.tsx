@@ -17,7 +17,6 @@ export default function Scanner({ navigation }) {
       setscanned(false)
 
       return () => {
-        // Code to run when the screen is unfocused
         console.log('Screen is unfocused');
         setscanned(true)
       };
@@ -25,7 +24,6 @@ export default function Scanner({ navigation }) {
   );
 
   if (!permission) {
-    // Camera permissions are still loading.
     return <View />;
   }
 

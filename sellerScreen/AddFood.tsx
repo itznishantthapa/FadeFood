@@ -91,7 +91,6 @@ const AddFood = ({ navigation, route }) => {
   const [foodInfoState, foodInfo_dispatch] = useReducer(foodInfoReducer, foodInitialInfoState);
   const [isgoingToUpdate, setisgoingToUpdate] = useState(false)
 
-  // Update state when route.params changes
   useEffect(() => {
     const { food_id_params = null, food_name_params = '', food_price_params = '', food_image_params = null } = route.params || {};
     if (food_name_params && food_price_params) {
