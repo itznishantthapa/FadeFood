@@ -35,7 +35,6 @@ const RestaurantRegistration = ({ navigation }) => {
     setisLoading(true);
     console.log(seller_state)
     
-    // const response = await update_data('edit_restaurant', seller_state);
     const response = await post_data('register_restaurant', seller_state);
     
     if (response.success) {
