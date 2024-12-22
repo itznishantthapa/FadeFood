@@ -7,11 +7,7 @@ import { AntDesign } from '@expo/vector-icons'; // Make sure you have expo vecto
 import { scanFromURLAsync } from 'expo-camera';
 import { baseURL } from '../../service';
 
-// const images = [
-//   require('../../assets/images/img1 (1).png'),
-//   require('../../assets/images/img1 (2).png'),
-//   require('../../assets/images/img1 (3).png'),
-// ];
+
 
 const BigImage = ({scaleAnim,toggleFavorite,isFavorite,images}) => {
   console.log('images',images)
