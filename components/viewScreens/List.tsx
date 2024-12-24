@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, TouchableWithoutFeedback, Image, TouchableOpaci
 import React, { useContext } from "react";
 import Price from "./Price";
 import { scaleHeight, scaleWidth } from "../../Scaling";
-// import { TouchableOpacity } from "react-native-gesture-handler";
 import Love from "./Love";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import Edit from "./Edit";

@@ -19,7 +19,6 @@ const RatingStars = ({ rating, size = 16, color = "#FFD700" }) => {
 };
 
 const ReviewSection = ({ratingNumber,comment,person_name }) => {
-//   const reviewCount = reviews.length || 30; // Fallback to 30 if no reviews provided
 
   return (
       <View style={styles.reviewCard}>
