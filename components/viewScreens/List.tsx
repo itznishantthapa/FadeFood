@@ -23,9 +23,7 @@ const List = ({
   handleEditPen
 }) => {
   const { state } = useContext(myContext);
-  // const handlePress = () => {
-  //   navigation.navigate("ViewFood");
-  // };
+
 
   const onListPress = (e: { stopPropagation: () => void; }) => {
     e.stopPropagation();

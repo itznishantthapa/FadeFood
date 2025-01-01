@@ -12,26 +12,7 @@ import { baseURL } from '../../service';
 const BigImage = ({scaleAnim,toggleFavorite,isFavorite,images}) => {
   console.log('images',images)
   const [activeIndex, setActiveIndex] = useState(0);
-  // const [isFavorite, setIsFavorite] = useState(false);
-  // const scaleAnim = useRef(new Animated.Value(1)).current;
 
-  // const toggleFavorite = () => {
-  //   Animated.sequence([
-  //     Animated.timing(scaleAnim, {
-  //       toValue: 1.3,
-  //       duration: 150,
-  //       useNativeDriver: true,
-  //     }),
-  //     Animated.timing(scaleAnim, {
-  //       toValue: 1,
-  //       duration: 150,
-  //       useNativeDriver: true,
-  //     }),
-  //   ]).start();
-
-
-  //   setIsFavorite(!isFavorite);
-  // };
 
   return (
     <View style={{ height: scaleHeight(500), width: '100%' }}>

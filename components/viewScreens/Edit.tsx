@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View,TouchableOpacity } from 'react-native'
 import React from 'react'
-// import { TouchableOpacity } from 'react-native-gesture-handler'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { scaleHeight, scaleWidth } from '../../Scaling'
 
