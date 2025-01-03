@@ -18,10 +18,10 @@ export const initialseller_state = {
       case "SET_DATA":
         return {
           ...seller_state,
-          [action.key]: action.payload, // Updated to allow key-based updates
+          [action.key]: action.payload, 
         };
       case "CLEAR":
-        return initialseller_state; // Reset to initial state
+        return initialseller_state; 
       default:
         return seller_state;
     }
