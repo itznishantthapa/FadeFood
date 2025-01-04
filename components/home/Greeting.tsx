@@ -24,13 +24,13 @@ const styles = StyleSheet.create({
       greeting: {
         fontSize: scaleWidth(20),
         fontFamily: 'poppins_semibold',
-        color: '#014f86',
+        color: '#FF7F50',
         textShadowColor: 'rgba(0, 0, 0, 0.05)',
         textShadowOffset: { width: 0, height: scaleHeight(1) },
         textShadowRadius: scaleWidth(2),
       },
       name:{
-        fontFamily:'poppins_regular',
+        fontFamily:'poppins_semibold',
         fontSize:scaleWidth(16)
       },
       subText: {
