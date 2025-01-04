@@ -19,8 +19,8 @@ export const AppProvider = ({ children }) => {
   const fetchData = async () => {
     state.role === "customer" && await getUserInformation(dispatch, setisLogged);
       //correct stetup
-      // await  getRestaurantInformation(seller_dispatch , id = null, initialseller_state); 
       await getAllFood(food_dispatch);
+      await  getRestaurantInformation(seller_dispatch , id = null, initialseller_state); 
   };
 
   useEffect(() => {

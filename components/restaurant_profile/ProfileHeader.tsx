@@ -7,6 +7,7 @@ import WavePulse from './WavePulse'
 import SkeletonPaper, { SkeletonCircle } from '../../screens/viewScreens/SkeletonPaper'
 import { scaleHeight } from '../../Scaling'
 import { FA5Style } from '@expo/vector-icons/build/FontAwesome5'
+import { baseURL } from '../../service'
 
 const ProfileHeader = ({ handleGoBack, logo, openMaps, restaurantName, openingHour, rating, cityName, streetAddress, activeStatus, businessType }) => {
   const { state } = useContext(myContext)
@@ -28,6 +29,7 @@ const ProfileHeader = ({ handleGoBack, logo, openMaps, restaurantName, openingHo
               isActive={activeStatus}
               style={{ margin: 0 }} />
 
+
           </View>
     
       }
@@ -37,7 +39,7 @@ const ProfileHeader = ({ handleGoBack, logo, openMaps, restaurantName, openingHo
         {
           logo ? (
             <Image
-              source={require('../../assets/transparent_logo.png')}
+               source={{ uri: `${baseURL}${logo}`}}
               style={styles.restaurantLogo}
             />
           ) : (

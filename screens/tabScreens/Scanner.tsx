@@ -2,6 +2,7 @@ import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
 import { useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { Button, StyleSheet, Text, TouchableOpacity, View, Dimensions, Image } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import TopText from '../../components/scanner/TopText';
 const { width, height } = Dimensions.get('window');
@@ -54,6 +55,7 @@ export default function Scanner({ navigation }) {
   return (
 
     <SafeAreaView style={{ flex: 1 }}>
+        <StatusBar hidden={false} backgroundColor='black' style='light' />
       <View style={styles.container}>
         {!scanned && (
           <CameraView

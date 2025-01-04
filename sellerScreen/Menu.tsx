@@ -53,7 +53,7 @@ const MenuItemsWrapper = () => {
       <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
 
       <ProfileHeader 
-      handleGoBack={handleGoBack}
+      handleGoBack={undefined}
       openMaps={openMaps}
       restaurantName={seller_state.name}
       openingHour={seller_state.opening_hour}
@@ -61,6 +61,9 @@ const MenuItemsWrapper = () => {
       cityName={seller_state.city}
       streetAddress={seller_state.street_address}
       activeStatus={seller_state.is_active}
+      businessType={seller_state.business_type}
+      logo={seller_state.logo}
+
       />
       
       

@@ -74,7 +74,7 @@ const List = ({
 
           <View style={styles.namePriceRow}>
             {
-              false?(
+              foodName?(
 
                 <Text style={styles.foodName}>{foodName}</Text>
               ):(
@@ -86,7 +86,7 @@ const List = ({
               )
             }
             {
-              false?(
+              price?(
                 <Price priceFontSize={18} price={price} />
               ):(
                 <SkeletonPaper
