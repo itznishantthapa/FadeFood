@@ -8,6 +8,7 @@ import { getRestaurantInformation } from "../apis/getRestaurantInformation";
 import { getAllFood } from "../apis/getAllFoods";
 export const myContext = createContext();
 
+
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(user_reducer, userinitialState);
   const [seller_state, seller_dispatch] = useReducer(seller_reducer, initialseller_state);
@@ -23,6 +24,7 @@ export const AppProvider = ({ children }) => {
       await  getRestaurantInformation(seller_dispatch , id = null, initialseller_state); 
   };
 
+  
   useEffect(() => {
   fetchData();
   }, []);

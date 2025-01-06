@@ -63,10 +63,10 @@ const AboutScreen = ({navigation}) => {
           <View style={styles.developerSection}>
             <Text style={styles.sectionTitle}>Developer</Text>
             <Text style={styles.developerText}>
-              Created as a Second Year BIT Project
+              Created as a Second Year BIT Project by Nishant
             </Text>
             <Text style={styles.contactText}>
-              For feedback and suggestions, contact us at: support@dineease.com
+              For feedback and suggestions, contact us at: fadefood@dineease.com
             </Text>
           </View>
         </View>
