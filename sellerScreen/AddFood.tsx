@@ -96,11 +96,8 @@ const AddFood = ({ navigation, route }) => {
     if (food_name_params && food_price_params) {
       setisgoingToUpdate(true);
     }
-    // setid(food_id_params);
     foodInfo_dispatch({type: 'id', payload: food_id_params})
-    // setfood_name(food_name_params);
     foodInfo_dispatch({type: 'add_food_name', payload: food_name_params})
-    // setPrice(food_price_params.toString() || '');
     foodInfo_dispatch({type: 'add_food_price', payload: food_price_params.toString() || ''})
 
     if (food_image_params) {
@@ -147,9 +144,7 @@ const AddFood = ({ navigation, route }) => {
     });
 
     if (!result.canceled) {
-      // setImages([...food_image, { image: result.assets[0].uri }]);
       foodInfo_dispatch({type: 'add_food_image', payload: { image: result.assets[0].uri}})
-      // setImages([...food_image, result.assets[0].uri]);
     }
   };
 
@@ -196,7 +191,6 @@ const AddFood = ({ navigation, route }) => {
   };
 
   const handleDeleteLastImage = () => {
-   // setImages(food_image.slice(0, -1));
 
     if (foodInfoState.images.length > 0) {
       foodInfo_dispatch({type: 'remove_image', payload: foodInfoState.images[foodInfoState.images.length - 1].image}) 
