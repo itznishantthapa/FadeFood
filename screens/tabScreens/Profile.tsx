@@ -33,7 +33,6 @@ const ProfileScreen = ({ navigation }) => {
                         setisLoading(true)
                         await clearAllData()
                         setisLoading(false)
-                        // navigation.navigate('TabBars')
                         navigation.dispatch(
                             CommonActions.reset({
                                 index: 0,
