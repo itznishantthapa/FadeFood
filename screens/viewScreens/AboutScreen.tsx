@@ -15,7 +15,7 @@ const AboutScreen = ({navigation}) => {
           <Text style={styles.tagline}>Your Smart Dining Companion</Text>
         </View>
 
-        {/* Main Content */}
+
         <View style={styles.contentSection}>
           <Text style={styles.sectionTitle}>About Us</Text>
           <Text style={styles.description}>
@@ -24,7 +24,7 @@ const AboutScreen = ({navigation}) => {
             visit smooth, efficient, and enjoyable.
           </Text>
 
-          {/* Key Features Section */}
+
           <Text style={styles.sectionTitle}>Key Features</Text>
           <View style={styles.featureContainer}>
             <View style={styles.featureItem}>
@@ -59,7 +59,7 @@ const AboutScreen = ({navigation}) => {
             <Text style={styles.step}>5. Arrive and enjoy your meal!</Text>
           </View>
 
-          {/* Developer Info */}
+    
           <View style={styles.developerSection}>
             <Text style={styles.sectionTitle}>Developer</Text>
             <Text style={styles.developerText}>
