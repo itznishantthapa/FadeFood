@@ -4,7 +4,6 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 import NavBar from '../../components/home/NavBar'
 import { styles } from '../../style/style'
-import { Feather } from '@expo/vector-icons';
 import RecentSearchBar from '../../components/viewScreens/RecentSearchBar'
 import { scaleWidth } from '../../Scaling'
 

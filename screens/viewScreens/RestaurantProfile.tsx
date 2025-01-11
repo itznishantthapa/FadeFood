@@ -99,7 +99,7 @@ const RestaurantProfile = ({ navigation,route }) => {
         businessType={seller_state.business_type}
       />
 
-      {/* Navigation Tabs */}
+
       <Tab.Navigator
         style={styles.tabNavigator}
         screenOptions={{

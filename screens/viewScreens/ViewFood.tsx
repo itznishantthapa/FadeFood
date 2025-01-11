@@ -108,7 +108,6 @@ const ViewFood = ({ navigation, route }) => {
 
     setsnackBar(true)
     dispatch({ type: 'snackmessage', payload: 'Added to Favorites' })
-    // setmessage("Added to Favorites")
     setTimeout(() => setsnackBar(false), 3000);
 
 
