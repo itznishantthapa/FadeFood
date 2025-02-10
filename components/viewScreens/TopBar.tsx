@@ -22,7 +22,7 @@ const TopBar = ({ top_title, navigation, handleSettingIcon, withSettingIcons }) 
         (<TouchableOpacity style={styles.menuButton} onPress={handleSettingIcon}>
           <Ionicons name="settings" size={scaleWidth(25)} color="#333333" />
         </TouchableOpacity>):(
-          <View style={{padding:scaleWidth(25)}}></View>
+          <View style={{padding:scaleWidth(20)}}></View>
         )
       }
 

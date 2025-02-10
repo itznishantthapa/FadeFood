@@ -84,7 +84,7 @@ const FoodList = ({ navigation }) => {
                         <Text style={{ color: 'grey', fontSize: 30, fontFamily: 'inter_semibold' }}>Total</Text>
                         <Text style={{ color: 'grey', fontSize: 18, fontFamily: 'inter_semibold' }}>Rs. 250.00</Text>
                     </View>
-
+ 
                 </View>
                 <Button
                     btnText={'Checkout'}

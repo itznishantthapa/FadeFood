@@ -32,14 +32,14 @@ const RestaurantNotification = ({navigation}) => {
     },
   ];
 
-  const handleSettingIcon = () => {
-    navigation.navigate('SellerSetting');
-  }
+  // const handleSettingIcon = () => {
+  //   navigation.navigate('SellerSetting');
+  // }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F0F4F8" }}>
     <StatusBar hidden={false} backgroundColor="#F0F4F8" style="dark" />
-    <TopBar navigation={navigation} top_title='Notifications' withSettingIcons={true} handleSettingIcon={handleSettingIcon}/>
+    <TopBar navigation={navigation} top_title='Notifications' withSettingIcons={false} handleSettingIcon={undefined}/>
     <View style={styles.container}>
 
       {notifications.map((notification) => (

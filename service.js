@@ -48,6 +48,7 @@ export const clearTokens = async () => {
 // clearTokens();
 
 
+
 // Set up base URL for your Django API
 const api = axios.create({
   baseURL: "http://192.168.1.65:5555/",
