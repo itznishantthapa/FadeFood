@@ -50,8 +50,11 @@ const ProfileScreen = ({ navigation }) => {
         navigation.navigate('LoginScreens')
     }
 
+    // const handleSettingIcon = () => {
+    // navigation.navigate('SellerSetting')
+    // }
     const handleSettingIcon = () => {
-    navigation.navigate('SellerSetting')
+    navigation.navigate('MethodSelection')
     }
 
     return (

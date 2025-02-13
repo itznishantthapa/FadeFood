@@ -22,6 +22,8 @@ import RegistrationScreen from './sellerScreen/RegistrationScreen';
 import AccountSwitch from './screens/viewScreens/AccountSwitch';
 import SellerSetting from './sellerScreen/SellerSetting';
 import Home from './screens/tabScreens/Home';
+import MethodSelection from './screens/payment/MethodSelection';
+
 
 
 
@@ -74,6 +76,7 @@ export default function App() {
             <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} options={{ headerShown: false }} />
             <Stack.Screen name="SellerSetting" component={SellerSetting} options={{ headerShown: false }} />
             <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+            <Stack.Screen name="MethodSelection" component={MethodSelection} options={{ headerShown: false }} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
