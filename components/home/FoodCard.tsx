@@ -32,18 +32,18 @@ const FoodCard = ({
       }}
       onPress={handleToFoodViewPage}
     >
-      {/* <View style={{ height: scaleHeight(150), width: "100%" }}> */}
-        {/* <Image
+      <View style={{ height: scaleHeight(150), width: "100%" }}>
+        <Image
           resizeMode="cover"
           style={{ height: "100%", width: "100%" }}
           source={{ uri: `${baseURL}${food_picture}` }}
-        ></Image> */}
-        <SkeletonPaper 
+        ></Image>
+        {/* <SkeletonPaper 
         SkeletonHeight={'100%'}
         SkeletonWidth={'100%'}
         style={{height:scaleHeight(150)}}
-        />
-      {/* </View> */}
+        /> */}
+      </View>
 
       {/* <View style={{ paddingLeft: 15, paddingBottom: 5 }}> */}
       <View style={{ padding: scaleWidth(15) }}>

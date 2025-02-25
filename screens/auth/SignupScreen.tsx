@@ -109,7 +109,7 @@ const SignupScreen = ({ navigation }) => {
                         />
                         <Button
                             style={styles.loginButton}
-                            btnText='Sign In'
+                            btnText='Sign Up'
                             handleAuthBtn={handleSignUp}
                         />
                         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>

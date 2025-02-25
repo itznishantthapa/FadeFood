@@ -5,7 +5,6 @@ import { StatusBar } from "expo-status-bar";
 import TopBar from '../../components/viewScreens/TopBar';
 import { scaleHeight, scaleWidth } from '../../Scaling';
 import esewa from '../../assets/esewa.png'
-import esewaFull from '../../assets/esewaFull.png'
 
 
 
@@ -17,12 +16,12 @@ const MethodSelection = ({ navigation }) => {
       <View style={styles.container}>
         <View style={styles.paymentBar}>
               <View style={styles.paymentLogo}>
-                <Image source={esewaFull} style={styles.paymentLogoImage} />
+                <Image source={esewa} style={styles.paymentLogoImage} />
               </View>
 
-              {/* <View style={styles.paymentText}>
+              <View style={styles.paymentText}>
                 <Text style={styles.paymentTextTitle}>Esewa</Text>
-              </View> */}
+              </View>
 
         
             </View>
@@ -48,18 +47,26 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     paddingHorizontal: scaleWidth(10),
+    gap:scaleWidth(10),
+    padding:scaleHeight(10),
 
   },
   paymentLogo:{
-    width:scaleWidth(150),
-    height:scaleHeight(40),
+    width:scaleWidth(50),
+    height:scaleHeight(50),
     borderRadius:scaleWidth(10),
   },
 
   paymentLogoImage:{
-    width:'100%',
-    height:'100%',
+    width:scaleWidth(50),
+    height:scaleHeight(50),
     borderRadius:scaleWidth(10),
+
+  },
+  paymentTextTitle:{
+    fontSize:scaleWidth(20),
+    color:"#000",
+    fontFamily:'montserrat_semibold'
   }
 
 
