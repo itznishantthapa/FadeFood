@@ -31,6 +31,7 @@ import CustomSnackbar from '../viewScreens/CustomSnackbar';
 import { baseURL } from '../../service';
 import { Skeleton } from '@rneui/themed';
 import { LinearGradient } from 'expo-linear-gradient';
+import SlickCarousel from '../../components/home/SlickCarousel';
 
 
 
@@ -137,32 +138,8 @@ const Home = ({ navigation }) => {
         >
 
           <View style={styles1.dashboardContainer} >
-
             <Greeting name={state.name} />
-
-            <PagerView
-              ref={pagerRef}
-              style={{ width: width, height: scaleHeight(125) }}
-              initialPage={0}
-              onPageSelected={(e) => setActiveIndex(e.nativeEvent.position)}
-            >
-              {images.map((image, index) => (
-                <TouchableOpacity key={index} style={{ alignItems: 'center', height: '100%', paddingHorizontal: scaleWidth(8) }}>
-                  <View style={{ width: '100%', backgroundColor: "black", borderRadius: scaleWidth(20) }}>
-                    <Image resizeMode='stretch' style={{ height: '100%', width: '100%', borderRadius: scaleWidth(20) }} source={image}></Image>
-                  </View>
-                </TouchableOpacity>
-
-              ))}
-            </PagerView>
-
-
-            <View style={styles1.dashContainer}>
-              {images.map((_, index) => (
-                <View key={index} style={index === activeIndex ? [styles1.activeDash, { width: scaleWidth(50) - (index * scaleWidth(10)) }] : [styles1.dash, { width: scaleWidth(50) - (index * scaleWidth(10)) }]} />
-              ))}
-            </View>
-
+            <SlickCarousel ></SlickCarousel>
             <View style={{ gap: scaleHeight(5), marginTop: scaleHeight(10), backgroundColor: '#F0F4F8', paddingVertical: scaleHeight(10), width: '100%' }}>
               <View style={{ width: '100%', paddingHorizontal: scaleWidth(8) }}>
                 <Text style={{ fontFamily: 'poppins_bold', fontSize: scaleWidth(18) }}>Restaurant Categories</Text>

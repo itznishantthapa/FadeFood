@@ -72,15 +72,15 @@ const ViewFood = ({ navigation, route }) => {
 
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
-  const [onCheckout, setonCheckout] = useState(false);
+  // const [onCheckout, setonCheckout] = useState(false);
   const handleSearchScreen = () => {
     navigation.navigate("SearchScreen");
   };
-  const handleCheckoutButton = () => {
+  const handlePreorderButton = () => {
     console.log("Checkout Button Pressed");
   };
   const handleAddtoList = () => {
-    setonCheckout(true);
+    // setonCheckout(true);
   };
   const handleToRestaurantProfile = () => {
     navigation.navigate('RestaurantProfile',{restaurant_id:food_details_state.restaurant_name});
@@ -140,24 +140,15 @@ const ViewFood = ({ navigation, route }) => {
             />
             <View style={ownstyles.priceSection}>
               <Price priceFontSize={24} price={food_details_state.food_price}></Price>
-              {onCheckout ? (
-                <TouchableOpacity
+              <TouchableOpacity
                   style={[
                     ownstyles.addToListButton,
                     { backgroundColor: "#4CAF50" },
                   ]}
-                  onPress={handleCheckoutButton}
+                  onPress={handlePreorderButton}
                 >
-                  <Text style={ownstyles.buttonText}>Go for Checkout</Text>
+                  <Text style={ownstyles.buttonText}>Pre-Order Now</Text>
                 </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  style={ownstyles.addToListButton}
-                  onPress={handleAddtoList}
-                >
-                  <Text style={ownstyles.buttonText}>Add to List</Text>
-                </TouchableOpacity>
-              )}
             </View>
 
             {/* Restaurant Details */}

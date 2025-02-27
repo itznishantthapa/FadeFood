@@ -33,16 +33,18 @@ const FoodCard = ({
       onPress={handleToFoodViewPage}
     >
       <View style={{ height: scaleHeight(150), width: "100%" }}>
-        <Image
-          resizeMode="cover"
-          style={{ height: "100%", width: "100%" }}
-          source={{ uri: `${baseURL}${food_picture}` }}
-        ></Image>
-        {/* <SkeletonPaper 
-        SkeletonHeight={'100%'}
-        SkeletonWidth={'100%'}
-        style={{height:scaleHeight(150)}}
-        /> */}
+        {
+          food_picture ? (<Image
+            resizeMode="cover"
+            style={{ height: "100%", width: "100%" }}
+            source={{ uri: `${baseURL}${food_picture}` }}
+          ></Image>) : (<SkeletonPaper
+            SkeletonHeight={'100%'}
+            SkeletonWidth={'100%'}
+            style={{ height: scaleHeight(150) }}
+          />)
+        }
+
       </View>
 
       {/* <View style={{ paddingLeft: 15, paddingBottom: 5 }}> */}
@@ -73,7 +75,7 @@ const FoodCard = ({
           )}
         </View>
         <Text
-          style={{ fontFamily: 'poppins_semibold', fontSize:scaleWidth(14)  }}
+          style={{ fontFamily: 'poppins_semibold', fontSize: scaleWidth(14) }}
         >
           {foodName}
         </Text>

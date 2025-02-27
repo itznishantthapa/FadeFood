@@ -6,8 +6,6 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ant from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
-
 import Home from '../tabScreens/Home'
 import Favourite from '../tabScreens/Favourite';
 import Scanner from './Scanner';
@@ -21,13 +19,12 @@ import { FA6Style } from 'react-native-vector-icons/FontAwesome6';
 import { myContext } from '../../context/AppProvider';
 import RestaurantNotification from '../../sellerScreen/RestaurantNotification';
 import LoadingScreen from '../../components/viewScreens/LoadingScreen';
+import SellerProfile from '../../sellerScreen/SellerProfile';
 
 
 const Tab = createBottomTabNavigator();
 const CustomerTabBars = () => {
   return (
-
-
     <Tab.Navigator
       initialRouteName='Home'
       screenOptions={({ route }) => ({
@@ -102,6 +99,9 @@ const SellerTabBars = () => {
 
           } else if (route.name === 'Notifications') {
             return <Ionicons name={focused ? "notifications" : "notifications-outline"} color={color} size={scaleWidth(30)} />;
+          
+          } else if (route.name === 'SellerProfile') {
+            return <Entypo name="info" color={color} size={scaleWidth(30)} />;
           }
         },
         tabBarActiveTintColor: '#333333',
@@ -129,6 +129,10 @@ const SellerTabBars = () => {
       <Tab.Screen
         name="Notifications"
         component={RestaurantNotification}
+      />
+      <Tab.Screen
+        name="SellerProfile"
+        component={SellerProfile}
       />
     </Tab.Navigator>
   )

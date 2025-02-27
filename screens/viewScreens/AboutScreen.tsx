@@ -7,7 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 const AboutScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-          <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
+          <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark'  />
           <TopBar navigation={navigation} top_title='About Us' withSettingIcons={undefined} handleSettingIcon={undefined}/>
       <ScrollView showsVerticalScrollIndicator={false} style={{marginTop:-12}} >
         <View style={styles.headerSection}>

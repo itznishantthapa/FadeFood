@@ -60,12 +60,12 @@ const styles1 = StyleSheet.create({
     width: '100%',
   },
   dot: {
-    fontSize: scaleWidth(20),
+    fontSize: scaleWidth(15),
     color: '#888',
     margin: scaleWidth(3),
   },
   activeDot: {
-    fontSize: scaleWidth(20),
+    fontSize: scaleWidth(15),
     color: '#fff',
     margin: scaleWidth(3),
   },

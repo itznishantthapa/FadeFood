@@ -48,6 +48,7 @@ const MenuItemsWrapper = () => {
     Linking.openURL(url);
   };
 
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
@@ -65,7 +66,6 @@ const MenuItemsWrapper = () => {
       logo={seller_state.logo}
 
       />
-      
       
       <Tab.Navigator
         style={styles.tabNavigator}

@@ -30,99 +30,104 @@ export default function Scanner({ navigation }) {
 
   if (!permission.granted) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.message}>We need your permission to show the camera</Text>
-        <Button onPress={requestPermission} title="grant permission" />
-      </View>
-    );
+
+      <SafeAreaView style={{ flex: 1 }}>
+        <StatusBar hidden={false} backgroundColor='black' style='light' />
+        <View style={styles.container}>
+          <Text style={styles.message}>We need your permission to show the camera</Text>
+          <Button onPress={requestPermission} title="grant permission" />
+        </View>
+          </SafeAreaView >
+
+        );
   }
 
-  function handleScannedAgain() {
-    setscanned(false);
+        function handleScannedAgain() {
+          setscanned(false);
   }
 
   const handleScanned = (data: any) => {
-    setTimeout(() => {
-      navigation.navigate('FoodList')
-      console.log('Navigation Success')
-      setscanned(true);
-    }, 3000);
+          setTimeout(() => {
+            navigation.navigate('FoodList')
+            console.log('Navigation Success')
+            setscanned(true);
+          }, 3000);
 
 
   }
 
 
-  return (
+        return (
 
-    <SafeAreaView style={{ flex: 1 }}>
-        <StatusBar hidden={false} backgroundColor='black' style='light' />
-      <View style={styles.container}>
-        {!scanned && (
-          <CameraView
-            style={styles.camera}
-            facing={facing}
-            onBarcodeScanned={scanned ? undefined : handleScanned}
-          >
-            <View style={styles.overlayContainer}>
-              <TopText />
-              <View style={styles.overlay} />
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.button} onPress={handleScannedAgain}>
-                  <Text style={styles.text}>Scan Again</Text>
-                </TouchableOpacity>
-              </View>
+        <SafeAreaView style={{ flex: 1 }}>
+          <StatusBar hidden={false} backgroundColor='black' style='light' />
+          <View style={styles.container}>
+            {!scanned && (
+              <CameraView
+                style={styles.camera}
+                facing={facing}
+                onBarcodeScanned={scanned ? undefined : handleScanned}
+              >
+                <View style={styles.overlayContainer}>
+                  <TopText />
+                  <View style={styles.overlay} />
+                  <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.button} onPress={handleScannedAgain}>
+                      <Text style={styles.text}>Scan Again</Text>
+                    </TouchableOpacity>
+                  </View>
 
-            </View>
-          </CameraView>
-        )}
+                </View>
+              </CameraView>
+            )}
 
-      </View>
-    </SafeAreaView>
-  );
+          </View>
+        </SafeAreaView>
+        );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+        const styles = StyleSheet.create({
+          container: {
+          flex: 1,
   },
-  message: {
-    textAlign: 'center',
-    paddingBottom: 10,
+        message: {
+          textAlign: 'center',
+        paddingBottom: 10,
   },
-  camera: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+        camera: {
+          flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
   },
-  buttonContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: 'transparent',
-    margin: 64,
+        buttonContainer: {
+          flex: 1,
+        flexDirection: 'row',
+        backgroundColor: 'transparent',
+        margin: 64,
   },
-  button: {
-    flex: 1,
-    alignSelf: 'flex-end',
-    alignItems: 'center',
+        button: {
+          flex: 1,
+        alignSelf: 'flex-end',
+        alignItems: 'center',
   },
-  text: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
+        text: {
+          fontSize: 24,
+        fontWeight: 'bold',
+        color: 'white',
   },
-  overlayContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: height,
+        overlayContainer: {
+          flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: height,
   },
-  overlay: {
-    width: width * 0.8,
-    height: width * 0.8,
-    borderWidth: 2,
-    borderColor: 'white',
-    borderRadius: 10,
-    backgroundColor: 'transparent',
+        overlay: {
+          width: width * 0.8,
+        height: width * 0.8,
+        borderWidth: 2,
+        borderColor: 'white',
+        borderRadius: 10,
+        backgroundColor: 'transparent',
   },
 
 });

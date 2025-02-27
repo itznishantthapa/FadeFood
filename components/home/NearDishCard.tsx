@@ -34,7 +34,6 @@ const NearDishCard = ({ image, price, name, reiwesNumber, rating }) => {
                         marginLeft: 'auto', 
                         alignItems: 'center', 
                         justifyContent: 'center',
-                        elevation: 2 // Optional: adds shadow on Android
                     }}
                 >
                     <MaterialIcon 

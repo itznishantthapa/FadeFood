@@ -1,10 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons'
 import { Image } from 'react-native'
 import { scaleHeight, scaleWidth } from '../../Scaling'
-import FontAwe from 'react-native-vector-icons/FontAwesome6'
-import { styles } from '../../style/style'
+import { baseURL } from '../../service'
 
 
 const UserInfo = ({ photo }) => {
@@ -12,11 +10,10 @@ const UserInfo = ({ photo }) => {
 
     return (
         <View style={ownstyle.profileImageContainer}>
-
             {
                 photo ? (
                     <Image
-                        source={{ uri: photo }}
+                    source={{ uri: `${baseURL}/${photo}` }}
                         style={ownstyle.profileImage}
                     />
                 ) : (
@@ -25,9 +22,6 @@ const UserInfo = ({ photo }) => {
                     />
                 )
             }
-
-
-
         </View>
     )
 }
