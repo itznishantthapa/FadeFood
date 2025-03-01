@@ -60,7 +60,6 @@ export default function Scanner({ navigation }) {
         return (
 
         <SafeAreaView style={{ flex: 1 }}>
-          <StatusBar hidden={false} backgroundColor='black' style='light' />
           <View style={styles.container}>
             {!scanned && (
               <CameraView

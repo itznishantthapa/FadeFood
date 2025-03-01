@@ -14,7 +14,6 @@ const Chat = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ backgroundColor: "#F0F4F8" }}>
-      <StatusBar hidden={false} backgroundColor="#F0F4F8" style="dark" />
       <TopBar navigation={navigation} top_title="Messages" />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View

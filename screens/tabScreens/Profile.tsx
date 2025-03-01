@@ -9,17 +9,11 @@ import { LinearGradient } from "expo-linear-gradient"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { StatusBar } from "react-native"
 import { useFocusEffect } from "@react-navigation/native"
+import { StatusBarBackground } from "../../components/statusbar/StatusBarBackground"
 
 const Profile = ({ navigation }) => {
 
 
-      useFocusEffect(
-        useCallback(() => {
-          StatusBar.setBackgroundColor('#4CAF50', true);  // Reset to white
-          StatusBar.setBarStyle('dark-content', true);    // Ensure text is dark
-        }, [])
-      );
-    
 
 
   const { state } = useContext(myContext)
@@ -66,7 +60,7 @@ const Profile = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{flex:1}}>
-   
+   <StatusBarBackground bg_color={'#4CAF50'}></StatusBarBackground>
     <ScrollView style={styles.container}>
       <LinearGradient colors={["#4CAF50", "#45a049"]} style={styles.header}>
         <View style={styles.profileInfo}>

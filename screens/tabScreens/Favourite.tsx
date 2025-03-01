@@ -50,7 +50,6 @@ const Favourite = ({ navigation }) => {
 
   return (
     <SafeAreaView style={ownstyles.safeArea}>
-      <StatusBar hidden={false} backgroundColor="#F0F4F8" style="dark" />
       <View style={ownstyles.homeScreen}>
         <TopBar navigation={navigation} top_title="Favorite"  withSettingIcons={undefined} handleSettingIcon={undefined} />
 
