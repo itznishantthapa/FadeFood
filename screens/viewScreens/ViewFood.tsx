@@ -66,6 +66,7 @@ const ViewFood = ({ navigation, route }) => {
   // }
   useEffect(() => {
     food_details_dispatch({ type: 'SET_FOOD_DETAILS', payload: route.params.food_details });
+  console.log("routted---->",route.params.food_details)
     // fetching()
 
   }, [route.params.food_details])
@@ -113,6 +114,8 @@ const ViewFood = ({ navigation, route }) => {
 
 
     setIsFavorite(!isFavorite);
+
+    console.log("food_details_state",food_details_state)
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -191,24 +194,18 @@ const ViewFood = ({ navigation, route }) => {
         <View style={ownstyles.similarItemsSection}>
           <Text style={ownstyles.sectionTitle}>You May Also Like</Text>
 
-          <View style={[styles.foodItems_container]}>
+          {/* <View style={[styles.foodItems_container]}>
             <View style={{ width: "50%", alignItems: "center" }}>
               {Array(5)
                 .fill(null)
                 .map((item, index) => (
                   <FoodCard
-                    key={index}
-                    food_picture={null}
-                    restaurant_name={null}
-                    price={112}
-                    discount={null}
-                    foodName={"Chowmin"}
-                    no_fragments={null}
-                    eatsNumber={22}
-                    rating={3}
-                    location={null}
-                    handleToFoodViewPage={undefined}
-                  />
+                  key={index}
+                  item={item}
+                  handleToFoodViewPage={undefined}
+                  onAddToCart={undefined}
+                />
+               
                 ))}
             </View>
             <View style={{ width: "50%", alignItems: "center" }}>
@@ -216,21 +213,14 @@ const ViewFood = ({ navigation, route }) => {
                 .fill(null)
                 .map((item, index) => (
                   <FoodCard
-                    key={index}
-                    food_picture={null}
-                    restaurant_name={null}
-                    price={112}
-                    discount={null}
-                    foodName={"Chowmin"}
-                    no_fragments={null}
-                    eatsNumber={22}
-                    rating={3}
-                    location={null}
-                    handleToFoodViewPage={undefined}
-                  />
+                  key={index}
+                  item={undefined}
+                  handleToFoodViewPage={undefined}
+                  onAddToCart={undefined}
+                />
                 ))}
             </View>
-          </View>
+          </View> */}
         </View>
       </ScrollView>
       <SnackBar message={state.message} visible={snackBar} />

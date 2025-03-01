@@ -155,7 +155,7 @@ const NabBar = ({ handleSearchScreen, isTextInput, isBack,navigation }) => {
 
 
 
-        <TouchableOpacity style={{height:'95%',width:'20%',backgroundColor:'#333333',marginLeft:'auto',borderTopRightRadius:scaleWidth(17),borderBottomRightRadius:scaleWidth(17),justifyContent:'center',alignItems:'center'}}>
+        <TouchableOpacity style={{height:'95%',width:'20%',backgroundColor:'#FE7240',marginLeft:'auto',borderTopRightRadius:scaleWidth(17),borderBottomRightRadius:scaleWidth(17),justifyContent:'center',alignItems:'center'}}>
           <Text  style={{ color: '#ffffff',fontSize:scaleWidth(15),fontFamily:'poppins_semibold' }}>Search</Text>
         </TouchableOpacity>
         </View>
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    backgroundColor: '#F0F4F8',
+    backgroundColor: '#ffffff',
     zIndex: 10,
     top: 0,
     gap: 5,
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: scaleWidth(1.5),
-    borderColor: '#333333',
+    borderColor: '#FF885B',
     height: scaleHeight(45),
     width: '88%',
     borderRadius: scaleWidth(20),

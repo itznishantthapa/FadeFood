@@ -1,7 +1,7 @@
-import { View, Text, Dimensions, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Dimensions, Image, TouchableOpacity, FlatList } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../../style/style';
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'react-native';
 import momo from '../../assets/momo.jpeg'
 import chatapate from '../../assets/chatapate.jpeg'
 import { ScrollView } from 'react-native-gesture-handler';
@@ -19,7 +19,7 @@ import biryani from '../../assets/biryani.jpg'
 import img3 from '../../assets/images/img1 (3).png'
 import { StyleSheet } from 'react-native';
 import PagerView from 'react-native-pager-view'
-import React, { useState, useEffect, useContext, useMemo } from 'react'
+import React, { useState, useEffect, useContext, useMemo, useCallback } from 'react'
 import CategoriesRestaurant from '../../components/home/CategoriesRestaurant';
 import NearDishCard from '../../components/home/NearDishCard';
 import Greeting from '../../components/home/Greeting';
@@ -32,6 +32,7 @@ import { baseURL } from '../../service';
 import { Skeleton } from '@rneui/themed';
 import { LinearGradient } from 'expo-linear-gradient';
 import SlickCarousel from '../../components/home/SlickCarousel';
+import { useFocusEffect } from '@react-navigation/native';
 
 
 
@@ -45,6 +46,16 @@ const images = [
 ];
 
 const Home = ({ navigation }) => {
+
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBackgroundColor('#ffffff', true);  // Reset to white
+      StatusBar.setBarStyle('dark-content', true);    // Ensure text is dark
+    }, [])
+  );
+
+
+
   const { food_state } = useContext(myContext);
   const { snackBar, setsnackBar, state } = useContext(myContext)
   const [activeIndex, setActiveIndex] = useState(0);
@@ -126,7 +137,7 @@ const Home = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-      <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
+    {/* <StatusBar hidden={false} backgroundColor='red' style='dark' /> */}
       <View style={styles.home_screen}>
 
         <NavBar handleSearchScreen={handleSearchScreen} isTextInput={false} isBack={false} navigation={navigation} />
@@ -135,6 +146,8 @@ const Home = ({ navigation }) => {
         <ScrollView showsVerticalScrollIndicator={false}
           nestedScrollEnabled={true}
           overScrollMode='never'
+          scrollEventThrottle={16}
+          // decelerationRate='normal'
         >
 
           <View style={styles1.dashboardContainer} >
@@ -211,47 +224,63 @@ const Home = ({ navigation }) => {
           </View>
 
 
+
+
+
+
+
           {/*
           FoodCards Section with two columns , Left and Right
           The Left column and Right column are first filtered and 
           then mapped with the food data from the server
           */}
+
+
+
           <View style={styles.foodItems_container}>
-            <View style={{ width: '50%', alignItems: 'center' }}>
+            <View style={{ width: '49%', alignItems: 'center' }}>
               {
+
+
                 leftColumn.map((item, index) => (
                   <FoodCard
                     key={item.id}
-                    food_picture={item.images.length > 0 ? item.images[0].image : null}
-                    price={item.food_price}
-                    restaurant_name={item.food_restaurant || 'KFC'}
-                    discount={item.discount || 12}
-                    foodName={item.food_name}
-                    no_fragments={null}
-                    eatsNumber={item.totol_eats || 120}
-                    rating={item.rating || 3.5}
-                    location={item.food_location || 'Kathmandu, Thamel'}
+                    item={item}
+                    // food_picture={item.images.length > 0 ? item.images[0].image : null}
+                    // price={item.food_price}
+                    // restaurant_name={item.food_restaurant || 'KFC'}
+                    // discount={item.discount || 12}
+                    // foodName={item.food_name}
+                    // no_fragments={null}
+                    // eatsNumber={item.totol_eats || 120}
+                    // rating={item.rating || 3.5}
+                    // location={item.food_location || 'Kathmandu, Thamel'}
                     handleToFoodViewPage={() => handleToFoodViewPage(item)}
+                    onAddToCart={undefined}
                   />
                 ))
+
+
               }
             </View>
 
-            <View style={{ width: '50%', alignItems: 'center' }}>
+            <View style={{ width: '49%', alignItems: 'center' }}>
               {
                 rightColumn.map((item, index) => (
                   <FoodCard
-                    key={item.id}
-                    food_picture={item.images.length > 0 ? item.images[0].image : null}
-                    price={item.food_price}
-                    restaurant_name={item.food_restaurant || 'Muskan Khaja Ghar'}
-                    discount={item.discount || 12}
-                    foodName={item.food_name}
-                    no_fragments={null}
-                    eatsNumber={item.totol_eats || 120}
-                    rating={item.rating || 3.5}
-                    location={item.food_location || 'Kathmandu, Thamel'}
-                    handleToFoodViewPage={() => handleToFoodViewPage(item)}
+                  key={item.id}
+                  item={item}
+                  // food_picture={item.images.length > 0 ? item.images[0].image : null}
+                  // price={item.food_price}
+                  // restaurant_name={item.food_restaurant || 'KFC'}
+                  // discount={item.discount || 12}
+                  // foodName={item.food_name}
+                  // no_fragments={null}
+                  // eatsNumber={item.totol_eats || 120}
+                  // rating={item.rating || 3.5}
+                  // location={item.food_location || 'Kathmandu, Thamel'}
+                  handleToFoodViewPage={() => handleToFoodViewPage(item)}
+                  onAddToCart={undefined}
                   />
                 ))
               }

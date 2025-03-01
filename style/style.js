@@ -165,7 +165,9 @@ export const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#F0F4F8'
     ,paddingBottom:scaleHeight(60) , 
-    // marginTop: scaleHeight(10)
+    justifyContent:'center',
+    alignItems:'flex-start',
+    gap:scaleWidth(5)
   },
 
   price: {

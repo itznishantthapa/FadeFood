@@ -3,6 +3,7 @@ import * as SecureStore from "expo-secure-store";
 import { Alert } from "react-native";
 
 export const baseURL = "http://192.168.1.65:5555/";
+// export const baseURL = "http://192.168.67.215:5555/";
 
 // Store both access and refresh tokens
 const storeTokens = async (accessToken, refreshToken) => {
@@ -52,7 +53,7 @@ export const clearTokens = async () => {
 // Set up base URL for your Django API
 const api = axios.create({
   baseURL: "http://192.168.1.65:5555/",
-  // baseURL: "http://192.168.55.215:5555/",
+  // // baseURL: "http://192.168.55.215:5555/",
   // baseURL: "http://192.168.67.215:5555/",
   // baseURL: "http://192.168.46.163:5555/",
   // http://192.168.67.215:5555/

@@ -23,6 +23,7 @@ import AccountSwitch from './screens/viewScreens/AccountSwitch';
 import SellerSetting from './sellerScreen/SellerSetting';
 import Home from './screens/tabScreens/Home';
 import MethodSelection from './screens/payment/MethodSelection';
+import { StatusBar } from 'react-native';
 
 
 
@@ -57,6 +58,7 @@ export default function App() {
   return (
     <AppProvider > 
       <SafeAreaProvider >
+             <StatusBar hidden={false} backgroundColor='#ffffff' style='dark' />
         <NavigationContainer>
           <Stack.Navigator initialRouteName='TabBars' >
             <Stack.Screen name="LoginScreens" component={LoginScreens} options={{ headerShown: false }} />

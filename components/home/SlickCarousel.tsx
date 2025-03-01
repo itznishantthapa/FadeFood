@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, Image, TouchableOpacity, StyleSheet, Dimensions, Animated } from 'react-native';
 import PagerView from 'react-native-pager-view';
 import chicken from '../../assets/images/chicken.png';
 import dishes from '../../assets/images/dishes.png';
@@ -9,71 +9,80 @@ const { width } = Dimensions.get('window');
 const ASPECT_RATIO = 16 / 7;
 const IMAGE_HEIGHT = width / ASPECT_RATIO;
 
-const images = [
-  dishes,
-  chicken,
-  dishes,
-  dishes,
-  dishes,
-  dishes,
-  dishes,
-];
+const images = [dishes, chicken, dishes, dishes, dishes, dishes, dishes];
 
 const SlickCarousel = () => {
-  const [activeIndex, setActiveIndex] = React.useState(0);
-  const pagerRef = React.useRef(null);
-
-  // Add extra items for looping
+  const [activeIndex, setActiveIndex] = useState(0);
+  const pagerRef = useRef(null);
+  const animatedScale = useRef(images.map(() => new Animated.Value(1))).current;
   const extendedImages = [images[images.length - 1], ...images, images[0]];
 
-  // Handle page change
-  const handlePageChange = (position) => {
-    let newIndex = position - 1; // Adjust index for the extended array
+  useEffect(() => {
+    const interval = setInterval(() => {
+      let nextIndex = activeIndex + 1;
+      if (nextIndex >= images.length) {
+        pagerRef.current?.setPageWithoutAnimation(1);
+        nextIndex = 0;
+      } else {
+        pagerRef.current?.setPage(nextIndex + 1);
+      }
+      setActiveIndex(nextIndex);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [activeIndex]);
 
-    // Handle looping
+  const handlePageChange = (position) => {
+    let newIndex = position - 1;
     if (position === 0) {
-      // If user swipes to the first extra item, jump to the last real item
       pagerRef.current?.setPageWithoutAnimation(images.length);
       newIndex = images.length - 1;
     } else if (position === extendedImages.length - 1) {
-      // If user swipes to the last extra item, jump to the first real item
       pagerRef.current?.setPageWithoutAnimation(1);
       newIndex = 0;
     }
-
     setActiveIndex(newIndex);
+    animateDots(newIndex);
+  };
+
+  const animateDots = (newIndex) => {
+    animatedScale.forEach((anim, index) => {
+      Animated.timing(anim, {
+        toValue: index === newIndex ? 1.3 : 1,
+        duration: 300,
+        useNativeDriver: false,
+      }).start();
+    });
   };
 
   return (
     <View style={styles.container}>
-      {/* Carousel */}
       <PagerView
         ref={pagerRef}
-        style={{ width: width, height: scaleHeight(155), backgroundColor: '#ffffff' }}
-        initialPage={0} // Start at the first real item
+        style={{ width, height: scaleHeight(155), backgroundColor: '#ffffff' }}
+        initialPage={1}
         onPageSelected={(e) => handlePageChange(e.nativeEvent.position)}
       >
         {extendedImages.map((image, index) => (
-          <TouchableOpacity
-            key={index}
-            style={{ paddingHorizontal: scaleWidth(8) }}
-            activeOpacity={0.9}
-          >
+          <TouchableOpacity key={index} style={{ paddingHorizontal: scaleWidth(8) }} activeOpacity={0.9}>
             <View style={styles.imageContainer}>
               <Image resizeMode="cover" style={styles.image} source={image} />
             </View>
           </TouchableOpacity>
         ))}
       </PagerView>
-
-      {/* Dot Indicators */}
+      
       <View style={styles.dotsContainer}>
         {images.map((_, index) => (
-          <View
+          <Animated.View
             key={index}
             style={[
               styles.dot,
-              activeIndex === index ? styles.activeDot : styles.inactiveDot,
+              {
+                transform: [{ scale: animatedScale[index] }],
+                backgroundColor: activeIndex === index ? '#FF7F50' : '#dadada',
+                height: activeIndex === index ?  scaleWidth(10): scaleWidth(7),
+                width: activeIndex === index ?  scaleWidth(10): scaleWidth(7),
+              },
             ]}
           />
         ))}
@@ -103,19 +112,8 @@ const styles = StyleSheet.create({
     marginTop: scaleHeight(10),
   },
   dot: {
-    marginHorizontal: scaleWidth(4), // Margin between dots
-  },
-  inactiveDot: {
-    width: scaleWidth(5),
-    height: scaleWidth(5),
-    borderRadius: scaleWidth(2.5),
-    backgroundColor: '#cccccc', // Inactive dot color
-  },
-  activeDot: {
-    width: scaleWidth(6),
-    height: scaleWidth(6),
-    borderRadius: scaleWidth(4),
-    backgroundColor: '#FF7F50', // Active dot color
+    borderRadius: scaleWidth(5),
+    marginHorizontal: scaleWidth(4),
   },
 });
 

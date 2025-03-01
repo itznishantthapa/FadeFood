@@ -1,27 +1,13 @@
 "use client"
 
-import { useCallback, useContext, useState } from "react"
+import { useContext, useState } from "react"
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Switch } from "react-native"
 import { Ionicons, MaterialIcons, FontAwesome5, Feather } from "@expo/vector-icons"
 import { scaleWidth, scaleHeight } from "../../Scaling"
 import { myContext } from "../../context/AppProvider"
 import { LinearGradient } from "expo-linear-gradient"
-import { SafeAreaView } from "react-native-safe-area-context"
-import { StatusBar } from "react-native"
-import { useFocusEffect } from "@react-navigation/native"
 
-const Profile = ({ navigation }) => {
-
-
-      useFocusEffect(
-        useCallback(() => {
-          StatusBar.setBackgroundColor('#4CAF50', true);  // Reset to white
-          StatusBar.setBarStyle('dark-content', true);    // Ensure text is dark
-        }, [])
-      );
-    
-
-
+const CustomerProfile = ({ navigation }) => {
   const { state } = useContext(myContext)
   const [notificationsEnabled, setNotificationsEnabled] = useState(true)
 
@@ -65,8 +51,6 @@ const Profile = ({ navigation }) => {
   )
 
   return (
-    <SafeAreaView style={{flex:1}}>
-   
     <ScrollView style={styles.container}>
       <LinearGradient colors={["#4CAF50", "#45a049"]} style={styles.header}>
         <View style={styles.profileInfo}>
@@ -130,7 +114,6 @@ const Profile = ({ navigation }) => {
         <Text style={styles.logoutText}>Log Out</Text>
       </TouchableOpacity>
     </ScrollView>
-    </SafeAreaView>
   )
 }
 
@@ -286,5 +269,5 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Profile
+export default CustomerProfile
 
