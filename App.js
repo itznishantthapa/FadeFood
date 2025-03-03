@@ -23,7 +23,8 @@ import AccountSwitch from './screens/viewScreens/AccountSwitch';
 import SellerSetting from './sellerScreen/SellerSetting';
 import Home from './screens/tabScreens/Home';
 import MethodSelection from './screens/payment/MethodSelection';
-import { StatusBar } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+
 
 
 

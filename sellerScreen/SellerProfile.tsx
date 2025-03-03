@@ -25,15 +25,12 @@ import SnackBar from '../screens/viewScreens/SnackBar';
 import { Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { CommonActions } from '@react-navigation/native'
 import ProfileSection from '../components/seller_profile/ProfileSection';
+import { handleLogout } from '../context/ProvideFunction/Logout';
 
 const SellerProfile = ({ navigation }) => {
   //  const {  state, dispatch,  clearAllData,isLoading,setisLoading , isLogged} = useContext(myContext);
   const { state, seller_state, seller_dispatch, dispatch, isLoading, setisLoading, snackBar, setsnackBar, clearAllData } = useContext(myContext);
-
   const [isEditMode, setIsEditMode] = useState(false);
-
-
-
 
 
   const handleSaveChanges = async () => {
@@ -67,32 +64,7 @@ const SellerProfile = ({ navigation }) => {
     navigation.navigate(screen_name);
   };
 
-  const handleLogout = async () => {
-    Alert.alert("", "Are you want to logout?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        {
-          text: "Logout",
-          onPress: async () => {
-            setisLoading(true)
-            await clearAllData()
-            setisLoading(false)
-            navigation.dispatch(
-              CommonActions.reset({
-                index: 0,
-                routes: [{ name: 'LoginScreens' }],
-              })
-            );
-          },
-        },
-      ],
-      { cancelable: false }
-    );
-  }
+
 
   return (
     <>
@@ -233,7 +205,7 @@ const SellerProfile = ({ navigation }) => {
                 <SettingMenu
                   menuName={'Logout'}
                   iconName={'log-out-outline'}
-                  handleSettingPage={handleLogout}
+                  handleSettingPage={()=>{handleLogout(setisLoading,clearAllData,navigation,true)}}
                 />
               </View>
             </>

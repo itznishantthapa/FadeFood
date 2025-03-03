@@ -1,5 +1,5 @@
 
-import React, { useContext } from 'react'
+import React, { useCallback, useContext } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -20,6 +20,8 @@ import { myContext } from '../../context/AppProvider';
 import RestaurantNotification from '../../sellerScreen/RestaurantNotification';
 import LoadingScreen from '../../components/viewScreens/LoadingScreen';
 import SellerProfile from '../../sellerScreen/SellerProfile';
+import { useFocusEffect } from '@react-navigation/native';
+import { StatusBar } from 'react-native';
 
 
 const Tab = createBottomTabNavigator();
@@ -47,8 +49,8 @@ const CustomerTabBars = () => {
             return <Entypo name="info" color={color} size={scaleWidth(30)} />;
           }
         },
-        tabBarActiveTintColor: '#333333',
-        tabBarInactiveTintColor: '#333333',
+        tabBarActiveTintColor: '#b6b6b6',
+        tabBarInactiveTintColor: '#b6b6b6',
         tabBarStyle: {
           backgroundColor: '#ffffff',
           height: scaleHeight(60)
@@ -80,6 +82,7 @@ const CustomerTabBars = () => {
 }
 
 const SellerTabBars = () => {
+
   return (
     <Tab.Navigator
       initialRouteName='Menu'
@@ -104,8 +107,8 @@ const SellerTabBars = () => {
             return <Entypo name="info" color={color} size={scaleWidth(30)} />;
           }
         },
-        tabBarActiveTintColor: '#333333',
-        tabBarInactiveTintColor: '#333333',
+        tabBarActiveTintColor: '#dadada',
+        tabBarInactiveTintColor: '#dadada',
         tabBarStyle: {
           backgroundColor: '#ffffff',
           height: scaleHeight(60)

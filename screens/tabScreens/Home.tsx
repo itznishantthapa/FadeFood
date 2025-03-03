@@ -1,7 +1,7 @@
 import { View, Text, Dimensions, Image, TouchableOpacity, FlatList } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../../style/style';
-import { StatusBar } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import momo from '../../assets/momo.jpeg'
 import chatapate from '../../assets/chatapate.jpeg'
 import { ScrollView } from 'react-native-gesture-handler';
@@ -46,15 +46,6 @@ const images = [
 ];
 
 const Home = ({ navigation }) => {
-
-  useFocusEffect(
-    useCallback(() => {
-      StatusBar.setBackgroundColor('#ffffff', true);  // Reset to white
-      StatusBar.setBarStyle('dark-content', true);    // Ensure text is dark
-    }, [])
-  );
-
-
 
   const { food_state } = useContext(myContext);
   const { snackBar, setsnackBar, state } = useContext(myContext)
@@ -114,7 +105,7 @@ const Home = ({ navigation }) => {
       setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 4000);
 
-    return () => clearInterval(interval); // Clear interval on component unmount
+    return () => clearInterval(interval); 
   }, []);
 
   useEffect(() => {
@@ -137,7 +128,7 @@ const Home = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-    {/* <StatusBar hidden={false} backgroundColor='red' style='dark' /> */}
+      
       <View style={styles.home_screen}>
 
         <NavBar handleSearchScreen={handleSearchScreen} isTextInput={false} isBack={false} navigation={navigation} />

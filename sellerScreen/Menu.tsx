@@ -1,20 +1,22 @@
 "use client"
 
 import { StyleSheet, Linking, Platform,ScrollView } from "react-native"
-import { useContext } from "react"
+import { useCallback, useContext, useLayoutEffect } from "react"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { StatusBar } from "expo-status-bar"
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs"
 import ProfileHeader from "../components/restaurant_profile/ProfileHeader"
 import { MenuItemsScreen } from "../components/restaurant_profile/MenuSection"
 import { DrinksScreen } from "../components/restaurant_profile/DrinkSection"
 import { LooksScreen } from "../components/restaurant_profile/Looks"
 import { myContext } from "../context/AppProvider"
+import { useFocusEffect } from "@react-navigation/native"
+import { StatusBar } from "react-native"
 
 const Tab = createMaterialTopTabNavigator()
 
 const Menu = ({ navigation }) => {
   const { seller_state } = useContext(myContext)
+
 
   // Wrapper components to pass props
   const MenuItemsWrapper = () => {
@@ -39,11 +41,7 @@ const Menu = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar hidden={false} backgroundColor="#333333" style="light" />
-        {/* <ScrollView
-          style={{flex:1}}
-          showsVerticalScrollIndicator={false}
-        > */}
+      <StatusBar hidden={false} backgroundColor="#333333" barStyle="light-content" />
       <ProfileHeader
         handleGoBack={undefined}
         openMaps={openMaps}

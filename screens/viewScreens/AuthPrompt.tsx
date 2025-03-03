@@ -1,67 +1,86 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, StatusBar } from "react-native"
+"use client"
+
+import { useEffect, useRef } from "react"
+import { View, Text, StyleSheet, TouchableOpacity, Animated, Easing, Dimensions, Keyboard } from "react-native"
 import { LinearGradient } from "expo-linear-gradient"
-import { Ionicons } from "@expo/vector-icons"
 import { scaleWidth, scaleHeight } from "../../Scaling"
-import { useFocusEffect } from "@react-navigation/native"
-import { useCallback } from "react"
+import { AntDesign } from "@expo/vector-icons"
+import { SafeAreaView } from "react-native-safe-area-context"
 
-const { width } = Dimensions.get("window")
+const { width, height } = Dimensions.get("window")
 
-const AuthPrompt = ({ navigation, route }) => {
-  const { message = "Join FadeFood to unlock full features!" } = route.params || {}
+const AuthPrompt = ({ navigation }) => {
+  const fadeAnim = useRef(new Animated.Value(0)).current
+  const slideAnim = useRef(new Animated.Value(50)).current
 
-
-  useFocusEffect(
-    useCallback(() => {
-      StatusBar.setBackgroundColor('#dadada', true);  // Reset to white
-      StatusBar.setBarStyle('dark-content', true);    // Ensure text is dark
-    }, [])
-  );
-
-
-  const handleSignUp = () => {
-    navigation.navigate("SignUp")
-  }
+  useEffect(() => {
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true,
+        easing: Easing.out(Easing.exp),
+      }),
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 1000,
+        useNativeDriver: true,
+        easing: Easing.out(Easing.exp),
+      }),
+    ]).start()
+  }, [fadeAnim, slideAnim])
 
   const handleLogin = () => {
-    navigation.navigate("Login")
+    navigation.navigate("LoginScreens")
+  }
+  const handleBackButton = () => {
+    Keyboard.dismiss();
+    navigation.goBack();
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
-        <Image
-          source={require("../../assets/fadefood_logo.png")} // Make sure to add your app logo
-          style={styles.logo}
-          resizeMode="contain"
-        />
+    <SafeAreaView style={{ flex: 1 }}>
 
-        <Text style={styles.title}>Welcome to FadeFood</Text>
-
-        <Text style={styles.message}>{message}</Text>
-
-        <View style={styles.features}>
-          <FeatureItem icon="restaurant-outline" text="Order from top restaurants"  />
-          <FeatureItem icon="timer-outline" text="Fast and reliable delivery" />
-          <FeatureItem icon="gift-outline" text="Exclusive offers and discounts" />
-        </View>
-
-        <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
-          <Text style={styles.signUpButtonText}>Sign Up</Text>
+      <LinearGradient colors={["#FFFFFF", "#F0F4F8"]} style={styles.container}>
+        <TouchableOpacity onPress={handleBackButton} style={{ position: 'absolute', top: scaleHeight(20), left: scaleWidth(20), zIndex: 999 }}>
+          <AntDesign
+            name='arrowleft'
+            size={scaleWidth(30)}
+            style={{ color: '#333333' }}
+          />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-          <Text style={styles.loginButtonText}>Already have an account? Log In</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+        <Animated.View
+          style={[
+            styles.content,
+            {
+              opacity: fadeAnim,
+              transform: [{ translateY: slideAnim }],
+            },
+          ]}
+        >
+          <IntroText
+            headingText="Hi Foodie,"
+            line1="Sign in to feast on your"
+            line2="fadefood delights"
+            style={styles.bigTextForLogin}
+          />
+
+          <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+            <Text style={styles.loginButtonText}>Sign In</Text>
+          </TouchableOpacity>
+        </Animated.View>
+      </LinearGradient>
+
+    </SafeAreaView>
   )
 }
 
-const FeatureItem = ({ icon, text }) => (
-  <View style={styles.featureItem}>
-    <Ionicons name={icon} size={24} color="#333333" style={styles.featureIcon} />
-    <Text style={styles.featureText}>{text}</Text>
+const IntroText = ({ headingText, line1, line2, style }) => (
+  <View style={style}>
+    <Text style={styles.heading}>{headingText}</Text>
+    <Text style={styles.line}>{line1}</Text>
+    <Text style={styles.line}>{line2}</Text>
   </View>
 )
 
@@ -70,70 +89,46 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:'#dadada'
   },
   content: {
     width: width * 0.9,
     alignItems: "center",
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
-    borderRadius: scaleWidth(20),
-    padding: scaleWidth(20),
   },
-  logo: {
-    width: scaleWidth(120),
-    height: scaleWidth(120),
-    marginBottom: scaleHeight(20),
+  bigTextForLogin: {
+    marginBottom: scaleHeight(40),
   },
-  title: {
+  heading: {
     fontFamily: "poppins_semibold",
-    fontSize: scaleWidth(24),
+    fontSize: scaleWidth(32),
     color: "#333333",
-    marginBottom: scaleHeight(10),
-  },
-  message: {
-    fontFamily: "poppins_regular",
-    fontSize: scaleWidth(16),
-    color: "#333333",
+    marginBottom: scaleHeight(16),
     textAlign: "center",
-    marginBottom: scaleHeight(20),
   },
-  features: {
-    alignSelf: "stretch",
-    marginBottom: scaleHeight(20),
-  },
-  featureItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: scaleHeight(10),
-  },
-  featureIcon: {
-    marginRight: scaleWidth(10),
-  },
-  featureText: {
+  line: {
     fontFamily: "poppins_regular",
-    fontSize: scaleWidth(14),
-    color: "#333333",
-  },
-  signUpButton: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: scaleWidth(25),
-    paddingVertical: scaleHeight(12),
-    paddingHorizontal: scaleWidth(30),
-    marginBottom: scaleHeight(10),
-  },
-  signUpButtonText: {
-    fontFamily: "poppins_semibold",
-    fontSize: scaleWidth(16),
-    color: "#333333",
+    fontSize: scaleWidth(18),
+    color: "#4A4A4A",
     textAlign: "center",
+    lineHeight: scaleHeight(28),
   },
   loginButton: {
-    paddingVertical: scaleHeight(10),
+    backgroundColor: "#4CAF50",
+    borderRadius: scaleWidth(30),
+    paddingVertical: scaleHeight(16),
+    paddingHorizontal: scaleWidth(60),
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   loginButtonText: {
-    fontFamily: "poppins_regular",
-    fontSize: scaleWidth(14),
-    color: "#333333",
+    fontFamily: "poppins_semibold",
+    fontSize: scaleWidth(18),
+    color: "#FFFFFF",
     textAlign: "center",
   },
 })
