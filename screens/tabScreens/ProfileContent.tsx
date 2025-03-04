@@ -21,7 +21,7 @@ const ProfileContent = ({ navigation }) => {
 
   // Placeholder data - replace with actual data from your state or API
   const customerInfo = {
-    name: state.name || "John Doe",
+    name: state.name || "Nishant Thapa",
     email: state.email || "john.doe@example.com",
     phone: state.phone || "+91 98765 43210",
     address: state.address || "123 Main St, City, State, 12345",
@@ -36,7 +36,7 @@ const ProfileContent = ({ navigation }) => {
 
   const handleEditProfile = () => {
     // Navigate to edit profile screen
-    // navigation.navigate('EditProfile');
+    navigation.navigate('ProfileEdit');
   }
 
   const handleViewAllOrders = () => {
@@ -56,15 +56,14 @@ const ProfileContent = ({ navigation }) => {
       </View>
       <Text style={styles.orderTotal}>₹{order.total}</Text>
     </TouchableOpacity>
-    
+
   )
 
 
   return (
     <SafeAreaView style={{flex:1}}>
-      <StatusBar backgroundColor="#4CAF50" style="light"/>
     <ScrollView style={styles.container}>
-      <LinearGradient colors={["#4CAF50", "#45a049"]} style={styles.header}>
+      <LinearGradient colors={['#ffffff', '#F0F4F8']} style={styles.header}>
         <View style={styles.profileInfo}>
           <Image source={{ uri: customerInfo.profilePic }} style={styles.profilePic} />
           <View style={styles.nameContainer}>
@@ -73,7 +72,7 @@ const ProfileContent = ({ navigation }) => {
           </View>
         </View>
         <TouchableOpacity style={styles.editButton} onPress={handleEditProfile}>
-          <Feather name="edit-2" size={20} color="#FFFFFF" />
+          <Feather name="edit-2" size={20} color="#333333" />
         </TouchableOpacity>
       </LinearGradient>
 
@@ -156,18 +155,18 @@ const styles = StyleSheet.create({
   name: {
     fontFamily: "poppins_semibold",
     fontSize: scaleWidth(20),
-    color: "#FFFFFF",
+    color: "#333333",
   },
   email: {
     fontFamily: "poppins_regular",
     fontSize: scaleWidth(14),
-    color: "#E0E0E0",
+    color: "#333333",
   },
   editButton: {
     position: "absolute",
     top: scaleHeight(20),
     right: scaleWidth(20),
-    backgroundColor: "rgba(255, 255, 255, 0.3)",
+    backgroundColor: "#dadada",
     borderRadius: scaleWidth(20),
     padding: scaleWidth(8),
   },

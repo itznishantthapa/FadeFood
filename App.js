@@ -24,6 +24,11 @@ import SellerSetting from './sellerScreen/SellerSetting';
 import Home from './screens/tabScreens/Home';
 import MethodSelection from './screens/payment/MethodSelection';
 import { StatusBar } from 'expo-status-bar';
+import ProfileEdit from './screens/viewScreens/ProfileEdit';
+import WriteReview from './screens/viewScreens/WriteReview';
+import SeeReview from './screens/viewScreens/SeeReview';
+import RestaurantCategories from './screens/viewScreens/RestaurantCategories';
+import ViewMap from './screens/viewScreens/ViewMap';
 
 
 
@@ -80,6 +85,11 @@ export default function App() {
             <Stack.Screen name="SellerSetting" component={SellerSetting} options={{ headerShown: false }} />
             <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
             <Stack.Screen name="MethodSelection" component={MethodSelection} options={{ headerShown: false }} />
+            <Stack.Screen name="ProfileEdit" component={ProfileEdit} options={{ headerShown: false }} />
+            <Stack.Screen name="SeeReview" component={SeeReview} options={{ headerShown: false }} />
+            <Stack.Screen name="WriteReview" component={WriteReview} options={{ headerShown: false }} />
+            <Stack.Screen name="RestaurantCategories" component={RestaurantCategories} options={{ headerShown: false }} />
+            <Stack.Screen name="ViewMap" component={ViewMap} options={{ headerShown: false }} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

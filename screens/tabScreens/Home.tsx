@@ -1,319 +1,281 @@
-import { View, Text, Dimensions, Image, TouchableOpacity, FlatList } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { styles } from '../../style/style';
-import { StatusBar } from 'expo-status-bar';
-import momo from '../../assets/momo.jpeg'
-import chatapate from '../../assets/chatapate.jpeg'
-import { ScrollView } from 'react-native-gesture-handler';
-import Map from '../../components/home/Map';
-import NavBar from '../../components/home/NavBar';
-import chicken from '../../assets/images/chicken.png'
-import dishes from '../../assets/images/dishes.png'
-import categoryMOMO from '../../assets/images/categoryMOMO.png'
-import categoryNoodles from '../../assets/images/categoryNoodles.png'
-import categoryBurger from '../../assets/images/categoryBurger.png'
-import categoryCake from '../../assets/images/categoryCake.png'
-import categoryPizza from '../../assets/images/categoryPizza.png'
-import categoryChicken from '../../assets/images/categoryChicken.png'
-import biryani from '../../assets/biryani.jpg'
-import img3 from '../../assets/images/img1 (3).png'
-import { StyleSheet } from 'react-native';
-import PagerView from 'react-native-pager-view'
-import React, { useState, useEffect, useContext, useMemo, useCallback } from 'react'
-import CategoriesRestaurant from '../../components/home/CategoriesRestaurant';
-import NearDishCard from '../../components/home/NearDishCard';
-import Greeting from '../../components/home/Greeting';
-import FoodCard from '../../components/home/FoodCard';
-import { scaleHeight, scaleWidth } from '../../Scaling';
-import { myContext } from '../../context/AppProvider';
-import SnackBar from '../viewScreens/SnackBar';
-import CustomSnackbar from '../viewScreens/CustomSnackbar';
-import { baseURL } from '../../service';
-import { Skeleton } from '@rneui/themed';
-import { LinearGradient } from 'expo-linear-gradient';
-import SlickCarousel from '../../components/home/SlickCarousel';
-import { useFocusEffect } from '@react-navigation/native';
+"use client"
+
+import { useState, useContext, useMemo, useCallback } from "react"
+import { View, Text, Dimensions, StyleSheet, FlatList, RefreshControl, Pressable } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
+import { StatusBar as ExpoStatusBar } from "expo-status-bar"
+
+// Components
+import NavBar from "../../components/home/NavBar"
+import Greeting from "../../components/home/Greeting"
+import SlickCarousel from "../../components/home/SlickCarousel"
+import CategoriesRestaurant from "../../components/home/CategoriesRestaurant"
+import Map from "../../components/home/Map"
+import NearDishCard from "../../components/home/NearDishCard"
+import FoodCard from "../../components/home/FoodCard"
 
 
+// Context and Services
+import { myContext } from "../../context/AppProvider"
+import { scaleHeight, scaleWidth } from "../../Scaling"
 
-const { width, height } = Dimensions.get('window');
+// Assets
+import categoryMOMO from "../../assets/images/categoryMOMO.png"
+import categoryNoodles from "../../assets/images/categoryNoodles.png"
+import categoryBurger from "../../assets/images/categoryBurger.png"
+import categoryCake from "../../assets/images/categoryCake.png"
+import categoryPizza from "../../assets/images/categoryPizza.png"
+import categoryChicken from "../../assets/images/categoryChicken.png"
 
-
-const images = [
-  dishes,
-  chicken,
-  dishes,
-];
+const { width, height } = Dimensions.get("window")
 
 const Home = ({ navigation }) => {
+  const { food_state, snackBar, setsnackBar, state } = useContext(myContext)
+  const [refreshing, setRefreshing] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(0)
 
-  const { food_state } = useContext(myContext);
-  const { snackBar, setsnackBar, state } = useContext(myContext)
-  const [activeIndex, setActiveIndex] = useState(0);
-  const dishItems = [
+  // Categories data
+  const categories = [
+    { image: categoryMOMO, name: "Momo" },
+    { image: categoryNoodles, name: "Noodles" },
+    { image: categoryBurger, name: "Burger" },
+    { image: categoryPizza, name: "Pizza" },
+    { image: categoryChicken, name: "Chicken" },
+    { image: categoryCake, name: "Cake" },
+  ]
+
+  // Near me dishes data
+  const nearDishes = [
     {
-      "image": categoryChicken,
-      "price": "1500",
-      "name": "Grilled Chicken",
-      "reviewsNumber": 20,
-      "rating": 4.5
+      image: categoryChicken,
+      price: "1500",
+      name: "Grilled Chicken",
+      reviewsNumber: 20,
+      rating: 4.5,
     },
     {
-      "image": categoryBurger,
-      "price": "300",
-      "name": "Burger",
-      "reviewsNumber": 200,
-      "rating": 4.5
+      image: categoryBurger,
+      price: "300",
+      name: "Burger",
+      reviewsNumber: 200,
+      rating: 4.5,
     },
     {
-      "image": categoryMOMO,
-      "price": "1500",
-      "name": "Grilled Chicken",
-      "reviewsNumber": 20,
-      "rating": 4.5
+      image: categoryMOMO,
+      price: "1500",
+      name: "Momo",
+      reviewsNumber: 20,
+      rating: 4.5,
     },
     {
-      "image": categoryNoodles,
-      "price": "300",
-      "name": "Burger",
-      "reviewsNumber": 200,
-      "rating": 4.5
+      image: categoryNoodles,
+      price: "300",
+      name: "Noodles",
+      reviewsNumber: 200,
+      rating: 4.5,
     },
     {
-      "image": categoryPizza,
-      "price": "1500",
-      "name": "Grilled Chicken",
-      "reviewsNumber": 20,
-      "rating": 4.5
+      image: categoryPizza,
+      price: "1500",
+      name: "Pizza",
+      reviewsNumber: 20,
+      rating: 4.5,
     },
     {
-      "image": categoryCake,
-      "price": "300",
-      "name": "Burger",
-      "reviewsNumber": 200,
-      "rating": 4.5
+      image: categoryCake,
+      price: "300",
+      name: "Cake",
+      reviewsNumber: 200,
+      rating: 4.5,
     },
   ]
 
+  // Memoize food data to prevent unnecessary re-renders
+  const foodData = useMemo(() => {
+    return food_state.map((item) => ({
+      ...item,
+      key: item.id.toString(),
+    }))
+  }, [food_state])
 
-  const leftColumn = useMemo(() => food_state.filter((_, i) => i % 2 === 0), [food_state]);
-  const rightColumn = useMemo(() => food_state.filter((_, i) => i % 2 === 1), [food_state]);
+  // Handle pull-to-refresh
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true)
+    // Implement your refresh logic here
+    // For example: await fetchData();
+    setTimeout(() => {
+      setRefreshing(false)
+    }, 1000)
+  }, [])
 
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 4000);
-
-    return () => clearInterval(interval); 
-  }, []);
-
-  useEffect(() => {
-    if (pagerRef.current) {
-      pagerRef.current.setPage(activeIndex);
-    }
-  }, [activeIndex]);
-
-  const pagerRef = React.useRef(null);
-
+  // Navigation handlers
   const handleSearchScreen = () => {
-    navigation.navigate('SearchScreen')
-    console.log('Navigating to search screen')
+    navigation.navigate("SearchScreen")
   }
+
   const handleToFoodViewPage = (item) => {
-    navigation.navigate('ViewFood', { food_details: item })
+    navigation.navigate("ViewFood", { food_details: item })
   }
 
+  // Render header components
+  const renderHeader = () => (
+    <View style={styles.headerContainer}>
+      <Greeting name={state.name} />
+      <SlickCarousel />
 
+      {/* Categories Section */}
+      <View style={styles.categoriesSection}>
+        <View style={styles.sectionTitleContainer}>
+          <Text style={styles.sectionTitle}>Restaurant Categories</Text>
+        </View>
+        <FlatList
+          data={categories}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item, index) => `category-${index}`}
+            renderItem={({ item }) => <CategoriesRestaurant dishImage={item.image} dishName={item.name} onPress={()=>{navigation.navigate("RestaurantCategories",{category:"Momo"})}}/>}
+          contentContainerStyle={styles.categoriesContainer}
+        />
+      </View>
+
+      {/* Map Section */}
+      <View style={styles.mapSection}>
+        <View style={styles.sectionTitleContainer}>
+          <Text style={styles.sectionTitle}>Explore on maps</Text>
+        </View>
+        <Pressable  onPress={() => navigation.navigate("ViewMap")}>
+
+        <Map />
+        </Pressable>
+      </View>
+
+      {/* Near Me Section */}
+      <View style={styles.nearMeSection}>
+        <View style={styles.sectionTitleContainer}>
+          <Text style={styles.sectionTitle}>Best Selling Items Near Me</Text>
+        </View>
+        <FlatList
+          data={nearDishes}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item, index) => `near-dish-${index}`}
+          renderItem={({ item }) => (
+            <NearDishCard
+              image={item.image}
+              price={item.price}
+              name={item.name}
+              reiwesNumber={item.reviewsNumber}
+              rating={item.rating}
+              onPress={undefined}
+            />
+          )}
+          contentContainerStyle={styles.nearDishesContainer}
+        />
+      </View>
+
+      {/* Food Items Title */}
+      <View style={styles.foodItemsTitleContainer}>
+        <Text style={styles.sectionTitle}>Popular Food Items</Text>
+      </View>
+    </View>
+  )
+
+  // Render food item
+  const renderFoodItem = ({ item }) => (
+    <FoodCard item={item} handleToFoodViewPage={() => handleToFoodViewPage(item)} onAddToCart={() => {}} />
+  )
 
   return (
-    <SafeAreaView>
-      
-      <View style={styles.home_screen}>
-
+    <SafeAreaView style={styles.container}>
+      {/* <ExpoStatusBar hidden={false} backgroundColor="#333" style="dark" /> */}
+      <View style={styles.mainContainer}>
         <NavBar handleSearchScreen={handleSearchScreen} isTextInput={false} isBack={false} navigation={navigation} />
 
-        {/* <ScrollView showsVerticalScrollIndicator={false} stickyHeaderIndices={[1]}> */}
-        <ScrollView showsVerticalScrollIndicator={false}
-          nestedScrollEnabled={true}
-          overScrollMode='never'
-          scrollEventThrottle={16}
-          // decelerationRate='normal'
-        >
-
-          <View style={styles1.dashboardContainer} >
-            <Greeting name={state.name} />
-            <SlickCarousel ></SlickCarousel>
-            <View style={{ gap: scaleHeight(5), marginTop: scaleHeight(10), backgroundColor: '#F0F4F8', paddingVertical: scaleHeight(10), width: '100%' }}>
-              <View style={{ width: '100%', paddingHorizontal: scaleWidth(8) }}>
-                <Text style={{ fontFamily: 'poppins_bold', fontSize: scaleWidth(18) }}>Restaurant Categories</Text>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', width: '100%' }}>
-                <CategoriesRestaurant
-                  dishImage={categoryMOMO}
-                  dishName={'Momo'}
-                />
-                <CategoriesRestaurant
-                  dishImage={categoryNoodles}
-                  dishName={'Noodles'}
-                />
-                <CategoriesRestaurant
-                  dishImage={categoryBurger}
-                  dishName={'Burger'}
-                />
-                <CategoriesRestaurant
-                  dishImage={categoryPizza}
-                  dishName={'Pizza'}
-                />
-                <CategoriesRestaurant
-                  dishImage={categoryChicken}
-                  dishName={'Chicken'}
-                />
-                <CategoriesRestaurant
-                  dishImage={categoryCake}
-                  dishName={'Cake'}
-                />
-
-              </View>
-
-            </View>
-
-            <View style={{ gap: scaleHeight(5), marginTop: scaleHeight(10) }}>
-              <View style={{ width: '100%', paddingHorizontal: scaleWidth(8) }}>
-                <Text style={{ fontFamily: 'poppins_bold', fontSize: scaleWidth(18) }}>Explore on maps</Text>
-              </View>
-              <Map />
-            </View>
-
-            <View style={{ gap: scaleHeight(5), marginTop: scaleHeight(10), width: '100%', alignItems: 'center', backgroundColor: '#F0F4F8', paddingVertical: scaleHeight(5) }}>
-              <View style={{ width: '100%', paddingHorizontal: scaleWidth(8) }}>
-                <Text style={{ fontFamily: 'poppins_bold', fontSize: scaleWidth(18) }}>Best Selling Items Near Me</Text>
-              </View>
-
-              <View>
-                <View style={{ flexDirection: 'column', justifyContent: 'space-evenly', width: '100%', marginLeft: scaleWidth(20) }}>
-                  <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ height: scaleHeight(200) }}>
-                    <View style={{ height: '100%', width: '100%', flexDirection: 'row', gap: scaleWidth(30), paddingHorizontal: scaleWidth(12) }}>
-                      {
-                        dishItems.map((item, index) => (
-                          <View key={index} style={{ height: '100%', alignItems: 'center', justifyContent: 'center' }}>
-                            <NearDishCard
-                              image={item.image}
-                              price={item.price}
-                              name={item.name}
-                              reiwesNumber={item.reviewsNumber}
-                              rating={item.rating}
-                            />
-                          </View>
-                        ))
-                      }
-                    </View>
-                  </ScrollView>
-                </View>
-              </View>
-            </View>
-          </View>
-
-
-
-
-
-
-
-          {/*
-          FoodCards Section with two columns , Left and Right
-          The Left column and Right column are first filtered and 
-          then mapped with the food data from the server
-          */}
-
-
-
-          <View style={styles.foodItems_container}>
-            <View style={{ width: '49%', alignItems: 'center' }}>
-              {
-
-
-                leftColumn.map((item, index) => (
-                  <FoodCard
-                    key={item.id}
-                    item={item}
-                    // food_picture={item.images.length > 0 ? item.images[0].image : null}
-                    // price={item.food_price}
-                    // restaurant_name={item.food_restaurant || 'KFC'}
-                    // discount={item.discount || 12}
-                    // foodName={item.food_name}
-                    // no_fragments={null}
-                    // eatsNumber={item.totol_eats || 120}
-                    // rating={item.rating || 3.5}
-                    // location={item.food_location || 'Kathmandu, Thamel'}
-                    handleToFoodViewPage={() => handleToFoodViewPage(item)}
-                    onAddToCart={undefined}
-                  />
-                ))
-
-
-              }
-            </View>
-
-            <View style={{ width: '49%', alignItems: 'center' }}>
-              {
-                rightColumn.map((item, index) => (
-                  <FoodCard
-                  key={item.id}
-                  item={item}
-                  // food_picture={item.images.length > 0 ? item.images[0].image : null}
-                  // price={item.food_price}
-                  // restaurant_name={item.food_restaurant || 'KFC'}
-                  // discount={item.discount || 12}
-                  // foodName={item.food_name}
-                  // no_fragments={null}
-                  // eatsNumber={item.totol_eats || 120}
-                  // rating={item.rating || 3.5}
-                  // location={item.food_location || 'Kathmandu, Thamel'}
-                  handleToFoodViewPage={() => handleToFoodViewPage(item)}
-                  onAddToCart={undefined}
-                  />
-                ))
-              }
-            </View>
-          </View>
-        </ScrollView>
-        {/* <CustomSnackbar message={state.snackmessage} visible={snackBar}></CustomSnackbar> */}
-        <SnackBar message={state.snackmessage} visible={snackBar} />
+        <FlatList
+          data={foodData}
+          renderItem={renderFoodItem}
+          keyExtractor={(item) => item.key}
+          numColumns={2}
+          columnWrapperStyle={styles.columnWrapper}
+          ListHeaderComponent={renderHeader}
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={["#FF7F50"]} tintColor={"#FF7F50"} />
+          }
+          contentContainerStyle={styles.listContentContainer}
+        />
       </View>
 
     </SafeAreaView>
   )
 }
-export default Home
 
-const styles1 = StyleSheet.create({
-  dashboardContainer: {
-    height: height - scaleHeight(120),
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: '#ffffff',
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F0F4F8",
   },
-  dashContainer: {
-    flexDirection: 'row',
+  mainContainer: {
+    flex: 1,
+  },
+  headerContainer: {
+    backgroundColor: "#FFFFFF",
+    // paddingBottom: scaleHeight(10),
+    alignItems: "center",
+  },
+  categoriesSection: {
+    paddingVertical: scaleHeight(10),
+    backgroundColor: "#F0F4F8",
+    width: "100%",
+  },
+  sectionTitleContainer: {
+    width: "100%",
+    paddingHorizontal: scaleWidth(8),
+    marginBottom: scaleHeight(5),
+  },
+  sectionTitle: {
+    fontFamily: "poppins_bold",
+    fontSize: scaleWidth(18),
+    color: "#333333",
+  },
+  categoriesContainer: {
+    paddingHorizontal: scaleWidth(8),
     gap: scaleWidth(10),
-    position: 'static',
-    bottom: scaleHeight(15),
-    width: '100%',
-    zIndex: 1,
-    justifyContent: 'center',
   },
-  dash: {
-    borderBottomWidth: scaleWidth(6),
-    borderColor: 'grey',
-    height: 0,
-    borderRadius: 5
+  mapSection: {
+    marginTop: scaleHeight(10),
+    paddingBottom: scaleHeight(10),
   },
-  activeDash: {
-    borderBottomWidth: scaleWidth(6),
-    borderColor: 'white',
-    height: 0,
-    borderRadius: 5
+  nearMeSection: {
+    // marginTop: scaleHeight(10),
+    paddingVertical: scaleHeight(10),
+    backgroundColor: "#F0F4F8",
+    width: "100%",
+  },
+  nearDishesContainer: {
+    paddingLeft: scaleWidth(20),
+    paddingRight: scaleWidth(10),
+    gap: scaleWidth(30),
+    paddingVertical: scaleHeight(15),
+  },
+  foodItemsTitleContainer: {
+    // paddingVertical: scaleHeight(10),
+    paddingHorizontal: scaleWidth(8),
+    backgroundColor: "#F0F4F8", 
+    alignItems:'flex-start',
+    width: "100%",
+
+  },
+  columnWrapper: {
+    justifyContent: "space-between",
+    paddingHorizontal: scaleWidth(8),
+    
+
+  },
+  listContentContainer: {
+    paddingBottom: scaleHeight(80),
   },
 })
+
+export default Home
+

@@ -12,7 +12,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { delete_data, post_data_with_img } from '../../service'
 import { myContext } from '../../context/AppProvider'
 import LoadingScreen from '../../components/viewScreens/LoadingScreen'
-import SnackBar from './SnackBar'
+
 
 
 
@@ -132,7 +132,7 @@ const ProfileUpdation = ({ navigation }) => {
             handleInputChange={(text) => dispatch({ type: 'email', payload: text })}
           />
         </View>
-        <SnackBar message={state.snackmessage} visible={snackBar}/>
+
       </SafeAreaView>
     </>
   )

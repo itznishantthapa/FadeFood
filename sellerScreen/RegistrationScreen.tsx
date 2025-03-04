@@ -13,7 +13,6 @@ import {
 import TextEditFields from '../components/profile/TextEditFields';
 import TopBar from '../components/viewScreens/TopBar';
 import LoadingScreen from '../components/viewScreens/LoadingScreen';
-import SnackBar from '../screens/viewScreens/SnackBar';
 import { scaleHeight, scaleWidth } from '../Scaling';
 import { Picker } from '@react-native-picker/picker';
 import { StatusBar } from 'expo-status-bar';

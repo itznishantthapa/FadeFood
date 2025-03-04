@@ -21,7 +21,6 @@ import { myContext } from '../context/AppProvider';
 import * as ImagePicker from 'expo-image-picker';
 import { post_data_with_img, update_data } from '../service';
 import LoadingScreen from '../components/viewScreens/LoadingScreen';
-import SnackBar from '../screens/viewScreens/SnackBar';
 import { Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { CommonActions } from '@react-navigation/native'
 import ProfileSection from '../components/seller_profile/ProfileSection';
@@ -211,7 +210,6 @@ const SellerProfile = ({ navigation }) => {
             </>
           )}
         </ScrollView>
-        <SnackBar message={state.snackmessage} visible={snackBar} />
       </SafeAreaView>
     </>
   );

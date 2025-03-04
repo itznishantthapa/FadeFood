@@ -17,10 +17,11 @@ import { styles } from "../../style/style";
 import { scaleHeight, scaleWidth } from "../../Scaling";
 import Price from "../../components/viewScreens/Price";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import SnackBar from "./SnackBar";
 import { myContext } from "../../context/AppProvider";
 import { get_data, get_data_with_id } from "../../service";
 import { getRestaurantInformation } from "../../apis/getRestaurantInformation";
+import PreOrderBottomSheet from "./PreOrderBottomSheet";
+
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -56,41 +57,37 @@ const food_details_reducer = (state, action) => {
 }
 const ViewFood = ({ navigation, route }) => {
 
-  const { snackBar, state, dispatch, setsnackBar, seller_dispatch, initialseller_state,getting_restaurant_details } = useContext(myContext);
+  const { snackBar, state, dispatch, setsnackBar, seller_dispatch, initialseller_state, getting_restaurant_details } = useContext(myContext);
   const [isFavorite, setIsFavorite] = useState(false);
   const [food_details_state, food_details_dispatch] = useReducer(food_details_reducer, initial_food_details);
+  const [preOrderVisible, setPreOrderVisible] = useState(false);
 
-
-  
-
-  // }
   useEffect(() => {
     food_details_dispatch({ type: 'SET_FOOD_DETAILS', payload: route.params.food_details });
-  console.log("routted---->",route.params.food_details)
-    // fetching()
-
+    console.log("routted---->", route.params.food_details)
   }, [route.params.food_details])
 
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
-  // const [onCheckout, setonCheckout] = useState(false);
   const handleSearchScreen = () => {
     navigation.navigate("SearchScreen");
   };
+  
   const handlePreorderButton = () => {
-    console.log("Checkout Button Pressed");
+    setPreOrderVisible(true);
   };
+  
+  const handleClosePreOrder = () => {
+    setPreOrderVisible(false);
+  };
+  
   const handleAddtoList = () => {
     // setonCheckout(true);
   };
+  
   const handleToRestaurantProfile = () => {
-    navigation.navigate('RestaurantProfile',{restaurant_id:food_details_state.restaurant_name});
-    // navigation.navigate('RestaurantProfile');
-    // console.log('Restaurant ID----->',route.params.food_details.restaurant_name);
+    navigation.navigate('RestaurantProfile', { restaurant_id: food_details_state.restaurant_name });
   }
-
-
-
 
   const toggleFavorite = () => {
     Animated.sequence([
@@ -106,20 +103,15 @@ const ViewFood = ({ navigation, route }) => {
       }),
     ]).start();
 
-
     setsnackBar(true)
     dispatch({ type: 'snackmessage', payload: 'Added to Favorites' })
     setTimeout(() => setsnackBar(false), 3000);
 
-
-
     setIsFavorite(!isFavorite);
-
-    console.log("food_details_state",food_details_state)
   };
+  
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar hidden={false} backgroundColor="#F0F4F8" style="dark" />
       <NabBar
         handleSearchScreen={handleSearchScreen}
         isBack={true}
@@ -144,14 +136,14 @@ const ViewFood = ({ navigation, route }) => {
             <View style={ownstyles.priceSection}>
               <Price priceFontSize={24} price={food_details_state.food_price}></Price>
               <TouchableOpacity
-                  style={[
-                    ownstyles.addToListButton,
-                    { backgroundColor: "#4CAF50" },
-                  ]}
-                  onPress={handlePreorderButton}
-                >
-                  <Text style={ownstyles.buttonText}>Pre-Order Now</Text>
-                </TouchableOpacity>
+                style={[
+                  ownstyles.addToListButton,
+                  { backgroundColor: "#4CAF50" },
+                ]}
+                onPress={handlePreorderButton}
+              >
+                <Text style={ownstyles.buttonText}>Pre-Order Now</Text>
+              </TouchableOpacity>
             </View>
 
             {/* Restaurant Details */}
@@ -173,7 +165,7 @@ const ViewFood = ({ navigation, route }) => {
             <View style={ownstyles.reviewSection}>
               <View style={ownstyles.reviewHeader}>
                 <Text style={ownstyles.reviewTitle}>Reviews</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("SeeReview")}>
                   <Text style={ownstyles.seeAllButton}>See All Reviews</Text>
                 </TouchableOpacity>
               </View>
@@ -193,41 +185,20 @@ const ViewFood = ({ navigation, route }) => {
         {/* Similar Items Section */}
         <View style={ownstyles.similarItemsSection}>
           <Text style={ownstyles.sectionTitle}>You May Also Like</Text>
-
-          {/* <View style={[styles.foodItems_container]}>
-            <View style={{ width: "50%", alignItems: "center" }}>
-              {Array(5)
-                .fill(null)
-                .map((item, index) => (
-                  <FoodCard
-                  key={index}
-                  item={item}
-                  handleToFoodViewPage={undefined}
-                  onAddToCart={undefined}
-                />
-               
-                ))}
-            </View>
-            <View style={{ width: "50%", alignItems: "center" }}>
-              {Array(5)
-                .fill(null)
-                .map((item, index) => (
-                  <FoodCard
-                  key={index}
-                  item={undefined}
-                  handleToFoodViewPage={undefined}
-                  onAddToCart={undefined}
-                />
-                ))}
-            </View>
-          </View> */}
         </View>
       </ScrollView>
-      <SnackBar message={state.message} visible={snackBar} />
+      
+      {/* Pre-Order Bottom Sheet */}
+      <PreOrderBottomSheet 
+        visible={preOrderVisible} 
+        onClose={handleClosePreOrder} 
+        foodDetails={food_details_state}
+        navigation={navigation}
+      />
+      
     </SafeAreaView>
   );
 };
-
 const ownstyles = StyleSheet.create({
   mainSection: {
     minHeight: SCREEN_HEIGHT - scaleHeight(60),

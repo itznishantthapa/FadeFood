@@ -28,3 +28,33 @@ export const handleLogout = async (setisLoading, clearAllData, navigation) => {
     { cancelable: false }
   );
 };
+
+
+Everything Good, but i notice that the arrival time(timeSlotes.map) makes it looks messy and not supposed to good user friendly, can you make it more clean and organized and best professional formate in the PreOrderBottomSheet?
+
+
+
+
+RenderRestaurantItem lai design granu additional props hallera for the favourite screen ko laagi pani
+aaba map deisgn garzxu
+
+    "id": "2",
+    "owner": "owner_id_2",
+    "name": "Cafe Delight",
+    "street_address": "456 Elm St",
+    "city": "Los Angeles",
+    "citizenship_number": "234567890",
+    "pan_number": "876543210",
+    "business_type": "Cafe",
+    "opening_hour": "08:00 AM",
+    "logo": require("../../assets/images/restaurant3.jpg"),
+    "is_active": true,
+    "restaurant_images": [require("../../assets/images/restaurant3.jpg"), require("../../assets/images/restaurant4.jpg")],
+    "rating": 4.2  require("../../assets/images/restaurant4.jpg")],
+    "rating": 4.2,
+    "longitude": -118.2437,
+    "latitude": 34.0522,
+    "specialties": ["Coffee", "Pastries", "Breakfast"],
+    "delivery_time": "15-25",
+    "distance": 0.8,
+    "price_range": "$$"

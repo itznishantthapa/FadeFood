@@ -20,7 +20,7 @@ export const AppProvider = ({ children }) => {
   );
   const [isLoading, setisLoading] = useState(false);
   const [isLogged, setisLogged] = useState(false);
-  const [snackBar, setsnackBar] = useState(false);
+
 
   const fetchData = async () => {
     state.role === "customer" &&
@@ -43,7 +43,6 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: "RESET" });
     food_dispatch({ type: "CLEAR_FOOD" });
     seller_dispatch({ type: "CLEAR" });
-    setsnackBar(false);
     setisLoading(false);
     setisLogged(false);
     console.log("All data cleared");
@@ -60,8 +59,6 @@ export const AppProvider = ({ children }) => {
         clearAllData,
         isLoading,
         setisLoading,
-        snackBar,
-        setsnackBar,
         seller_state,
         seller_dispatch,
         initialseller_state,

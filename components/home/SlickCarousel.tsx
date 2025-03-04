@@ -58,7 +58,7 @@ const SlickCarousel = () => {
     <View style={styles.container}>
       <PagerView
         ref={pagerRef}
-        style={{ width, height: scaleHeight(155), backgroundColor: '#ffffff' }}
+        style={{ width:"100%", height: scaleHeight(155)}}
         initialPage={1}
         onPageSelected={(e) => handlePageChange(e.nativeEvent.position)}
       >
@@ -95,11 +95,15 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 20,
     marginHorizontal: 16,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   imageContainer: {
     flex: 1,
     borderRadius: 20,
     overflow: 'hidden',
+
   },
   image: {
     width: '100%',
@@ -109,7 +113,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: scaleHeight(10),
+    // backgroundColor:'rgba(0, 0, 0, 0.4)',
+    paddingVertical: scaleWidth(6),
+    paddingHorizontal: scaleWidth(10),
+    borderRadius: scaleWidth(15),
   },
   dot: {
     borderRadius: scaleWidth(5),

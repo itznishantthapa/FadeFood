@@ -13,7 +13,7 @@ import LoadingScreen from '../../components/viewScreens/LoadingScreen';
 import { CommonActions } from '@react-navigation/native';
 
 const LoginScreens = ({ navigation }) => {
-    const { fetchData, isLoading, setisLoading,setsnackBar,state,dispatch } = useContext(myContext)
+    const { fetchData, isLoading, setisLoading,state,dispatch } = useContext(myContext)
     const [email, set_email] = useState(null)
     const [password, set_password] = useState(null)
     const [passwordVisible, setPasswordVisible] = useState(true);
@@ -40,9 +40,6 @@ const LoginScreens = ({ navigation }) => {
                 })
             );
             
-            setsnackBar(true)
-            dispatch({type:'snackmessage',payload:response.message})
-            setTimeout(() => setsnackBar(false), 3000);
         } else {
             setisLoading(false)
             Alert.alert('Error', response.message)
