@@ -67,30 +67,7 @@ const RestaurantProfile = ({ route, navigation }) => {
 
   console.log(restaurant.latitude, restaurant.longitude)
 
-  const renderFoodItem = (item) => (
-    <TouchableOpacity key={item.id} style={styles.foodItem} onPress={() => navigation.navigate("FoodDetail", { item })}>
-      <Image source={{ uri: `${baseURL}${item.image}` }} style={styles.foodImage} resizeMode="cover" />
-      <View style={styles.foodInfo}>
-        <View style={styles.foodNameRow}>
-          <Text style={styles.foodName}>{item.food_name}</Text>
-          {item.isVeg && (
-            <View style={styles.vegIndicator}>
-              <Ionicons name="leaf" size={12} color="#4CAF50" />
-            </View>
-          )}
-        </View>
-        <Text style={styles.foodDescription} numberOfLines={2}>
-          {item.description || "Delicious food prepared with fresh ingredients"}
-        </Text>
-        <View style={styles.foodPriceRow}>
-          <Text style={styles.foodPrice}>₹{item.food_price}</Text>
-          <TouchableOpacity style={styles.addButton} onPress={() => addToCart(item)}>
-            <AntDesign name="plus" size={16} color="#FFFFFF" />
-          </TouchableOpacity>
-        </View>
-      </View>
-    </TouchableOpacity>
-  )
+ 
 
   return (
     <SafeAreaView style={styles.container}>

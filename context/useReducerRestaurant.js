@@ -3,6 +3,7 @@
 export const initialseller_state = {
     name: "",
     street_address: "",
+    phone: "",
     city: "",
     business_type: "",
     opening_hour: "",
