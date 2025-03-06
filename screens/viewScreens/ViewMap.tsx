@@ -169,7 +169,7 @@ const ViewMap = ({ navigation, route }) => {
 
   // Get user location on component mount
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       try {
         setLoading(true)
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useContext, useMemo, useCallback } from "react"
+import { useState, useContext, useMemo, useCallback, useEffect } from "react"
 import { View, Text, Dimensions, StyleSheet, FlatList, RefreshControl, Pressable } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { StatusBar as ExpoStatusBar } from "expo-status-bar"
@@ -27,12 +27,16 @@ import categoryCake from "../../assets/images/categoryCake.png"
 import categoryPizza from "../../assets/images/categoryPizza.png"
 import categoryChicken from "../../assets/images/categoryChicken.png"
 
+import * as Location from 'expo-location';
+
+
 const { width, height } = Dimensions.get("window")
 
 const Home = ({ navigation }) => {
   const { food_state, snackBar, setsnackBar, state } = useContext(myContext)
   const [refreshing, setRefreshing] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
+  const [currentLocation, setCurrentLocation] = useState(null);
 
   // Categories data
   const categories = [
@@ -90,6 +94,30 @@ const Home = ({ navigation }) => {
     },
   ]
 
+
+
+  // Add this useEffect to get the user's location when the component mounts
+  useEffect(() => {
+    (async () => {
+      // Request permission to access location
+      console.log("here1")
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.log('Permission to access location was denied');
+        return;
+      }
+      const location = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Balanced,
+      })
+      console.log("here2")
+      // Get the current position
+      // let location = await Location.getCurrentPositionAsync({});
+      setCurrentLocation(location.coords);
+      console.log("here3")
+      console.log(location.coords,'-----------------location-corrs');
+    })();
+  }, []);
+
   // Memoize food data to prevent unnecessary re-renders
   const foodData = useMemo(() => {
     return food_state.map((item) => ({
@@ -117,6 +145,7 @@ const Home = ({ navigation }) => {
     navigation.navigate("ViewFood", { food_details: item })
   }
 
+
   // Render header components
   const renderHeader = () => (
     <View style={styles.headerContainer}>
@@ -133,7 +162,7 @@ const Home = ({ navigation }) => {
           horizontal
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item, index) => `category-${index}`}
-            renderItem={({ item }) => <CategoriesRestaurant dishImage={item.image} dishName={item.name} onPress={()=>{navigation.navigate("RestaurantCategories",{category:"Momo"})}}/>}
+          renderItem={({ item }) => <CategoriesRestaurant dishImage={item.image} dishName={item.name} onPress={() => { navigation.navigate("RestaurantCategories", { category: "Momo" }) }} />}
           contentContainerStyle={styles.categoriesContainer}
         />
       </View>
@@ -143,9 +172,9 @@ const Home = ({ navigation }) => {
         <View style={styles.sectionTitleContainer}>
           <Text style={styles.sectionTitle}>Explore on maps</Text>
         </View>
-        <Pressable  onPress={() => navigation.navigate("ViewMap")}>
+        <Pressable onPress={() => navigation.navigate("ViewMap")}>
 
-        <Map />
+          <Map location={currentLocation} />
         </Pressable>
       </View>
 
@@ -182,7 +211,7 @@ const Home = ({ navigation }) => {
 
   // Render food item
   const renderFoodItem = ({ item }) => (
-    <FoodCard item={item} handleToFoodViewPage={() => handleToFoodViewPage(item)} onAddToCart={() => {}} />
+    <FoodCard item={item} handleToFoodViewPage={() => handleToFoodViewPage(item)} onAddToCart={() => { }} />
   )
 
   return (
@@ -262,15 +291,15 @@ const styles = StyleSheet.create({
   foodItemsTitleContainer: {
     // paddingVertical: scaleHeight(10),
     paddingHorizontal: scaleWidth(8),
-    backgroundColor: "#F0F4F8", 
-    alignItems:'flex-start',
+    backgroundColor: "#F0F4F8",
+    alignItems: 'flex-start',
     width: "100%",
 
   },
   columnWrapper: {
     justifyContent: "space-between",
     paddingHorizontal: scaleWidth(8),
-    
+
 
   },
   listContentContainer: {

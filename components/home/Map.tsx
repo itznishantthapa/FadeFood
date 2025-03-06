@@ -1,21 +1,35 @@
-import { StyleSheet, Text, View,Image,Dimensions  } from 'react-native'
-import React from 'react'
-import { styles } from '../../style/style'
+import { StyleSheet, Text, View, Image, Dimensions, ActivityIndicator } from 'react-native';
+import React from 'react';
+import { styles } from '../../style/style';
 import { scaleWidth } from '../../Scaling';
 
 const { width, height } = Dimensions.get('window');
 
-const Map = () => {
+const Map = ({ location }) => {
+  if (!location) {
+    // Return a loading indicator or a placeholder if location is not available
+    return (
+      <View style={[styles.homeMap, { width: width }]}>
+        <View style={styles.map_box}>
+          <ActivityIndicator size="large" color="#b3b3b3" />
+        </View>
+      </View>
+    );
+  }
+
   return (
-    <View style={[styles.homeMap,{width:width}]}>
-      {/* <View style={{borderColor:'#000000',width:width*0.60,height:'auto',borderBottomWidth:2}}>
-        <Text style={{  fontSize:width*0.07, fontFamily:'pacifico',color:'#000000' }}>Explore your nearby</Text>
-      </View> */}
-    <View style={styles.map_box}>
-        <Image style={{height:'100%' ,width:'100%',borderRadius:scaleWidth(20)}} resizeMode='cover' source={require('../../assets/map.jpg')}></Image>
+    <View style={[styles.homeMap, { width: width }]}>
+      <View style={styles.map_box}>
+        <Image
+          style={{ height: '100%', width: '100%', borderRadius: scaleWidth(20) }}
+          resizeMode='cover'
+          source={{
+            uri: `https://maps.gomaps.pro/maps/api/staticmap?center=${location.latitude},${location.longitude}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7C${location.latitude},${location.longitude}&key=AlzaSyEVS1Xym6dfUAcdxBZQaKis7oO_zf_D7GZ`,
+          }}
+        />
+      </View>
     </View>
-  </View>
-  )
-}
+  );
+};
 
 export default Map;

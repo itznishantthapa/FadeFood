@@ -102,13 +102,11 @@ export const styles = StyleSheet.create({
   map_box: {
     borderWidth: scaleWidth(5),
     borderColor: '#FFFFFF',
-    // height: '78%',
+    height: '100%',
+    width: '100%',
     borderRadius: scaleWidth(25),
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    backgroundColor: '#dadada',
+    justifyContent:'center'
   },
   home_categories_options: {
     height: 70,
