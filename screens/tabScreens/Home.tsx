@@ -234,7 +234,8 @@ const styles = StyleSheet.create({
     marginBottom: scaleHeight(5),
   },
   sectionTitle: {
-    fontFamily: "poppins_bold",
+    fontFamily: "poppins_semibold",
+    // fontFamily: "montserrat_semibold",
     fontSize: scaleWidth(18),
     color: "#333333",
   },

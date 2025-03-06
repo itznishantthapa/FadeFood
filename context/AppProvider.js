@@ -6,6 +6,7 @@ import { initialseller_state, seller_reducer } from "./useReducerRestaurant";
 import { getUserInformation } from "../apis/getUserInformation";
 import { getRestaurantInformation } from "../apis/getRestaurantInformation";
 import { getAllFood } from "../apis/getAllFoods";
+import { getRestaurantFood } from "../apis/getRestaurantFood";
 export const myContext = createContext();
 
 export const AppProvider = ({ children }) => {
@@ -27,6 +28,7 @@ export const AppProvider = ({ children }) => {
       (await getUserInformation(dispatch, setisLogged));
     //correct stetup
     await getAllFood(food_dispatch);
+    // await getRestaurantFood(food_dispatch);
     await getRestaurantInformation(
       seller_dispatch,
       (id = null),

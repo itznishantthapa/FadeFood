@@ -49,8 +49,8 @@ const CustomerTabBars = () => {
             return <Entypo name="info" color={color} size={scaleWidth(30)} />;
           }
         },
-        tabBarActiveTintColor: '#b6b6b6',
-        tabBarInactiveTintColor: '#b6b6b6',
+        tabBarActiveTintColor: '#b3b3b3',
+        tabBarInactiveTintColor: '#b3b3b3',
         tabBarStyle: {
           backgroundColor: '#ffffff',
           height: scaleHeight(60)
@@ -93,10 +93,10 @@ const SellerTabBars = () => {
           let iconName;
 
           if (route.name === 'Menu') {
-            return <MaterialIcon name="menu-book" color={color} size={scaleWidth(35)} />
+            return (
+              focused ? <Entypo name='home' size={scaleWidth(30)} color={color} /> : <Ant name='home' size={scaleWidth(30)} color={color} />
+            );
 
-          } else if (route.name === 'AddFood') {
-            return <MaterialCommunityIcons name={focused ? "plus-circle-multiple" : "plus-circle-multiple-outline"} color={color} size={scaleWidth(35)} />
           } else if (route.name === 'Chat') {
             return <Ionicons name={focused ? "chatbubbles-sharp" : "chatbubbles-outline"} color={color} size={scaleWidth(30)} />;
 
@@ -107,8 +107,8 @@ const SellerTabBars = () => {
             return <Entypo name="info" color={color} size={scaleWidth(30)} />;
           }
         },
-        tabBarActiveTintColor: '#dadada',
-        tabBarInactiveTintColor: '#dadada',
+        tabBarActiveTintColor: '#b3b3b3',
+        tabBarInactiveTintColor: '#b3b3b3',
         tabBarStyle: {
           backgroundColor: '#ffffff',
           height: scaleHeight(60)
@@ -119,10 +119,7 @@ const SellerTabBars = () => {
         name="Menu"
         component={Menu}
       />
-      <Tab.Screen
-        name="AddFood"
-        component={AddFood}
-      />
+    
 
 
       <Tab.Screen

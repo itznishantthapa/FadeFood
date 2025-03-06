@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   FlatList,
@@ -14,46 +14,20 @@ import TopBar from "../../components/viewScreens/TopBar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { ScrollView } from "react-native-gesture-handler";
-import { scaleHeight } from "../../Scaling";
+import { scaleHeight, scaleWidth } from "../../Scaling";
+import { myContext } from "../../context/AppProvider";
 
 const FavouriteContent = ({ navigation }) => {
-  const foodData = [
-    {
-      price: "$5.00",
-      foodName: "Chatpate",
-      restaurantName: "Food Corner",
-      image: { image1: m1, image2: m2, image3: m3 },
-      isLoveNeeded: true,
-    },
-    {
-      price: "$5.00",
-      foodName: "Chatpate",
-      restaurantName: "Food Corner",
-      image: { image1: m1, image2: m2, image3: m3 },
-      isLoveNeeded: true,
-    },
-    {
-      price: "$5.00",
-      foodName: "Chatpate",
-      restaurantName: "Food Corner",
-      image: chatpate,
-      isLoveNeeded: true,
-    },
-    {
-      price: "$5.00",
-      foodName: "Chatpate",
-      restaurantName: "Food Corner",
-      image: chatpate,
-      isLoveNeeded: true,
-    },
-  ];
+  
+    const { food_state, seller_state } = useContext(myContext)
+  
 
   return (
     <SafeAreaView style={ownstyles.safeArea}>
       <View style={ownstyles.homeScreen}>
         <TopBar navigation={navigation} top_title="Favorite"  withSettingIcons={undefined} handleSettingIcon={undefined} />
 
-        <ScrollView style={ownstyles.scrollView} showsVerticalScrollIndicator={false}>
+        {/* <ScrollView style={ownstyles.scrollView} showsVerticalScrollIndicator={false}>
           <View style={ownstyles.contentContainer}>
             {foodData.map((item, index) => (
               <List
@@ -68,7 +42,26 @@ const FavouriteContent = ({ navigation }) => {
               />
             ))}
           </View>
-        </ScrollView>
+        </ScrollView> */}
+                     <FlatList
+                    data={food_state}
+                    renderItem={({ item }) => (<List
+                        images={item.images}
+                        foodName={item.food_name}
+                        restaurantName={item.restaurant_name}
+                        price={item.food_price}
+                        navigation={navigation}
+                        withRestaurant={true}
+                        handlePressonList={undefined}
+                        handleEditPen={undefined}
+
+                      
+                    />)}
+                    keyExtractor={(item) => item.id.toString()}
+                    contentContainerStyle={ownstyles.listContent}
+                    showsVerticalScrollIndicator={false}
+
+                />
         
       </View>
     </SafeAreaView>
@@ -91,6 +84,9 @@ const ownstyles = StyleSheet.create({
     gap: scaleHeight(10),
     alignItems: "center",
   },
+      listContent: {
+          padding: scaleWidth(16),
+      },
 });
 
 export default FavouriteContent;

@@ -29,6 +29,8 @@ import WriteReview from './screens/viewScreens/WriteReview';
 import SeeReview from './screens/viewScreens/SeeReview';
 import RestaurantCategories from './screens/viewScreens/RestaurantCategories';
 import ViewMap from './screens/viewScreens/ViewMap';
+import DishManagement from './sellerScreen/DishManagement';
+import AddFood from './sellerScreen/AddFood';
 
 
 
@@ -90,6 +92,8 @@ export default function App() {
             <Stack.Screen name="WriteReview" component={WriteReview} options={{ headerShown: false }} />
             <Stack.Screen name="RestaurantCategories" component={RestaurantCategories} options={{ headerShown: false }} />
             <Stack.Screen name="ViewMap" component={ViewMap} options={{ headerShown: false }} />
+            <Stack.Screen name="DishManagement" component={DishManagement} options={{ headerShown: false }} />
+            <Stack.Screen name="AddFood" component={AddFood} options={{ headerShown: false }} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

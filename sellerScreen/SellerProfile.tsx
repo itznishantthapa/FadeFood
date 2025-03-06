@@ -172,9 +172,9 @@ const SellerProfile = ({ navigation }) => {
                 <Text style={localStyles.sectionTitle}>Account Settings</Text>
 
                 <SettingMenu
-                  menuName={'Menu Management'}
+                  menuName={'Dish Management'}
                   iconName={'restaurant-outline'}
-                  handleSettingPage={() => navigation.navigate('Menu')}
+                  handleSettingPage={() => navigation.navigate('DishManagement')}
                 />
 
                 <SettingMenu
