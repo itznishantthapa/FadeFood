@@ -10,6 +10,7 @@ export const initialseller_state = {
     citizenship_number: "",
     pan_number: "",
     logo: null,
+    cover_image: null,
     rating: 0,
     is_active: false,
     longitude: "",
@@ -23,6 +24,7 @@ export const initialseller_state = {
     switch (action.type) {
       case "SET_DATA":
         return {
+          
           ...seller_state,
           [action.key]: action.payload, 
         };
@@ -31,5 +33,6 @@ export const initialseller_state = {
       default:
         return seller_state;
     }
+    
   };
   

@@ -193,6 +193,7 @@ export const get_data = async (endpoint) => {
 //get_data_with_id function
 export const get_data_with_id = async (endpoint, data) => {
   let token = await getAccessToken();
+  console.log('------------at token down called---------')
   if (!token) {
     return { success: false, data: "No token found. Please log in again." };
   }
@@ -202,6 +203,7 @@ export const get_data_with_id = async (endpoint, data) => {
       headers: { Authorization: `Bearer ${token}` },
       params: data,
     });
+    console.log('------------at api down called---------')
     return { success: true, data: response.data.ofBackendData };
   } catch (error) {
     if (error.response?.status === 401) {

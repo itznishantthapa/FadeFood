@@ -218,6 +218,7 @@ const SellerProfile = ({ navigation }) => {
 const localStyles = StyleSheet.create({
   scrollView: {
     flex: 1,
+    marginBottom: scaleHeight(60),
   },
  
   infoSection: {   

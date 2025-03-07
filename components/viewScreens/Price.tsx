@@ -6,10 +6,18 @@ import { scaleWidth } from '../../Scaling'
 const Price = ({price,priceFontSize}) => {
   return (
     <View style={styles.price}>
-    <Text style={{ fontSize: scaleWidth(15), color: '#8D6E63', fontFamily: 'montserrat_semibold' }}>Rs.</Text>
-    <Text style={{ fontSize: scaleWidth(priceFontSize), color: '#8D6E63', fontFamily: 'montserrat_semibold' }}>{price}</Text>
+    <Text style={[ownstyles.price,{fontSize:priceFontSize}]}>Rs. {price}</Text>
   </View>
 )}
 
 export default Price
+
+
+const ownstyles = StyleSheet.create({
+  price: {
+    fontFamily: "poppins_semibold",
+    fontSize: scaleWidth(14),
+    color: "#4CAF50",
+  },
+})
 

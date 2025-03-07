@@ -6,8 +6,9 @@ import Price from "../viewScreens/Price"
 import { MaterialIcons } from "@expo/vector-icons"
 import Reviews from "./Reviews"
 import { scaleHeight, scaleWidth } from "../../Scaling"
+import { baseURL } from "../../service"
 
-const NearDishCard = ({ image, price, name, reiwesNumber, rating, onPress }) => {
+const NearDishCard = ({ images, price, name, reiwesNumber, rating, onPress }) => {
   // Add state for tracking favorite status
   const [isFavorite, setIsFavorite] = useState(false)
 
@@ -19,10 +20,10 @@ const NearDishCard = ({ image, price, name, reiwesNumber, rating, onPress }) => 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress} activeOpacity={0.9}>
       <View style={styles.imageWrapper}>
-        <View style={styles.imageContainer}>
-          <Image resizeMode="stretch" style={styles.image} source={image} />
-        </View>
-
+        {/* <View style={styles.imageContainer}>
+              <Image resizeMode="stretch" style={styles.image} source={image} />
+            </View> */}
+        <Image resizeMode="cover" style={styles.image} source={{ uri: `${baseURL}${images[0].image}` }} />
         {/* Favorite button */}
         <TouchableOpacity
           onPress={toggleFavorite}
@@ -35,6 +36,10 @@ const NearDishCard = ({ image, price, name, reiwesNumber, rating, onPress }) => 
           />
         </TouchableOpacity>
       </View>
+
+
+
+
       <View style={styles.infoContainer}>
         <Price price={price} priceFontSize={15} />
         <Text style={styles.name} numberOfLines={1}>
@@ -42,6 +47,9 @@ const NearDishCard = ({ image, price, name, reiwesNumber, rating, onPress }) => 
         </Text>
         <Reviews reviewsName={"Reviews"} reviewsNumber={reiwesNumber} rating={rating} />
       </View>
+
+
+
     </TouchableOpacity>
   )
 }
@@ -52,17 +60,16 @@ const styles = StyleSheet.create({
     width: scaleWidth(150),
     backgroundColor: "#FFFFFF",
     borderRadius: scaleWidth(15),
-    padding: 5,
+    paddingBottom:scaleHeight(6)
 
- 
+
 
   },
   imageWrapper: {
     height: "60%",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "flex-start",
-    position: "relative",
+    alignSelf: 'center',
+    width: '100%',
+    borderRadius: scaleWidth(15)
   },
   imageContainer: {
     position: "absolute",
@@ -70,8 +77,10 @@ const styles = StyleSheet.create({
     left: scaleWidth(-25),
   },
   image: {
-    height: scaleHeight(120),
-    width: scaleWidth(120),
+    height: '100%',
+    width: '100%',
+    borderTopRightRadius: scaleWidth(15),
+    borderTopLeftRadius: scaleWidth(15)
   },
   favoriteButton: {
     height: scaleHeight(30),
@@ -81,6 +90,9 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     alignItems: "center",
     justifyContent: "center",
+    position: 'absolute',
+    top: 0,
+    right: 0
   },
   infoContainer: {
     height: "40%",

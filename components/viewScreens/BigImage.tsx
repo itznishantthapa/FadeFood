@@ -10,7 +10,7 @@ import { baseURL } from '../../service';
 
 
 const BigImage = ({scaleAnim,toggleFavorite,isFavorite,images}) => {
-  console.log('images',images)
+  console.log('images -------------by big data',images)
   const [activeIndex, setActiveIndex] = useState(0);
 
 

@@ -30,7 +30,7 @@ const RestaurantProfile = ({ route, navigation }) => {
 
   console.log("restaurant:::::-->", restaurant)
 
- 
+
 
 
   // Extract unique categories from food items
@@ -39,7 +39,7 @@ const RestaurantProfile = ({ route, navigation }) => {
   // Filter food items by selected category
   const filteredItems =
     activeCategory === "All" ? foodItems : foodItems.filter((item) => item.category === activeCategory)
- 
+
 
   const openMaps = () => {
     const { latitude, longitude } = restaurant
@@ -67,7 +67,7 @@ const RestaurantProfile = ({ route, navigation }) => {
 
   console.log(restaurant.latitude, restaurant.longitude)
 
- 
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -81,146 +81,147 @@ const RestaurantProfile = ({ route, navigation }) => {
       </View>
 
       <FlatList
-      data={filteredItems}
-      keyExtractor={(item) => item.id.toString()}
-      showsVerticalScrollIndicator={false}
-      ListHeaderComponent={() => (
-        <>
-               <LinearGradient colors={["rgba(0,0,0,0.7)", "transparent"]} style={styles.heroGradient}>
-          <Image
-            source={{
-              uri:
-                restaurant.coverImage ||
-                // `${baseURL}${restaurant.logo}` ||
-                "https://images.unsplash.com/photo-1556742205-e10c9486e506?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxzZWFyY2h8MXx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D",
-            }}
-            style={styles.heroCover}
-            resizeMode="cover"
-          />
-        </LinearGradient>
+        data={filteredItems}
+        keyExtractor={(item) => item.id.toString()}
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={() => (
+          <>
+            <LinearGradient colors={["rgba(0,0,0,0.7)", "transparent"]} style={styles.heroGradient}>
+              <Image
+                source={{
+                  uri:
+                   `${baseURL}${restaurant.cover_image}` ||
+                    // `${baseURL}${restaurant.logo}` ||
+                    // "https://images.unsplash.com/photo-1556742205-e10c9486e506?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxzZWFyY2h8MXx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D",
+                    "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aG90ZWwlMjByZXN0YXVyYW50fGVufDB8fDB8fHww"
+                }}
+                style={styles.heroCover}
+                resizeMode="cover"
+              />
+            </LinearGradient>
 
-        {/* Restaurant Info Card */}
-        <View style={styles.restaurantCard}>
-          <View style={styles.logoContainer}>
-            <Image source={{ uri: `${baseURL}${restaurant.logo}` }} style={styles.logo} />
-          </View>
-
-          <View style={styles.restaurantInfo}>
-            <Text style={styles.restaurantName}>{restaurant.name}</Text>
-            <Text style={styles.restaurantType}>{restaurant.business_type || "Restaurant"}</Text>
-
-            <View style={styles.ratingRow}>
-              <View style={styles.ratingContainer}>
-                <AntDesign name="star" size={16} color="#FFD700" />
-                <Text style={styles.ratingText}>{restaurant.rating || "4.5"}</Text>
+            {/* Restaurant Info Card */}
+            <View style={styles.restaurantCard}>
+              <View style={styles.logoContainer}>
+                <Image source={{ uri: `${baseURL}${restaurant.logo}` }} style={styles.logo} />
               </View>
-              <Text style={styles.ratingCount}>({restaurant.ratingCount || "200+"})</Text>
 
-              {restaurant.is_active ? (
-                <View style={styles.statusBadge}>
-                  <Text style={styles.statusText}>Open</Text>
+              <View style={styles.restaurantInfo}>
+                <Text style={styles.restaurantName}>{restaurant.name}</Text>
+                <Text style={styles.restaurantType}>{restaurant.business_type || "Restaurant"}</Text>
+
+                <View style={styles.ratingRow}>
+                  <View style={styles.ratingContainer}>
+                    <AntDesign name="star" size={16} color="#FFD700" />
+                    <Text style={styles.ratingText}>{restaurant.rating || "4.5"}</Text>
+                  </View>
+                  <Text style={styles.ratingCount}>({restaurant.ratingCount || "200+"})</Text>
+
+                  {restaurant.is_active ? (
+                    <View style={styles.statusBadge}>
+                      <Text style={styles.statusText}>Open</Text>
+                    </View>
+                  ) : (
+                    <View style={[styles.statusBadge, styles.closedBadge]}>
+                      <Text style={[styles.statusText, styles.closedText]}>Closed</Text>
+                    </View>
+                  )}
                 </View>
-              ) : (
-                <View style={[styles.statusBadge, styles.closedBadge]}>
-                  <Text style={[styles.statusText, styles.closedText]}>Closed</Text>
-                </View>
-              )}
+              </View>
             </View>
-          </View>
-        </View>
 
-        {/* Restaurant Details */}
-        <View style={styles.detailsCard}>
-          <View style={styles.detailRow}>
-            <Ionicons name="time-outline" size={20} color="#4CAF50" style={styles.detailIcon} />
-            <Text style={styles.detailText}>{restaurant.opening_hour || "10:00 AM - 10:00 PM"}</Text>
-          </View>
+            {/* Restaurant Details */}
+            <View style={styles.detailsCard}>
+              <View style={styles.detailRow}>
+                <Ionicons name="time-outline" size={20} color="#4CAF50" style={styles.detailIcon} />
+                <Text style={styles.detailText}>{restaurant.opening_hour || "10:00 AM - 10:00 PM"}</Text>
+              </View>
 
-          <View style={styles.detailRow}>
-            <Ionicons name="location-outline" size={20} color="#4CAF50" style={styles.detailIcon} />
-            <Text style={styles.detailText}>
-              {restaurant.street_address
-                ? `${restaurant.street_address}, ${restaurant.city}`
-                : "123 Main Street, City Center"}
-            </Text>
-            <TouchableOpacity style={styles.mapButton} onPress={openMaps}>
-              <Text style={styles.mapButtonText}>Map</Text>
+              <View style={styles.detailRow}>
+                <Ionicons name="location-outline" size={20} color="#4CAF50" style={styles.detailIcon} />
+                <Text style={styles.detailText}>
+                  {restaurant.street_address
+                    ? `${restaurant.street_address}, ${restaurant.city}`
+                    : "123 Main Street, City Center"}
+                </Text>
+                <TouchableOpacity style={styles.mapButton} onPress={openMaps}>
+                  <Text style={styles.mapButtonText}>Map</Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.detailRow}>
+                <Ionicons name="call-outline" size={20} color="#4CAF50" style={styles.detailIcon} />
+                <Text style={styles.detailText}>{restaurant.phone || "+91 98765 43210"}</Text>
+                <TouchableOpacity style={styles.callButton} onPress={handleCall}>
+                  <Text style={styles.callButtonText}>Call</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* Map Preview */}
+            <TouchableOpacity style={styles.mapPreview} onPress={openMaps}>
+              <Image
+                // source={{
+                //   uri: `https://maps.gomaps.pro/maps/api/staticmap?center=${ "26.8217"},${"87.2863"}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7C${ "26.8217"},${ "87.2863"}&key=AlzaSyEVS1Xym6dfUAcdxBZQaKis7oO_zf_D7GZ`,
+                // }}
+                source={{
+                  uri: `https://maps.gomaps.pro/maps/api/staticmap?center=${restaurant.latitude},${restaurant.longitude}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7C${restaurant.latitude},${restaurant.longitude}&key=AlzaSyEVS1Xym6dfUAcdxBZQaKis7oO_zf_D7GZ`,
+
+                }}
+                style={styles.mapImage}
+                resizeMode="cover"
+              />
+
+              <View style={styles.mapOverlay}>
+                <Text style={styles.mapOverlayText}>Tap to view in Maps</Text>
+              </View>
             </TouchableOpacity>
-          </View>
 
-          <View style={styles.detailRow}>
-            <Ionicons name="call-outline" size={20} color="#4CAF50" style={styles.detailIcon} />
-            <Text style={styles.detailText}>{restaurant.phone || "+91 98765 43210"}</Text>
-            <TouchableOpacity style={styles.callButton} onPress={handleCall}>
-              <Text style={styles.callButtonText}>Call</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Map Preview */}
-        <TouchableOpacity style={styles.mapPreview} onPress={openMaps}>
-          <Image
-            // source={{
-            //   uri: `https://maps.gomaps.pro/maps/api/staticmap?center=${ "26.8217"},${"87.2863"}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7C${ "26.8217"},${ "87.2863"}&key=AlzaSyEVS1Xym6dfUAcdxBZQaKis7oO_zf_D7GZ`,
-            // }}
-            source={{
-              uri: `https://maps.gomaps.pro/maps/api/staticmap?center=${restaurant.latitude },${restaurant.longitude }&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7C${restaurant.latitude },${restaurant.longitude }&key=AlzaSyEVS1Xym6dfUAcdxBZQaKis7oO_zf_D7GZ`,
-              
-            }}
-            style={styles.mapImage}
-            resizeMode="cover"
-          />
-          
-          <View style={styles.mapOverlay}>
-            <Text style={styles.mapOverlayText}>Tap to view in Maps</Text>
-          </View>
-        </TouchableOpacity>
-
-        {/* Menu Categories */}
-        <Text style={styles.menuTitle}>Menu</Text>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.categoriesContainer}
-          contentContainerStyle={styles.categoriesContent}
-        >
-          {categories.map((category: string, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[styles.categoryButton, activeCategory === category && styles.activeCategoryButton]}
-              onPress={() => setActiveCategory(category)}
+            {/* Menu Categories */}
+            <Text style={styles.menuTitle}>Menu</Text>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={styles.categoriesContainer}
+              contentContainerStyle={styles.categoriesContent}
             >
-              <Text style={[styles.categoryText, activeCategory === category && styles.activeCategoryText]}>
-                {category}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-        {filteredItems.length === 0 && (
-            <View style={styles.emptyContainer}>
-              <Feather name="coffee" size={48} color="#E0E0E0" />
-              <Text style={styles.emptyText}>No items in this category</Text>
-            </View>
-          )}
-        </>
-      )}
-      renderItem={({ item }) => (<List
-        images={item.images}
-        foodName={item.food_name}
-        restaurantName={item.restaurant_name}
-        price={item.food_price}
-        navigation={navigation}
-        withRestaurant={true}
-        handlePressonList={undefined}
-        handleEditPen={undefined}
+              {categories.map((category: string, index) => (
+                <TouchableOpacity
+                  key={index}
+                  style={[styles.categoryButton, activeCategory === category && styles.activeCategoryButton]}
+                  onPress={() => setActiveCategory(category)}
+                >
+                  <Text style={[styles.categoryText, activeCategory === category && styles.activeCategoryText]}>
+                    {category}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+            {filteredItems.length === 0 && (
+              <View style={styles.emptyContainer}>
+                <Feather name="coffee" size={48} color="#E0E0E0" />
+                <Text style={styles.emptyText}>No items in this category</Text>
+              </View>
+            )}
+          </>
+        )}
+        renderItem={({ item }) => (<List
+          images={item.images}
+          foodName={item.food_name}
+          restaurantName={item.restaurant_name}
+          price={item.food_price}
+          navigation={navigation}
+          withRestaurant={true}
+          handlePressonList={undefined}
+          handleEditPen={undefined}
 
 
-      />)}
-      // contentContainerStyle={styles.listContent}
-      ListFooterComponent={() => <View style={styles.bottomSpacing} />}
-    />
-       
-      
+        />)}
+        // contentContainerStyle={styles.listContent}
+        ListFooterComponent={() => <View style={styles.bottomSpacing} />}
+      />
+
+
 
     </SafeAreaView>
   )

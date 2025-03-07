@@ -16,6 +16,9 @@ const FavouriteContent = ({ navigation }) => {
 
   const { food_state, seller_state } = useContext(myContext)
 
+  const handleToFoodViewPage = (item) => {
+    navigation.navigate("ViewFood", { food_details: item })
+  }
 
   return (
     <SafeAreaView style={ownstyles.safeArea}>
@@ -30,13 +33,13 @@ const FavouriteContent = ({ navigation }) => {
             price={item.food_price}
             navigation={navigation}
             withRestaurant={true}
-            handlePressonList={undefined}
+            handlePressonList={()=>{handleToFoodViewPage(item)}}
             handleEditPen={undefined}
-
-
+            preparationTime={undefined}
+            rating={undefined}
+            category={undefined}
           />)}
           keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={ownstyles.listContent}
           showsVerticalScrollIndicator={false}
 
         />
@@ -62,9 +65,7 @@ const ownstyles = StyleSheet.create({
     gap: scaleHeight(10),
     alignItems: "center",
   },
-  listContent: {
-    padding: scaleWidth(16),
-  },
+
 });
 
 export default FavouriteContent;

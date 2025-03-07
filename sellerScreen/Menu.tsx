@@ -184,6 +184,7 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
     marginTop: scaleHeight(-8),
+    marginBottom: scaleHeight(52),
   },
   actionCard: {
     flexDirection: "row",

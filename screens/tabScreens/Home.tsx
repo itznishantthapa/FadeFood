@@ -100,7 +100,6 @@ const Home = ({ navigation }) => {
   useEffect(() => {
     (async () => {
       // Request permission to access location
-      console.log("here1")
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         console.log('Permission to access location was denied');
@@ -109,12 +108,9 @@ const Home = ({ navigation }) => {
       const location = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.Balanced,
       })
-      console.log("here2")
       // Get the current position
       // let location = await Location.getCurrentPositionAsync({});
       setCurrentLocation(location.coords);
-      console.log("here3")
-      console.log(location.coords,'-----------------location-corrs');
     })();
   }, []);
 
@@ -184,18 +180,18 @@ const Home = ({ navigation }) => {
           <Text style={styles.sectionTitle}>Best Selling Items Near Me</Text>
         </View>
         <FlatList
-          data={nearDishes}
+          data={foodData}
           horizontal
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item, index) => `near-dish-${index}`}
           renderItem={({ item }) => (
             <NearDishCard
-              image={item.image}
-              price={item.price}
-              name={item.name}
+              images={item.images}
+              price={item.food_price}
+              name={item.food_name}
               reiwesNumber={item.reviewsNumber}
               rating={item.rating}
-              onPress={undefined}
+              onPress={()=>{handleToFoodViewPage(item)}}
             />
           )}
           contentContainerStyle={styles.nearDishesContainer}

@@ -43,7 +43,7 @@ const FoodCard: FC<FoodCardProps> = memo(({ item, handleToFoodViewPage, onAddToC
           {item.food_restaurant || "Restaurant"}
         </Text>
         <View style={styles.detailsContainer}>
-        <Text style={styles.price}>₹ {item.food_price}</Text>
+        <Text style={styles.price}>Rs. {item.food_price}</Text>
           <View style={styles.ratingContainer}>
             <AntDesign name="star" size={14} color="#FFD700" />
             <Text style={styles.rating}>{item.rating || "4.0"}</Text>

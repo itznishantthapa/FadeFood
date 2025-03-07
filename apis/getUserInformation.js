@@ -2,7 +2,6 @@ import { get_data } from "../service";
 export const getUserInformation = async (dispatch, setisLogged) => {
   const response = await get_data("get_user_details");
   if (response.success) {
-    console.log(response.data);
     setisLogged(true);
     dispatch({ type: "name", payload: response.data.name });
     dispatch({ type: "phone", payload: response.data.phone });

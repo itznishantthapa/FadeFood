@@ -58,39 +58,36 @@ const food_details_reducer = (state, action) => {
 }
 const ViewFood = ({ navigation, route }) => {
 
-  const { snackBar, state, dispatch, setsnackBar, seller_dispatch, initialseller_state, getting_restaurant_details,food_state,seller_state } = useContext(myContext);
+  const { snackBar, state, dispatch, setsnackBar, seller_dispatch, initialseller_state, getting_restaurant_details, food_state, seller_state } = useContext(myContext);
   const [isFavorite, setIsFavorite] = useState(false);
   const [food_details_state, food_details_dispatch] = useReducer(food_details_reducer, initial_food_details);
   const [preOrderVisible, setPreOrderVisible] = useState(false);
 
   useEffect(() => {
     food_details_dispatch({ type: 'SET_FOOD_DETAILS', payload: route.params.food_details });
-    console.log("routted---->", route.params.food_details)
+    fetchRestaurantDetails( route.params.food_details.restaurant_name);
   }, [route.params.food_details])
 
-  useEffect(() => {
-    fetchRestaurantDetails(food_details_state.restaurant_name);
-   
-  }, [food_details_state])
+
 
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   const handleSearchScreen = () => {
     navigation.navigate("SearchScreen");
   };
-  
+
   const handlePreorderButton = () => {
     setPreOrderVisible(true);
   };
-  
+
   const handleClosePreOrder = () => {
     setPreOrderVisible(false);
   };
-  
+
   const handleAddtoList = () => {
     // setonCheckout(true);
   };
-  
+
   const handleToRestaurantProfile = () => {
     navigation.navigate('RestaurantProfile', {
       restaurant: seller_state,
@@ -98,24 +95,11 @@ const ViewFood = ({ navigation, route }) => {
     });
   }
 
-  // const { isLoading, setisLoading, snackBar, setsnackBar, initialseller_state, dispatch, state, seller_state, seller_dispatch, food_state, food_dispatch } = useContext(myContext);
-  // const { restaurant_id } = route.params;
-
-
-  // export const getRestaurantInformation = async (seller_dispatch,id,initialseller_state)
-  const fetchRestaurantDetails = async (restaurantId) => {
-    //food_details_state.restaurant_name is the restaurant_id
-      await getRestaurantInformation(seller_dispatch,restaurantId,initialseller_state)
-      console.log('-----------restaurant_name by Restaurant Profile>>---------------------------',restaurantId);
+  const fetchRestaurantDetails = (restaurantId) => {
+   getRestaurantInformation(seller_dispatch, restaurantId, initialseller_state)
   };
 
-
-  // const handleToRestaurantProfile = () => {
-  //   navigation.navigate('RestaurantProfile', { restaurant_id: food_details_state.restaurant_name });
-  // }
-
-
-
+  
   const toggleFavorite = () => {
     Animated.sequence([
       Animated.timing(scaleAnim, {
@@ -136,7 +120,7 @@ const ViewFood = ({ navigation, route }) => {
 
     setIsFavorite(!isFavorite);
   };
-  
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <NabBar
@@ -169,7 +153,7 @@ const ViewFood = ({ navigation, route }) => {
                 ]}
                 onPress={handlePreorderButton}
               >
-                <Text style={ownstyles.buttonText}>Pre-Order Now</Text>
+                <Text style={ownstyles.buttonText}>Start Cooking</Text>
               </TouchableOpacity>
             </View>
 
@@ -214,15 +198,15 @@ const ViewFood = ({ navigation, route }) => {
           <Text style={ownstyles.sectionTitle}>You May Also Like</Text>
         </View>
       </ScrollView>
-      
+
       {/* Pre-Order Bottom Sheet */}
-      <PreOrderBottomSheet 
-        visible={preOrderVisible} 
-        onClose={handleClosePreOrder} 
+      <PreOrderBottomSheet
+        visible={preOrderVisible}
+        onClose={handleClosePreOrder}
         foodDetails={food_details_state}
         navigation={navigation}
       />
-      
+
     </SafeAreaView>
   );
 };

@@ -138,8 +138,9 @@ const AddFood = ({ navigation, route }) => {
 
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [3, 4],
+      // allowsEditing: true,
+      // aspect: [3, 4],
+      // aspect: 2/1,
       quality: 1,
     });
 
