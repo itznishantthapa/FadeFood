@@ -4,7 +4,7 @@ import { initialfood_state, food_reducer } from "./userReducerFood";
 import { user_reducer, userinitialState } from "./useReducerUser";
 import { initialseller_state, seller_reducer } from "./useReducerRestaurant";
 import { getUserInformation } from "../apis/getUserInformation";
-// import { getRestaurantInformation } from "../apis/getRestaurantInformation";
+import { getRestaurantInformation } from "../apis/getRestaurantInformation";
 import { getAllFood } from "../apis/getAllFoods";
 import { getRestaurantFood } from "../apis/getRestaurantFood";
 export const myContext = createContext();
@@ -39,11 +39,11 @@ export const AppProvider = ({ children }) => {
     here , we just have to make this function call according to the user(customer or seller) when the apps is start fist
     */
 
-    // await getRestaurantInformation(
-    //   seller_dispatch,
-    //   (id = null),
-    //   initialseller_state
-    // );
+    await getRestaurantInformation(
+      seller_dispatch,
+      (id = null),
+      initialseller_state
+    );
   };
 
   useEffect(() => {

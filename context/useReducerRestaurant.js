@@ -22,17 +22,14 @@ export const initialseller_state = {
   
   export const seller_reducer = (seller_state, action) => {
     switch (action.type) {
-      case "SET_DATA":
+      case "SET_MULTIPLE_DATA":
         return {
-          
           ...seller_state,
-          [action.key]: action.payload, 
+          ...action.payload, // Merge all key-value pairs from payload
         };
       case "CLEAR":
-        return initialseller_state; 
+        return initialseller_state;
       default:
         return seller_state;
     }
-    
-  };
-  
+  }; 
