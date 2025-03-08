@@ -1,16 +1,28 @@
 "use client"
 
 import { StyleSheet, Text, View, TouchableOpacity, Linking, Platform } from "react-native"
-import { useContext } from "react"
+import { useCallback, useContext } from "react"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { StatusBar } from "expo-status-bar"
+import { StatusBar } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import ProfileHeader from "../components/restaurant_profile/ProfileHeader"
 import { myContext } from "../context/AppProvider"
 import { Ionicons, MaterialIcons, FontAwesome5 } from "@expo/vector-icons"
 import { scaleHeight, scaleWidth } from "../Scaling"
+import { useFocusEffect } from "@react-navigation/native"
 
 const Menu = ({ navigation }) => {
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBackgroundColor('#333333');
+      StatusBar.setBarStyle('light-content');
+
+      return () => {
+        StatusBar.setBackgroundColor('#ffffff'); 
+        StatusBar.setBarStyle('dark-content');
+      };
+    }, [])
+  );
   const { seller_state, food_state } = useContext(myContext)
 
   const openMaps = () => {
@@ -47,7 +59,7 @@ const Menu = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar hidden={false} backgroundColor="#333333" style="light" />
+      <StatusBar hidden={false} backgroundColor="#333333" barStyle="light-content" />
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       <ProfileHeader
         handleGoBack={undefined}

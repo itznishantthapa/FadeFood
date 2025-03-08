@@ -37,12 +37,10 @@ const ProfileSection = () => {
           
           try {
             setisLoading(true);
-            const response = await update_data('update_restaurant_status', { is_active: newActiveState });
+            const response = await update_data('edit_restaurant', { is_active: newActiveState });
             if (response.success) {
               seller_dispatch({ type: 'SET_DATA', key: 'is_active', payload: newActiveState });
               dispatch({ type: 'snackmessage', payload: newActiveState ? 'Restaurant is now open' : 'Restaurant is now closed' });
-              setsnackBar(true);
-              setTimeout(() => setsnackBar(false), 3000);
             } else {
               Alert.alert('Error', response.data || 'Failed to update status');
             }

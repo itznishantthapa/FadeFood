@@ -10,7 +10,7 @@ interface FoodCardProps {
   item: {
     images: { image: string }[];
     food_name: string;
-    is_veg: boolean;
+    is_vegetarian: boolean;
     food_restaurant?: string;
     rating?: string;
     food_price: number;
@@ -32,7 +32,7 @@ const FoodCard: FC<FoodCardProps> = memo(({ item, handleToFoodViewPage, onAddToC
           <Text style={styles.title} numberOfLines={1}>
             {item.food_name}
           </Text>
-          {item.is_veg && (
+          {item.is_vegetarian && (
             <View style={styles.vegIndicator}>
               <Ionicons name="leaf" size={12} color="#4CAF50" />
             </View>

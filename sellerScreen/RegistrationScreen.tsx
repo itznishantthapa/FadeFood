@@ -50,9 +50,7 @@ const RestaurantRegistration = ({ navigation }) => {
   return (
     <SafeAreaView style={ownstyles.safeArea}>
       {isLoading && <LoadingScreen />}
-      <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
       <TopBar navigation={navigation} top_title='Restaurant Registration' withSettingIcons={undefined} handleSettingIcon={undefined} />
-      
       <KeyboardAvoidingView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={ownstyles.keyboardView}

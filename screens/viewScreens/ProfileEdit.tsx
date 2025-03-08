@@ -20,9 +20,10 @@ import { LinearGradient } from "expo-linear-gradient"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { StatusBar } from "expo-status-bar"
 import * as ImagePicker from 'expo-image-picker'
+import { update_data } from "../../service"
 
 const ProfileEdit = ({ navigation }) => {
-  const { state, setisLoading, updateUserProfile } = useContext(myContext)
+  const { state, setisLoading, updateUserProfile,dispatch } = useContext(myContext)
   
   // Initial form state from context
   const [formData, setFormData] = useState({
@@ -30,7 +31,7 @@ const ProfileEdit = ({ navigation }) => {
     email: state.email || "",
     phone: state.phone || "",
     address: state.address || "",
-    profilePic: state.profilePic || "https://via.placeholder.com/150",
+    profile_pic: state.profile_pic || "https://via.placeholder.com/150",
   })
 
   // Track if form has been modified
@@ -42,9 +43,9 @@ const ProfileEdit = ({ navigation }) => {
       ...formData,
       [field]: value
     })
+    dispatch({ type: field, payload: value })
     setIsModified(true)
   }
-  
   // Handle profile picture selection
   const handlePickImage = async () => {
     try {
@@ -65,7 +66,7 @@ const ProfileEdit = ({ navigation }) => {
       if (!result.canceled) {
         setFormData({
           ...formData,
-          profilePic: result.assets[0].uri
+          profile_pic: result.assets[0].uri
         })
         setIsModified(true)
       }
@@ -98,7 +99,8 @@ const ProfileEdit = ({ navigation }) => {
       // Here you would typically call your API to update the user profile
       // For this example, we'll assume updateUserProfile is a context function 
       // that handles the API call and state update
-      await updateUserProfile(formData)
+      // await updateUserProfile(formData)
+      update_data('edit_user_details',formData);
       
       setisLoading(false)
       setIsModified(false)
@@ -164,7 +166,7 @@ const ProfileEdit = ({ navigation }) => {
           
           <View style={styles.profileImageContainer}>
             <Image 
-              source={{ uri: formData.profilePic }} 
+              source={{ uri: formData.profile_pic }} 
               style={styles.profileImage} 
             />
             <TouchableOpacity 

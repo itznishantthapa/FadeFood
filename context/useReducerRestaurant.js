@@ -27,6 +27,11 @@ export const initialseller_state = {
           ...seller_state,
           ...action.payload, // Merge all key-value pairs from payload
         };
+      case "SET_DATA":
+        return {
+          ...seller_state,
+          [action.key]: action.payload
+        };
       case "CLEAR":
         return initialseller_state;
       default:

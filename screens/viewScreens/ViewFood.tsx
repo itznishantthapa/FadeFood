@@ -22,6 +22,7 @@ import { get_data, get_data_with_id } from "../../service";
 import { getRestaurantInformation } from "../../apis/getRestaurantInformation";
 import PreOrderBottomSheet from "./PreOrderBottomSheet";
 import { useFocusEffect } from "@react-navigation/native";
+import { getRestaurantFood } from "../../apis/getRestaurantFood";
 
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get("window");
@@ -58,7 +59,7 @@ const food_details_reducer = (state, action) => {
 }
 const ViewFood = ({ navigation, route }) => {
 
-  const { snackBar, state, dispatch, setsnackBar, seller_dispatch, initialseller_state, getting_restaurant_details, food_state, seller_state } = useContext(myContext);
+  const { snackBar, state, dispatch, setsnackBar, seller_dispatch, initialseller_state, getting_restaurant_details, food_state, seller_state,food_dispatch,restaurantFoodDispatch,restaurantFoodState } = useContext(myContext);
   const [isFavorite, setIsFavorite] = useState(false);
   const [food_details_state, food_details_dispatch] = useReducer(food_details_reducer, initial_food_details);
   const [preOrderVisible, setPreOrderVisible] = useState(false);
@@ -91,12 +92,13 @@ const ViewFood = ({ navigation, route }) => {
   const handleToRestaurantProfile = () => {
     navigation.navigate('RestaurantProfile', {
       restaurant: seller_state,
-      foodItems: food_state
+      foodItems: restaurantFoodState
     });
   }
 
   const fetchRestaurantDetails = (restaurantId) => {
    getRestaurantInformation(seller_dispatch, restaurantId, initialseller_state)
+   getRestaurantFood(restaurantFoodDispatch,restaurantId);
   };
 
   

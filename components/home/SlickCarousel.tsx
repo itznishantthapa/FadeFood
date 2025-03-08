@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Image, TouchableOpacity, StyleSheet, Dimensions, Animated } from 'react-native';
+import { View, Image, TouchableOpacity, StyleSheet, Dimensions, Animated, Pressable } from 'react-native';
 import PagerView from 'react-native-pager-view';
 import chicken from '../../assets/images/chicken.png';
 import dishes from '../../assets/images/dishes.png';
@@ -11,7 +11,7 @@ const IMAGE_HEIGHT = width / ASPECT_RATIO;
 
 const images = [dishes, chicken, dishes, dishes, dishes, dishes, dishes];
 
-const SlickCarousel = () => {
+const SlickCarousel = ({handlePage}) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const pagerRef = useRef(null);
   const animatedScale = useRef(images.map(() => new Animated.Value(1))).current;
@@ -55,7 +55,7 @@ const SlickCarousel = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} >
       <PagerView
         ref={pagerRef}
         style={{ width:"100%", height: scaleHeight(155)}}
@@ -63,7 +63,7 @@ const SlickCarousel = () => {
         onPageSelected={(e) => handlePageChange(e.nativeEvent.position)}
       >
         {extendedImages.map((image, index) => (
-          <TouchableOpacity key={index} style={{ paddingHorizontal: scaleWidth(8) }} activeOpacity={0.9}>
+          <TouchableOpacity key={index} style={{ paddingHorizontal: scaleWidth(8) }} activeOpacity={0.9} onPress={handlePage}>
             <View style={styles.imageContainer}>
               <Image resizeMode="cover" style={styles.image} source={image} />
             </View>

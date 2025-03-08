@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useContext, useMemo, useCallback, useEffect } from "react"
-import { View, Text, Dimensions, StyleSheet, FlatList, RefreshControl, Pressable } from "react-native"
+import { useState, useContext, useMemo, useCallback, useEffect, useRef } from "react"
+import { View, Text, Dimensions, StyleSheet, FlatList, RefreshControl, Pressable, Animated } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { StatusBar as ExpoStatusBar } from "expo-status-bar"
 
@@ -28,6 +28,7 @@ import categoryPizza from "../../assets/images/categoryPizza.png"
 import categoryChicken from "../../assets/images/categoryChicken.png"
 
 import * as Location from 'expo-location';
+import LottieView from "lottie-react-native"
 
 
 const { width, height } = Dimensions.get("window")
@@ -37,6 +38,8 @@ const Home = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const [currentLocation, setCurrentLocation] = useState(null);
+
+
 
   // Categories data
   const categories = [
@@ -98,7 +101,12 @@ const Home = ({ navigation }) => {
 
   // Add this useEffect to get the user's location when the component mounts
   useEffect(() => {
+      // Play confetti animation
+
+
+      
     (async () => {
+
       // Request permission to access location
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
@@ -112,7 +120,11 @@ const Home = ({ navigation }) => {
       // let location = await Location.getCurrentPositionAsync({});
       setCurrentLocation(location.coords);
     })();
+
+
   }, []);
+
+
 
   // Memoize food data to prevent unnecessary re-renders
   const foodData = useMemo(() => {
@@ -141,12 +153,16 @@ const Home = ({ navigation }) => {
     navigation.navigate("ViewFood", { food_details: item })
   }
 
+  const handlePage=()=>{
+    navigation.navigate("DiscountOffer")
+  }
+
 
   // Render header components
   const renderHeader = () => (
     <View style={styles.headerContainer}>
       <Greeting name={state.name} />
-      <SlickCarousel />
+      <SlickCarousel handlePage={handlePage} />
 
       {/* Categories Section */}
       <View style={styles.categoriesSection}>
@@ -186,11 +202,7 @@ const Home = ({ navigation }) => {
           keyExtractor={(item, index) => `near-dish-${index}`}
           renderItem={({ item }) => (
             <NearDishCard
-              images={item.images}
-              price={item.food_price}
-              name={item.food_name}
-              reiwesNumber={item.reviewsNumber}
-              rating={item.rating}
+             item={item}
               onPress={()=>{handleToFoodViewPage(item)}}
             />
           )}
@@ -301,6 +313,7 @@ const styles = StyleSheet.create({
   listContentContainer: {
     paddingBottom: scaleHeight(80),
   },
+
 })
 
 export default Home

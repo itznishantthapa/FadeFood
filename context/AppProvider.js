@@ -7,6 +7,7 @@ import { getUserInformation } from "../apis/getUserInformation";
 import { getRestaurantInformation } from "../apis/getRestaurantInformation";
 import { getAllFood } from "../apis/getAllFoods";
 import { getRestaurantFood } from "../apis/getRestaurantFood";
+import { restaurantFoodInitialState, restaurantFoodReducer } from "./useReducerResFood";
 export const myContext = createContext();
 
 export const AppProvider = ({ children }) => {
@@ -18,6 +19,10 @@ export const AppProvider = ({ children }) => {
   const [food_state, food_dispatch] = useReducer(
     food_reducer,
     initialfood_state
+  );
+  const [restaurantFoodState, restaurantFoodDispatch] = useReducer(
+    restaurantFoodReducer,
+    restaurantFoodInitialState
   );
   const [isLoading, setisLoading] = useState(false);
   const [isLogged, setisLogged] = useState(false);
@@ -75,6 +80,8 @@ export const AppProvider = ({ children }) => {
         food_dispatch,
         isLogged,
         setisLogged,
+        restaurantFoodDispatch,
+        restaurantFoodState,
       }}
     >
       {children}

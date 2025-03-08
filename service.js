@@ -239,40 +239,16 @@ export const post_data_with_img = async (hitpoint, text_data, food_image, method
 
   // Append images
   if (food_image) {
-    // console.log(food_image)
-    // console.log('appending multiple images')
-    // console.log("Here2");
-    // Add images to FormData
-    //
-    // if (food_image && Array.isArray(food_image)) {
-    //   const filteredImages = food_image.filter( image => !image.startsWith('/media'));
-    //   console.log('filteredImages-->',filteredImages)
-    //   console.log("Here3");
-      
-    //   filteredImages.forEach((imageUri, index) => {
-    //     formData.append("images", {
-          
-    //       uri: imageUri,
-    //       type: "image/jpeg",
-    //       name: `food_image_${index}.jpg`,
-    //     });
-    //     console.log("Here4");
-    //   });
-    // } 
 
-    if(food_image && Array.isArray(food_image)){
-       //filtred the images from this array [{id:1, image: 'image1'}, {id:2, image: 'image2'}]  to ['image1', 'image2'] and only filtred those image startsWith '/media'
-      const filteredImages = food_image.map( image => image.image).filter( image => !image.startsWith('/media'));
-
-      console.log('filteredImages-->',filteredImages)
-      filteredImages.forEach((img, index) => {
+    if (Array.isArray(food_image) && food_image.length > 0) {
+      food_image.forEach((img, index) => {
         formData.append("images", {
-          uri: img,
-          type: "image/jpeg" || "image/png", // Adjust type as needed
-          name: `food_image_${index}.jpg` || `food_image_${index}.png`,
+          uri: img.uri,  // Use 'uri' directly
+          type: img.type, // Use 'type' directly
+          name: img.name, // Use 'name' directly
         });
-      })
-    }
+      });
+    } 
     else {
       console.log('appending single image')
       // Handle a single image
@@ -354,7 +330,7 @@ export const update_data = async (endpoint, data) => {
     return {
       success: true,
       data: response.data.ofBackendData,
-      ofBackendMessage: response.data.ofBackendMessage,
+      ofBackendMessage: response.data.msg,
     };
   } catch (error) {
     if (error.response?.status === 401) {

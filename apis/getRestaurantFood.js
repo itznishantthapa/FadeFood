@@ -1,10 +1,10 @@
 
-import { get_data } from "../service";
-export const getRestaurantFood = async (food_dispatch) => {
-  const responsebyfood = await get_data("get_food");
+import { get_data_with_id } from "../service";
+export const getRestaurantFood = async (dispatcher,id) => {
+  const responsebyfood = await get_data_with_id("get_food_by_restaurant",{restaurant_id:id});
   if (responsebyfood.success) {
-    console.log("################get all food#####################------------>", responsebyfood.data );
-    food_dispatch({ type: "SET_FOOD_LIST", payload: responsebyfood.data });
+    console.log("################get specific restaurant food #####################------------>", responsebyfood.data );
+    dispatcher({ type: "SET_FOOD_LIST", payload: responsebyfood.data });
     console.log("food state is settt");
   } else {
     console.log("Error", responsebyfood.data);

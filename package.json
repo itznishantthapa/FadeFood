@@ -35,6 +35,7 @@
     "expo-secure-store": "^13.0.2",
     "expo-splash-screen": "~0.27.6",
     "expo-status-bar": "~1.12.1",
+    "lottie-react-native": "6.7.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.5",

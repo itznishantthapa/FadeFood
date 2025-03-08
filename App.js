@@ -31,6 +31,8 @@ import RestaurantCategories from './screens/viewScreens/RestaurantCategories';
 import ViewMap from './screens/viewScreens/ViewMap';
 import DishManagement from './sellerScreen/DishManagement';
 import AddFood from './sellerScreen/AddFood';
+import Menu from './sellerScreen/Menu';
+import DiscountOffer from './screens/viewScreens/DiscountOffer';
 
 
 
@@ -94,6 +96,8 @@ export default function App() {
             <Stack.Screen name="ViewMap" component={ViewMap} options={{ headerShown: false }} />
             <Stack.Screen name="DishManagement" component={DishManagement} options={{ headerShown: false }} />
             <Stack.Screen name="AddFood" component={AddFood} options={{ headerShown: false }} />
+            <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} />
+            <Stack.Screen name="DiscountOffer" component={DiscountOffer} options={{ headerShown: false }} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

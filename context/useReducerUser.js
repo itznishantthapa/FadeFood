@@ -2,7 +2,7 @@ export const userinitialState = {
     name: "",
     phone: "",
     email: "",
-    profile_picture: null,
+    profile_pic: null,
     role: "customer",
     snackmessage: "",
   };
@@ -14,8 +14,8 @@ export const userinitialState = {
         return { ...state, phone: action.payload };
       case "email":
         return { ...state, email: action.payload };
-      case "profile_picture":
-        return { ...state, profile_picture: action.payload };
+      case "profile_pic":
+        return { ...state, profile_pic: action.payload };
       case "role":
         return { ...state, role: action.payload };
       case "snackmessage":

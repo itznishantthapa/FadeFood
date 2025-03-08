@@ -1,6 +1,5 @@
 "use client"
-
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { StyleSheet, Text, View, TouchableOpacity, Image, Switch } from "react-native"
 import { AntDesign, Ionicons, FontAwesome5, Feather } from "@expo/vector-icons"
 import { myContext } from "../../context/AppProvider"
@@ -8,6 +7,7 @@ import { SkeletonCircle } from "../../screens/viewScreens/SkeletonPaper"
 import { scaleHeight, scaleWidth } from "../../Scaling"
 import { baseURL } from "../../service"
 import { LinearGradient } from "expo-linear-gradient"
+import { createSolutionBuilderWithWatchHost } from "typescript"
 
 const ProfileHeader = ({
   handleGoBack,
@@ -23,6 +23,7 @@ const ProfileHeader = ({
   navigation,
 }) => {
   const { state, seller_state, seller_dispatch } = useContext(myContext)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   const handleToggleStatus = async () => {
     // Toggle restaurant active status
@@ -47,8 +48,9 @@ const ProfileHeader = ({
     // navigation.navigate('Analytics');
   }
 
-  const handleViewSettings = () => {
-    navigation.navigate("SellerSetting")
+
+  const toggleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen)
   }
 
   // Mock data for dashboard metrics
@@ -70,11 +72,15 @@ const ProfileHeader = ({
       >
         <View style={styles.headerContent}>
           <View style={styles.logoAndNameContainer}>
-            {logo ? (
-              <Image source={{ uri: `${baseURL}${logo}` }} style={styles.restaurantLogo} />
-            ) : (
-              <SkeletonCircle SkeletonHeight={60} SkeletonWidth={60} style={styles.restaurantLogo} />
-            )}
+            <View style={[ { marginTop: state.role === 'customer' ? 27 : 18 }]}>
+              {logo ? (
+                <TouchableOpacity onPress={toggleDrawer}>
+                  <Image source={{ uri: `${baseURL}${logo}` }} style={styles.restaurantLogo} />
+                </TouchableOpacity>
+              ) : (
+                <SkeletonCircle SkeletonHeight={80} SkeletonWidth={80} style={styles.restaurantLogo} />
+              )}
+            </View>
 
             <View style={styles.nameContainer}>
               {restaurantName ? (
@@ -91,9 +97,6 @@ const ProfileHeader = ({
             </View>
           </View>
 
-          <TouchableOpacity style={styles.settingsButton} onPress={handleViewSettings}>
-            <Ionicons name="settings-outline" size={24} color="#FFF" />
-          </TouchableOpacity>
         </View>
 
         <View style={styles.statusToggleContainer}>
@@ -102,13 +105,7 @@ const ProfileHeader = ({
             <Text style={[styles.statusText, { color: activeStatus ? "#4CAF50" : "#FF6B6B" }]}>
               {activeStatus ? "Open" : "Closed"}
             </Text>
-            <Switch
-              trackColor={{ false: "#767577", true: "#A5D6A7" }}
-              thumbColor={activeStatus ? "#4CAF50" : "#F4F3F4"}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={handleToggleStatus}
-              value={activeStatus}
-            />
+
           </View>
         </View>
       </LinearGradient>
@@ -234,6 +231,7 @@ const ProfileHeader = ({
           </View>
         )}
       </View>
+
     </View>
   )
 }
@@ -303,6 +301,7 @@ const styles = StyleSheet.create({
   statusToggle: {
     flexDirection: "row",
     alignItems: "center",
+    paddingVertical:scaleHeight(10)
   },
   statusText: {
     fontFamily: "poppins_semibold",
@@ -498,6 +497,11 @@ const styles = StyleSheet.create({
     fontSize: scaleWidth(14),
     color: "#757575",
     fontStyle: "italic",
+  },
+  drawer: {
+    flex: 1,
+    backgroundColor: 'white',
+    padding: 16,
   },
 })
 

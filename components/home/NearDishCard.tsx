@@ -1,16 +1,39 @@
 "use client"
 
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native"
-import { useState } from "react"
+import { memo, useState } from "react"
 import Price from "../viewScreens/Price"
 import { MaterialIcons } from "@expo/vector-icons"
 import Reviews from "./Reviews"
 import { scaleHeight, scaleWidth } from "../../Scaling"
 import { baseURL } from "../../service"
+import { FC } from "react"
 
-const NearDishCard = ({ images, price, name, reiwesNumber, rating, onPress }) => {
+
+
+interface NearDishCardProps {
+  item: {
+    images: { image: string }[];
+    food_name: string;
+    is_vegetarian: boolean;
+    food_restaurant?: string;
+    rating?: number;
+    food_price: String;
+    reviews:number;
+  };
+  onPress: () => void;
+}
+
+
+
+const NearDishCard:FC<NearDishCardProps> = memo(({ item, onPress }) => {
+
+  if (!item || !item.images || item.images.length === 0) {
+    return null
+  }
   // Add state for tracking favorite status
   const [isFavorite, setIsFavorite] = useState(false)
+  console.log('this is the item in NearDishCard--------------->',item)
 
   // Toggle favorite function
   const toggleFavorite = () => {
@@ -20,10 +43,7 @@ const NearDishCard = ({ images, price, name, reiwesNumber, rating, onPress }) =>
   return (
     <TouchableOpacity style={styles.container} onPress={onPress} activeOpacity={0.9}>
       <View style={styles.imageWrapper}>
-        {/* <View style={styles.imageContainer}>
-              <Image resizeMode="stretch" style={styles.image} source={image} />
-            </View> */}
-        <Image resizeMode="cover" style={styles.image} source={{ uri: `${baseURL}${images[0].image}` }} />
+        <Image resizeMode="cover" style={styles.image} source={{ uri: `${baseURL}${item.images[0].image}` }} />
         {/* Favorite button */}
         <TouchableOpacity
           onPress={toggleFavorite}
@@ -41,18 +61,18 @@ const NearDishCard = ({ images, price, name, reiwesNumber, rating, onPress }) =>
 
 
       <View style={styles.infoContainer}>
-        <Price price={price} priceFontSize={15} />
+        <Price price={item.food_price} priceFontSize={15} />
         <Text style={styles.name} numberOfLines={1}>
-          {name}
+          {item.food_name}
         </Text>
-        <Reviews reviewsName={"Reviews"} reviewsNumber={reiwesNumber} rating={rating} />
+        <Reviews reviewsName={"Reviews"} reviewsNumber={item.reviews} rating={item.rating} />
       </View>
 
 
 
     </TouchableOpacity>
   )
-}
+})
 
 const styles = StyleSheet.create({
   container: {
@@ -102,7 +122,7 @@ const styles = StyleSheet.create({
     fontFamily: "poppins_semibold",
     fontSize: scaleWidth(14),
   },
-})
+});
 
 export default NearDishCard
 

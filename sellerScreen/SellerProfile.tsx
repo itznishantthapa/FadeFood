@@ -33,7 +33,7 @@ const SellerProfile = ({ navigation }) => {
 
 
   const handleSaveChanges = async () => {
-    try {
+    try { 
       setisLoading(true);
       const restaurantData = {
         name: seller_state.name,
@@ -44,13 +44,12 @@ const SellerProfile = ({ navigation }) => {
       };
 
       const response = await update_data('edit_restaurant', restaurantData);
+      console.log(response,'looooooooooooooooooooooooooooooooooooooooooooooook',response.success)
       if (response.success) {
         setIsEditMode(false);
         dispatch({ type: 'snackmessage', payload: 'Profile updated successfully' });
-        setsnackBar(true);
-        setTimeout(() => setsnackBar(false), 3000);
       } else {
-        Alert.alert('Error', response.data || 'Failed to update profile');
+        Alert.alert('Error', response.ofBackendMessage || 'Failed to update profile');
       }
     } catch (error) {
       Alert.alert('Error', 'An unexpected error occurred');
@@ -69,7 +68,6 @@ const SellerProfile = ({ navigation }) => {
     <>
       {isLoading && <LoadingScreen />}
       <SafeAreaView style={{ flex: 1, backgroundColor: '#F0F4F8' }}>
-        <StatusBar hidden={false} backgroundColor='#F0F4F8' style='dark' />
         <TopBar
           navigation={navigation}
           top_title='Restaurant Profile'
@@ -90,7 +88,7 @@ const SellerProfile = ({ navigation }) => {
                 inputmode={'text'}
                 key_type={'default'}
                 given_value={seller_state.name}
-                handleInputChange={(text) => seller_dispatch({ type: 'SET_DATA', key: 'name', payload: text })}
+                handleInputChange={(text: any) => seller_dispatch({ type: 'SET_DATA', key: 'name', payload: text })}
               />
               <TextEditFields
                 label_name={'Street Address'}
