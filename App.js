@@ -33,6 +33,9 @@ import DishManagement from './sellerScreen/DishManagement';
 import AddFood from './sellerScreen/AddFood';
 import Menu from './sellerScreen/Menu';
 import DiscountOffer from './screens/viewScreens/DiscountOffer';
+import CheckoutScreen from './screens/viewScreens/CheckoutScreen';
+import EsewaWebView from './screens/viewScreens/EsewaWebView';
+import OrderConfirmation from './screens/viewScreens/OrderConfirmation';
 
 
 
@@ -98,6 +101,9 @@ export default function App() {
             <Stack.Screen name="AddFood" component={AddFood} options={{ headerShown: false }} />
             <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} />
             <Stack.Screen name="DiscountOffer" component={DiscountOffer} options={{ headerShown: false }} />
+            <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="EsewaWebView" component={EsewaWebView} options={{ headerShown: false }} />
+            <Stack.Screen name="OrderConfirmation" component={OrderConfirmation} options={{ headerShown: false }} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

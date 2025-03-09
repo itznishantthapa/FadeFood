@@ -203,11 +203,12 @@ const ViewFood = ({ navigation, route }) => {
 
       {/* Pre-Order Bottom Sheet */}
       <PreOrderBottomSheet
-        visible={preOrderVisible}
+        isVisible={preOrderVisible}
         onClose={handleClosePreOrder}
-        foodDetails={food_details_state}
+        foodItem={food_details_state}
         navigation={navigation}
       />
+       {/* isVisible, onClose, foodItem, navigation */}
 
     </SafeAreaView>
   );
