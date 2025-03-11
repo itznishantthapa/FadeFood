@@ -28,6 +28,7 @@ export const AppProvider = ({ children }) => {
   const [isLogged, setisLogged] = useState(false);
 
   const fetchData = async () => {
+    
     if (state.role === "customer" ) {
       console.log('----------------------Executing the asyncronous function--------------')
       getUserInformation(dispatch, setisLogged);
@@ -58,7 +59,7 @@ export const AppProvider = ({ children }) => {
   const clearAllData = async () => {
     await clearTokens();
     dispatch({ type: "RESET" });
-    food_dispatch({ type: "CLEAR_FOOD" });
+    // food_dispatch({ type: "CLEAR_FOOD" });
     seller_dispatch({ type: "CLEAR" });
     setisLoading(false);
     setisLogged(false);

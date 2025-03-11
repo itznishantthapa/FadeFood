@@ -22,7 +22,6 @@ import RegistrationScreen from './sellerScreen/RegistrationScreen';
 import AccountSwitch from './screens/viewScreens/AccountSwitch';
 import SellerSetting from './sellerScreen/SellerSetting';
 import Home from './screens/tabScreens/Home';
-import MethodSelection from './screens/payment/MethodSelection';
 import { StatusBar } from 'expo-status-bar';
 import ProfileEdit from './screens/viewScreens/ProfileEdit';
 import WriteReview from './screens/viewScreens/WriteReview';
@@ -33,9 +32,10 @@ import DishManagement from './sellerScreen/DishManagement';
 import AddFood from './sellerScreen/AddFood';
 import Menu from './sellerScreen/Menu';
 import DiscountOffer from './screens/viewScreens/DiscountOffer';
-import CheckoutScreen from './screens/viewScreens/CheckoutScreen';
-import EsewaWebView from './screens/viewScreens/EsewaWebView';
-import OrderConfirmation from './screens/viewScreens/OrderConfirmation';
+import CheckoutScreen from './Payment/screens/CheckoutScreen';
+import OrderConfirmation from './Payment/screens/OrderConfirmation';
+import EsewaWebView from './Payment/screens/EsewaWebView';
+import OrderCancelled from './Payment/screens/OrderCancelled';
 
 
 
@@ -91,7 +91,6 @@ export default function App() {
             <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} options={{ headerShown: false }} />
             <Stack.Screen name="SellerSetting" component={SellerSetting} options={{ headerShown: false }} />
             <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-            <Stack.Screen name="MethodSelection" component={MethodSelection} options={{ headerShown: false }} />
             <Stack.Screen name="ProfileEdit" component={ProfileEdit} options={{ headerShown: false }} />
             <Stack.Screen name="SeeReview" component={SeeReview} options={{ headerShown: false }} />
             <Stack.Screen name="WriteReview" component={WriteReview} options={{ headerShown: false }} />
@@ -102,8 +101,9 @@ export default function App() {
             <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} />
             <Stack.Screen name="DiscountOffer" component={DiscountOffer} options={{ headerShown: false }} />
             <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="EsewaWebView" component={EsewaWebView} options={{ headerShown: false }} />
             <Stack.Screen name="OrderConfirmation" component={OrderConfirmation} options={{ headerShown: false }} />
+            <Stack.Screen name="OrderCancelled" component={OrderCancelled} options={{ headerShown: false }} />
+            <Stack.Screen name="EsewaWebView" component={EsewaWebView} options={{ headerShown: false }} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

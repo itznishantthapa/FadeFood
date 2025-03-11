@@ -1,12 +1,14 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Easing } from "react-native"
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Easing, BackHandler } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { StatusBar } from "expo-status-bar"
 import { MaterialIcons } from "@expo/vector-icons"
 import { scaleHeight, scaleWidth } from "../../Scaling"
 import LottieView from "lottie-react-native"
+import { useFocusEffect } from "@react-navigation/native"
+import React from "react"
 
 const OrderConfirmation = ({ navigation, route }) => {
   const { orderId, paymentMethod, transactionId } = route.params
@@ -15,6 +17,19 @@ const OrderConfirmation = ({ navigation, route }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current
   const scaleAnim = useRef(new Animated.Value(0.8)).current
   const successRef = useRef(null)
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        navigation.navigate("TabBars")
+        return true
+      }
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress)
+
+      return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress)
+    }, [])
+  )
 
   useEffect(() => {
     // Play success animation
@@ -41,10 +56,7 @@ const OrderConfirmation = ({ navigation, route }) => {
 
   // Go to home screen
   const goToHome = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "Home" }],
-    })
+    navigation.navigate("TabBars")
   }
 
   // Track order
@@ -65,10 +77,10 @@ const OrderConfirmation = ({ navigation, route }) => {
         <View style={styles.animationContainer}>
           <LottieView
             ref={successRef}
-            source={require("../../assets/animation/order-success.json")}
+            source={require("../../assets/animation/success.json")}
             style={styles.successAnimation}
             autoPlay={false}
-            loop={false}
+            loop={true}
           />
         </View>
 

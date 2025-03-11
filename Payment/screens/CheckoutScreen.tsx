@@ -7,7 +7,7 @@ import { StatusBar } from "expo-status-bar"
 import { Ionicons, FontAwesome5 } from "@expo/vector-icons"
 import { myContext } from "../../context/AppProvider"
 import { scaleHeight, scaleWidth } from "../../Scaling"
-import { prepareEsewaPayment } from "../../api/esewaApi"
+// import { prepareEsewaPayment } from "../../api/esewaApi"
 import { baseURL } from "../../service"
 
 const CheckoutScreen = ({ navigation, route }) => {
@@ -49,43 +49,15 @@ const CheckoutScreen = ({ navigation, route }) => {
       const validatedTaxAmount = validatedSubtotal * 0.13;
       const validatedTotalAmount = validatedSubtotal + deliveryFee + validatedTaxAmount;
 
-      // Prepare order data for eSewa
-      const orderData = {
-        subtotal: validatedSubtotal.toFixed(2),
-        taxAmount: validatedTaxAmount.toFixed(2),
-        deliveryCharge: deliveryFee.toString(),
-        serviceCharge: "0",
-        baseUrl: baseURL.endsWith("/") ? baseURL.slice(0, -1) : baseURL,
-        orderDetails: {
-          items: validatedCartItems.map((item) => ({
-            id: item.id,
-            name: item.food_name,
-            price: item.food_price,
-            quantity: item.quantity,
-            specialInstructions: item.specialInstructions,
-          })),
-          customer_id: state.id,
-          delivery_address: state.address || "Default Address",
-          contact_number: state.phone || "9876543210",
-        },
-      }
-
-      // Prepare eSewa payment data using the backend API
-      const { paymentData, transactionUuid } = await prepareEsewaPayment(orderData)
-
-      // Add the action URL to the payment data if not already set
-      if (!paymentData.action) {
-        paymentData.action = "https://rc-epay.esewa.com.np/api/epay/main/v2/form"
-      }
-
       setLoading(false)
 
       // Navigate to EsewaWebView with the form data
       navigation.navigate("EsewaWebView", {
-        paymentData: paymentData,
-        orderId: transactionUuid,
-        amount: validatedTotalAmount,
-        orderDetails: orderData.orderDetails,
+        cartItems: validatedCartItems,
+        subtotal: validatedSubtotal,
+        taxAmount: validatedTaxAmount,
+        totalAmount: validatedTotalAmount,
+        deliveryFee: deliveryFee
       })
     } catch (error) {
       setLoading(false)

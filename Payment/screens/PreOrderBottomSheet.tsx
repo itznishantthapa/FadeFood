@@ -8,7 +8,7 @@ import { myContext } from "../../context/AppProvider"
 import { baseURL } from "../../service"
 
 const PreOrderBottomSheet = ({ isVisible, onClose, foodItem, navigation }) => {
-  const { state } = useContext(myContext)
+  // const { state } = useContext(myContext)
   const [quantity, setQuantity] = useState(1)
   const [specialInstructions, setSpecialInstructions] = useState("")
   const slideAnim = useRef(new Animated.Value(0)).current
