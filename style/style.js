@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     height: height * 0.052,
     color: '#212121',
     fontSize: scaleWidth(16),
-    fontFamily:'montserrat_regular',
+    fontFamily:'poppins_regular',
   },
 
   loginButton: {
@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#333333',
+    backgroundColor: '#4CAF50',
     borderRadius: 10,
     marginTop: scaleHeight(20)
   },

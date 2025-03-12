@@ -8,7 +8,7 @@ import { scanFromURLAsync } from 'expo-camera';
 import { baseURL } from '../../service';
 
 const BigImage = ({scaleAnim, toggleFavorite, isFavorite, images, onShare}) => {
-  console.log('images -------------by big data',images)
+  // console.log('images -------------by big data',images)
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (

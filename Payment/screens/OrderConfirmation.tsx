@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react"
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, Easing, BackHandler } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { StatusBar } from "expo-status-bar"
-import { MaterialIcons } from "@expo/vector-icons"
+import { Entypo, MaterialIcons } from "@expo/vector-icons"
 import { scaleHeight, scaleWidth } from "../../Scaling"
 import LottieView from "lottie-react-native"
 import { useFocusEffect } from "@react-navigation/native"
@@ -94,7 +94,7 @@ const OrderConfirmation = ({ navigation, route }) => {
           ]}
         >
           <Text style={styles.successTitle}>Order Placed Successfully!</Text>
-          <Text style={styles.successMessage}>Your order has been confirmed and will be delivered soon.</Text>
+          <Text style={styles.successMessage}>Your order has been confirmed. Please arrive in time to enjoy your meal.</Text>
 
           <View style={styles.orderInfoContainer}>
             <View style={styles.orderInfoRow}>
@@ -122,13 +122,12 @@ const OrderConfirmation = ({ navigation, route }) => {
 
           <View style={styles.deliveryInfoContainer}>
             <View style={styles.deliveryInfoHeader}>
-              <MaterialIcons name="delivery-dining" size={24} color="#4CAF50" />
-              <Text style={styles.deliveryInfoTitle}>Delivery Information</Text>
+              <Entypo name="info-with-circle" size={24} color="#4CAF50" />
+              <Text style={styles.deliveryInfoTitle}>Info</Text>
             </View>
 
             <Text style={styles.deliveryInfoText}>
-              Your order will be delivered within 30-45 minutes. Our delivery partner will contact you when they're
-              nearby.
+              Your food will be ready at your table in 20-25 minutes. Our staff will ensure everything is prepared fresh and served hot.
             </Text>
           </View>
 

@@ -3,7 +3,6 @@ import { get_data_with_id } from "../service";
 export const getRestaurantFood = async (dispatcher,id) => {
   const responsebyfood = await get_data_with_id("get_food_by_restaurant",{restaurant_id:id});
   if (responsebyfood.success) {
-    console.log("################get specific restaurant food #####################------------>", responsebyfood.data );
     dispatcher({ type: "SET_FOOD_LIST", payload: responsebyfood.data });
     console.log("food state is settt");
   } else {

@@ -64,7 +64,7 @@ const LoginScreens = ({ navigation }) => {
                             headingText='Hi Foodie,'
                             line1='Sign in to feast on your'
                             line2='fadefood delights'
-                            style={styles.BigText_for_login}
+                            // style={styles.BigText_for_login}
                         />
                         <View style={{ width: '100%', alignItems: 'center' }}>
                             <UserInput

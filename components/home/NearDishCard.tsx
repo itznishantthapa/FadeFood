@@ -33,7 +33,7 @@ const NearDishCard:FC<NearDishCardProps> = memo(({ item, onPress }) => {
   }
   // Add state for tracking favorite status
   const [isFavorite, setIsFavorite] = useState(false)
-  console.log('this is the item in NearDishCard--------------->',item)
+  // console.log('this is the item in NearDishCard--------------->',item)
 
   // Toggle favorite function
   const toggleFavorite = () => {

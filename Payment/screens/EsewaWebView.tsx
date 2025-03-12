@@ -13,6 +13,17 @@ const EsewaWebView = ({ route, navigation }) => {
   const [transactionUuid, setTransactionUuid] = useState('');
   const hasNavigated = useRef(false);
 
+  console.log('this is the cart items in EsewaWebView----------------->', cartItems[0].food_name);
+
+  const orderedItems = {
+    name: cartItems[0].food_name,
+    price: cartItems[0].food_price,
+    quantity: cartItems[0].quantity,
+    totalPrice: cartItems[0].totalPrice,
+    instructions: cartItems[0].specialInstructions
+  };
+  console.log('this is the ordered items in EsewaWebView----------------->', orderedItems);
+
   useEffect(() => {
     // Generate a unique transaction ID
     const uuid = generateTransactionUuid();
